@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#455A64;fill-opacity:1;" d="M 30 280 L 10 280 C 4 280 0 275 0 270 L 0 180 C 0 175 4 170 10 170 L 30 170 C 35 170 40 175 40 180 L 40 270 C 40 275 35 280 30 280 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFC107;fill-opacity:1;" d="M 370 190 L 335 113 C 332 105 324 100 316 100 L 58 100 C 53 100 49 103 48 108 C 43 127 31 165 30 270 L 30 300 L 60 320 L 100 330 L 410 330 L 432 320 C 449 320 468 303 476 295 C 479 292 480 288 480 284 L 480 227 C 480 221 477 216 472 213 C 457 207 428 194 370 190 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 60 320 L 90 330 L 410 330 L 432 320 C 449 320 468 303 476 295 C 479 292 480 288 480 284 L 480 270 L 450 270 L 445 261 C 442 255 435 250 428 250 L 372 250 C 365 250 358 254 355 261 L 320 310 L 190 310 L 170 259 C 166 254 160 250 154 250 L 82 250 C 75 250 68 254 65 261 L 60 270 L 30 270 L 30 300 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#546E7A;fill-opacity:1;" d="M 70 335 C 70 310 90 290 115 290 C 140 290 160 310 160 335 C 160 360 140 380 115 380 C 90 380 70 360 70 335 Z M 395 380 C 420 380 440 360 440 335 C 440 310 420 290 395 290 C 370 290 350 310 350 335 C 350 360 370 380 395 380 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90A4AE;fill-opacity:1;" d="M 90 335 C 90 321 101 310 115 310 C 129 310 140 321 140 335 C 140 349 129 360 115 360 C 101 360 90 349 90 335 Z M 395 360 C 409 360 420 349 420 335 C 420 321 409 310 395 310 C 381 310 370 321 370 335 C 370 349 381 360 395 360 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFB300;fill-opacity:1;" d="M 250 310 L 230 310 L 230 120 L 250 120 Z M 150 120 L 130 120 L 130 250 L 150 250 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#00B0FF;fill-opacity:1;" d="M 472 214 C 469 213 465 211 460 209 L 460 240 C 460 246 465 250 470 250 L 480 250 L 480 227 C 480 221 477 216 472 214 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 130 120 L 130 190 L 54 190 C 57 153 62 133 65 120 Z M 317 120 L 250 120 L 250 190 L 348 190 Z M 150 120 L 150 190 L 230 190 L 230 120 Z "/>
+</g>
+</svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#F44336;fill-opacity:1;" d="M 90 200 L 50 200 L 50 120 C 50 87 77 60 110 60 L 250 60 C 268 60 286 69 298 84 L 366 168 L 335 193 L 267 109 C 262 103 256 100 250 100 L 110 100 C 99 100 90 109 90 120 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F44336;fill-opacity:1;" d="M 402 170 L 330 140 L 70 140 C 58 140 50 148 50 160 L 50 260 C 50 272 58 280 70 280 L 80 280 C 80 252 102 230 130 230 C 158 230 180 252 180 280 L 300 280 C 300 252 322 230 350 230 C 378 230 400 252 400 280 L 410 280 C 422 280 430 272 430 260 L 430 208 C 430 192 418 176 402 170 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#B0BEC5;fill-opacity:1;" d="M 440 410 L 40 410 L 40 310 L 440 310 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 80 340 C 68.671875 340 60 348.671875 60 360 C 60 371.328125 68.671875 380 80 380 C 91.328125 380 100 371.328125 100 360 C 100 348.671875 91.328125 340 80 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 160 340 C 148.671875 340 140 348.671875 140 360 C 140 371.328125 148.671875 380 160 380 C 171.328125 380 180 371.328125 180 360 C 180 348.671875 171.328125 340 160 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 320 340 C 308.671875 340 300 348.671875 300 360 C 300 371.328125 308.671875 380 320 380 C 331.328125 380 340 371.328125 340 360 C 340 348.671875 331.328125 340 320 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 240 340 C 228.671875 340 220 348.671875 220 360 C 220 371.328125 228.671875 380 240 380 C 251.328125 380 260 371.328125 260 360 C 260 348.671875 251.328125 340 240 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 400 340 C 388.671875 340 380 348.671875 380 360 C 380 371.328125 388.671875 380 400 380 C 411.328125 380 420 371.328125 420 360 C 420 348.671875 411.328125 340 400 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 40 400 L 440 400 L 440 420 L 40 420 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 40 300 L 440 300 L 440 320 L 40 320 Z "/>
+</g>
+</svg>

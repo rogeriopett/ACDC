@@ -1,0 +1,20 @@
+.login-container {
+    background-color: #141414;
+    min-height: 100vh;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 1.0rem;
+}
+
+.login-alert {
+    background-color: rgba(229, 38, 38, 0.15) !important;
+    border: 1px solid #e52626 !important;
+    color: #ff8e8e !important;
+    font-size: 0.9rem;
+}

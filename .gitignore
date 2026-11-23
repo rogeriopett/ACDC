@@ -1,0 +1,87 @@
+# ==========================================================
+# ACDC - repositório único (Angus, Brian, Cliff, Phill, Firenet)
+# Parametros.ini e .env SÃO versionados (decisão do Rogerio).
+# ==========================================================
+
+# ---------- Segredos: certificados e chaves ----------
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+Firenet/Certificados/
+
+# ---------- Bases de dados e backups ----------
+*.fdb
+*.fbk
+*.gbk
+Firenet/Dados/
+
+# ---------- Dados de clientes / temporários ----------
+Firenet/Arquivos/
+Firenet/Arquivos_runtime/
+Firenet/Temporarios/
+Firenet/temp1.xml
+Firenet/temp2.xml
+*.log
+Firenet/IA/
+
+# ---------- Delphi: gerados pelo compilador/IDE ----------
+*.dcu
+*.exe
+*.dll
+*.bpl
+*.dcp
+*.map
+*.drc
+*.rsm
+*.tds
+*.ocx
+*.identcache
+*.dproj.local
+*.stat
+*.dsk
+*.tvsconfig
+*.~*
+__history/
+__recovery/
+Win32/
+Win64/
+DCU/
+Firenet/IAsmin/ferramentas/teste/bin/
+
+# Instaladores e desinstaladores
+unins*.dat
+Firenet/FlexDocs/
+
+# ---------- Lixo / removidos ----------
+Cliff/Lixo/
+
+# ---------- Compactados ----------
+*.rar
+*.zip
+*.7z
+
+# ---------- Arte (arquivos grandes de design) ----------
+*.psd
+*.cdr
+
+# ---------- Node / Vite ----------
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Editores / SO ----------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.suo
+*.sw?

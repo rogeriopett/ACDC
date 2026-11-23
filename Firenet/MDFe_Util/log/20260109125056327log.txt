@@ -1,0 +1,10 @@
+Timestamp=[09/01/2026 12:50:56]
+WS=[StatusServico]
+URL=[]
+ambiente=[2]
+certificado=[]
+erro=[6108 - Erro: O nome do titular do certificado deve ser informado]
+msgDados=[]
+msgRetWS=[]
+
+DLL=[MDFe_Util v3.08b [3.0.8.2] 29-07-2022 - © 2022 - www.flexdocs.com.br - Todos os direitos reservados]

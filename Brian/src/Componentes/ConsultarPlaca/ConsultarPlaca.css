@@ -1,0 +1,17 @@
+
+.placa {
+    /* border: 1px solid #000; */
+    min-width: 400px;
+    max-width: 400px;
+    background-image: url('./placa_mercosul.jpg');
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.placa-input {
+    border: 0px !important;
+    font-family: 'FE-Font' !important;
+    font-size: 70px !important;
+    min-height: 180px !important;
+}

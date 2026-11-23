@@ -1,0 +1,233 @@
+unit ServicosQ07;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, IBDatabase, DB, IBCustomDataSet, IBQuery, QRExport, QRPDFFilt,
+  QRCtrls, QuickRpt, ExtCtrls;
+
+type
+  TFormServicosQ07 = class(TForm)
+    QuickRep1: TQuickRep;
+    QRPDFFilter1: TQRPDFFilter;
+    QRTextFilter1: TQRTextFilter;
+    QRCSVFilter1: TQRCSVFilter;
+    QRExcelFilter1: TQRExcelFilter;
+    QRRTFFilter1: TQRRTFFilter;
+    IBQuery1: TIBQuery;
+    IBTransaction1: TIBTransaction;
+    DetailBand1: TQRBand;
+    QRDBText16: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText18: TQRDBText;
+    QRDBText19: TQRDBText;
+    QRDBText20: TQRDBText;
+    QRDBText21: TQRDBText;
+    QRDBText23: TQRDBText;
+    QRDBText24: TQRDBText;
+    QRDBText25: TQRDBText;
+    QRDBText26: TQRDBText;
+    QRDBText27: TQRDBText;
+    QRDBText22: TQRDBText;
+    QRDBText37: TQRDBText;
+    QRDBText43: TQRDBText;
+    QRShape10: TQRShape;
+    QRShape13: TQRShape;
+    QRShape14: TQRShape;
+    QRShape15: TQRShape;
+    QRShape16: TQRShape;
+    QRDBText1: TQRDBText;
+    QRImage1: TQRImage;
+    QRDBText2: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRLabel2: TQRLabel;
+    QRSysData2: TQRSysData;
+    QRSysData3: TQRSysData;
+    QRShape3: TQRShape;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBText12: TQRDBText;
+    QRDBText15: TQRDBText;
+    QRDBText17: TQRDBText;
+    QRDBText29: TQRDBText;
+    QRDBText30: TQRDBText;
+    QRDBText31: TQRDBText;
+    QRDBText32: TQRDBText;
+    QRDBText33: TQRDBText;
+    QRDBText34: TQRDBText;
+    QRDBText35: TQRDBText;
+    QRDBText36: TQRDBText;
+    QRDBText40: TQRDBText;
+    QRDBText41: TQRDBText;
+    QRDBText42: TQRDBText;
+    QRShape4: TQRShape;
+    QRShape5: TQRShape;
+    QRShape6: TQRShape;
+    QRShape11: TQRShape;
+    QRDBText44: TQRDBText;
+    QRShape12: TQRShape;
+    QRDBText45: TQRDBText;
+    QRShape18: TQRShape;
+    QRDBText46: TQRDBText;
+    QRLabel35: TQRLabel;
+    QRLabel36: TQRLabel;
+    QRLabel37: TQRLabel;
+    QRLabel38: TQRLabel;
+    QRLabel40: TQRLabel;
+    QRLabel41: TQRLabel;
+    QRLabel43: TQRLabel;
+    QRDBText47: TQRDBText;
+    QRDBText38: TQRDBText;
+    QRShape20: TQRShape;
+    QRShape19: TQRShape;
+    QRLabel1: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRSysData4: TQRSysData;
+    IMAGEM: TQRImage;
+    EMPRESA: TQRDBText;
+    EMAIL: TQRDBText;
+    CNPJ: TQRDBText;
+    FONE1: TQRDBText;
+    QRShape1: TQRShape;
+    QRDBText11: TQRDBText;
+    QRDBText48: TQRDBText;
+    QRDBText28: TQRDBText;
+    QRDBText39: TQRDBText;
+    QRDBText49: TQRDBText;
+    QRDBText50: TQRDBText;
+    QRLabel53: TQRLabel;
+    QRShape25: TQRShape;
+    QRLabel11: TQRLabel;
+    QRShape26: TQRShape;
+    QRLabel19: TQRLabel;
+    QRShape27: TQRShape;
+    QRLabel20: TQRLabel;
+    QRShape28: TQRShape;
+    QRLabel21: TQRLabel;
+    QRShape29: TQRShape;
+    QRShape30: TQRShape;
+    QRLabel22: TQRLabel;
+    QRLabel23: TQRLabel;
+    QRShape31: TQRShape;
+    QRLabel24: TQRLabel;
+    QRShape32: TQRShape;
+    QRShape33: TQRShape;
+    QRLabel25: TQRLabel;
+    QRLabel26: TQRLabel;
+    QRShape34: TQRShape;
+    QRLabel27: TQRLabel;
+    QRShape35: TQRShape;
+    QRLabel28: TQRLabel;
+    QRShape36: TQRShape;
+    QRLabel29: TQRLabel;
+    QRShape37: TQRShape;
+    QRLabel30: TQRLabel;
+    QRShape38: TQRShape;
+    QRShape39: TQRShape;
+    QRLabel42: TQRLabel;
+    QRShape40: TQRShape;
+    QRLabel50: TQRLabel;
+    QRShape41: TQRShape;
+    QRLabel52: TQRLabel;
+    QRShape42: TQRShape;
+    QRLabel54: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRShape2: TQRShape;
+    QRDBText51: TQRDBText;
+    QRLabel5: TQRLabel;
+    QRShape9: TQRShape;
+    QRLabel6: TQRLabel;
+    QRShape43: TQRShape;
+    QRLabel7: TQRLabel;
+    QRShape44: TQRShape;
+    QRLabel8: TQRLabel;
+    QRShape45: TQRShape;
+    QRLabel9: TQRLabel;
+    QRShape46: TQRShape;
+    QRLabel10: TQRLabel;
+    QRShape47: TQRShape;
+    QRLabel12: TQRLabel;
+    QRShape48: TQRShape;
+    QRLabel13: TQRLabel;
+    QRShape49: TQRShape;
+    QRLabel14: TQRLabel;
+    QRShape50: TQRShape;
+    QRLabel16: TQRLabel;
+    QRShape51: TQRShape;
+    QRLabel17: TQRLabel;
+    QRShape52: TQRShape;
+    QRLabel18: TQRLabel;
+    QRShape53: TQRShape;
+    QRLabel31: TQRLabel;
+    QRShape54: TQRShape;
+    QRLabel32: TQRLabel;
+    QRShape55: TQRShape;
+    QRLabel33: TQRLabel;
+    QRShape56: TQRShape;
+    QRLabel34: TQRLabel;
+    QRShape57: TQRShape;
+    QRLabel49: TQRLabel;
+    QRShape58: TQRShape;
+    QRLabel51: TQRLabel;
+    QRShape59: TQRShape;
+    QRShape60: TQRShape;
+    QRLabel55: TQRLabel;
+    QRLabel56: TQRLabel;
+    QRDBText52: TQRDBText;
+    IBQuery1SER_ACESSORIOS: TIBStringField;
+    IBQuery1SER_CODIGO: TIntegerField;
+    IBQuery1SER_CONSERTO: TWideMemoField;
+    IBQuery1SER_DEFEITO: TWideMemoField;
+    IBQuery1SER_DTENTRADA: TDateField;
+    IBQuery1SER_DTNOTAFISCAL: TDateField;
+    IBQuery1SER_DTPREVISAO: TDateField;
+    IBQuery1SER_DTSAIDA: TDateField;
+    IBQuery1SER_MARCA: TIBStringField;
+    IBQuery1SER_MODELO: TIBStringField;
+    IBQuery1SER_PRODUTO: TIntegerField;
+    IBQuery1SER_SENHAONLINE: TIBStringField;
+    IBQuery1SER_SERIE: TIBStringField;
+    IBQuery1SER_TECNICO: TIntegerField;
+    IBQuery1CLI_BAIRRO: TIBStringField;
+    IBQuery1CLI_CIDADE: TIBStringField;
+    IBQuery1CLI_CNPJ: TIBStringField;
+    IBQuery1CLI_CODIGO: TIntegerField;
+    IBQuery1CLI_COMPLEMENTO: TIBStringField;
+    IBQuery1CLI_CONTATO: TIBStringField;
+    IBQuery1CLI_CPF: TIBStringField;
+    IBQuery1CLI_ENDERECO: TIBStringField;
+    IBQuery1CLI_FONE1: TIBStringField;
+    IBQuery1CLI_NOME: TIBStringField;
+    IBQuery1VEN_NOME: TIBStringField;
+    IBQuery1CLI_CEP: TIBStringField;
+    IBQuery1CLI_NUMERO: TIBStringField;
+    IBQuery1SER_VALORTOTAL: TFMTBCDField;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormServicosQ07: TFormServicosQ07;
+
+implementation
+uses DataMod, FuncoesFirenet;
+{$R *.dfm}
+
+procedure TFormServicosQ07.FormCreate(Sender: TObject);
+begin
+  IMAGEM.Picture.LoadFromFile(ExtractFilePath(Application.ExeName)+'Logo_Empresa_120x60.jpg');
+  QRImage1.Picture.LoadFromFile(ExtractFilePath(Application.ExeName)+'Logo_Empresa_120x60.jpg');
+end;
+
+end.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#455A64;fill-opacity:1;" d="M 320 60 L 240 60 C 240 71.039063 230 90 210 90 C 190 90 180 71.039063 180 60 L 100 60 C 77.910156 60 60 77.910156 60 100 L 60 400 C 60 422.089844 77.910156 440 100 440 L 320 440 C 342.089844 440 360 422.089844 360 400 L 360 100 C 360 77.910156 342.089844 60 320 60 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;" d="M 320 410 L 100 410 C 94.480469 410 90 405.519531 90 400 L 90 100 C 90 94.480469 94.480469 90 100 90 L 320 90 C 325.519531 90 330 94.480469 330 100 L 330 400 C 330 405.519531 325.519531 410 320 410 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90A4AE;fill-opacity:1;" d="M 230 60 C 230 71.050781 221.050781 80 210 80 C 198.949219 80 190 71.050781 190 60 L 120 60 L 120 100 C 120 111.050781 128.949219 120 140 120 L 280 120 C 291.050781 120 300 111.050781 300 100 L 300 60 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90A4AE;fill-opacity:1;" d="M 210 20 C 187.941406 20 170 37.941406 170 60 C 170 82.058594 187.941406 100 210 100 C 232.058594 100 250 82.058594 250 60 C 250 37.941406 232.058594 20 210 20 M 210 80 C 198.96875 80 190 71.039063 190 60 C 190 48.960938 198.96875 40 210 40 C 221.03125 40 230 48.960938 230 60 C 230 71.039063 221.03125 80 210 80 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90CAF9;fill-opacity:1;" d="M 170 170 L 420 170 L 420 470 L 170 470 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#1976D2;fill-opacity:1;" d="M 210 370 L 330 370 L 330 390 L 210 390 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#1976D2;fill-opacity:1;" d="M 210 330 L 380 330 L 380 350 L 210 350 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#1976D2;fill-opacity:1;" d="M 210 290 L 330 290 L 330 310 L 210 310 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#1976D2;fill-opacity:1;" d="M 210 250 L 380 250 L 380 270 L 210 270 Z "/>
+</g>
+</svg>

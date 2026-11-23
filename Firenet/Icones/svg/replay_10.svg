@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#0D47A1;fill-opacity:1;" d="M 210 310 L 180 310 L 180 207 L 150 220 L 150 195 L 207 170 L 210 170 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#0D47A1;fill-opacity:1;" d="M 330 252 C 330 270 326 285 317 295 C 308 305 296 310 280 310 C 264 310 252 305 243 295 C 234 285 230 271 230 252 L 230 227 C 230 209 234 194 243 184 C 252 174 264 169 280 169 C 296 169 308 174 317 184 C 326 194 330 208 330 227 Z M 300 222 C 300 211 298 203 295 198 C 292 193 287 190 280 190 C 273 190 268 192 265 197 C 262 202 260 210 260 220 L 260 258 C 260 269 262 277 265 282 C 268 287 273 290 280 290 C 287 290 292 287 295 282 C 298 277 300 269 300 258 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#2196F3;fill-opacity:1;" d="M 240 120 L 160 60 L 240 0 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#2196F3;fill-opacity:1;" d="M 240 440 C 130 440 40 350 40 240 C 40 193 57 147 88 111 L 118 137 C 93 165 80 202 80 240 C 80 328 152 400 240 400 C 328 400 400 328 400 240 C 400 152 328 80 240 80 L 208 80 L 208 40 L 240 40 C 350 40 440 130 440 240 C 440 350 350 440 240 440 Z "/>
+</g>
+</svg>

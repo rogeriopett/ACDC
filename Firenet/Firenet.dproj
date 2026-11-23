@@ -1,0 +1,3189 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{61593877-65ED-4109-9E58-B0CD3F322149}</ProjectGuid>
+        <MainSource>Firenet.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <ProjectVersion>20.3</ProjectVersion>
+        <TargetedPlatforms>3</TargetedPlatforms>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <ProjectName Condition="'$(ProjectName)'==''">Firenet</ProjectName>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win;IBX;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <SanitizedProjectName>Firenet</SanitizedProjectName>
+        <VerInfo_Release>15</VerInfo_Release>
+        <VerInfo_Build>4422</VerInfo_Build>
+        <VerInfo_MajorVer>15</VerInfo_MajorVer>
+        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4422;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br</VerInfo_Keys>
+        <DCC_UNSAFE_TYPE>true</DCC_UNSAFE_TYPE>
+        <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
+        <DCC_UNSAFE_CAST>true</DCC_UNSAFE_CAST>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;StatlineD6;Package1;DBFRun;RxCtl6;RxBDE6;RxDB6;magras60;NavigationButton;RASPack6;dclZipForged15;vclZipForged15;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_K>false</DCC_K>
+        <DCC_N>true</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <DCC_E>false</DCC_E>
+        <DCC_F>false</DCC_F>
+        <Custom_Styles>&quot;Aqua Light Slate|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AquaLightSlate.vsf&quot;;Glow|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Glow.vsf;&quot;Iceberg Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\LavenderClassico.vsf&quot;;Sky|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Sky.vsf;&quot;Slate Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SlateClassico.vsf&quot;;&quot;Tablet Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\TabletDark.vsf&quot;;&quot;Tablet Light|VCLSTYLE|$(BDSCOMMONDIR)\Styles\TabletLight.vsf&quot;;Windows10|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10.vsf;&quot;Windows10 Blue|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Blue.vsf&quot;;&quot;Windows10 Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Dark.vsf&quot;;&quot;Windows10 Green|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Green.vsf&quot;;&quot;Windows10 Purple|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10Purple.vsf&quot;;&quot;Windows10 SlateGray|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10SlateGray.vsf&quot;;Amakrits|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Amakrits.vsf;&quot;Amethyst Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AmethystKamri.vsf&quot;;&quot;Aqua Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AquaGraphite.vsf&quot;;Auric|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Auric.vsf;Carbon|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Carbon.vsf;&quot;Charcoal Dark Slate|VCLSTYLE|$(BDSCOMMONDIR)\Styles\CharcoalDarkSlate.vsf&quot;;&quot;Cobalt XEMedia|VCLSTYLE|$(BDSCOMMONDIR)\Styles\CobaltXEMedia.vsf&quot;;&quot;Cyan Dusk|VCLSTYLE|$(BDSCOMMONDIR)\Styles\CyanDusk.vsf&quot;;&quot;Cyan Night|VCLSTYLE|$(BDSCOMMONDIR)\Styles\CyanNight.vsf&quot;;&quot;Emerald Light Slate|VCLSTYLE|$(BDSCOMMONDIR)\Styles\EmeraldLightSlate.vsf&quot;;&quot;Golden Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\GoldenGraphite.vsf&quot;;Light|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Light.vsf;Luna|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Luna.vsf;Obsidian|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Obsidian.vsf;&quot;Onyx Blue|VCLSTYLE|$(BDSCOMMONDIR)\Styles\OnyxBlue.vsf&quot;;&quot;Ruby Graphite|VCLSTYLE|$(BDSCOMMONDIR)\Styles\RubyGraphite.vsf&quot;;&quot;Sapphire Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SapphireKamri.vsf&quot;;Silver|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Silver.vsf;&quot;Smokey Quartz Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SmokeyQuartzKamri.vsf&quot;;&quot;Turquoise Gray|VCLSTYLE|$(BDSCOMMONDIR)\Styles\TurquoiseGray.vsf&quot;;Glossy|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Glossy.vsf</Custom_Styles>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <Icon_MainIcon>Runtime.ico</Icon_MainIcon>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <Icon_MainIcon>Firenet_Icon.ico</Icon_MainIcon>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Icon_MainIcon>Firenet_Icon.ico</Icon_MainIcon>
+        <DCC_DcuOutput>.\units\dcu</DCC_DcuOutput>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4427;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Build>4427</VerInfo_Build>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4360;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - www.runtimesistemas.com.br;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Build>4360</VerInfo_Build>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>4360</VerInfo_Build>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="Units\Acoes.pas">
+            <Form>FormAcoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AcoesFast.pas">
+            <Form>FormAcoesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AcoesLoc.pas">
+            <Form>FormAcoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Agrupadores.pas">
+            <Form>FormAgrupadores</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AgrupadoresFast.pas">
+            <Form>FormAgrupadoresFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AgrupadoresLoc.pas">
+            <Form>FormAgrupadoresLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AgrupadoresRel.pas">
+            <Form>FormAgrupadoresRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Aliquotas.pas">
+            <Form>FormAliquotas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Almoxarifados.pas">
+            <Form>FormAlmoxarifados</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AlmoxarifadosFast.pas">
+            <Form>FormAlmoxarifadosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AlmoxarifadosLoc.pas">
+            <Form>FormAlmoxarifadosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AlterarSenha.pas">
+            <Form>FormAlterarSenha</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AnexosSelecionar.pas">
+            <Form>FormAnexosSelecionar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Assuntos.pas">
+            <Form>FormAssuntos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AssuntosFast.pas">
+            <Form>FormAssuntosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AssuntosLoc.pas">
+            <Form>FormAssuntosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Atendimentos.pas">
+            <Form>FormAtendimentos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtendimentosFast.pas">
+            <Form>FormAtendimentosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtendimentosLoc.pas">
+            <Form>FormAtendimentosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtendimentosRel.pas">
+            <Form>FormAtendimentosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Atividades.pas">
+            <Form>FormAtividades</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtividadesFast.pas">
+            <Form>FormAtividadesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtividadesLoc.pas">
+            <Form>FormAtividadesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AtualizacoesBase.pas"/>
+        <DCCReference Include="Units\Atualizacoes.pas">
+            <Form>FormAtualizacoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Avaliacoes.pas">
+            <Form>FormAvaliacoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AvaliacoesTipo.pas">
+            <Form>FormAvaliacoesTipo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AvaliacoesTipoFast.pas">
+            <Form>FormAvaliacoesTipoFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AvaliacoesTipoLoc.pas">
+            <Form>FormAvaliacoesTipoLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\AvaliacoesTurmas.pas">
+            <Form>FormAvaliacoesTurmas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Bancos.pas">
+            <Form>FormBancos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BancosFast.pas">
+            <Form>FormBancosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BancosLoc.pas">
+            <Form>FormBancosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Beneficios.pas">
+            <Form>FormBeneficios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BeneficiosLoc.pas">
+            <Form>FormBeneficiosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Boletos.pas">
+            <Form>FormBoletos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosAPIConsulta.pas">
+            <Form>FormBoletosAPIConsulta</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosAPIRegistro.pas">
+            <Form>FormBoletosAPIRegistro</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosBaixar.pas">
+            <Form>FormBoletosBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosEDI.pas">
+            <Form>FormBoletosEDI</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosFast.pas">
+            <Form>FormBoletosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosItens.pas">
+            <Form>FormBoletosItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosLoc.pas">
+            <Form>FormBoletosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosRel.pas">
+            <Form>FormBoletosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosRemessas.pas">
+            <Form>FormBoletosRemessas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosRetornos.pas">
+            <Form>FormBoletosRetornos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\BoletosSelecionar.pas">
+            <Form>FormBoletosSelecionar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Cadastro.pas">
+            <Form>FormCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Caixa.pas">
+            <Form>FormCaixa</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CaixaFast.pas">
+            <Form>FormCaixaFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CaixaLoc.pas">
+            <Form>FormCaixaLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CaixaRel.pas">
+            <Form>FormCaixaRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CaixaTransferencias.pas">
+            <Form>FormCaixaTransferencias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CalculoDV.pas">
+            <Form>FormCalculoDV</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Calendario.pas">
+            <Form>FormCalendario</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Certificados.pas">
+            <Form>FormCertificados</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Chamadas.pas">
+            <Form>FormChamadas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Checklists.pas">
+            <Form>FormChecklists</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChecklistsItens.pas">
+            <Form>FormChecklistsItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChecklistsLoc.pas">
+            <Form>FormChecklistsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Cheques.pas">
+            <Form>FormCheques</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChequesFast.pas">
+            <Form>FormChequesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChequesLerBanda.pas">
+            <Form>FormChequesLerBanda</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChequesLoc.pas">
+            <Form>FormChequesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ChequesRel.pas">
+            <Form>FormChequesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassesLoc.pas">
+            <Form>FormClassesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassesFast.pas">
+            <Form>FormClassesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Classeso.pas">
+            <Form>FormClasses</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassFiscal.pas">
+            <Form>FormClassFiscal</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassFiscalFast.pas">
+            <Form>FormClassFiscalFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassFiscalLoc.pas">
+            <Form>FormClassFiscalLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Classificados.pas">
+            <Form>FormClassificados</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassificadosFast.pas">
+            <Form>FormClassificadosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassificadosLoc.pas">
+            <Form>FormClassificadosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassificadosRel.pas">
+            <Form>FormClassificadosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassTrib.pas">
+            <Form>FormClassTrib</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClassTribLoc.pas">
+            <Form>FormClassTribLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Clientes.pas">
+            <Form>FormClientes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesAlterarSenha.pas">
+            <Form>FormClientesAlterarSenha</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesAnexos.pas">
+            <Form>FormClientesAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesFast.pas">
+            <Form>FormClientesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesHistoricos.pas">
+            <Form>FormClientesHistoricos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesLoc.pas">
+            <Form>FormClientesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesRel.pas">
+            <Form>FormClientesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ClientesSelecionar.pas">
+            <Form>FormClientesSelecionar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Comandas.pas">
+            <Form>FormComandas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComandasBaixar.pas">
+            <Form>FormComandasBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComandasControle.pas">
+            <Form>FormComandasControle</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComandasItens.pas">
+            <Form>FormComandasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComandasLoc.pas">
+            <Form>FormComandasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Compras.pas">
+            <Form>FormCompras</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasAlterarDesconto.pas">
+            <Form>FormComprasAlterarDesconto</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasAlterarDescontoItem.pas">
+            <Form>FormComprasAlterarDescontoItem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasAlterarFreteSeguroAcessorias.pas">
+            <Form>FormComprasAlterarFreteseguroAcessorias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasAlterarProdutos.pas">
+            <Form>FormComprasAlterarProdutos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasCancelar.pas">
+            <Form>FormComprasCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasFast.pas">
+            <Form>FormComprasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasFinalizar.pas">
+            <Form>FormComprasFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasImportarXML.pas">
+            <Form>FormComprasImportarXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasItens.pas">
+            <Form>FormComprasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasLoc.pas">
+            <Form>FormComprasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ComprasRel.pas">
+            <Form>FormComprasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConexoesAtivas.pas">
+            <Form>FormConexoesAtivas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Condicoes.pas">
+            <Form>FormCondicoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CondicoesFast.pas">
+            <Form>FormCondicoesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CondicoesItens.pas">
+            <Form>FormCondicoesItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CondicoesLoc.pas">
+            <Form>FormCondicoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CondicoesRel.pas">
+            <Form>FormCondicoesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Conexoes.pas">
+            <Form>FormConexoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Conhecimentos.pas">
+            <Form>FormConhecimentos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosArquivosXML.pas">
+            <Form>FormConhecimentosArquivosXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosCancelar.pas">
+            <Form>FormConhecimentosCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosCarga.pas">
+            <Form>FormConhecimentosCarga</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosFast.pas">
+            <Form>FormConhecimentosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosFinalizar.pas">
+            <Form>FormConhecimentosFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosInutilizados.pas">
+            <Form>FormConhecimentosInutilizados</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosInutilizadosLoc.pas">
+            <Form>FormConhecimentosInutilizadosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosLoc.pas">
+            <Form>FormConhecimentosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosNotas.pas">
+            <Form>FormConhecimentosNotas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosQ01Aereo.pas">
+            <Form>FormConhecimentosQ01Aereo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosQ01RodoviarioFracionada.pas">
+            <Form>FormConhecimentosQ01RodoviarioFracionada</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosQ01Rodoviario.pas">
+            <Form>FormConhecimentosQ01RodoviarioLotacao</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosRel.pas">
+            <Form>FormConhecimentosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConhecimentosValidar.pas">
+            <Form>FormConhecimentosValidar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultarCNPJ.pas">
+            <Form>FormConsultarCNPJ</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultarCPF.pas">
+            <Form>FormConsultarCPF</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultarPlaca.pas">
+            <Form>FormConsultarPlaca</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Consultas.pas">
+            <Form>FormConsultas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasAnexos.pas">
+            <Form>FormConsultasAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasFast.pas">
+            <Form>FormConsultasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasImagens.pas">
+            <Form>FormConsultasImagens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasItens.pas">
+            <Form>FormConsultasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasLoc.pas">
+            <Form>FormConsultasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasLocPlanner.pas">
+            <Form>FormConsultasLocPlanner</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasMultiplicar.pas">
+            <Form>FormConsultasMultiplicar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasReagendar.pas">
+            <Form>FormConsultasReagendar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasRel.pas">
+            <Form>FormConsultasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConsultasSelecionarHorario.pas">
+            <Form>FormConsultasSelecionarHorario</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Contas.pas">
+            <Form>FormContas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasFast.pas">
+            <Form>FormContasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasLoc.pas">
+            <Form>FormContasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasMov.pas">
+            <Form>FormContasMov</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasMovFast.pas">
+            <Form>FormContasMovFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasMovLoc.pas">
+            <Form>FormContasMovLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContasMovRel.pas">
+            <Form>FormContasMovRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Contatos.pas">
+            <Form>FormContatos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Conteudos.pas">
+            <Form>FormConteudos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Contratos.pas">
+            <Form>FormContratos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContratosLoc.pas">
+            <Form>FormContratosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ContratosPartes.pas">
+            <Form>FormContratosPartes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Convenios.pas">
+            <Form>FormConvenios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConveniosFast.pas">
+            <Form>FormConveniosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ConveniosLoc.pas">
+            <Form>FormConveniosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CreditoPresumido.pas">
+            <Form>FormCreditoPresumido</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CreditoPresumidoLoc.pas">
+            <Form>FormCreditoPresumidoLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Cst.pas">
+            <Form>FormCst</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CstLoc.pas">
+            <Form>FormCstLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CTeCampos.pas">
+            <Form>FormCteCampos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CTeCCe.pas">
+            <Form>FormCteCCe</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CTeCCeFast.pas">
+            <Form>FormCTeCCeFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CTeCCeItens.pas">
+            <Form>FormCteCCeItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CteFuncoes.pas"/>
+        <DCCReference Include="Units\CTeRecebido.pas">
+            <Form>FormCteRecebido</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CTe_Util_TLB.pas"/>
+        <DCCReference Include="Units\Cupom.pas">
+            <Form>FormCupom</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CupomFast.pas">
+            <Form>FormCupomFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CupomLoc.pas">
+            <Form>FormCupomLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CupomRel.pas">
+            <Form>FormCupomRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Cursos.pas">
+            <Form>FormCursos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CursosFast.pas">
+            <Form>FormCursosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\CursosLoc.pas">
+            <Form>FormCursosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Dashboard.pas">
+            <Form>FormDashboard</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DataMod.pas">
+            <Form>DM</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\DataMod2.pas">
+            <Form>DM2</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\DataModSearch.pas">
+            <Form>DMS</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\Despesas.pas">
+            <Form>FormDespesas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DespesasFast.pas">
+            <Form>FormDespesasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DespesasLoc.pas">
+            <Form>FormDespesasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Delivery.pas">
+            <Form>FormDelivery</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryCancelar.pas">
+            <Form>FormDeliveryCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryDetalhes.pas">
+            <Form>FormDeliveryDetalhes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryEnderecos.pas">
+            <Form>FormDeliveryEnderecos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryEntregar.pas">
+            <Form>FormDeliveryEntregar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryFast.pas">
+            <Form>FormDeliveryFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryFinalizar.pas">
+            <Form>FormDeliveryFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryItens.pas">
+            <Form>FormDeliveryItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryLoc.pas">
+            <Form>FormDeliveryLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DeliveryRel.pas">
+            <Form>FormDeliveryRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Duimp.pas">
+            <Form>FormDuimp</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Ecf.pas">
+            <Form>FormEcf</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EcfFast.pas">
+            <Form>FormEcfFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EcfLoc.pas">
+            <Form>FormEcfLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Emails.pas">
+            <Form>FormEmails</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EmailsContas.pas">
+            <Form>FormEmailsContas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EmailsContasLoc.pas">
+            <Form>FormEmailsContasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EmailsLoc.pas">
+            <Form>FormEmailsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EmailsEnviar.pas">
+            <Form>FormEmailsEnviar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EmailsEnviarTeste.pas">
+            <Form>FormEmailsEnviarTeste</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Empresa.pas">
+            <Form>FormEmpresa</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Enderecos.pas">
+            <Form>FormEnderecos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosBairrosLoc.pas">
+            <Form>FormEnderecosBairrosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosBuscaCEP.pas">
+            <Form>FormEnderecosBuscaCEP</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosBuscaCEPEditar.pas">
+            <Form>FormEnderecosBuscaCEPEditar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosCidadesLoc.pas">
+            <Form>FormEnderecosCidadesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosEstadosLoc.pas">
+            <Form>FormEnderecosEstadosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosFast.pas">
+            <Form>FormEnderecosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosPaisesLoc.pas">
+            <Form>FormEnderecosPaisesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosRuasLoc.pas">
+            <Form>FormEnderecosRuasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EnderecosRel.pas">
+            <Form>FormEnderecosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Equipamentos.pas">
+            <Form>FormEquipamentos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EquipamentosLoc.pas">
+            <Form>FormEquipamentosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Estoque.pas">
+            <Form>FormEstoque</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EstoqueFast.pas">
+            <Form>FormEstoqueFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EstoqueLoc.pas">
+            <Form>FormEstoqueLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EstoqueRecalcular.pas">
+            <Form>FormEstoqueRecalcular</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EstoqueRel.pas">
+            <Form>FormEstoqueRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Etapas.pas">
+            <Form>FormEtapas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EtapasLoc.pas">
+            <Form>FormEtapasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Etiquetas.pas">
+            <Form>FormEtiquetas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EtiquetasLoc.pas">
+            <Form>FormEtiquetasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Evolucoes.pas">
+            <Form>FormEvolucoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EvolucoesFast.pas">
+            <Form>FormEvolucoesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EvolucoesLoc.pas">
+            <Form>FormEvolucoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\EvolucoesRel.pas">
+            <Form>FormEvolucoesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ExamesTipos.pas">
+            <Form>FormExamesTipos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ExamesTiposFast.pas">
+            <Form>FormExamesTiposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ExamesTiposLoc.pas">
+            <Form>FormExamesTiposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Exercicios.pas">
+            <Form>FormExercicios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ExerciciosTurmas.pas">
+            <Form>FormExerciciosTurmas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Familias.pas">
+            <Form>FormFamilias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FamiliasFast.pas">
+            <Form>FormFamiliasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FamiliasLoc.pas">
+            <Form>FormFamiliasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Fases.pas">
+            <Form>FormFases</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FasesFast.pas">
+            <Form>FormFasesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FasesLoc.pas">
+            <Form>FormFasesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Fci.pas">
+            <Form>FormFci</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FciItens.pas">
+            <Form>FormFciItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FciLoc.pas">
+            <Form>FormFciLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Feriados.pas">
+            <Form>FormFeriados</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FeriadosFast.pas">
+            <Form>FormFeriadosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FeriadosLoc.pas">
+            <Form>FormFeriadosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FeriadosRel.pas">
+            <Form>FormFeriadosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Fornecedores.pas">
+            <Form>FormFornecedores</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FornecedoresAnexos.pas">
+            <Form>FormFornecedoresAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FornecedoresFast.pas">
+            <Form>FormFornecedoresFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FornecedoresHistoricos.pas">
+            <Form>FormFornecedoresHistoricos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FornecedoresLoc.pas">
+            <Form>FormFornecedoresLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FornecedoresRel.pas">
+            <Form>FormFornecedoresRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Foros.pas">
+            <Form>FormForos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ForosFast.pas">
+            <Form>FormForosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ForosLoc.pas">
+            <Form>FormForosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Frotas.pas">
+            <Form>FormFrotas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FrotasFast.pas">
+            <Form>FormFrotasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FrotasLoc.pas">
+            <Form>FormFrotasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Funcoes1.pas"/>
+        <DCCReference Include="Units\FuncoesDuimp.pas"/>
+        <DCCReference Include="Units\FuncoesFirenet.pas"/>
+        <DCCReference Include="Units\FuncoesZap.pas"/>
+        <DCCReference Include="Units\Gnre.pas">
+            <Form>FormGnre</Form>
+        </DCCReference>
+        <DCCReference Include="Units\GnreFast.pas">
+            <Form>FormGnreFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\GnreLoc.pas">
+            <Form>FormGnreLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Grupos.pas">
+            <Form>FormGrupos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\GruposFast.pas">
+            <Form>FormGruposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\GruposLoc.pas">
+            <Form>FormGruposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Horas.pas">
+            <Form>FormHoras</Form>
+        </DCCReference>
+        <DCCReference Include="Units\HorasFast.pas">
+            <Form>FormHorasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\HorasLoc.pas">
+            <Form>FormHorasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\HorasRel.pas">
+            <Form>FormHorasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\HtmlEditor.pas">
+            <Form>FrameHtmlEditor</Form>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="IAsmin\delphi\IasminConfig.pas">
+            <Form>FormIasminConfig</Form>
+        </DCCReference>
+        <DCCReference Include="IAsmin\delphi\IasminConfigDados.pas"/>
+        <DCCReference Include="IAsmin\delphi\IasminConsulta.pas">
+            <Form>FormIasminConsulta</Form>
+        </DCCReference>
+        <DCCReference Include="IAsmin\delphi\IasminMotor.pas"/>
+        <DCCReference Include="IAsmin\delphi\IasminProvedores.pas"/>
+        <DCCReference Include="IAsmin\delphi\IasminValidadorSQL.pas"/>
+        <DCCReference Include="Units\Icms.pas">
+            <Form>FormIcms</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IcmsFast.pas">
+            <Form>FormIcmsFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IcmsLoc.pas">
+            <Form>FormIcmsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImageUtils.pas"/>
+        <DCCReference Include="Units\Imoveis.pas">
+            <Form>FormImoveis</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImoveisFotos.pas">
+            <Form>FormImoveisFotos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImoveisLoc.pas">
+            <Form>FormImoveisLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImoveisTipos.pas">
+            <Form>FormImoveisTipos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImoveisTiposFast.pas">
+            <Form>FormImoveisTiposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImoveisTiposLoc.pas">
+            <Form>FormImoveisTiposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ImportarXMLNFe.pas">
+            <Form>FormImportarXMLNFe</Form>
+        </DCCReference>
+        <DCCReference Include="Units\InputBlob.pas">
+            <Form>FormInputBlob</Form>
+        </DCCReference>
+        <DCCReference Include="Units\InputDate.pas">
+            <Form>FormInputDate</Form>
+        </DCCReference>
+        <DCCReference Include="Units\InputFloat.pas">
+            <Form>FormInputFloat</Form>
+        </DCCReference>
+        <DCCReference Include="Units\InputNumber.pas">
+            <Form>FormInputNumber</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Ipi.pas">
+            <Form>FormIpi</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IpiFast.pas">
+            <Form>FormIpiFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IpiLoc.pas">
+            <Form>FormIpiLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Iss.pas">
+            <Form>FormIss</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IssFast.pas">
+            <Form>FormIssFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\IssLoc.pas">
+            <Form>FormIssLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Locacoes.pas">
+            <Form>FormLocacoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocacoesBaixar.pas">
+            <Form>FormLocacoesBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocacoesFast.pas">
+            <Form>FormLocacoesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocacoesLoc.pas">
+            <Form>FormLocacoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocacoesRel.pas">
+            <Form>FormLocacoesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Locais.pas">
+            <Form>FormLocais</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocaisFast.pas">
+            <Form>FormLocaisFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LocaisLoc.pas">
+            <Form>FormLocaisLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Locs.pas">
+            <Form>FormLocs</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Login.pas">
+            <Form>FormLogin</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Logomarca.pas">
+            <Form>FormLogomarca</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Lotes.pas">
+            <Form>FormLotes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LotesGerar.pas">
+            <Form>FormLotesGerar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\LotesLoc.pas">
+            <Form>FormLotesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Mailings.pas">
+            <Form>FormMailings</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MailingsFast.pas">
+            <Form>FormMailingsFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MailingsLoc.pas">
+            <Form>FormMailingsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Main.pas">
+            <Form>FormMain</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Manifestacoes.pas">
+            <Form>FormManifestacoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ManifestacoesConcluir.pas">
+            <Form>FormManifestacoesConcluir</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ManifestacoesLoc.pas">
+            <Form>FormManifestacoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Marcas.pas">
+            <Form>FormMarcas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MarcasFast.pas">
+            <Form>FormMarcasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MarcasLoc.pas">
+            <Form>FormMarcasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Markups.pas">
+            <Form>FormMarkups</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MarkupsFast.pas">
+            <Form>FormMarkupsFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MarkupsItens.pas">
+            <Form>FormMarkupsItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MarkupsLoc.pas">
+            <Form>FormMarkupsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Matriculas.pas">
+            <Form>FormMatriculas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasLoc.pas">
+            <Form>FormMatriculasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ01.pas">
+            <Form>FormMatriculasQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ02.pas">
+            <Form>FormMatriculasQ02</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ03.pas">
+            <Form>FormMatriculasQ03</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ04.pas">
+            <Form>FormMatriculasQ04</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ05.pas">
+            <Form>FormMatriculasQ05</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ06.pas">
+            <Form>FormMatriculasQ06</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ07.pas">
+            <Form>FormMatriculasQ07</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ08.pas">
+            <Form>FormMatriculasQ08</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ09.pas">
+            <Form>FormMatriculasQ09</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ10.pas">
+            <Form>FormMatriculasQ10</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ11.pas">
+            <Form>FormMatriculasQ11</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ12.pas">
+            <Form>FormMatriculasQ12</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ13.pas">
+            <Form>FormMatriculasQ13</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ14.pas">
+            <Form>FormMatriculasQ14</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ15.pas">
+            <Form>FormMatriculasQ15</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ16.pas">
+            <Form>FormMatriculasQ16</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ17.pas">
+            <Form>FormMatriculasQ17</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ18.pas">
+            <Form>FormMatriculasQ18</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ19.pas">
+            <Form>FormMatriculasQ19</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ20.pas">
+            <Form>FormMatriculasQ20</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ21.pas">
+            <Form>FormMatriculasQ21</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ22.pas">
+            <Form>FormMatriculasQ22</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasQ23.pas">
+            <Form>FormMatriculasQ23</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MatriculasRel.pas">
+            <Form>FormMatriculasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MD5.pas"/>
+        <DCCReference Include="Units\Mdfe.pas">
+            <Form>FormMdfe</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeArquivosXML.pas">
+            <Form>FormMdfeArquivosXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeDocumentos.pas">
+            <Form>FormMdfeDocumentos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeFast.pas">
+            <Form>FormMdfeFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeLoc.pas">
+            <Form>FormMdfeLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeQ01Rodoviario.pas">
+            <Form>FormMdfeQ01Rodoviario</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeQ02.pas">
+            <Form>FormMdfeQ02</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeRel.pas">
+            <Form>FormMdfeRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MdfeValidar.pas">
+            <Form>FormMdfeValidar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MDFe_Util_TLB.pas"/>
+        <DCCReference Include="Units\Medicamentos.pas">
+            <Form>FormMedicamentos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MedicamentosFast.pas">
+            <Form>FormMedicamentosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MedicamentosLoc.pas">
+            <Form>FormMedicamentosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Medicoes.pas">
+            <Form>FormMedicoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MedicoesLoc.pas">
+            <Form>FormMedicoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Mensalidades.pas">
+            <Form>FormMensalidades</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MensalidadesFast.pas">
+            <Form>FormMensalidadesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MensalidadesGerar.pas">
+            <Form>FormMensalidadesGerar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MensalidadesLoc.pas">
+            <Form>FormMensalidadesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MensalidadesRel.pas">
+            <Form>FormMensalidadesRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Metas.pas">
+            <Form>FormMetas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MetasConfig.pas">
+            <Form>FormMetasConfig</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MetasFast.pas">
+            <Form>FormMetasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MetasLoc.pas">
+            <Form>FormMetasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MetasMinhas.pas">
+            <Form>FormMetasMinhas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MetasRel.pas">
+            <Form>FormMetasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Modulos.pas">
+            <Form>FormModulos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Motivos.pas">
+            <Form>FormMotivos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MotivosFast.pas">
+            <Form>FormMotivosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\MotivosLoc.pas">
+            <Form>FormMotivosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Naturezas.pas">
+            <Form>FormNaturezas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NaturezasFast.pas">
+            <Form>FormNaturezasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NaturezasLoc.pas">
+            <Form>FormNaturezasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Nbs.pas">
+            <Form>FormNbs</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NbsLoc.pas">
+            <Form>FormNbsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Nfce.pas">
+            <Form>FormNfce</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceAlterarAcrescimo.pas">
+            <Form>FormNfceAlterarAcrescimo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceAlterarDesconto.pas">
+            <Form>FormNfceAlterarDesconto</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceArquivosXML.pas">
+            <Form>FormNfceArquivosXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceAvisos.pas">
+            <Form>FormNfceAvisos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceCaixa.pas">
+            <Form>FormNfceCaixa</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceContingencias.pas">
+            <Form>FormNfceContingencias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceFast.pas">
+            <Form>FormNfceFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceFuncoes.pas">
+            <Form>FormNfceFuncoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceItens.pas">
+            <Form>FormNfceItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceLoc.pas">
+            <Form>FormNfceLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceMenuFiscal.pas">
+            <Form>FormNfceMenuFiscal</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfcePagamento.pas">
+            <Form>FormNfcePagamento</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceProtocolo.pas">
+            <Form>FormNfceProtocolo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfceRel.pas">
+            <Form>FormNfceRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Nfe.pas">
+            <Form>FormNfe</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeAlterarDesconto.pas">
+            <Form>FormNfeAlterarDesconto</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeAlterarDescontoItem.pas">
+            <Form>FormNfeAlterarDescontoItem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeAlterarFreteSeguroAcessorias.pas">
+            <Form>FormNfeAlterarFreteSeguroAcessorias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeAlterarProdutos.pas">
+            <Form>FormNfeAlterarProdutos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeArquivosXML.pas">
+            <Form>FormNfeArquivosXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeCancelar.pas">
+            <Form>FormNfeCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeCCe.pas">
+            <Form>FormNfeCCe</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeCCeFast.pas">
+            <Form>FormNfeCCeFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeFast.pas">
+            <Form>FormNfeFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeFinalizar.pas">
+            <Form>FormNfeFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeFuncoes.pas"/>
+        <DCCReference Include="Units\NfeGerarBoletos.pas">
+            <Form>FormNfeGerarBoletos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeInutilizadas.pas">
+            <Form>FormNfeInutilizadas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeInutilizadasLoc.pas">
+            <Form>FormNfeInutilizadasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeItens.pas">
+            <Form>FormNfeItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeItensAdicoes.pas">
+            <Form>FormNfeItensAdicoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeLoc.pas">
+            <Form>FormNfeLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeProtocolo.pas">
+            <Form>FormNfeProtocolo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeReferenciadas.pas">
+            <Form>FormNfeReferenciadas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfeRel.pas">
+            <Form>FormNfeRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NFe_Util_2G_TLB.pas"/>
+        <DCCReference Include="Units\NfeValidar.pas">
+            <Form>FormNfeValidar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Nfse.pas">
+            <Form>FormNfse</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseArquivosXML.pas">
+            <Form>FormNfseArquivosXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseCancelar.pas">
+            <Form>FormNfseCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseFast.pas">
+            <Form>FormNfseFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseFinalizar.pas">
+            <Form>FormNfseFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseItens.pas">
+            <Form>FormNfseItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseLoc.pas">
+            <Form>FormNfseLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseProtocolo.pas">
+            <Form>FormNfseProtocolo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NfseRel.pas">
+            <Form>FormNfseRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Notas.pas">
+            <Form>FormNotas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasAlterarDesconto.pas">
+            <Form>FormNotasAlterarDesconto</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasAlterarDescontoItem.pas">
+            <Form>FormNotasAlterarDescontoItem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasAlterarFreteSeguroAcessorias.pas">
+            <Form>FormNotasAlterarFreteSeguroAcessorias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasCancelar.pas">
+            <Form>FormNotasCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasFinalizar.pas">
+            <Form>FormNotasFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasGerarBoletos.pas">
+            <Form>FormNotasGerarBoletos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasItens.pas">
+            <Form>FormNotasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasLoc.pas">
+            <Form>FormNotasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\NotasRel.pas">
+            <Form>FormNotasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Objetos.pas">
+            <Form>FormObjetos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ObjetosFast.pas">
+            <Form>FormObjetosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ObjetosLoc.pas">
+            <Form>FormObjetosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Odontogramas.pas">
+            <Form>FormOdontogramas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OdontogramasOpcoes.pas">
+            <Form>FormOdontogramasOpcoes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OdontogramasOpcoesLoc.pas">
+            <Form>FormOdontogramasOpcoesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OdontogramasOpcoesQ01.pas">
+            <Form>FormOdontogramasOpcoesQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OdontogramasQ01.pas">
+            <Form>FormOdontogramasQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Opcionais.pas">
+            <Form>FormOpcionais</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OpcionaisFast.pas">
+            <Form>FormOpcionaisFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OpcionaisLoc.pas">
+            <Form>FormOpcionaisLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\OpcionaisSelecionar.pas">
+            <Form>FormOpcionaisSelecionar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Pagar.pas">
+            <Form>FormPagar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarBaixaColetiva.pas">
+            <Form>FormPagarBaixaColetiva</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarBaixar.pas">
+            <Form>FormPagarBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarFast.pas">
+            <Form>FormPagarFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarLoc.pas">
+            <Form>FormPagarLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarMultiplicar.pas">
+            <Form>FormPagarMultiplicar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PagarRel.pas">
+            <Form>FormPagarRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Parametros.pas">
+            <Form>FormParametros</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Piscofins.pas">
+            <Form>FormPiscofins</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PiscofinsFast.pas">
+            <Form>FormPiscofinsFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PiscofinsLoc.pas">
+            <Form>FormPiscofinsLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Pontos.pas">
+            <Form>FormPontos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PontosFast.pas">
+            <Form>FormPontosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PontosLoc.pas">
+            <Form>FormPontosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PontosRel.pas">
+            <Form>FormPontosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Processos.pas">
+            <Form>FormProcessos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosAnexos.pas">
+            <Form>FormProcessosAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosCustas.pas">
+            <Form>FormProcessosCustas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosFast.pas">
+            <Form>FormProcessosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosHistorico.pas">
+            <Form>FormProcessosHistorico</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosPartes.pas">
+            <Form>FormProcessosPartes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosLoc.pas">
+            <Form>FormProcessosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProcessosRel.pas">
+            <Form>FormProcessosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Producao.pas">
+            <Form>FormProducao</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoBaixar.pas">
+            <Form>FormProducaoBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoChecarEstoque.pas">
+            <Form>FormProducaoChecarEstoque</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoFast.pas">
+            <Form>FormProducaoFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoItens.pas">
+            <Form>FormProducaoItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoLoc.pas">
+            <Form>FormProducaoLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoLotes.pas">
+            <Form>FormProducaoLotes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProducaoRel.pas">
+            <Form>FormProducaoRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Produtos.pas">
+            <Form>FormProdutos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosAnexos.pas">
+            <Form>FormProdutosAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosApresentacao.pas">
+            <Form>FormProdutosApresentacao</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosAtualizar.pas">
+            <Form>FormProdutosAtualizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosAtualizarGrid.pas">
+            <Form>FormProdutosAtualizarGrid</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosCodigos.pas">
+            <Form>FormProdutosCodigos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosComp.pas">
+            <Form>FormProdutosComp</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosCompTree.pas">
+            <Form>FormProdutosCompTree</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosCompVer.pas">
+            <Form>FormProdutosCompVer</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosDescontoMaximo.pas">
+            <Form>FormProdutosDescontoMaximo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosEstoqueAtual.pas">
+            <Form>FormProdutosEstoqueAtual</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosEstoqueMinMax.pas">
+            <Form>FormProdutosEstoqueMinMax</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosEtapas.pas">
+            <Form>FormProdutosEtapas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosEtiquetas.pas">
+            <Form>FormProdutosEtiquetas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosExportar.pas">
+            <Form>FormProdutosExportar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosFast.pas">
+            <Form>FormProdutosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosFotos.pas">
+            <Form>FormProdutosFotos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosGTIN.pas">
+            <Form>FormProdutosGTIN</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosImportar.pas">
+            <Form>FormProdutosImportar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosLoc.pas">
+            <Form>FormProdutosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosPrecos.pas">
+            <Form>FormProdutosPrecos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosPrecosReajustar.pas">
+            <Form>FormProdutosPrecosReajustar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosRel.pas">
+            <Form>FormProdutosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosTabPreco.pas">
+            <Form>FormProdutosTabPreco</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProdutosTransferir.pas">
+            <Form>FormProdutosTransferir</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Projetos.pas">
+            <Form>FormProjetos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosFases.pas">
+            <Form>FormProjetosFases</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosHistoricoFast.pas">
+            <Form>FormProjetosHistoricoFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosHistorico.pas">
+            <Form>FormProjetosHistorico</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosItens.pas">
+            <Form>FormProjetosItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosLoc.pas">
+            <Form>FormProjetosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ01.pas">
+            <Form>FormProjetosQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ02.pas">
+            <Form>FormProjetosQ02</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ03.pas">
+            <Form>FormProjetosQ03</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ04.pas">
+            <Form>FormProjetosQ04</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ05.pas">
+            <Form>FormProjetosQ05</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ06.pas">
+            <Form>FormProjetosQ06</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ07.pas">
+            <Form>FormProjetosQ07</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ08.pas">
+            <Form>FormProjetosQ08</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosQ09.pas">
+            <Form>FormProjetosQ09</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosRel.pas">
+            <Form>FormProjetosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosTipos.pas">
+            <Form>FormProjetosTipos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosTiposFast.pas">
+            <Form>FormProjetosTiposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProjetosTiposLoc.pas">
+            <Form>FormProjetosTiposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Promissorias.pas">
+            <Form>FormPromissorias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PromissoriasBaixar.pas">
+            <Form>FormPromissoriasBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PromissoriasLoc.pas">
+            <Form>FormPromissoriasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PromissoriasMultiplicar.pas">
+            <Form>FormPromissoriasMultiplicar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\PromissoriasQ01.pas">
+            <Form>FormPromissoriasQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Prontuarios.pas">
+            <Form>FormProntuarios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProntuariosArquivos.pas">
+            <Form>FormProntuariosArquivos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ProntuariosLoc.pas">
+            <Form>FormProntuariosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Receber.pas">
+            <Form>FormReceber</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberBaixaColetiva.pas">
+            <Form>FormReceberBaixaColetiva</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberBaixar.pas">
+            <Form>FormReceberBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberBaixarPre.pas">
+            <Form>FormReceberBaixarPre</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberFast.pas">
+            <Form>FormReceberFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberGerar.pas">
+            <Form>FormReceberGerar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberItens.pas">
+            <Form>FormReceberItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberItensVer.pas">
+            <Form>FormReceberItensVer</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberLoc.pas">
+            <Form>FormReceberLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberMultiplicar.pas">
+            <Form>FormReceberMultiplicar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceberRel.pas">
+            <Form>FormReceberRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Receitas.pas">
+            <Form>FormReceitas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceitasFast.pas">
+            <Form>FormReceitasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceitasLoc.pas">
+            <Form>FormReceitasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Receituarios.pas">
+            <Form>FormReceituarios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceituariosQ01.pas">
+            <Form>FormReceituariosQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ReceituariosRel.pas">
+            <Form>FormReceituariosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Recibos.pas">
+            <Form>FormRecibos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RecibosFast.pas">
+            <Form>FormRecibosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RecibosLoc.pas">
+            <Form>FormRecibosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RecibosRel.pas">
+            <Form>FormRecibosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RegrasFiscais.pas">
+            <Form>FormRegrasFiscais</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RegrasFiscaisFast.pas">
+            <Form>FormRegrasFiscaisFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\RegrasFiscaisLoc.pas">
+            <Form>FormRegrasFiscaisLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Reorder.pas">
+            <Form>FormReorder</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Resumo.pas">
+            <Form>FormResumo</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Seguros.pas">
+            <Form>FormSeguros</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosAnexos.pas">
+            <Form>FormSegurosAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosFast.pas">
+            <Form>FormSegurosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosLoc.pas">
+            <Form>FormSegurosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosParcelas.pas">
+            <Form>FormSegurosParcelas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosParcelasBaixar.pas">
+            <Form>FormSegurosParcelasBaixar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosRel.pas">
+            <Form>FormSegurosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosTipos.pas">
+            <Form>FormSegurosTipos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosTiposFast.pas">
+            <Form>FormSegurosTiposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SegurosTiposLoc.pas">
+            <Form>FormSegurosTiposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SenhaPeriodica.pas">
+            <Form>FormSenhaPeriodica</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Servicos.pas">
+            <Form>FormServicos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosAlterarDescontoItem.pas">
+            <Form>FormServicosAlterarDescontoItem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosCheck.pas">
+            <Form>FormServicosCheck</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosFast.pas">
+            <Form>FormServicosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosHoras.pas">
+            <Form>FormServicosHoras</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosItens.pas">
+            <Form>FormServicosItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosLoc.pas">
+            <Form>FormServicosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ServicosRel.pas">
+            <Form>FormServicosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Sintegra.pas">
+            <Form>FormSintegra</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Sobre.pas">
+            <Form>FormSobre</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Sped.pas"/>
+        <DCCReference Include="Units\SpedFiscal.pas">
+            <Form>FormSpedFiscal</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SQLEditor.pas">
+            <Form>FormSQLEditor</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Sysdba.pas">
+            <Form>FormSysdba</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Taxas.pas">
+            <Form>FormTaxas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TaxasFast.pas">
+            <Form>FormTaxasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TaxasLoc.pas">
+            <Form>FormTaxasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Telas.pas">
+            <Form>FormTelas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TelasAtualizarComponentes.pas">
+            <Form>FormTelasAtualizarComponentes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TelasFast.pas">
+            <Form>FormTelasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TelasLoc.pas">
+            <Form>FormTelasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TeleVendas.pas">
+            <Form>FormTeleVendas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TeleVendasAgenda.pas">
+            <Form>FormTeleVendasAgenda</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TeleVendasFast.pas">
+            <Form>FormTeleVendasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TeleVendasRel.pas">
+            <Form>FormTeleVendasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Temas.pas">
+            <Form>FormTemas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Turmas.pas">
+            <Form>FormTurmas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasAlunos.pas">
+            <Form>FormTurmasAlunos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasData.pas">
+            <Form>FormTurmasData</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasLoc.pas">
+            <Form>FormTurmasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ01.pas">
+            <Form>FormTurmasQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ02.pas">
+            <Form>FormTurmasQ02</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ03.pas">
+            <Form>FormTurmasQ03</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ04.pas">
+            <Form>FormTurmasQ04</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ05.pas">
+            <Form>FormTurmasQ05</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ06.pas">
+            <Form>FormTurmasQ06</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ07.pas">
+            <Form>FormTurmasQ07</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ08.pas">
+            <Form>FormTurmasQ08</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasQ09.pas">
+            <Form>FormTurmasQ09</Form>
+        </DCCReference>
+        <DCCReference Include="Units\TurmasRel.pas">
+            <Form>FormTurmasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Unidades.pas">
+            <Form>FormUnidades</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UnidadesFast.pas">
+            <Form>FormUnidadesFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UnidadesLoc.pas">
+            <Form>FormUnidadesLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Usuarios.pas">
+            <Form>FormUsuarios</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosFast.pas">
+            <Form>FormUsuariosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosAcessos.pas">
+            <Form>FormUsuariosAcessos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosAcessosAtualizar.pas">
+            <Form>FormUsuariosAcessosAtualizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosAcessosQuem.pas">
+            <Form>FormUsuariosAcessosQuem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosAcessosRel.pas">
+            <Form>FormUsuariosAcessosRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\UsuariosLoc.pas">
+            <Form>FormUsuariosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Veiculos.pas">
+            <Form>FormVeiculos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosFast.pas">
+            <Form>FormVeiculosFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosCliente.pas">
+            <Form>FormVeiculosCliente</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosClienteQ01.pas">
+            <Form>FormVeiculosClienteQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosClienteRel.pas">
+            <Form>FormVeiculosClienteRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosLoc.pas">
+            <Form>FormVeiculosLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVenda.pas">
+            <Form>FormVeiculosVenda</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaLoc.pas">
+            <Form>FormVeiculosVendaLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaQ01.pas">
+            <Form>FormVeiculosVendaQ01</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaQ02.pas">
+            <Form>FormVeiculosVendaQ02</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaQ03.pas">
+            <Form>FormVeiculosVendaQ03</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaQ04.pas">
+            <Form>FormVeiculosVendaQ04</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaRel.pas">
+            <Form>FormVeiculosVendaRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Vendas.pas">
+            <Form>FormVendas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasAlterarDesconto.pas">
+            <Form>FormVendasAlterarDesconto</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasAlterarDescontoItem.pas">
+            <Form>FormVendasAlterarDescontoItem</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasAlterarFreteSeguroAcessorias.pas">
+            <Form>FormVendasAlterarFreteSeguroAcessorias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasAlterarProdutos.pas">
+            <Form>FormVendasAlterarProdutos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasCancelar.pas">
+            <Form>FormVendasCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasConferencia.pas">
+            <Form>FormVendasConferencia</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasFast.pas">
+            <Form>FormVendasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasFinalizar.pas">
+            <Form>FormVendasFinalizar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasImportarXML.pas">
+            <Form>FormVendasImportarXML</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasItens.pas">
+            <Form>FormVendasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasLoc.pas">
+            <Form>FormVendasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasRapidas.pas">
+            <Form>FormVendasRapidas</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasRapidasItens.pas">
+            <Form>FormVendasRapidasItens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasRel.pas">
+            <Form>FormVendasRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasSeparacao.pas">
+            <Form>FormVendasSeparacao</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendasUnificar.pas">
+            <Form>FormVendasUnificar</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Vendedores.pas">
+            <Form>FormVendedores</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresAnexos.pas">
+            <Form>FormVendedoresAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresFast.pas">
+            <Form>FormVendedoresFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresHist.pas">
+            <Form>FormVendedoresHist</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresHistTipos.pas">
+            <Form>FormVendedoresHistTipos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresHistTiposFast.pas">
+            <Form>FormVendedoresHistTiposFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresHistTiposLoc.pas">
+            <Form>FormVendedoresHistTiposLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\VendedoresLoc.pas">
+            <Form>FormVendedoresLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Vias.pas">
+            <Form>FormVias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ViasFast.pas">
+            <Form>FormViasFast</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ViasLoc.pas">
+            <Form>FormViasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Zap.pas">
+            <Form>FormZap</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZapInstancias.pas">
+            <Form>FormZapInstancias</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZapInstanciasLoc.pas">
+            <Form>FormZapInstanciasLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZapMensagens.pas">
+            <Form>FormZapMensagens</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZapMensagensLoc.pas">
+            <Form>FormZapMensagensLoc</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZerarBase.pas">
+            <Form>FormZerarBase</Form>
+        </DCCReference>
+        <DCCReference Include="Units\ZiparDFE.pas">
+            <Form>FormZiparDFE</Form>
+        </DCCReference>
+        <DCCReference Include="Units\FuncoesShopee.pas"/>
+        <RcItem Include="Logomarcas\Runtime_Amarelo.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_Amarelo</ResourceId>
+        </RcItem>
+        <RcItem Include="Logomarcas\Runtime_Azul.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_Azul</ResourceId>
+        </RcItem>
+        <RcItem Include="Logomarcas\Runtime_Laranja.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_Laranja</ResourceId>
+        </RcItem>
+        <RcItem Include="Logomarcas\Runtime_Preto.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_Preto</ResourceId>
+        </RcItem>
+        <RcItem Include="Logomarcas\Runtime_Verde.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_Verde</ResourceId>
+        </RcItem>
+        <RcItem Include="Runtime.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icone_1</ResourceId>
+        </RcItem>
+        <RcItem Include="FE-FONT.TTF">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>FE_FONT</ResourceId>
+        </RcItem>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">Firenet.dpr</Source>
+                </Source>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">True</VersionInfo>
+                    <VersionInfo Name="MajorVer">10</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">12</VersionInfo>
+                    <VersionInfo Name="Build">1468</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1046</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName">Runtime Sistemas ©</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileDescription">Firenet - Gestão Comercial.®</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">10.0.12.1468</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName">Firenet.exe</VersionInfoKeys>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename">Firenet.exe</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductName">FIRENET</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments">Rogério Pett - Runtime Sistemas - www.runtimesistemas.com.br</VersionInfoKeys>
+                </VersionInfoKeys>
+                <Parameters/>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">True</Platform>
+            </Platforms>
+            <ModelSupport>False</ModelSupport>
+            <Deployment Version="5">
+                <DeployFile LocalName="FE-FONT.TTF" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="FE-FONT.TTF" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="FE-FONT.TTF" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="FE-FONT.TTF" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Firenet.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Firenet.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Firenet.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Firenet.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="Firenet.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Firenet.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Amarelo.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Amarelo.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Amarelo.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Amarelo.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Azul.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Azul.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Azul.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Azul.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Laranja.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Laranja.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Laranja.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Laranja.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Preto.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Preto.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Preto.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Preto.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Verde.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Verde.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Logomarcas\Runtime_Verde.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Logomarcas\Runtime_Verde.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Runtime.ico" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="Runtime.ico" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Runtime.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Runtime.ico" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidFileProvider">
+                    <Platform Name="Android">
+                        <RemoteDir>res\xml</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\xml</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiv7aFile">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\arm64-v8a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput_Android32">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDef">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDefV21">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-anydpi-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-anydpi-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV21">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV31">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV35">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v35</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v35</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_AdaptiveIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-anydpi-v26</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-anydpi-v26</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_AdaptiveIconBackground">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_AdaptiveIconForeground">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_AdaptiveIconMonochrome">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_AdaptiveIconV33">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-anydpi-v33</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-anydpi-v33</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_Colors">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_ColorsDark">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-night-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-night-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_DefaultAppIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon144">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon192">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon24">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage426">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage470">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_Strings">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_VectorizedNotificationIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-anydpi-v24</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-anydpi-v24</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_VectorizedSplash">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_VectorizedSplashDark">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-night-anydpi-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-night-anydpi-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_VectorizedSplashV31">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-anydpi-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-anydpi-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_VectorizedSplashV31Dark">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-night-anydpi-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-night-anydpi-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="File">
+                    <Platform Name="Android">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectAndroidManifest">
+                    <Platform Name="Android">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXDebug"/>
+                <DeployClass Name="ProjectOSXEntitlements"/>
+                <DeployClass Name="ProjectOSXInfoPList"/>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\arm64-v8a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOutput_Android32">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectUWPManifest">
+                    <Platform Name="Win32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64x">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements"/>
+                <DeployClass Name="ProjectiOSInfoPList"/>
+                <DeployClass Name="ProjectiOSLaunchScreen"/>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo150">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iOS_AppStore1024">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon152">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon167">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_SpotLight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon180">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification60">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting87">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win64x" Name="$(PROJECTNAME)"/>
+            </Deployment>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

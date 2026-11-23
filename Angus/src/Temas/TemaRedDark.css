@@ -1,0 +1,17 @@
+[data-pett-theme="reddark"] {
+    --cor-barra: #cc3929; /*cor da barra superior*/
+    --cor-barra-texto: #e6e6e6;
+    --cor-link: #f83c3c;
+    --cor-menu-fundo: #ad3123; /*cor da segunda barra com opcoes*/
+    --cor-texto: #dfdfdf; /*cor do texto em geral*/
+
+    /* pettmenubar */
+    --pett-menubar-bg: #cc3929;
+    --pett-menubar-hover-bg: #aa3022;
+    --pett-menubar-top-font-family: "Roboto Condensed",sans-serif;
+    --pett-menubar-sub-bg: #201e1e;
+
+    /* icones de atalho pagina inicial */
+    --cor-atalho-border: #2d2d2d;
+    --cor-atalho-bg-hover: #2d2d2d;
+}

@@ -1,0 +1,27 @@
+# Padrão: o git decide o que é texto.
+* text=auto
+
+# Delphi: fontes em Windows-1252 com CRLF. Sem conversão de encoding.
+*.pas   text eol=crlf
+*.dfm   text eol=crlf
+*.dpr   text eol=crlf
+*.dproj text eol=crlf
+*.inc   text eol=crlf
+*.ini   text eol=crlf
+*.sql   text eol=crlf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+
+# Binários
+*.res   binary
+*.dres  binary
+*.ico   binary
+*.png   binary
+*.jpg   binary
+*.bmp   binary
+*.gif   binary
+*.ttf   binary
+*.pdf   binary
+*.doc   binary
+*.docx  binary
+*.rtf   binary

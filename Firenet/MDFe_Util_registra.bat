@@ -1,0 +1,3 @@
+@echo registrando MDFe....
+%windir%\Microsoft.NET\Framework\v2.0.50727\regasm c:\runtime\firenet\MDFe_Util.dll /tlb:c:\runtime\firenet\MDFe_Util.tlb
+@pause

@@ -1,0 +1,2052 @@
+
+Versão 3.257
+	- Relatório de estoque por almoxarifado.
+	- Relatório de produtos com quantidade diferente do total dos almoxarifados.
+	- Incluído BOLETO na forma de pagamento da tela de vendas.
+	- Alterado a rotina de finalização de venda para que seja usado o conteúdo
+	  do campo Forma Pagamento no contas a receber.
+	- Alterado a ordem dos campos na tela de localização de clientes.
+
+Versão 3.259
+	- Alterado o relatório de lista de preços modelo 2 para escolher o campo
+	  de preço que é listado, podendo ser o preço de venda ou uma das seis tabelas.
+
+Versão 3.261
+	- Alterado a impressão do controle de vendas interno, pois repetia o campo bairro.
+	- Alterado os parâmetros dos relatórios de ordens de serviço que estavam sendo
+	  informados incorretamente.
+
+Versão 3.266
+	- Alterado o endereço de email do cliente no televendas para que ao
+	  ser clicado, abra o cliente de email com o endereço do cliente.
+	- Alterado o layout da tela do tele-vendas.
+	- Adicionado campos "baixado por", "data baixa" e "reagendado" no tele-vendas.
+	- Criado função para baixar ou reabrir atendimento.
+	- Criado função para reagendar os atendimentos que não foram baixados no dia
+	  anterior e alterado o grid para mostrar os reagendamentos em vermelho.
+	- Criado função para enviar o pedido de venda e/ou o controle interno
+	  de venda por email.
+	- Alterado relatórios de clientes aniversariantes para mostrar por vendedor.
+	- Criado relatório de clientes no período (data cadastro) por vendedor normal e televendas.
+	- Criado relatório de atendimentos baixados no televendas.
+	- Criado relatório de estatísticas no perído no televendas.
+	- Reformulado alguns relatórios para solicitar o vendedor.
+	- Alterado campo do vendedor na tela de agenda do televendas para que
+	  quando o usuario pressione enter, já clica automaticamente na data atual do
+	  calendário, evitando ter que clicar novamente no dia no calendário.
+
+Versão 3.268
+	- Alterado o grid da agenda do televendas para mostrar em vermelho os reagendamentos.
+
+Versão 4.308
+	- Implementando impressão de cupom fiscal para as impressoras Bematech.
+	- Alterado o layout da tela de parâmetros.
+	- Incluído campo "Margem Padrão" nos parâmetros para ser usado ao cadastrar um produto.
+	- Incluído campo nos parametros para localização de cupom fiscal (Telas de Consultas).
+	- Excluído tabelas EXTINTORES e EXTMARCA. Módulo de extintores não existe mais.
+	  Alterar tabela telas. cadastrar tformcupomfiscal.
+	- Alterado o nome de alguns indices.
+	- Incluído campos "baixado por", "finalizado por" e "observações" no cadastro de Ordens de Serviço.
+	- Alterado o sistema de ordens de serviço para tratar O.S.s em ABERTO, FINALIZADA e BAIXADA.
+ 	  Antes o status das O.S. podia ser somente ABERTO ou FINALIZADA.
+	- Alterado a tela de localização de O.S. para tratar a alteração anterior.
+	- Incluído campo para a localização de O.S. por MARCA.
+	- Incluído parâmetros para agilizar o cadastro de clientes.
+	- Alterado sistema de Chave de Acesso para Senha Periódica. Agora pode ser solicitado
+	  senha periódica pela internet passando um código como parâmetro.
+	- Implementado a página para solicitação da senha periódica. (Servidor WEB)
+	- Incluído campos código do cliente, código do sistema e HTTP para indicar o 
+	  site para consultar a nova senha periódica pela internet.
+	- Incluído campo "Senha Online" nas O.S's para consulta na internet.
+	- Implementado uma página para a consulta das O.S's. (Servidor WEB).
+	- Incluído 2 relatórios de posição atual do estoque (somente físico).
+	- Alterado a forma de atualização da listagem de componentes.
+	- Alterado a ordem de listagem da tabela Telas para ordenar por descricao.
+	- Criado relatório de produtos em estoque com quantidade diferente de zero.
+	- Alterado a forma de atualização dos controles de acessos dos usuários.
+
+Versão 4.310
+	- Corrigido bug na rotina de atualização do executável.
+	- Corrigido o DataSource na tela de pedidos.
+
+Versão 4.314
+	- Alterado rotina de impressão de ordem de serviço para imprimir ordens baixadas.
+	- Desenvolvido relatório de telas do sistema.
+
+Versão 5.330
+	- Cadastro de NF. (EM IMPLEMENTAÇÃO)
+	- Cupons fiscais ainda em implementação.
+	- Incluido campo status no cadastro de telas. Assim, pode-se esconder as telas
+	  que não estão liberadas dependendo dos módulos liberados.
+	- Alterado tela de O.S. para não permitir alterar o cliente.
+	  É possível alterar o cliente somente no caso de uma O.S. nova.
+	  Depois de salvar a O.S. pode-se alterar o cliente somente pelo menuitem "Transferir para outro Cliente".
+	- Incluído campo "visível na internet" no cadastro de produtos para selecionar
+	  os produtos que são possíveis de consultar na internet.
+	- Implementado função para reajuste de preço de venda de produtos.
+	- Criado nova impressão de controle de venda estilo windows. Esta versão inclui as parcelas
+	  geradas pelo documento.
+	- Criado parâmetro para selecionar qual dos dois tipos de impressão do documento de venda
+	  é impresso na tela de controle interno de vendas.
+	- Incluído o saldo devedor acumulado na impressão dos controles interno de vendas.
+	- Desenvolvido novo relatório de "melhores clientes por item vendido" para
+	  saber quem são os clientes que mais compram determinados itens.
+	- Desenvolvido novo relatório de "análise valor venda x tabela preço" com o intuito
+	  de saber se as vendas estão sendo efetuadas com preços abaixo ou acima da tabela de preço.
+
+Versão 5.335
+	- Cadastro de NF. (EM IMPLEMENTAÇÃO)
+	- Cupons fiscais ainda em implementação.
+	- Relatório de controle de acessos de usuários.
+	- Novo módulo de Locadora.
+	- Cadastro de Filmes.
+	- Cadastro de Gêneros.
+	- Cadastro de Mídias.
+	- Cadastro de Locações.
+
+Versão 5.336
+	- Cadastro de NF. (EM IMPLEMENTAÇÃO)
+	- Cupons fiscais ainda em implementação.
+	- Alterado relatório de vendas "Analise valor venda vs tabela de preço" para mostrar um totalizador.
+
+Versão 5.338
+	- Cadastro de NF. (EM IMPLEMENTAÇÃO)
+	- Cupons fiscais ainda em implementação.
+	- Corrigido bug na hora de inserir um produto composto no pedido de venda/orçamento.
+
+Versão 5.345
+	- Cadastro de NF. (EM IMPLEMENTAÇÃO)
+	- Cupons fiscais ainda em implementação.
+	- Desenvolvido tela para seleção de produtos para impressão de etiquetas com código de barras.
+	- Desenvolvido impressão de etiquetas com linguagem PPLB.
+	- Novo relatório de contas pré baixadas por vendedor.
+	- Novo relatório de contas recebidas por data de emissão e vendedor.
+	- Incluído campo forma de pagamento no cadastro de clientes para ser utilizado automaticamente nas vendas.
+	- Incluído campo expedido por no controle interno de vendas usando o mesmo cadastro de vendedores.
+	- Incluído campo expedido por na impressão do controle de venda.
+	- Alterado a pré baixa de contas a receber para permitir baixar com valor menor do que o valor da conta.
+	- Alterado cadastro de produtos para gerar um código de barras automaticamente quando cadastrar um novo.
+
+Versão 5.347
+	- Corrigido bug na hora de gerar contas a receber que estava gerando com valor pago igual ao valor 
+	  quando a conta está em aberto.
+	- Incluido campo expedidor nos parâmetros para ser usado na exportação do pedido para venda.
+	- Alterado rotina de exportação de pedido para suportar o novo campo (expedido por).
+
+Versão 5.350
+	- Alterado critério de seleção dos registros no relatório de análise valor venda x tabela de preço pra 
+	  trazer apenas as vendas finalizadas.
+	- Criado relatório de análise valor venda x tabela de preço seleciona, podendo selecionar a tabela 
+	  de preço para comparação.
+	- Alterado relatório "Posição atual do estoque" para mostrar apenas os produtos com quantidade
+	  diferente de zero. (São quatro relatórios de posição de estoque).
+	- Criado parâmetro "Porta de impressão etiquetas PPLB", pois usava a porta do controle interno de vendas.
+	- Corrigido bug ao abrir a tela de controle de acesso dos usuários.
+	- Corrigido datafield nos parâmetros de telas de consulta.
+
+Versão 6.370
+	- Liberado tela de notas fiscais.
+	- A tela de pedido de vendas original não será mais utilizada.
+	- Alterado a tela de documento interno para pedido de vendas.
+	- Criado função para exportar o pedido de vendas para notas.
+	- Escondido a função de baixar pedido de vendas. (Atalho: CTRL+F9)
+	- Escondido a função de cancelar pedido de vendas. (Atalho: CTRL+F8)
+	- Escondido a função de imprimir controle interno. (Atalho: CTRL+F7)
+	- Criado função para mostrar/esconder o campo nota. (Atalho: CTRL+F6)
+	- Criado campo entrada/saída no cadastro de naturezas de operação.
+	- Incluído campo "expedido por" no cadastro de notas.
+	- Alterado o layout de impressão do controle interno pra mostrar o saldo acumulado no
+	  cabeçalho e retirado o mesmo do final da impressão. Desta forma deve-se retirar uma linha do total dos itens.
+	- Criado campo "Nota" na tabela de vendas pra especificar o código da nota fiscal gerada.
+	- Colocado a letra "N" no final do número do documento na finalização de notas fiscais.
+	- Copiado a impressão de pedido de vendas da antiga tela para a nova tela.
+	- Desenvolvido relatório de "Frequência de compra" normal e por vendedor.
+	- Criado campo "Oferta" no cadastro de produtos para sinalizar os produtos que aparecem na página principal do site.
+	- Criado parâmetro DDD Padrão para ser utilizado nos cadastros onde existem campos telefônicos.
+	- Criado campo status no cadastro de almoxarifados.
+	- Implementado rotina para excluir "produtos x quantidade" quando eliminar um almoxarifado.
+	- Desenvolvido relatório de vendas por vendedor (analítico).
+	- Desenvolvido relatório de produtos por tipo.
+	- Alterado a ordem da listagem na tela de localização de venda quando pesquisado por código do cliente.
+	- Criado relatório de "Pedidos em aberto por vendedor" que tras as vendas (pedido de vendas) com status aberto (A).
+	- Ao duplicar um pedido de venda é informado o novo código na mensagem final.
+	- Criado campo "Via Internet" para identificar os pedidos vindos pelo site.
+	- Desenvolvido relatório de "Pedidos por vendedor (via internet)".
+	- Criado parâmetro para especificar o status da venda para facilitar a localização das vendas pelo status.
+
+Versão 6.372
+	- Corrigidos pequenos bugs no campo VED_NOTA nos relatórios e duplicação de pedido.
+
+Versão 6.376
+	- Alterado a localização de vendas por código para localizar o código exato.
+	- Alterado a localização de notas por código para localizar o código exato.
+	- Implementado o cancelamento de notas fiscais.
+
+Versão 7.390
+	- Incluído a senha online na impressão estilo DOS das ordens de serviço.
+	- Corrigido bug que não deixava imprimir uma ordem de serviço baixada.
+	- Corrigido impressão da data da nota fiscal na ordem de serviço quando impressa no estilo DOS.
+	- Adicionado modulo para comércio de veículos que inclui:
+	  - Cadastro de veículos;
+	  - Cadastro de opcionais;
+	  - Cadastro de propostas;
+	  - Cadastro de veículos à venda;
+	  - Cadastro de veículos de clientes;
+	- Alterado contas a pagar e receber para colocar a data atual automaticamente no campo data emissão.
+	- Criado cadastro de promissórias.
+	- Alterado alguns ícones.
+	- Criado segunda barra de botões na tela principal e colocado mais botões.
+	- Corrigido bug na rotina de atualização da base de dados.
+	- Alterado os atalhos dos menus.
+
+Versão 7.395
+	- Desenvolvido cadastro de agrupadores para as receitas e despesas.
+	- Alterado cadastro de despesas e receitas para usar o campo agrupador.
+	- Colocado os campos CNPJ e CPF na tela de vendas e notas fiscais.
+	- Corrigido bug na localização de vendas por cliente com status "TODOS".
+
+Versão 7.397
+	- Desenvolvido relatório de contas a receber no período por vendedor sintético.
+	- Implementado função para eliminar os controles do FormMain no controle de acessos dos módulos inativos.
+
+Versão 7.401
+	- Implementado atalho para imprimir o pedido no estilo windows.
+	- Corrigido bug na localização de agrupadores por código.
+	- Alterado cadastro de usuários para criptografar as senhas.
+	- Alterado a tela de login para ler as senhas criptografadas e novo layout.
+	- Alterado a tela de alteração de senha para criptografá-las também.
+	- Implementado rotina para copiar acessos de outro usuário.
+	- Criado tabela para o NSU das notas.
+	- Formatado o campo NSU para 0.000.000.000
+
+Versão 7.412
+	- Melhorado tela de localização de movimentação de contas.
+	- Implementado função para consulta dos dados do veículo no site do detran.
+	- Alterado função de estorno de venda de veículo para limpar os campos cliente e vendedor.
+	- Revisado código da tabela de movimentação de contas.
+	- Desenvolvido relatório de contas bancárias.
+	- Desenvolvido relatório de movimentação de contas bancárias.
+	- Alterado a impressão da ficha de venda de veículo para mostrar as despesas do veículo.
+	- Desenvolvido relatório de clientes por ramo de atividade e ramo de atividade por vendedor.
+	- Alterado relatório de frequencia de compra para mostrar o total de clientes de cada vendedor.
+
+Versão 7.415
+	- Desenvolvido relatório de contas a pagar e receber usando os agrupadores.
+	- Desenvolvido relatório de contas pagar e recebidas usando os agrupadores.
+	- Disponibilizado estes relatórios no contas a pagar e também no contas a receber.
+	- Disponibilizado campo email no cadastro de ordens de serviço.
+
+Versão 7.416
+	- Desenvolvido relatório de contas a pagar e receber diário com previsão do fluxo de caixa.
+
+Versão 7.419
+	- Adicionado ajuda em vários formulários.
+
+Versão 7.421
+	- Novo relatório de veículos à venda (Custo total dos veículos à venda).
+	- Colocado botão de ajuda nas telas de relatórios.
+	- Criado menuitens para os relatórios para poder dar acesso específico para cada relatório.
+	- Criado parâmetro para o campo próximo contato no televendas.
+
+Versão 7.422
+	- Alterado relatório de contas a pagar e receber diário com previsão do fluxo de caixa 
+	  para somar os valores das contas bancárias ativas com o caixa.
+
+Versão 7.425
+	- Alterado o link para consulta dos dados de um veículo no detran.
+
+Versão 7.427
+	- Criado função para recalcular as despesas do veículo.
+
+Versão 7.432
+	- Criado cadastro de Lotes para produtos.
+	- Adicionado quatro novos campos no cadastro de clientes e fornecedores.
+	- Alterado tela de inclusão de itens de vendas para poder ser selecionar o lote do item.
+	- Alterado tela de inclusão de itens de notas para poder ser selecionar o lote do item.
+	- Alterado impressão de etiquetas de clientes para imprimir o número do endereço.
+
+Versão 7.436
+	- Implementado funcionalidade para editar os registros (CTRL+E).
+	- Alterado cadastro de usuarios para relacionar o usuario com o vendedor.
+	- Alterado televendas para não poder alterar um atendimento de outro vendedor.
+	- Colocado campo "ir para" na tela da agenda do televendas para ir direto para uma data.
+	- Colocado campos código do vendedor e código do televenda na tela de localização de clientes.
+	- Implementado função para transferir o atendimento de um televenda para outro televenda.
+
+Versão 8.440
+	- Corrigido bug na seleção do endereço do cliente pelo cadastro de endereços.
+	- Criado parâmetro para permitir ou não a venda de produtos compostos.
+	- Criado cadastro de ordem de produção.
+	- Criado parâmetro para permitir edição do campo código do produto.
+	
+Versão 8.441
+	- Alterado a precisão dos campos de valores para quatro casas decimais.
+	- Criado campo para verificar se a base está em atualização.
+	- Corrigido um bug na atualização da data de liberação do sistema.
+	  As liberações só podem ocorrer no mesmo intervalo de dias informado no cadastro.
+	- Alterado a localização de contas a pagar e receber quando por código, pesquisar independente do status.
+	- Criado campo "Identificação Sistema" em parâmetros. O valor deste campo será adicionado no caption da tela principal.	
+	- Colocado um label no Sobre para informar o local da base de dados.
+
+Versão 8.453
+	- Corrigido alguns bugs nos relatórios, devido ao aumento do número de casas decimais.
+
+Versão 8.453
+	- Alterado impressão do controle interno para imprimir condensado.
+	- Alterado a nota fiscal para imprimir condensado.
+	- Criado o modelo dois para nota fiscal. (fase)
+
+Versão 8.463
+	- Corrigido alguns bugs.
+
+Versão 8.466
+	- Criado cadastro de projetos com finalidade de organizar os projetos de móveis e sua produção.
+	- Criado diversos relatórios de projetos.
+
+Versão 9.470
+	- Eliminado cadastro de tecnicos. Será usado o mesmo cadastro de vendedores.
+	- Corrigido relatórios de ordem de serviços.
+	- Alterado a forma como funciona os itens de uma ordem de serviço. Agora é igual a tabela de itens de venda.
+	- Criado relatório para rastreamento de lotes de produtos.
+
+Versão 9.471
+	- Corrigido relatórios de ordem de serviços.
+	- Colocado Inscrição Estadual na impressào do controle interno de vendas.
+
+Versão 9.479
+	- Criado relatórios de veículos de clientes.
+	- Implementado possibilidade de rolar os DBGrids pelo mousewheel.
+	- Alterado tela de produtos compostos para confirmar se o preço de custo do produto deve ser recalculado ao fechar a tela.
+	- Retirado o cadastro antigo de pedidos.
+	- Incluído opção para não imprimir o campo "Saldo devedor acumulado" nos pedidos de venda.
+
+Versão 9.481
+	- Criado funcionalidade para customizar os botões que aparecem na barra de botões da tela principal.
+	- Criado relatório de contas a pagar e receber com fluxo de caixa analítico.
+
+Versão 9.486
+	- Corrigido falha ao recalcular o preço de custo de um produto composto. Não estava multiplicando pela quantidade de cada item.
+	- Alterado cadastro de condições de pagamentos para permitir pagamentos com entrada e primeira parcela com intervalo
+	  de vencimento diferente das demais.
+	- Desenvolvido relatório de produtos compostos e sua composição.
+	- Desenvolvido impressão de ordens de produção.
+	- Incluído campo Unidade na tela de composição do produto e na ordem de produção.
+	- Desenvolvido impressão de recibo de pagamento de contas a receber.
+	- Alterado nome do arquivo de logo da empresa para logo_empresa_120x60.jpg. 
+	- Criado a tabela de mailings.
+
+Versão 9.487
+	- Criado cadastro de mailings.
+	- Adicionado campos mailing, mãe, pai, email mãe e pai e fone mãe e pai no cadastro de clientes.
+	- Criado parâmetros para preencher campo destino baixa no contas a pagar e receber.
+	- Adicionado relatórios de clientes por mailing e vendedor e televendas.
+	- Ajustado cabeçalhos de todos os relatórios e colocado opção de imagem de logotipo.
+	- Eliminado a possibilidade de criar usuário com espaço no login. Senha com espaço também.
+
+Versão 9.490
+	- Adicionado botão para Ordem de Produção na tela principal.
+	- Criado cadastro de fases. É usado no cadastro de projetos.
+	- Criado relatório que retorna em quais composições de produtos onde existe o produto informado.
+	- Criado funcionalidade para inserir as fases de um projeto.
+
+Versão 9.491
+	- Adicionado campos fone, cpf e cnpj para pesquisa de clientes.
+
+Versão 9.493
+	- Eliminado a possibilidade de alterar uma conta a pagar já baixada.
+	- Criado cadastro de bancos.
+	- Criado cadastro de cheques.
+	- Alterado contas a receber para não possibilitar alterar contas já baixadas.	
+	- Implementado a possibilidade de permitir ou não ao usuário alterar o campo destino no contas a pagar e receber.
+	  Esta funcionalidade pode conflitar com as permissões para editar o registro (tag=10 e tag=1).
+
+Versão 9.496
+	- Criado impressão de recibo de pagamento em duas vias.
+	- Criado impressão de recibo de pagamento para o contas a pagar.
+	- Implementado opção para estornar baixa de contas a pagar e receber.
+	  Baixas parciais deverão ser estornadas manualmente.
+	- Alterado alguns relatórios de produtos para agrupar por grupo.
+	- Incluido campo nome no cadastro de cheques.
+
+Versão 10.541
+	- Preparação para NF-e.
+	- Restruturado a base de endereços que agora está integrada com a base de dados principal.
+	- Removido datamodule de endereços. A base de dados "enderecos.fdb" pode ser excluida dos servidores.
+	- Atualizado os codigos dos estados e dos municípios de acordo com a tabela do IBGE.
+	- Alterado telas onde tem campos de endereços para preenchimento de acordo com o CEP digitado.
+	- Criado script para atualização da tabela de bancos conforme bancos listados no site da caixa.
+	- Incluído alguns campos de impostos no cadastro de produtos.
+	- Criado cadastro de classificações fiscais.
+	- Criado cadastro de impostos de ICMS.
+	- Criado cadastro de impostos de ISS.
+	- Criado cadastro de impostos de IPI.
+	- Criado cadastro de impostos de PIS/COFINS.
+	- Alterado cadastro de produtos para suportar os campos conforme os cadastros criados.
+	- Criado campo "Solicitar alteração de senha" no cadastro de usuários.
+	- Alterado cadastro de usuários para verificar se a senha do usuário deve ser alterada.
+	- Alterado cadastro de notas fiscais para utilizar os cadastros dos impostos.
+	- Alterado cadastro de pedidos de venda para utilizar os cadastros dos impostos.
+	- Alterado cadastro de notas fiscais (normal) para utilizar os cadastros dos impostos.
+	- Alterado cadastro de ordens de serviço para utilizar os cadastros dos impostos.
+	- Criado cadastro de horas para as ordens de serviço.
+
+Versão 10.559
+	- Aperfeiçoamentos nas rotinas da NF-e.
+
+Versão 10.562
+	- Correção de alguns bugs na geração de notas fiscais.
+
+Versão 10.565
+	- Colocado atalho para o pedido de vendas na tela do televendas.
+
+Versão 10.568
+	- Atualizações nas rotinas da NF-e.
+
+Versão 10.576
+	- Eliminado tela de assinatura de NF-e.
+	- Implementado funcionalidade para cancelar uma NF-e.
+	- Atualizações nas rotinas da NF-e.
+	- Criado campos Demonstração Data e Demonstração Hora no televendas.
+
+Versão 10.578
+	- Implementado funcionalidade para inutilizar uma NF-e.
+
+Versão 10.589
+	- Corrigido bug quando entrava nas contas a pagar e receber que abria a tela de localizar.
+	- Incluído funções de edição de registro no cadastro de endereços.
+	- Alterado cadastro de horas na ordem de serviço para totalizar as horas em número decimal. 
+	- Criado campo CFOP Padrão nos parâmetros.
+	- Criado impressão de ordem de serviço em folha A4 com impressão dos itens e das horas.
+	- Criado impressão de ordem de serviço em folha A4 para ordens de serviço em aberto.
+	- Criado impressão de carnês com base nas contas a receber.
+	- Criado campo dia vencimento no pedido de vendas, notas e notas eletrônicas.
+	  Caso o dia de vencimento seja diferente de zero, as parcelas da venda terão o vencimento no dia informado.
+
+Versão 10.592
+	- Corrigido bug no cálculo do total do pedido de venda.	
+	- Corrigido a falta do preenchimento do campo "Dia preferencial" em NF e NF-e.
+	- Criado impressão de nota fiscal modelo 4 (Dental).
+	- Criado rotina pra checar se existem todos os arquivos necessários ao sistema.
+	- Parametrizado opção para mostrar ou não os campos de preços na tela de localização de produtos.
+	- Alterado rotina do estoque para atualizar os campos "Último Preço de Custo" e "Último Preço de Custo Médio"
+	  do cadastro de produtos.
+
+Versão 10.599 - 07.06.2010
+	- Aumentado o tamanho da tela de parâmetros.
+	- Incluído parâmetro para selecionar o valor do campo status na localização de contas a pagar e receber.
+	- Melhorado rotina de cálculo dos campos "Dias Prazo" e "Dias Atraso" no contas a pagar e receber.
+	- Criado parâmetros "Valor Multa" e "Valor Boleto".
+	- Criado campos para desconto em valor ou porcentagem no contas a receber e pagar.
+	- Alterado rotina de baixa de conta a receber para calcular juros, multa e desconto.
+	- Fechado a possibilidade de alterar o campo "Valor Pago" quando a baixa é total.
+	- Quando a baixa é parcial, não é possível alterar os campos para desconto.
+	- Corrigido bug na hora de finalizar pedido gerando nota. O desconto do item não era repassado.	
+	- Criado relatório analítico e sintético de comissões sobre as vendas finalizadas.
+	- Criado projeto Pompom. Emissor de Cupom Fiscal.
+	
+Versão 10.607 - 09.06.2010
+	- Criado cadastro de marcas para ser usado no cadastro de produtos.
+	- Criado módulo de objetos.
+	- Criado cadastro de classes de objetos.
+	- Criado cadastro de objetos.
+	- Criado cadastro de locações de objetos.
+	- Criado tela para reordenação dos campos das tabelas.
+	- Alterado televendas para deixar habilitado atalhos para cadastro de clientes e produtos ao editar registro.
+	
+Versão 10.615 - 16.06.2010
+	- Corrigido bug em relatório de clientes por mailing.
+	- Alterado rotinas de localização para informar ao usuário quando não é localizado o código digitado.
+	- Criado módulo Escolar com funcionalidades para escolas de idiomas.
+	- Criado cadastro de turmas.
+	- Criado tabela de calendário para o cadastro de turmas.
+	- Criado cadastro de matrículas.
+	- Criado relatórios de locações de objetos.
+
+Versão 10.618 - 18.06.2010
+	- Alterado o contas a receber para preencher o campo % Juros automaticamente.
+	- Melhorado rotinas de cadastro de módulos e telas.
+
+Versão 10.622 - 23.06.2010
+	- Criado cadastro de chamadas dos alunos.
+	- Melhorado rotinas de cadastro de matrículas.
+	- Criado impressão de ordem de serviços em formato A5 paisagem.
+
+Versão 10.625 - 26.06.2010
+	- Corrigido bug no recibo avulso.
+	- Criado cadastro de conteúdo dado no módulo escolar.
+	- Criado campo tipo data para o calendário escolar. (normal, feriado, outro).
+	- Criado funcionalidade para inserção ou edição de datas do calendário escolar.
+
+Versão 10.628 - 07.07.2010
+	- Criado parâmetro para indicar quantos dias a mais deve-se contar para gerar o campo "Juros Após" no contas a receber.
+	- Alterado rotina de finalização de vendas para gerar a data do campo "Juros Após" conforme parâmetro.
+	- Alterado rotina de finalização de notas para gerar a data do campo "Juros Após" conforme parâmetro.
+	- Alterado rotina de finalização de NF-e para gerar a data do campo "Juros Após" conforme parâmetro.
+	- Feito impressão de ficha de chamada.
+	- Incluido a versão do sistema na geracao do codigo internet na rotina da senha periodica.
+
+Versão 10.630 - 12.07.2010
+	- Criado relatório de matrículas com término no período.
+	- Criado relatório de matrículas ativas com contas a receber no período.
+	- Criado relatório de frequencia dos alunos.
+
+Versão 10.631 - 20.07.2010
+	- Incluído dados da transportadora na impressão do pedido de venda.
+
+Versão 10.632 - 23.07.2010
+	- Incluído campo período no cadastro de turmas.
+	- Criado relatório de matrículas ativas com contas a receber sintético.
+	- Adicionado campo serial na tela de locações de objetos.
+
+Versão 10.636 - 28.07.2010
+	- Melhorado rotina de consulta de NF-e.
+	- Atualizado DLL da NFE_UTIL para versão 2Gv0.5B.
+	- Criado impressão de relatório de horas de ordem de serviços.
+	- Criado relatório de conteúdos de aula.
+	- Criado relatório de turmas por período.
+
+Versão 10.640 - 06.08.2010
+	- Criado tela para mostrar os alunos matriculados em uma turma selecionada.
+	- Criado funcionalidade para alterar o status dos alunos matriculados em uma turma selecionada.
+	- Alterado alguns relatórios de turmas.
+	- Criado campo código venda no cadastro de matrículas.
+	- Alterado cadastro de matrículas para não aceitar matrícula sem pedido de venda.
+	- Atualizado imagens runtime.
+	- Criado campo "Palavras Chave" no cadastro de produtos para facilitar a pesquisa de produtos online.
+	- Criado campo "Entregue" no pedido de venda para informar a entrega do pedido.
+	- Criado relatório de matrículas com venda não entregue.
+
+Versão 10.642 - 09.08.2010
+	- Ajustes na localização de turmas e na ficha de chamada.
+
+Versão 10.645 - 09.08.2010
+	- Alterado relatório de produtos (Todos) para selecionar por período de data de cadastro.
+	- Criado cadastro de tipos de avaliações.
+	- Criado cadastro de avaliações.
+	- Criado cadastro de exercícios.
+
+Versão 10.655 - 19.08.2010
+	- Melhorado a impressão da ficha de chamada.
+	- Criado impressão da planilha de notas.
+	- Alterado rotina de transferência de aluno para manter o histórico de chamadas e criar nova matrícula com a turma nova.
+	- Incluído status "Cancelada" no cadastro de matrículas.
+	- Criado funções para tratamento do campo status da matrícula.
+	- Criado impressão de pedido de compras.
+	- Colocado campo Usuário no relatório de fluxo de caixa.
+
+Versão 10.655 - 20.08.2010
+	- Criado tabela para armazenar os recibos emitidos.
+
+Versão 10.660 - 27.08.2010
+	- Criado campo localização do produto nas vendas.
+	- Melhorado relatórios de clientes que nunca compraram e clientes sem movimento no período.
+
+Versão 10.666 - 02.09.2010
+	- Criado cadastro para registro de pontos do cliente. A cada venda, o valor é convertido em pontos.
+	- Alterado rotinas de finalização de vendas para checar se deve ou não calcular os pontos do cliente.
+	- Criado relatório de matrículas por professor e turma.
+	- Criado relatório de matrículas no período por contabilização.
+	- Criado relatório de alunos com mais de uma matrícula ativa.
+
+Versão 10.667 - 09.09.2010
+	- Correção de bug em relatório de produtos por tipo.
+
+Versão 10.669 - 13.09.2010
+	- Criado tela para zerar a base de dados.
+	
+Versão 10.673 - 16.09.2010
+	- Corrigido bug em relatórios de produtos.
+	- Implementado rotina para baixar/estornar somente a matéria prima nas ordens de produção.
+	- Criado impressão matricial da ordem de produção.
+	- Criado campo data previsão na ordem de produção e parâmetros para a impressão matricial e cálculo da data de previsão.
+	- Criado tela para somente visualizar a composição de um produto.
+
+Versão 10.676 - 21.09.2010
+	- Novo relatório de matrículas que mostra o percentual de desconto da venda.
+	- Implementado função para checar se o executável é compatível com a base de dados. Não deixa usar executável velho com base nova.
+
+Versão 10.678 - 22.09.2010
+	- Criado relatórios de pontuação do cliente por período analítico e sintético.
+	- Criado cadastro de motivos.
+	- Alterado cadastro de matrículas e incluído campo motivo desistência.
+	- Criado relatório de alunos aniversariantes.
+
+Versão 10.681 - 24.09.2010
+	- Criado relatório de matrículas com contas a receber da venda e da venda de material.
+	- Criado relatório de matrículas por mailing.
+	- Criado relatório de matrículas por motivo de desistência.
+	- Criado impressão de ficha de chamada preenchida.
+
+Versão 10.688 - 25.09.2010
+	- Alterado rotina de identificação da NF-e, campo cMunFG para pegar o valor na tabela Empresa.
+	- Alterado o fluxo de caixa para controlar o caixa entre os vendedores.
+	- Criado campo Saldo Atual no cadastro de vendedores.
+	- Alterado rotinas de baixa de contas a pagar e receber para gerar somente o registro no fluxo de caixa.
+	- Criado relatório de fluxo de caixa sintético e analítico.
+	- Criado campo observações do cadastro de ordem de produção.
+	- Atualizado versão da DLL NFe_Util_2G para versão 2.05c.
+
+Versão 10.690 - 14.10.2010
+	- Atualizado a DLL NFe_Util_2G para versão 0.6.
+	- Alterado agenda de tele venda para habilitar o campo vendedor conforme o controle de acessos.
+	- Impressão de dados da matrícula para contrato.
+
+Versão 10.695 - 20.10.2010
+	- Corrigido falta de componentes do controle de acessos.
+	- Corrigido tamanho do campo descrição no relatório de controles de acessos.
+	- Criado relatório de saldos por vendedor.
+	- Atualizado a DLL NFe_Util_2G para versão 2.06a.
+	- Incluído campo Codigo Fabricante na impressão do pedido de compra.
+
+Versão 10.697 - 21.10.2010
+	- Colocado campo codigo da cidade nas telas onde existem endereços.
+
+Versão 10.702 - 26.10.2010
+	- Atualizado a DLL NFe_Util_2G para versão 2.06b.
+	- Criado campo Compõe Base ICMS no cadastro de produtos e notas, nfe, vendas, serviços.
+	- Eliminado campos *_TRIBUTO* das tabelas de produtos, vendas, notas, nfe, servicos.
+	- Lançada a versão 2.5 do Firebird.
+
+Versão 10.705 - 28.10.2010
+	- Incluido pesquisa de produtos por palavras chave.
+	- Corrigido campo no relatório de composição de um produto.
+
+Versão 10.707 - 05.11.2010
+	- Criado relatório de produtos por marca.
+	- Criado relatório de vendas por marca.
+
+Versão 10.709 - 06.11.2010
+	- Incluido campo forma de pagamento no cadastro de condições de pagamento.
+	- Incluido campo % desconto no cadastro de condições de pagamento.
+	- Alterado tela de vendas para que retorne o valor do campo forma de pagamento do cadastro de condições.
+	- Criado parâmetro para verificar se deve ser aberto automaticamente a localização de produtos quando
+	  incluir um item na venda.
+	- Criado relatório de vendas por condição de pagamento analítico e sintético.
+
+Versão 10.714 - 08.11.2010
+	- Ajustes no controle do campo % Desconto.
+	- Parametrização da impressão de lista de produtos estilo DOS.
+
+Versão 10.719 - 16.11.2010
+	- Ajustes na tela de NFe.
+	- Ajustes na tela de movimentação de estoque.
+	- Criado campo tipo cliente para informar se o cliente é C=Cliente ou P=Prospect.
+	- Criado cadastro de locais de trabalho.
+	- Criado campo local de trabalho no cadastro de clientes.
+
+Versão 10.723 - 18.11.2010
+	- Melhorado rotina de atualização de controles de acessos.
+
+Versão 10.729 - 19.11.2010
+	- Corrigido preenchimento do campo localização nos itens de notas.
+	- Criado funcionalidade para registrar e desregistrar a DLL NFe_Util_2G.dll.
+
+Versão 10.734 - 22.11.2010
+	- Alterado o tamanho do campo licenca DLL para 128 caracteres.
+	- Alterado os logotipos da Runtime.
+	- Criado cadastro de datas não letivas (feriados e outras datas comemorativas).
+	- Alterado rotina de geração de calendário para verificar os feriados.
+
+Versão 10.740 - 30.11.2010
+	- Incluído opção para calcular o valor da multa por porcentagem.
+	- Alterado rotina de baixa de conta a receber para calcular a multa de acordo com a opção escolhida.
+	- Alterado rotina de ajuda para abrir o site http://firenet.runtimesistemas.com.br
+	- Alterado relatório de vendas por vendedor analítico para mostrar a porcentagem de desconto da venda.
+	
+Versão 10.744 - 30.11.2010
+	- Incluído opção enviar a NFe por email.
+
+Versão 10.748 - 09.12.2010
+	- Incluído opção eliminar todos os itens do pedido, nota, nfe ou OS.
+
+Versão 10.750 - 10.12.2010
+	- Eliminado a possibilidade de gerar nota ou NFe com pedido de venda finalizado.
+	- Corrigido campo razão social na impressão da DANFE.
+
+Versão 10.755 - 14.12.2010
+	- Incluído campos 0800, Nextel e MSN nos cadastros de clientes e fornecedores.
+	- Incluído campo fone nos dados da transportadora nas vendas, notas e NFe.
+	- Criado tabela para especificar as condições de cada parcela em condições de pagamento.
+	- Criado opção para retornar ou não os produtos com quantidade zero nos relatórios de posição atual de estoque.
+	- Melhorado texto do email utilizado na função de enviar NFe por email.
+	- Alterado rotina de inutilização da NFe para marcar a NFe com status igual a "I".
+
+Versão 10.760 - 17.12.2010
+	- Criado relatório de produtos compostos de um produto. Retorna os produtos que contém um produto na composição.
+	- Criado relatório de vendas por produto.
+	- Incluído campo ANO nos relatórios de matrículas.
+
+Versão 10.765 - 20.12.2010
+	- Corrigido bug na localização de turmas por professor.
+	- Criado função para marcar presença para todos os alunos.
+	- Adicionado botão para calculadora na baixa do contas a receber e pagar.
+	- Corrigido bug na transferência de aluno que não preenchia o campo venda material.
+	- Corrigido bug no campo código do município nas telas de vendas, notas e NFe.
+	- Corrigido bug na impressão da DANFE que não imprimia as parcelas do contas a receber.
+	- Alterado rotina de chamada para não dar presença para matrículas com status diferente de "A".
+
+Versão 11.780 - 10.01.2011
+	- Convertido projeto para o Delphi XE.
+	- Atualizado componentes DBSpeedButton para suportar imagens .PNG.
+	- Alterado SpeedButtons BitBtns para PngSpeedButton e PngBitBtn.
+	- Alterado imagens de todos os botões para imagens .PNG.
+	- Ajustados alguns hints de menuitens e botões.
+	- Atualizado a DLL NFe_Util_2G para versão 2.06d.
+	- Alterado cadastro de usuários para não retornar todos de uma vez.
+	- Alterado rotinas de armazenamento de senhas dos usuários para utilizar hash MD5.
+
+Versão 11.783 - 11.01.2011
+	- Alterado rotina de geração da NFe para criar subpastas com o ano e o mes da NFe.
+	- Alterado rotina de atualização do executável para checar se o arquivo do atualizador existe.
+
+Versão 11.790 - 19.01.2011
+	- Eliminado campo Forma Pagamento do cadastro de clientes.
+	- Adicionado campo condição de pagamento no cadastro de clientes.
+	- Alterado rotinas de vendas, notas e nfe, para utilizar esse campo.
+	- Revisado rotina de localização de cliente nas telas de vendas, notas e NFe.
+	- Corrigido bug na alteração de itens de notas que não deixava o botão de localizar produto desabilitado.
+	- Alterado tratamento de tecla de campos que só podem digitar números. (CharInSet)
+	- Corrigido bug que não passava o valor do campo "Compõe Base" na exportação da venda para nota/NFe.
+
+Versão 12.812 - 19.01.2011
+	- Alterado relatório de vendas por marca para retornar apenas as vendas finalizadas.
+
+Versão 12.822 - 01.03.2011
+	- Alterado cadastro de contas bancárias para utilizar o cadastro de bancos e excluídos campos desnecessários.
+	- A partir desta versão, a DLL CTe_Util começa a fazer parte do projeto.
+	- Criado módulo de Conhecimento de Transporte Eletrônico.
+	- Criado cadastro de frota.
+	- Corrigido bug na geração do calendário escolar que gerava data quando existia dois ou mais feriados seguidos.
+	- Corrigido bug na criação da senha de usuários novos.
+
+Versão 12.826 - 02.03.2011
+	- Colocado atalho para cadastro de fornecedores na tela de pedidos, notas e NFe.
+
+Versão 12.842 - 02.03.2011
+	- Corrigido bug no campo CNPJ cobrança no cadastro de clientes.
+	- Adicionado campos Movimenta Estoque e Movimenta Financeiro no cadastro de CFOP.
+	- Alterado telas de compras, vendas, notas e NFe para utilizar esses campos.
+	- Alterado rotinas de baixa para verificar esse campo.
+	- Revisado rotinas de simulação de condições de pagamento.
+	- Alterado cadastro de condições de pagamento que agora passa a utilizar tabela para as parcelas.
+	- Alterado rotinas de finalização de compras, vendas, notas e NFe para utilizar a tabela de parcelas.
+	- Eliminado campos que agora são desnecessários no cadastro de condições de pagamento.
+	- Alterado rotinas de cancelamento e inutilização para gerar os arquivos procCancNFe.xml e procInutNFe.xml.
+	- Fechado a possibilidade de alterar o endereço do cliente na tela de vendas, notas e NFe.
+	- Adicionado campo Fornecedor no cadastro de produtos.
+
+Versão 12.846 - 10.03.2011
+	- Alterado relatório de matrículas com venda de material para trazer os itens da compra.
+	- Alterado cadastro de matrículas para não permitir código da venda de material igual ao código da venda.
+	- Corrigido bug que não calculava o peso total na tela de vendas, notas e NFe.
+	- Corrigido bug na geração do código NSU das notas e NFe.
+
+Versão 12.848 - 11.03.2011
+	- Adicionado relatório de matrículas sem venda de material.
+
+Versão 12.859 - 14.03.2011
+	- Corrigido bug na geração de contas a receber com dia preferencial e entrada.
+	- Corrigido bug na geração do contrato da matrícula.
+	- Informado tipo de anexo na rotina de envio de NFe por email. (atFile)
+	- Alterado rotina de busca da NFe para utilizar a função AnsiToUtf8 na gravação do arquivos *-procNFe.xmlm, *-procCancNFe.xml e *-procInutNFe.xml
+	- Alterado propriedade WordWrap da variável M na rotina de impressão de contrato de matrículas.
+
+Versão 12.877 - 24.03.2011
+	- Criado campo preço custo composição que será a soma dos preços de custos da composição de um produto composto.
+	- Implementado funcionalidades para gerar, validar e enviar o XML do CTe.
+	- Eliminado campo NSU nas tabelas de notas, NF-e e CT-e. Campo código passa a valer como NSU.
+	- Criado relatório de clientes no período por cidade.
+	- Criado relatório de contas a receber por ordem de data de vencimento.
+	- Criado relatório de contas a pagar por ordem de data de vencimento.
+	- Alterado rotinas de finalização de vendas, notas e NFe para gerar o contas a receber utilizando o campo codigo respectivo.
+	- Alterado rotinas de cancelamento de vendas, notas e NFe para utilizar o campo código respectivo.
+	- Corrigido bug na criação do email de envio de NF-e que trazia o último destinatário.
+
+Versão 12.882 - 24.03.2011
+	- Adicionado filtro de exportação para PDF em todos os relatórios.
+	- Alterado rotina de envio de NF-e por email para incluir a DANFE em PDF também.
+
+Versão 12.892 - 06.04.2011
+	- Adicionado funcionalidade para ler a banda magnética dos cheques.
+
+Versão 12.894 - 11.04.2011
+	- Corrigido campo data última compra quando finaliza compra.
+	- Adicionado localização de produtos por marca.
+	- Corrigido atualização da tabela de produtos/qtde que não mostrava os almoxarifados quando alterava o código do produto.
+	- Criado impressão de Ordem de Entrega na tela de vendas, estilo DOS e Windows.
+	- Criado relatório de NF-e no período por CFOP.
+
+Versão 12.909 - 22.04.2011
+	- Alterado forma de cálculo dos campos Valor Frete, Valor Seguro, Valor Desp. Acessórias e Valor Desconto nas telas Vendas, Notas e NF-e.
+
+Versão 12.911 - 29.04.2011
+	- Criado tela de histórico do fornecedor.
+	- Implementado opção de localização de contas a pagar e receber por valor.
+	- Ajustado opções de localização de contas a pagar e receber para considerar a data inicial e final para os campos a direita da data final.
+
+Versão 12.913 - 04.05.2011
+	- Retirado a opção de considerar a data para campos a direita da data final no localizar contas a pagar e receber.
+	
+Versão 12.917 - 04.05.2011
+	- Alterado ordem de listagem dos alunos na tela de alunos matriculados na turma para ordem de nome.
+
+Versão 12.921 - 11.05.2011
+	- Criado campo local onde estuda no cadastro de clientes.
+	- Criado relatório de matrículas no período por local onde estuda.
+	- Criado campo hora próximo no tele-vendas.
+	- Alterado a agenda do tele-vendas para ordenar os registros pelo campo hora próximo.
+	- Incluído campo Num Docto no relatório de matrículas com contas a receber por contabilização.
+
+Versão 12.926 - 12.05.2011
+	- Alterado relatório de contas pagas no período para considerar a data de pagamento.
+	- Atualizado versão da DLL NFe_UTIL_2G para 0.6f.
+
+Versão 12.933 - 23.05.2011
+	- Implementando SPED Fiscal.
+
+Versão 12.935 - 25.05.2011
+	- Implementando SPED Fiscal.
+	- Criado alguns campos no cadastro de projetos.
+	- Adicionado relatório de projetos com projeto CAD em aberto.
+	- Adicionado relatório de projetos com fases em aberto.
+	- Criado tela para ajuste dos códigos de documentos fiscais.
+
+Versão 12.946 - 31.05.2011
+	- Implementando SPED Fiscal.
+	- Alterado funcionalidade de impressão de etiquetas para escolher qual campo de código deve ser impresso.
+	- Adicionado possibilidade de alterar o tipo do código de barra.
+	- Adicionado possibilidade de pular etiquetas no início da impressão, inserindo etiquetas em branco.
+	- Criado impressão de etiquetas com folha da Pimaco, modelo 65.
+
+Versão 12.947 - 02.06.2011
+	- Implementando SPED Fiscal.
+	- Colocado linha e coluna no memo do SPED.
+
+Versão 12.953 - 02.06.2011
+	- Implementando SPED Fiscal.
+	- Alterado telas de localizações para salvar a posição e tamanho das colunas dos DBGrids.
+
+Versão 12.956 - 18.06.2011
+	- Implementando SPED Fiscal.
+	- Novo relatório de projetos agrupado por fase.
+
+Versão 12.964 - 21.06.2011
+	- Implementando SPED Fiscal.
+	- Criado parâmetro para verificar se deve cobrar o desconto que foi dado quando fez a venda na hora de baixar
+	  a conta a receber após o vencimento. O valor do desconto da parcela entra como multa.
+	- Alterado rotina de finalização de vendas, notas e NFe para gerar o valor da parcela sem o desconto.
+	- Criado campo valor sem desconto no contas a receber para facilitar o calculo da multa.
+	- Criado campo tipo de matrícula para informar matrícula ou rematrícula.
+	- Alterado os três primeiros relatórios de matrículas para filtrar também pelo campo tipo matrícula.
+	- Criado cadastro de unidades de medidas.
+	- Criado campo tipo de item no cadastro de produtos para ser usado na geração do SPED.
+	- Feito verificação para não cancelar venda que esteja associada a alguma matrícula com o campo venda de material.
+	- Criado campos cliente e fornecedor no cadastro de fluxo de caixa.
+	- Colocado o nome do cliente no relatório analitico do fluxo de caixa.
+
+Versão 12.978 - 13.07.2011
+	- Implementando SPED Fiscal.
+	- Criado relatório de produtos por unidade de medida.
+	- Criado cadastro de boletos utilizando o ACBrBoleto.
+	- Criado relatórios de boletos.
+	- Criado funcionalidade para gerar arquivos de remessa de boletos.
+	- Criado campo data do primeiro contato no cadastro de projetos.
+	- Alterado a ordem de listagem nos relatórios de projetos.
+
+Versão 12.984 - 18.07.2011
+	- Implementando SPED Fiscal.
+	- Melhorado funcionalidade de incluir contas a receber no boleto.
+	- Adicionado guia "Boletos" na tela de histórico do cliente.
+	- Alterado rotina de impressão do boleto que não imprime quando está na pré-visualização.
+	- Alterado rotina de geração arquivo de remessa de boleto.
+
+Versão 12.990 - 20.07.2011
+	- Implementando SPED Fiscal.
+	- Criado tabela para controle de arquivos de remessas de boletos.
+	- Criado campos classificação, mensalista, dia de cobrança e orientação de cobrança no cadastro de clientes.
+	- Adicionado mais algumas informações do cliente na tela de histórico do cliente.
+
+Versão 12.992 - 21.07.2011
+	- Implementando SPED Fiscal.
+	- Criado relatório de clientes devedores a mais de X dias.
+
+Versão 12.997 - 27.07.2011
+	- Implementando SPED Fiscal.
+	- Alterado rotina de geração do arquivo xml da NF-e para preencher o nome do cliente como 
+	  "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL" caso estja sendo utilizado o ambiente de homologação.
+
+Versão 12.999 - 28.07.2011
+	- Implementando SPED Fiscal.
+	- Alterado funções de localizar venda, NF, NFe, CT, CTe no contas a receber pra trazer tudo referente ao código.
+	- Terminado principais funcionalidades da tela de CT modelo 08.
+
+Versão 12.1011 - 16.08.2011
+	- Implementando SPED Fiscal.
+	- Criado relatório de matrículas sem notas de avaliações do tipo informado.
+	- Alterado relatório de matrículas por professor para agrupar também por turma.
+	- Criado várias tabelas para o cupom fiscal (Base versão 78).
+	- Corrigido falha no botão de estorno de compra.
+	- Corrigido falha no botão de fechar no cadastro de despesas.
+	- Criado módulo "Cupom Fiscal".
+	- Criado funcionalidade para baixa coletiva de contas a receber.
+
+Versão 12.1014 - 16.08.2011
+	- Implementando SPED Fiscal.
+	- Criado funcionalidade para baixa coletiva de contas a pagar.
+
+Versão 12.1017 - 19.08.2011
+	- Implementando SPED Fiscal.
+	- Criado cadastro de Carta de Correção - CCe para as NFe.
+
+Versão 12.1022 - 08.09.2011
+	- Alterado rotina de reagendamento de televendas para reagendar somente os contatos do vendedor logado.
+	- Retirado a possibilidade de não abrir chamado para cliente de outro televenda.
+	- Criado relatório de vendas por grupo.
+	- Criado relatório de vendas por família.
+
+Versão 12.1023 - 09.09.2011
+	- Criado função para transferir saldos de um vendedor para outro.
+	- Criado tela de inclusão de notas de exercícios por turma.
+	- Criado tela de inclusão de notas de avaliações por turma.
+	
+Versão 12.1024 - 15.09.2011
+	- Criado parametro para escolher o tipo de impressão padrão para ordem de serviço.
+	- Ajustado alguns campos na ordem de serviço formato A5 Paisagem.
+	- Atualizado DLL NFe_Util_2G para versão 0.8a.
+
+Versão 12.1030 - 30.09.2011
+	- Alterado relatório de projetos por fase para escolher o status das fases.
+	- Criado funcionalidade para anexar arquivos aos produtos.
+	- Criado campo PAR_CFOPFORAPADRAO, para informar o CFOP padrão para vendas interestaduais.
+	- Alterado cadastros de vendas, notas e NFe para que a CFOP padrão venha de acordo com o estado do cliente.
+
+Versão 12.1034 - 26.10.2011
+	- Incluído verificação do estado do cliente para avisar quando um cliente não tem estado informado.
+	- Criado campo chave de acesso na tela de compras.
+	- Colocado campos de ICMS, IPI, e aliquotas na impressão do pedido de vendas.
+	- Alterado cálculo de comissão para não calcular sobre o valor total-IPI-ST.
+	- Parâmetro PAR_COMISSAOSOBRE deve ser excluído na próxima atualização.
+	- Melhorado impressão de recibos avulsos.
+	- Alterado cadastro de produtos compostos para permitir inclusão de um produto composto dentro de outro.
+	- Alterado cadastro de produtos compostos para não permitir inclusão em duplicidade.
+	- Criado funcionalidade para alterar um produto simples para composto e vice-versa.
+	- Na transformação de produto composto para simples, a composição é eliminada.
+	- Criado parâmetro para informar quantos níveis de produtos compostos são incluídos na venda.
+	- Eliminada a possibilidade de alterar a descrição do produto ao incluir na venda.
+	- Criado campo CFOP para as ordens de serviço. Este campo NÃO está disponível na tela de Ordens de Serviço.
+	- Criado parâmetro CFOP padrão para as ordens de serviço.
+
+Versão 12.1044 - 14.11.2011
+	- Criado parâmetro Entrada/Saída padrão para movimentação de estoque.
+	- Adicionado campo valor do desconto no relatório de vendas por família e por grupo.
+	- Alterado o label do campo contabilizar para tipo pagamento no cadastro de matrículas.
+	- Criado parâmetro e campos para acréscimo no contas a receber.
+
+Versão 12.1045 - 21.11.2011
+	- Alterado televendas para trazer o código do vendedor logado quando é inserido novo atendimento.
+
+Versão 12.1050 - 28.11.2011
+	- Adicionado campos (palavras-chave) na impressão do contrato de matrículas.
+
+Versão 12.1054 - 05.12.2011
+	- Alterado relatórios de composição de produtos.
+	- Corrigido bug na duplicação da composição dos produtos.
+
+Versão 12.1058 - 07.12.2011
+	- Alterado fórmula de cálculo do total do item na venda para não somar o valor do frete, seguro e acessórias.
+	- Criado funcionalidade para enviar a carta de correção por email.
+
+Versão 12.1061 - 05.01.2012
+	- Corrigido erro no relatório de contas bancárias.
+	- Criado chave estrangeira que estava faltando na tabela de composição de produto.
+
+Versão 12.1063 - 11.01.2012
+	- Criado relatório de plano de produção.
+
+Versão 12.1067 - 11.01.2012
+	- Alterado funcionalidade nos campos CEP para abrir a tela de localização de ruas quando o CEP digitado tiver mais de um registro.
+
+Versão 12.1074 - 12.02.2012
+	- Corrigido erros na geração do XML da NF-e.
+	- Corrigido erro na impressão da DANFE.
+	- Corrigido erro no cálculo do valor da multa e juros no contas a receber que calculava a multa mesmo 
+	  com a data de pagamento dentro do prazo.
+
+Versão 12.1080 - 12.02.2012
+	- Corrigido bug com a variável InserindoNovoRegistro.
+	- Criado cadastro de Demonstrações e Testes no módulo escolar.
+	- Bloqueado permissão de salvar matrícula sem o código da venda de material.
+	- Implementado verificação se o código de venda e venda de material informado na matrícula possui mais de um item e
+	  se o item é da familia de cursos e material.
+
+Versão 12.1082 - 23.02.2012
+	- Adicionado atalho para a tela de cadastro de demonstrações e testes na tela do televendas.
+
+Versão 12.1087 - 07.03.2012
+	- Criado guia para cadastrar notas referenciadas de uma NF-e.
+	- Criado campo CLI_PASSWORD no cadastro de clientes.
+	- Clientes recém cadastrados recebem a senha RUNTIME.
+	- Criado funcionalidade para alterar a senha do cliente.
+
+Versão 12.1092 - 28.03.2012
+	- Criado possibilidade de voltar a visualização original das colunas dos grid das telas de consultas.
+	- Criado funcionalidade em parâmetros para voltar a visualização original de todas as telas de consultas de uma só vez.
+	- Alterado telas de consultas para salvar a última consulta realizada. (neste momento, apenas a de produtos)
+	- Criado módulo para imobiliária.
+	- Criado cadastro de imóveis e tipos de imóveis.
+	- Alterado tela de ordem de produção para inserir em outra tabela os itens que serão baixados.
+	  Quando incluir o item composto, irá preencher na outra tabela as composições do produto até o nível especificado em parâmetros->venda.
+	- Criado tela de resumo para visualizar os dados das principais tabelas no período da última semana.
+	- Criado relatório "Demonstrações agendadas no período".
+
+Versão 12.1093 - 03.04.2012
+	- Corrigido erro na rotina de atualização da base para clientes com base versão 89 para 90.
+
+Versão 12.1095 - 09.04.2012
+	- Atualizado componentes ACBr.
+	- Adicionado versão 1.04 do xml da CTe.
+	- Criado relatório de compras no período por fornecedor analítico.
+
+Versão 12.1099 - 20.04.2012
+	- Criado relatório de NF-e faltantes.
+	- Adicionado campo USU_STATUS na rotina de atualização dos acessos.
+	- Adicionado checagem do status da tabela NFe e Notas quando pressionado botão NF ou NFe na tela do pedido de venda.
+
+Versão 12.1100 - 23.04.2012
+	- Criado campos Data Login e Hora Login no cadastro de usuários.
+	- Alterado relatório de usuários para trazer os novos campos (Último Login).
+
+Versão 12.1111 - 11.06.2012
+	- Criado funcionalidade para gerar boletos a partir da tela da NF-e.
+	- Alterado boletos para gerar o nosso número no fomato VVVVVBBBBB. (V=nota, nfe, etc... B=codigo boleto).
+	- Aumentado campo chave de acesso no relatório de NFe emitidas no período. Não estava mostrando os 44 dígitos.
+	- Criado função para verificar se a DLL NFe_Util e CTe_Util estão registradas.
+	- Criado página de ajuda para o registro da NFe_Util_2G.dll e CTe_Util.dll no site de ajuda do Firenet.
+	- Alterado tela de vendas para verificar se a DLL está registrada.
+	- Criado tela de contratos de imóveis. - Falta terminar.
+	- Corrigido bug no relatório de verificação da numeração de NFe.
+	- Alterado rotina de atualização de acessos para não liberar acesso a novos recursos por padrão.
+	- Alterado função de registro e desregistro das DLLs NFE_UTIL e CTE_UTIL para serem executadas como admin na pasta do Firenet.
+
+Versão 12.1113 - 18.06.2012
+	- Criado funcionalidade para adicionar valores diversos em uma conta a receber.
+	  Os valores serão somados e colocados no campo Valor Acessórias. Ao realizar a baixa da conta, será somado esse valor.
+	- Alterado rotinas de baixa de contas a receber para tratar o campo Valor Acessórias.
+	- Criado função para cancelar uma conta a receber.
+
+Versão 12.1117 - 21.06.2012
+	- Criado impressão de comanda para impressora térmica.
+	- Atualizado componentes ACBr.
+	- Criado impressão de contrato de locação.
+	- Criado módulo de comandas para ser utilizado por bares, pizzarias, etc...
+	- Criados campos nos parametros para as novas funcionalidades.
+
+Versão 12.1118 - 22.06.2012
+	- Criado parametro para informar se pode ou não vender itens com quantidade menor ou igual a zero.
+	- Alterado telas de inclusões de itens para não aceitar itens com quantidade em estoque menor ou igual a zero.
+	- Corrigido bug na baixa de ordem de produção. DisableControls com tabelas detalhe não funciona como esperado. Necessário Close e Open da tabela.
+
+Versão 12.1123 - 25.06.2012
+	- Atualizado DLL NFe_Util para V2G.09a.
+	- Corrigido bug na reformulação do custo da composição dos produtos compostos.
+	- Alterado rotinas de cancelamento de vendas, compras, notas e NFe para não excluir as contas a pagar/receber e marcá-las como canceladas.
+	- Criado relatório de produtos compostos com preço de custo menor que o preço de custo da composição.
+	- Melhorado tela de localização de contas a pagar.
+
+Versão 12.1125 - 28.06.2012
+	- Criado funcionalidades para dar ou negar acesso no cadastro de acessos do usuário.
+	- Dropado campos LOC da tabela de parâmetros.
+
+Versão 12.1126 - 29.06.2012
+	- Criado funcionalidade para recriar o arquivo procNFe.
+	- Impedido de alterar movimentações já existentes do estoque.
+
+Versão 12.1128 - 02.07.2012
+	- Criado cadastro de códigos de produtos de fornecedores.
+	- Criado tabela de inutilização de numeração de NFe.
+	- criado relatório de inutilizações de NFe no período.
+
+Versão 12.1132 - 05.07.2012
+	- Corrigido bug na tela de CTe no campo CFOP.
+	- Melhorado a indicação de linha/coluna nas telas de validação da NFe e CTe.
+	- Corrigido preenchimento do campo Num Docto no estorno de conta a receber.
+
+Versão 12.1142 - 06.07.2012
+	- Excluido tabelas e telas do conhecimento de transporte modelo 08.
+	- Parametrizado campo modelo e série para a NFe e CTe.
+	- Criado parâmetro para opção de pré visualização da DACTE e DANFE.
+	- Corrigido bug na consulta de clientes por telefone. Não era possível pesquisar só por DDD pois a máscara atrapalhava. Ex: "(047)    -"
+
+Versão 12.1147 - 31.07.2012
+	- Corrigido bug na geração do XML da CTe para o simples nacional.
+
+Versão 12.1150 - 03.08.2012
+	- Desenvolvido tela para localizar e visualizar os XMLs das NFe e CTe.
+
+Versão 12.1152 - 08.08.2012
+	- Alterado cadastro de CTe para incluir várias informações de carga.
+
+Versão 12.1161 - 15.08.2012
+	- Criado funcionalidade para geração do arquivo EDI fiscal com base no boleto e nos CTe.
+	- Criado relatório de produtos com quantidade negativa ou zerada.
+
+Versão 12.1167 - 17.08.2012
+	- Alterado algumas configurações na geração dos boletos.
+	- Criado campo convenio no cadastro de contas bancárias.
+	- Criado campo dígito do código do cedente.
+	- Criado campo referência no cadastro de CTe.
+	- Corrigido bug na montagem do memo de condição de pagamento na tela do CTe, NFe, Notas e Vendas.
+
+Versão 12.1170 - 11.09.2012
+	- Corrigido espaçamento do campo Num. Docto no relatório de matrículas por tipo de pagamento.
+	- Alterado telas de finalização e cancelamento de vendas, notas e nfe para não contabilizar produtos do tipo S-Serviço.
+
+Versão 12.1176 - 14.09.2012
+	- Melhorado rotinas de inclusão de itens em vendas, notas, NFe e serviços.
+
+Versão 12.1178 - 19.09.2012
+	- Alterado impressões de pedido de vendas.
+	- Criado impressão de pedido de vendas com o campo memo da condição de pagamento.
+	- Corrigido bug na tela de relatórios de compras.
+	- Corrigido bug na impressão do campo frete por conta no pedido de compras.
+
+Versão 12.1179 - 20.09.2012
+	- Corrigido bug na geracao do XML da NFe com desconto (campo vProd).
+
+Versão 12.1180 - 16.10.2012
+	- Criado telas para zipar os arquivos XML das NFe e dos CTe.
+
+Versão 12.1188 - 30.10.2012
+	- Criado campo observações no cadastro de cheques.
+	- Criado rotinas para alterar o status do cheque para Aberto, Compensado ou Devolvido.
+	- Criado cadastro de cursos.
+	- Alterado cadastro de demonstrações e testes para atendimentos.
+	- Criado relatório de testes escritos agendados no período.
+	- Criado relatório de testes orais agendados no período.
+	- Excluido tabela DEMOS.
+	- Criado tabela ATENDIMENTOS.
+	- Alterado ícone do botão demonstrações e testes que agora se chama atendimentos.
+	- Corrigido funcionalidade de atualização de preços para não tentar atualizar produtos que tenham preco de venda igual a zero.
+	- Dado mais ênfase nos avisos da tela de atualização de preços.
+	- Criado campos para dados de contingencia DPEC no cadastro de NFe.
+	- Criado campo Curso no cadastro de turmas.
+
+Versão 12.1196 - 27.11.2012
+	- Corrigido bug na atualização de preços e na rotina "Recalcular Campo Margem" do cadastro de produtos.
+	- Criado relatório de histórico do aluno por turma.
+	- Adicionado classe TPngSpeedButton na rotina DesabilitarControles.
+	- Criado módulo para envio de emails.
+
+Versão 12.1201 - 07.12.2012
+	- Implementado pesquisa de produtos por código do fornecedor.
+
+Versão 12.1203 - 22.01.2013
+	- Corrigido lista de relatórios no combobox da tela de relatórios de produtos.
+	- Alterado relatórios de clientes por mailing para selecionar todos os vendedores/televendas.
+
+Versão 12.1207 - 25.01.2013
+	- Corrigido campo frete na impressão do pedido de venda.
+
+Versão 12.1210 - 06.02.2013
+	- Adicionado campo código da compra no cadastro de lotes.
+	- Adicionado campo data da nota no cadastro de compras.
+	- Criado relatório de atendimentos no período por mailing e vendedor.
+	- Criado funcionalidade para fechar todas as chamadas de uma só vez.
+
+Versão 12.1212 - 04.03.2013
+	- Adicionado campo quantidade e lote próprio no cadastro de lotes.
+	- Criado tela para geração de lotes.
+	- Adicionado campo lote na tabela produção itens compostos.
+	- Adicionado campo lote criado na tabela produção.
+	- Criado funcionalidade para gerar lotes a partir da ordem de produção baixada.
+	- Criado funcionalidade para informar os lotes dos produtos utilizados numa ordem de produção.
+
+Versão 12.1216 - 08.03.2013
+	- Adicionado campo naturalidade e data de nascimento do conjuge no cadastro de clientes.
+
+Versão 12.1218 - 12.03.2013
+	- Incluído "MidasLib" na cláusula uses para eliminar a necessidade de ter o arquivo midas.dll.
+	- Retirado a checagem da existência do arquivo midas.dll na rotina de checagem dos arquivos do sistema.
+	- Criado relatório de produtos com preço de custo zerado ou negativo.
+	- Criado relatório de produtos for fornecedor.
+
+Versão 12.1220 - 21.03.2013
+	- Criado funcionalidade para multiplicar uma conta a receber ou pagar.
+	- Alterado a descrição do FormCompras de "Entrada de Produtos" para "Pedido de Compras".
+	- Renomeado "Entrada de Produtos" para "Pedido de Compras" no menu do formulário principal.
+	- Criado funcionalidade para envio do pedido de compras por email para o fornecedor.
+	- Atualizado a NFE_UTIL_2G.DLL para a versão 1.2c.
+	- Será necessário a aquisição de nova licença da DLL para utilização da manifestação do destinatário.
+
+Versão 12.1221 - 21.03.2013
+	- Criado relatório de movimentação de caixa somente para o vendedor logado no sistema.
+
+Versão 12.1222 - 27.03.2013
+	- Incluído campo fornecedor no relatório de fluxo de caixa.
+	- Corrigido ordenação no relatório de atendimentos no período por mailing e vendedor.
+
+Versão 12.1227 - 02.05.2013
+	- Corrigido rotina de importação do pedido de vendas para nota fiscal eletrônica.
+	- Criado datamodule específico para utilização de campos de código.
+
+Versão 12.1232 - 08.05.2013
+	- Criado cadastro de países e importado tabela do IBGE.
+	- Alterado cadastro de endereços para contemplar o cadastro de países.
+	- Criado funcionalidade para pesquisar CEP ou rua no site dos correios pelo sistema.
+	- Alterado forma de cadastrar ruas para preencher começando diretamente pelo bairro.
+
+Versão 12.1234 - 09.05.2013
+	- Criado cadastro de anexos de cliente.
+	- Criado campos data baixa e baixa por, no cadastro de vendas, notas, nfe e cte.
+
+Versão 12.1235 - 14.05.2013
+	- Melhorado rotinas de inclusão de itens. Agora é possível incluir no pedido itens com estoque insuficiente ou zerado.
+	- Implementado rotina de verificação de estoque ao finalizar o pedido/nota.
+
+Versão 12.1241 - 15.05.2013
+	- Alterado telas de inclusão de anexos de clientes e produtos para não renomear os arquivos.
+	- Incluído opção de pesquisa de bairros por cidade ou estado.
+
+Versão 12.1243 - 04.06.2013
+	- Corrigido tamanho do campo endereço no cadastro de ordens de produção.
+
+Versão 12.1245 - 11.07.2013
+	- Incluído campos de total de tributos nas tabelas notas, vendas, nfe e serviços.
+	- Incluído espaço para assinatura do cliente na impressão da ordem de serviço A4.
+	- Incluído opção para localizar boletos por data de cadastro ou vencimento.
+
+Versão 12.1247 - 09.08.2013
+	- Alterado boletos para mostrar o número do documento conforme o número do documento da conta a receber.
+	- A alteração acima só vale para os boletos que só tem uma conta a receber.
+	- Alterado a baixa de contas a receber e pagar para enviar a descrição no lançamento no fluxo de caixa.
+	- criado impressão de OS em duas vias paisagem (folha A4)
+
+Versão 12.1252 - 21.08.2013
+	- Criado impressão de plano de produção modelo DOS.
+	- Alterado relatórios de matrículas - tipo pagamento para convênio.
+	- Alterado o nome do campo tipo pagamento para convenio no cadastro de matrículas.
+
+Versão 12.1260 - 02.09.2013
+	- Criado impressão de carta de correção.
+
+Versão 12.1264 - 13.09.2013
+	- Feito checagem da existencia da chave de acesso na criação do arquivo XML da NFe e CTe.
+	- Implementado checagem de débitos do cliente ao inserí-lo no pedido de venda, nota e NFe.
+	- Alterado a rotina de impressão do pedido de venda para não mostrar a pré-visualização.
+	- Excluído campo COMISSÃO SOBRE das tabelas de vendas, notas e nfe. Não estavam mais sendo utilizados.
+	- Excluído campos de parâmetros de recibo. Não estavam mais sendo utilizados.
+
+Versão 12.1267 - 24.09.2013
+	- Feito melhorias na impressão de CCe e envio por email.
+
+Versão 12.1273 - 15.10.2013
+	- Corrigido bug na geração do boleto CEF - Formatado campo nosso numero com 10 dígitos.
+	- Alterado arquivo do ACBrBoleto (ACBrBoletoFCQuickFr) - propriedade PreviewInitialState=wsMaximized e adicionado QRPDFFilter
+
+Versão 12.1278 - 07.11.2013
+	- Atualizado para NFe util 1.4 e CTe util 2.01.
+
+Versão 12.1280 - 19.11.2013
+	- Alterado tela de vendas e NFe para poder abrir a tela de inserção de item com os campos desabilitados quando está finalizado ou cancelado.
+	- Criado campo "Destacar Impostos" para verificar na hora de gerar o XML da NFe se deve ou não destacar o ICMS, PIS e COFINS para Simples Nacional.
+
+Versão 12.1285 - 29.11.2013
+	- Aumentado tamanho do campo nome do produto para 100 caracteres.
+	- Criado campo complemento para ser usado em conjunto com o campo nome do produto.
+	- Corrigido bug na geração de boletos a partir da NFe que não preenchia o campo convênio.
+
+Versão 12.1287 - 04.12.2013
+	- Alterado a data utilizada na criação da CCe para a data da NFe.
+
+Versão 12.1290 - 11.12.2013
+	- Corrigido o preenchimento do campo "Status" na localização de notas.
+	- Alterado atalho para notas fiscais e NFe na tela do pedido de vendas para localizar a NF/NFe do pedido antes de abrir a tela.
+	- Alterado telas de localização de pedido de vendas, Notas e NFe para salvar a última consulta realizada.
+
+Versão 12.1295 - 11.12.2013
+	- Criado campo no cadastro de condições de pagamento para informar se a condição utilizará período mensal.
+	- Alterado a rotina de cálculo das condições de pagamento para checar se a condição é mensal. Isso evita cair dois
+	  vencimentos no mesmo mês.
+
+Versão 12.1300 - 19.12.2013
+	- Corrigido localização de contas a receber por valor. Trocado vírgula por ponto na montagem do SQL.
+	- Criado relatório de vendas no período por vendedor e tipo de frete.
+
+Versão 12.1306 - 20.02.2014
+	- Corrigido erro de coluna desconhecida na localização de compras.
+	- Aumentado o campo CFOPDESC nas tabelas Nfe, Notas, Vendas, Compras e Conhecimentos.
+	- Criado impressão de ordem de separação da tela de pedido de vendas.
+
+Versão 12.1309 - 10.03.2014
+	- Criado relatório de CTe por remetente e destinatário.
+	- Incluído campo localização nas opções de pesquisa de produtos.
+	- Criado relatório de vendas no período por vendedor e cidade.
+
+Versão 12.1311 - 11.03.2014
+	- Incluído geração de CTe no modal aéreo.
+
+Versão 12.1312 - 11.03.2014
+	- Incluído código de importação para o força de vendas da Priori.
+
+Versão 12.1316 - 14.03.2014
+	- Incluído campos CST ICMS, IPI, PIS, COFINS, ISS e Classificação Fiscal padrão nos parâmetros.
+	- Incluído campo enquadramento no cadastro de clientes.
+	- Ajustado taborder nas telas de inclusão de itens.
+	
+Versão 12.1319 - 19.03.2014
+	- Criado relatório de tabela de preços modelo 3.
+	- Criado funcionalidade para transferir estoque entre os almoxarifados.
+	- Criado impressão de ordem de serviço A5 retrato modelo 2
+
+Versão 12.1320 - 21.03.2014
+	- Criado relatório de tabela de preços modelo 4.
+
+Versão 12.1322 - 24.03.2014
+	- Criado campo FCI no cadastro de produtos.
+	- Ajustado funcionalidades na importação de XML no pedido de compra.
+
+Versão 12.1323 - 27.03.2014
+	- Criado campo FCI nas tabelas de vendas, compras, servicos, nfe e notas.
+
+Versão 12.1324 - 28.03.2014
+	- Ajustado novos campos na tela de inclusão de itens no pedido de compras.
+
+Versão 12.1327 - 03.04.2014
+	- Incluído campo data saída na impressão do pedido de vendas e orçamento.
+	- Criado relatório de vendas não entregue por cliente.
+	- Criado relatório de vendas por cliente com os itens.
+	- Criado funcionalidade para alterar os campos mov. estoque e financeiro impedindo que seja altera por qualquer usuário.
+	- Melhorado funcionalidade de consultar o CPF ou CNPJ no site da receita para copiar o CPF/CNPJ para a área de transferência.
+	- Incluído campo data de previsão nos relatórios de ordem de produção.
+
+Versão 12.1332 - 24.04.2014
+	- Criado funcionalidade para inutilização de faixa de CTe.
+	- Criado relatório de verificação de numeração de CTe.
+
+Versão 12.1335 - 30.04.2014
+	- Criado módulo jurídico.
+	- Criado cadastro de Foros, Tipos de Ações, Processos, Histórico do Processo e Custas do Processo.
+	- Criado campo número nota no cadastro de ordem de produção.
+	- Incluído campo para localização pelo número da nota no cadastro de ordem de produção.
+
+Versão 12.1337 - 09.05.2014
+	- Criado funcionalidade para salvar o DANFE em PDF e também os XMLs em ZIP.
+
+Versão 12.1342 - 23.05.2014
+	- Criado campo IE ST na tabela de aliquotas. Uma empresa pode ter uma IE ST para cada estado.
+	- Eliminado o campo IE ST do cadastro da empresa.
+	- Corrigido bug na geração de remessa de boleto.
+	- Ajustado impressão de etiquetas modelo Pimaco 65.
+
+Versão 12.1345 - 28.05.2014
+	- Alterado funcionalidade de geração de remessas de boletos para gerar somente dos boletos selecionados.
+	- Criado campos na tabela de contas bancárias para configurar o campo "Nosso Número".
+
+Versão 12.1347 - 29.05.2014
+	- Criado relatórios de processos por advogado, por tipo de ação e ficha do processo.
+
+Versão 12.1357 - 09.06.2014
+	- Alterado rotina de geração do arquivo XML dos CT-e.
+	- Criado DACTE modais rodoviários e aéreo.
+
+Versão 12.1363 - 11.06.2014
+	- Alterado DANFE para poder imprimir com a inscrição "CANCELADA".
+	- Alterado a rotina de geração do XML da NF-e para informar o percentual e o valor do crédito do Simples Nacional.
+	- Criado parâmetro para informar a alíquota de crédito do simples nacional.
+	- Alterado a data de emissão para data de entrada no pedido de compra.
+	- Alterado a rotina de cálculo das parcelas no pedido de compra para utilizar a data da nota.
+
+Versão 12.1371 - 24.06.2014
+	- Criado campo para parametrizar o calculo dos tributos no CTe.
+	- Criado campo "Calcula Cred. SN" no cadastro de naturezas.
+	- Alterado rotina de calculo dos totais dos itens para calcular o valor do crédito do Simples Nacional combinando o CST com a CFOP.
+
+Versão 12.1377 - 02.07.2014
+	- Corrigido erro na geração das contas a receber com períodos mensais.
+	- Criado função para enviar a NFe e CTe por email utilizando o próprio sistema.
+	- Ajustado módulo de envio de emails.
+
+Versão 12.1381 - 02.07.2014
+	- Incluído o CNPJ da empresa na impressão do DACTE Aéreo e Rodoviário.
+
+Versão 12.1382 - 09.07.2014
+	- Corrigido erros na geração do XML do CTe.
+
+Versão 12.1384 - 10.07.2014
+	- Corrigido checagem da pré-visualização de Ordens de Serviço.
+
+Versão 12.1386 - 16.07.2014
+	- Corrigido cálculo da porcentagem de lucro nas vendas.
+
+Versão 12.1388 - 30.07.2014
+	- Criado funcionalidade para atualizar os campos estoque mínimo e máximo conforme a média de venda em um período.
+
+Versão 12.1393 - 06.08.2014
+	- Criado relatório de Curva ABC de Produtos.
+
+Versão 12.1400 - 27.08.2014
+	- Alterado rotina de cálculo da base ICMSST conforme campo criado - "compoe base icms st".
+	- Alterado rotina de cálculo da comissão para obedecer o campo Calcular Comissão conforme CFOP.
+
+Versão 12.1405 - 04.09.2014
+	- Criado funcionalidade de chat entre os usuários do sistema.
+
+Versão 12.1410 - 06.10.2014
+	- Criado funcionalidade para informar protocolo, data e hora para uma NFe.
+
+Versão 12.1423 - 11.12.2014
+	- Criado campo Data Técnico na ordem de serviço.
+	- Implementado estorno de pontos de programa de pontos.
+	- Atualizado rotinas de geração de NF-e para a versão 3.10 do XML.
+	- Implementado rotina de envio síncrono de NF-e.
+
+Versão 12.1425 - 21.01.2015
+	- Adicionado campo Valor ICMS ST na impressão do pedido de vendas. (Q10 e Q23).
+	- Trocado label por edit na tela da Senha Periódica para poder selecionar e copiar a chave para consulta da internet.
+	- Alterado telas de inclusão de itens de produtos para que o campo Valor Unitário não seja editável sem que informe a "Super Senha".
+	- Criado relatório de alunos aprovados e reprovados.
+	- Atualizado licenças da NFe_Util de alguns clientes. (8)
+	
+Versão 12.1426 - 22.01.2015
+	- Alterado rotina de multiplicação de contas a receber para não aceitar multiplicar contas com número de parcela diferente de 1 (um) e quantidade de parcelas menor ou igual a 1 (um).
+
+Versão 12.1429 - 03.02.2015
+	- Implementado função para inutilizar pedido de venda. Somente pedidos em aberto podem ser inutilizados.
+	- Alterado TeleVendas para não deixar alterar atendimendos baixados.
+
+Versão 12.1432 - 10.02.2015
+	- Alterado rotina de movimentação de pontos para não atualizar os campos data atualização e usuário no cadastro de clientes.
+	- Incluído o saldo de pontos da impressão do pedido de venda. Só é impresso se o parametro Calcular Pontuação estiver como "S".
+	- Criado campo Desconto Máximo no cadastro de produtos.	
+	- Retirado coluna Localização da impressão do pedido de vendas.
+	- Retirado possibilidade de alterar a tabela de preços ao fazer venda, nota, NFe e ordem de serviço.
+	- Alterado função de Alterar Desconto na capa para obedecer o valor máximo de desconto do item.
+	- Criado opção para imprimir o pedido de venda em impressoras térmicas.
+	- Adicionado campo Total Bruto nas telas de inclusão de itens e capa de pedido, notas, nfe.
+
+Versão 12.1441 - 05.03.2015
+	- Alterado botões na tela de NFe para envio síncrono.
+
+Versão 12.1442 - 10.03.2015
+	- Alterado rotinas que utilizem campos data/hora para que seja retornado a data/hora do servidor.
+	- Implementado opção para envio automático de email ao autorizar uma NF-e.
+
+Versão 12.1453 - 13.03.2015
+	- Incluído campo para informar timeout no cadastro de contas de emails.
+	- Implementado opção para duplicar pedido de compra.
+
+Versão 12.1462 - 02.04.2015
+	- Corrigido erro no relatório de vendas por condição de pagamento sintético.
+	- Alterado rotinas de cálculo dos totais dos itens para utilizar 2 casas decimais.
+	- Atualizado a versão da NFE_UTIL.DLL.
+
+Versão 12.1467 - 09.04.2015
+	- Corrigido erro no cálculo da porcentagem de lucro no total da venda.
+	- Excluido tabelas de cupom fiscal.
+	- Criado tabelas para NFC-e.
+	- Aumentado tamanho do campo origem do produto.
+
+Versão 12.1468 - 14.04.2015
+	- Incluído checagem de chave de acesso ao inutilizar uma NFe.
+	- Alterado relatórios de Ordens de Serviço para poder escolher qual campo data será usado no critério de seleção.
+
+Versão 12.1472 - 07.08.2015
+	- Criado função para atualizar o campo estoque atual para a soma das quantidades dos almoxarifados.
+	- Alterado rotina de cálculo da condição de pagamento para poder calcular o valor da ST na primeira parcela.
+
+Versão 12.1478 - 01.09.2015
+	- Corrigido erro nos relatórios de produtos com quantidade acima da máxima, abaixo da máxima, abaixo da mínima, quantidade negativa e quantidade diferente de zero.
+	- Alterado rotina de totalização do pedido de compras.
+	- Alterado baixa de pedido de compra para somar o valor do IPI ao custo do produto.
+	- Criado relatório de produtos vendidos por vendedor.
+	- Corrigido erro no relatório de conteúdo de turmas.
+
+Versão 12.1480 - 08.09.2015
+	- Corrigido erro na rotina de cálculo da primeira parcela com ST.
+
+Versão 12.1484 - 08.09.2015
+	- Criado opção para instalar as DLLs da nfe_util e cte_util.
+	- Atualizado a versão da NFE_UTIL.DLL.
+	- Atualizado a versão da CTE_UTIL.DLL.
+
+Versão 12.1487 - 14.09.2015
+	- Corrigido relatório de compras sintético.
+
+Versão 12.1490 - 24.09.2015
+	- Corrigido erro no campo produto da tela de movimentação de estoque que não trazia a descrição do produto na segunda vez.
+	- Criado campo Quantidade Troca para vendas, notas, nfe, servicos.
+
+Versão 12.1507 - 07.10.2015
+	- Corrigido bug que poderia fazer com que os campos estoque atual, composto, data última venda, data última compra, último preço de venda,
+	  último preço de compra, preço de venda médio, preço de compra médio ficassem com valores errados.
+	- Refeito o layout de impressão dos pedidos de vendas.
+	- Incluído parâmetro CP_UTF8 nas rotinas de gravação de arquivos XML para forçar a criação do arquivo em UTF8.
+	- Corrigido erro na alteração da porcentagem de desconto na tela de NFe.
+
+Versão 12.1511 - 14.10.2015
+	- Criado parâmetros para prévisualizar a impressão do pedido de venda e para colocar o Nome Fantasia na impressão do DANFE.
+
+Versão 12.1512 - 15.10.2015
+	- Criado tela para informar ao usuário o progresso da atualização da base de dados.
+
+Versão 12.1518 - 19.10.2015
+	- Alterado rotina de cálculo do custo da composição quando fecha a tela de composição do produto.
+	- Alterado campo de seleção de almoxarifado para retornar somente os ativos.
+	- Alterado layout da impressão de ordem de serviço.
+
+Versão 12.1521 - 21.10.2015
+	- Alterado forma de alterar o valor dos campos frete, seguro, despesas acessórias e desconto na tela de compras.
+
+Versão 12.1526 - 26.10.2015
+	- Corrigido bug na rotina de estorno de contas a receber.
+	- Criado campo CEST no cadastro de produtos.
+	
+Versão 12.1528 - 29.10.2015
+	- Criado campo fator de "Conversão" no cadastro de produtos.
+	- Criado campo CFOP no cadastro de produtos.
+	- Criado parâmetro para informar se deve-se utilizar a CFOP do produto ou da venda, na hora de inserir o produto na venda.
+	- Alterado rotinas de inclusão de item para checar o parâmetro acima.
+
+Versão 12.1530 - 04.11.2015
+	- Retirado componente TStatusLine e utilizado o TStatusBar no lugar.
+	- Alterado telas de visualização de arquivos XML para não mais utilizar o componente da biblioteca JEDI. Feito o parse do XML manualmente.
+	- Alterado campos onde é necessário selecionar pasta para utilizar o componente TFileOpenDialog. (Tela de parâmetros)
+	- Corrigido bug nas rotinas de cancelamento de venda sem movimentação financeira.
+
+Versão 12.1531 - 09.11.2015
+	- Corrigido erro na geração do relatório de Ordem de Serviço por cliente com status diferente de TODAS.
+	- Alterado tela de visualização da composição do produto para não mais utilizar o componente JvDBTreeView. Agora usa o TreeView nativo.
+	- Corrigido as impressões de produtos compostos para utilizar a mesma rotina do item acima.
+	- Corrigido erro no cálculo do último preço de custo do produto. (IPI/Quantidade=IPI unitário)
+	- Liberado possibilidade de informar porcentagem quebrada na tela de atualização de preço de venda.
+	- Alterado layout de impressão de O.S. em 2 vias paisagem para estilo DANFE.
+	- Alterado layout de impressão de O.S. em folha A5 paisagem para estilo DANFE.
+
+Versão 12.1532 - 11.11.2015
+	- Alterado layout de impressão de O.S em folha A4 para estilo DANFE.
+
+Versão 12.1537 - 17.11.2015
+	- Criado os campos para a NT-003/2015.
+
+Versão 12.1539 - 18.11.2015
+	- Ajustado largura das colunas no DANFE e retirado "R$" dos itens.
+
+Versão 12.1541 - 26.11.2015
+	- Implementado cálculos para a NT-003/2015.
+
+Versão 12.1542 - 27.11.2015
+	- Corrigido valores no campo CLI_CONTRIBUINTEICMS.
+
+Versão 12.1546 - 11.12.2015
+	- Atualizado para Delphi Seattle.
+	- Alterado boletos para utilizar o Fast Report.
+	- Corrigido bug no relatório Curva ABC Produtos.
+
+Versão 12.1555 - 16.12.2015
+	- Implementado envio de emails em HTML.
+	- Adicionado campos no cadastro de emails e assuntos para checagem de emails em HTML.
+	- Criado campos no cadastro de CTe para adequação a NT2015/003.
+	- Parâmetro "Enviar NFe por email utilizando a DLL NFe_Util?" deixou de ser utilizado e pode ser retirado na próxima atualização.
+
+Versão 12.1558 - 25.01.2016
+	- Corrigido bug no estorno de vendas.
+
+Versão 12.1561 - 10.02.2016
+	- Criado opção para imprimir ordem de separação somente de vendas selecionadas.
+
+Versão 12.1564 - 24.02.2016
+	- Criado impressão de orçamento detalhado. Um item por página.
+	- Criado campos para implementação de venda com fator de multiplicação da quantidade.
+	- Implementado possibilidade de vender um produto, mas baixar outro no estoque.
+	- Alterado rotinas de baixa e estorno de vendas e compras para utilizar o campo conversão e produto real.
+	- Criado relatório de produtos vs produtos reais.
+
+Versão 12.1580 - 04.03.2016
+	- Atualizado DLL NFe_Util para a versão 2Gv2.07b
+	- Criado novos campos referente ao ISS nas tabelas de compras, vendas, notas, nfe, nfce, servicos.
+	- Corrigido bug na hora de fechar a tela de inclusão de notas referenciadas.
+
+Versão 12.1584 - 09.03.2016
+	- Atualizado componentes do ACBr.
+	- Criado campos pra informar aliquotas federal, estadual e municipal. (IBPT)
+	- Incluido quantidade de volumes na impressão do pedido de venda.
+
+Versão 12.1588 - 16.03.2016
+	- Criado campo venda no contas a receber para associar a conta a receber com o pedido de venda.
+	- Corrigido bug nas telas de consulta de CPF e CNPJ.
+
+Versão 12.1593 - 23.03.2016
+	- Alterado cálculo da base de cálculo do ICMS-ST para somar o valor do IPI na base.
+	- Corrigido bug no término do envio de email.
+
+Versão 12.1595 - 29.03.2016
+	- Alterado rotina de finalização da NFe para atualizar o pedido de venda para deixá-lo igual a NFe.
+	- Incluído campos "Dt. Baixa" e "Baixado Por" nas rotinas de geração de Nota ou NFe.
+
+Versão 12.1598 - 31.03.2016
+	- Implementado opção para enviar Orçamento Detalhado por email.
+	- Implementado opção para gerar impressão de pedido baseado em arquivo .RTF
+
+Versão 12.1602 - 04.04.2016
+	- Implementado um alerta quando existe itens em KG.
+	- Implementado opção para impressão do nome fantasia no recibo, em um relatório de vendas (Q12) e nas info adicionais da NFe.
+
+Versão 12.1607 - 06.04.2016
+	- Incluído aliquotas estadual e municipal no relatório de classificações fiscais.
+	- Implementado opção para copiar os dados da consulta de CNPJ para o cadastro. (Clientes e Fornecedores).
+
+Versão 12.1615 - 13.04.2016
+	- Incluído coluna código fabricante, estoque minimo e máximo no relatório de posição atual do estoque.
+	- Criado novos campos no controle de CTe.
+	- Reestruturado tabelas do CTe.
+	- Implementado rotina de checagem de validade do certificado digital.
+	- Alterado tela de inclusão de notas no CTe para que quando for digitado a chave de acesso, já preencha os campos número, modelo e série da nota.
+	- Criado tabela para informar os veículos utilizados no CTe.
+
+Versão 12.1618 - 14.04.2016
+	- Implementado opção para importar a tabela do IBPT no cadastro de classificações fiscais.
+	- Incluído outros telefones do cliente na impressão da ordem de serviço.
+
+Versão 12.1622 - 20.04.2016
+	- Implementado emissão de MDFe.
+	- Incluído colunas nos relatórios de posição atual do estoque.
+
+Versão 12.1625 - 27.04.2016
+	- Criado o DAMDFE.
+	- Implementado demais funcionalidades na tela do MDFe.
+
+Versão 12.1629 - 03.05.2016
+	- Corrigido bug na geração do arquivo XML do MDFe, na parte das informações sobre os documentos.
+
+Versão 12.1635 - 20.05.2016
+	- Alterado relatório de produtos vendidos por vendedor para considerar a data do pedido ou data da NFe, como na separação de carga.
+
+Versão 12.1636 - 25.05.2016
+	- Criado relatório de contas a pagar por despesa.
+	- Atualizado sistema de boletos.
+	- Criado DACTE rodoviário de carga fracionada.
+	- Alterado DACTE rodoviário de lotação para listar todas notas informadas no CTE.
+	- Alterado CTE para somar o campo peso das notas e atualizar o CTE.
+
+Versão 12.1640 - 08.06.2016
+	- Inicio parceria entre a Runtime e a SALC Informática para oferecer cupom fiscal (PAF-ECF).
+	- Criado tabelas para o cupom fiscal.
+	- Criado integrador Malcolm Server para o ECF.
+	- Criado campos "Atualizar" em algumas tabelas para facilitar a integração.
+	- Criado campos para informar o número do pedido e o número do item do pedido do cliente na NFe.
+	- Criado campos linha digitável e código de barras na tabela de boletos.
+	- Alterado cadastro de boletos para gerar a linha digitável e o código de barras. (Disponível para alguns bancos somente).
+	- Criado impressão do boleto no Quick Report, visando resolver o problema ao gerar PDF. (fammel e distak).
+
+Versão 12.1641 - 09.06.2016
+	- Criado impressão de recibo modelo 02 e modelo 02 com 2 vias.
+
+Versão 12.1643 - 13.06.2016
+	- Implementado a tela de cupom fiscal para consultas dos cupoms emitidos pelo SALC.
+
+Versão 12.1643 - 14.06.2016
+	- Criado relatórios de cupons fiscais.
+
+Versão 12.1647 - 17.06.2016
+	- Corrigido erro no relatório de pedidos em aberto por vendedor.
+	- Criado tela para calcular o dígito verificador módulo 10 ou módulo 11 de um número digitado pelo usuário.
+
+Versão 12.1651 - 20.06.2016
+	- Criado cadastro de dispositivos móveis.
+	- Implementado checagem de limite de dispositivos móveis. Caso seja superior ao limite, avisa e encerra o aplicativo.
+	- Desenvolvido telas no aplicativo Firenet Mobile.
+
+Versão 12.1655 - 04.07.2016
+	- Alterado envio de NFe para enviar o grupo ICMSUFDest.
+
+Versão 12.1668 - 13.07.2016
+	- Atualizado ACBr.
+	- Relatório de Emails dos Alunos.
+	- Alterado algumas opções na geração de arquivo de remessa de boletos.
+
+Versão 12.1671 - 15.07.2016
+	- Criado campo no cadastro de naturezas para informar se gera ou não o grupo da DIFAL.
+
+Versão 12.1676 - 27.07.2016
+	- Criado opção para gerar ou não o grupo de duplicatas no XML da NFe.
+	- Alterado algumas opções na geração do arquivo de remessa de boletos. (Distak)
+
+Versão 12.1679 - 01.08.2016
+	- Alterado o preenchimento da data de saída da NFe para pegar a data atual. Rotina de gerar NFe a partir do pedido de venda.
+
+Versão 12.1680 - 01.08.2016
+	- Corrigido erro na geração das tags de duplicatas na NFe.
+
+Versão 12.1684 - 08.08.2016
+	- Alterado o preenchimento de alguns campos na rotina de geração de remessa de boletos.
+
+Versão 12.1687 - 09.08.2016
+	- Criado impressão de etiqueta para embalagem modelo 2.
+
+Versão 12.1693 - 12.08.2016
+	- Alterado rotina de inutilização de NFe para igualar o pedido de venda como é feito quando finaliza a NFe.
+
+Versão 12.1697 - 25.08.2016
+	- Alterado tela de atendimentos para que quando clicar no botão para abrir o cadastro de clientes, 
+	  se já tiver um cliente selecionado, já abra a tela de clientes com o cliente selecionado.
+	- Criado relatório de movimentação de estoque por família e grupo.
+	- Implementado rotina para salvar e restaurar o tamanho dos forms de consultas, que agora podem ser redimensionados.
+	- Incluído relatório de cheques na tela de resumo do sistema.
+
+Versão 12.1701 - 06.09.2016
+	- Corrigido erro na localização dos boletos pelo número do documento do contas a receber.
+
+Versão 12.1703 - 15.09.2016
+	- Corrigido erro na soma do valor total do boleto.
+	- Alterado relatório de histórico do aluno para trazer somente as matrículas abertas, baixadas e desistentes.
+
+Versão 12.1731 - 10.10.2016
+	- Concatenado os campos de endereço na impressão do CTe rodoviário lotação e fracionado.
+	- Implementado a baixa de boletos por arquivo de retorno.
+	- Concluído geração de GNRE.
+	- Alterado rotina de checagem da liberação do sistema para não solicitar a senha periódica mais de uma vez quando 
+	  o login no sistema é feito depois de mais de um período de solicitação da senha.
+	- Implementado a carta de correção para CTe.
+
+Versão 12.1735 - 24.10.2016
+	- Criado tela para executar comandos SQL.
+	- Corrigido erro na geração de boletos pela tela da NFe.
+	- Criado parametros para informar o local dos arquivos de Schemas da GNRE.
+
+Versão 12.1737 - 01.12.2016
+	- Atualizado máscaras dos campos de telefone para o nono dígito.
+	- Corrigido preenchimento de campo tipo pessoa na rotina de geração de arquivo de remessa de boletos.
+
+Versão 12.1745 - 23.01.2017
+	- Criado campo Inscrição Municipal no cadastro de clientes.
+	- Criado cadastro de NFSe - Notas Fiscais de Serviço Eletrônicas.
+
+Versão 12.1752 - 02.02.2017
+	- Criado configuração para os boletos do SICOOB.
+	- Alterado cadastro de Impostos ISS para importar a tabela IBPT.
+	- Criado rotina para envio de boleto por email.
+	- Criado rotina para gerar boleto a partir do contas a receber.
+
+Versão 12.1760 - 20.02.2017
+	- Ajustes no arquivo de remessa de boletos.
+	- Alterado tela de login para solicitar a conexão do banco de dados.
+	- Alterado a tela de configuração da base de dados para poder criar mais de uma conexão.
+
+Versão 12.1766 - 22.02.2017
+	- Ajustes na NFSe.
+
+Versão 12.1780 - 01.03.2017
+	- Alterado tela de consulta de CEP para utilizar o ACBr e cadastrar a rua no sistema automaticamente.
+	- Implementado a localização de ruas por código ou nome da cidade.
+
+Versão 12.1784 - 20.03.2017
+	- Criado relatórios de contas a receber e a pagar por tipo de documento.
+	- Corrigido erros na geração da linha digitável e do código de barras do banco Viacredi/Cecred.
+	- Ajustes diversos nas rotinas da NFSe.
+	- Criado relatório de NFSe emitidas no período.
+
+Versão 12.1788 - 23.03.2017
+	- Melhorias no cadastro de boletos.
+	- Criado rotina de geração de remessa CNAB240 para o Cecred.
+
+Versão 12.1790 - 24.03.2017
+	- Correção na geração do arquivo CNAB240 do Cecred.
+	- Ajustado redimensionamento de componentes na tela de localização de contas a receber.
+
+Versão 12.1799 - 29.03.2017
+	- Feito reordenação de tabelas individualmente ao atualizar a base de dados.
+	- Criado parâmetro para informar o código do serviço padrão ao emitir NFSe.
+
+Versão 12.1805 - 02.04.2017
+	- Atualizado ACBr.
+	- Atualizado rotinas de envio de NFSe que agora consegue enviar NFSe utilizando método síncrono.
+
+Versão 12.1807 - 08.04.2017
+	- Criado parâmetro para informar uma máscara para o campo série da ordem de serviço.
+	- Corrigido a atualização da senha do sysdba da última conexão utilizada no arquivo parametros.ini quando é feito login.
+
+Versão 12.1838 - 19.04.2017
+	- Removido todo o módulo de locadora do sistema.
+	- Criado cadastro de markups.
+	- Criado campo markup no cadastro de produtos.
+	- Criado parâmetro para utilizar ou não o markup nos produtos.
+	- Melhorado rotina que desabilita os controles nas telas.
+	- Ajustado alguns campos na impressão de boleto.
+	- Removido a impressão de boleto via ACBr.
+	- Revisado os itens de menu disponíveis para o controle de acessos.
+	- Incluído data de entrada e data de saída na localização de ordens de serviço.
+	- Alterado campos de email para aceitar CTRL+C, CTRL+V e CTRL+Z.
+
+Versão 12.1845 - 12.05.2017
+	- Melhorado rotinas de atualização de acessos de usuários.
+	- Eliminado componentes IBQuery diversos e utilizado um único IBQuery Auxiliar para executar comandos SQL.
+	- Incluído verificação da condição de pagamento para não utilizar condição de pagamento com total de porcentagem diferente de 100%.
+	- Corrigido bug na rotina de leitura do arquivo de retorno do boleto.
+
+Versão 12.1861 - 06.06.2017
+	- Implementado envio e impressão de mais de um boleto.
+	- Alterado impressão da DANFE para mostrar CSOSN quando é simples nacional.
+	- Concatenado código da origem do produto na coluna CSTICMS/CSOSN quando é simples nacional. (DANFE)
+
+Versão 12.1866 - 13.06.2017
+	- Criado campos para informar desconto no cadastro de boletos.
+	- Alterado rotina de geração do XML da NFe para remover a acentuação antes de fazer o envio.
+	- Corrigido falta de dataset na tela de inutilização de CTe.
+
+Versão 12.1868 - 22.06.2017
+	- Alterado rotinas de localização de objetos e locações para salvar a consulta.
+	- Corrigido falta do campo Serial do Objeto na tela de locações.
+
+Versão 12.1874 - 30.06.2017
+	- Eliminado campo destino baixa do contas a pagar e receber.
+	- Tornado campo conta obrigatório no contas a pagar e receber.
+	- Criado conta "caixa interno" na atualização.
+	- Criado banco 0 - caixa interno.
+	- Tela de movimentação de contas poderá ser eliminada?!?!?!?
+
+Versão 12.1879 - 11.07.2017
+	- Melhorias nas rotinas de geração de remessas de boletos.
+	- Ajustes na impressão de boletos da CEF.
+	- Implementado geração de remessa CNAB400 para o Bradesco.
+	- Criado campo no cadastro de contas e boletos para informar código de protesto.
+
+Versão 12.1882 - 21.07.2017
+	- Alterado o dígito do banco na impressão do boleto para calcular com módulo 11 ao invés do módulo 10.
+
+Versão 12.1892 - 07.08.2017
+	- Criado campo no cadastro de contas a receber para informar o número do boleto gerado.
+	- Alterado rotinas de geração de boletos para atualizar o campo "boleto" no contas a receber.
+	- Somente será armazenado o código do último boleto no contas a receber.
+	- Criado tela para importar XML de NFe no pedido de vendas.
+
+Versão 12.1902 - 23.08.2017
+	- Criado módulo "SAUDE";
+	- Criado cadastros de medicamentos, receituários, medições e evoluções.
+
+Versão 12.1906 - 18.09.2017
+	- Corrigido erro ao atualizar a tabela IBPT.
+	- Implementado opção para geração de boletos a partir da tela de notas fiscais.
+
+Versão 12.1915 - 25.09.2017
+	- Implementado funcionalidade para banco de horas para os vendedores.
+	- Melhorado rotina de consulta de CEP.
+
+Versão 12.1931 - 06.09.2017
+	- Atualizado DLLs da NFe, CTe e MDFe da flexdocs.
+	- Alterado rotinas da MDFe para a versão 3.00.
+	- Implementado localização de pedido de vendas por número do pedido do cliente.
+	- Criado campo código da baixa no cadastro de contas e boletos.
+	- Alterado rotinas de geração dos arquivos de remessa para utilizar o campo código da baixa.
+
+Versão 12.1932 - 13.10.2017
+	- Criado tela para configurar mensalidades.
+	- Corrigido geração da tag cobr em Notas Fiscais Eletrônicas.
+	- Corrigido geração do arquivo de remessa CNAB400 para o Bradesco. (Info sobre desconto).
+
+Versão 12.1941 - 15.10.2017
+	- Criado campos para preenchimento de dados para NFe de importação/exportação.
+	- Alterado rotinas de geração de NFe para utilizar os campos de importação/exportação.
+	- Criado campo para informar a sequencia dos itens da Venda, NF e NFe.
+	
+Versão 12.1963 - 31.10.2017
+	- Criado tabela para configuração de etiquetas (PPLB).
+	- Alterado rotinas de impressão de etiqueta de produto e de embalagem para utilizar a configuração de etiquetas.
+	- Alterações no módulo de saúde.
+	- Implementado modal aéreo para a MDFe.
+
+Versão 12.1966 - 13.11.2017
+	- Implementado checagem de conexões do banco ao iniciar a atualização de base.
+	- Criado parâmetro para informar se deve calcular o peso líquido dos produtos ou não e liberado a digitação nesse campo.
+
+Versão 12.1973 - 26.11.2017
+	- Corrigido rotina de transfêrencia de saldo entre vendedores.
+
+Versão 12.1975 - 26.11.2017
+	- Corrigido rotina de duplicação de pedido de compra.
+	- Criado campo produto nos itens de NFSe.
+	- Alterado rotina de impressão de etiqueta de embalagem para imprimir a quantidade que está no campo volumes.
+	- Alterado rotina de duplicação de pedido de venda para checar a quantidade em estoque dos produtos.
+	- Adicionado checagem de venda de produto com quantidade maior do que a que tem no estoque.
+	- Implementado rotina para verificação de estoque por item. A verificação é feita no OK da tela de item. É verificado as quantidades em pedidos em aberto.
+
+Versão 12.1999 - 18.12.2017
+	- Melhorado tela de solicitação de senha periódica.
+	- Implementado rotina para consulta da senha periódica via JSON.
+	- Aumentado a segurança da senha periódica, fazendo com que cada senha seja específica para cada cliente.
+	- Criado tela para exportar a tabela de produtos para arquivo .CSV ou .XLS (via HTML).
+
+Versão 12.2001 - 29.12.2017
+	- Incluído verificação do campo status no relatório de NFe emitidas no período por ordem de código.
+	- Criado relatório de canhotos de NFe. (Codigo, Nome, Data e espaço para assinatura).
+	- Aumentado o tamanho da fonte da DANFE de 6 para 7.
+
+Versão 12.2009 - 08.01.2018
+	- Implementado verificação na hora de gerar boletos pela tela da NFe para avisar se já foi gerado boletos para a NFe selecionada.
+	- Incluído opção para imprimir etiqueta para embalagem a partir da tela de NFe.
+
+Versão 12.2013 - 11.01.2018
+	- Criado parâmetro para selecionar se quer utilizar o código do fabricante ao invés do código do sistema no XML e na DANFE.
+
+Versão 12.2018 - 23.01.2018
+	- Criado parâmetro para selecionar qual código de produto utilizar na tela de vendas rápidas.
+	- Alterado tela de vendas rápidas para localizar o produto conforme o parâmetro acima.
+	- Corrigido dimensionamento dos grids na tela de localização de produtos.
+	- Criado campo para informar a transportadora do cliente.
+	- Criado campos sexo, número carteira nacional de saúde e número SAME, além de campos para informar óbito no cadastro do cliente.
+	- Adicionado o fuso horário no cancelamento de CTe.
+
+Versão 12.2030 - 02.02.2018
+	- Implementado a tela de cadastro de prontuários.
+	- Alterado tela de impressão de etiquetas de produtos para informar os dados de lote nas etiquetas PPLB.
+	
+Versão 12.2036 - 05.02.2018
+	- Adicionado filtro pelo campo localização do produto nos relatórios de posição de estoque.
+	- Alterado tela de criação de lotes pela tela de produção para informar a data de fabricação também.
+
+Versão 12.2039 - 14.02.2018
+	- Corrigido erro na seleção de cliente na tela de prontuários.
+
+Versão 12.2044 - 18.02.2018
+	- Criado modelo de boleto com Recibo de Entrega.
+    	- Criado parâmetro para selecionar o modelo padrão de boleto que o botão de imprimir boleto deve utilizar.
+    	- Alterado tela de geração de boletos para possibilitar a impressão ou envio dos boletos recém gerados.
+
+Versão 12.2047 - 04.03.2018
+	- Alterado rotina de atualização do preço de custo com o preço de custo das composições para recalcular o preço de venda e as tabelas 1 a 6 também.
+
+Versão 12.2049 - 05.04.2018
+	- Melhorado rotina de cancelamento de NFe.
+	- Criado opção para consulta de NFe pela DLL e Cancelamento de NFe Denegada.
+
+Versão 12.2054 - 09.04.2018
+	- Melhorado rotina de cancelamento de Nota.
+	- Reformulado relatórios de boletos para informar o status e indicar qual campo data considerar no relatório e incluído total de itens.
+    	- Criado campo País no cadastro de fornecedores.
+    	- Melhorado rotina de consulta de CNPJ evitando erros quando os campos não estão totalmente preenchidos.
+
+Versão 12.2065 - 17.04.2018
+	- Melhorado rotina de atualização de acessos dos usuários.
+
+Versão 12.2071 - 17.04.2018
+	- Corrigido relatório de histórico de aluno que mostrava mais presenças que o existente.
+
+Versão 12.2090 - 09.07.2018
+	- Feito com que o Memo2 do form principal vá para o final do scroll para mostrar a mensagem mais recente.
+	- Incluído coluna Entrada/Saída na localização de CFOP.
+	- Atualizado NFE_UTIL para versão 2G4.04.
+	- Atualizado rotinas de NFe para gerar NFe na versão 4.0.
+	- Incluído informações sobre o FCP nos dados adicionais do DANFE.
+	- Excluido relatórios de vendas Q04, Q05, Q07, Q10.
+	- Otimizado instrução SQL em alguns relatórios de vendas.
+
+Versão 12.2090 - 10.07.2018
+	- Adicionado campo localização na impressão de etiquetas.
+
+Versão 12.2113 - 27.07.2018
+	- Melhorado rotina de substituição de textos em impressões baseadas em modelo de documento RTF.
+	- Corrigido erro que dava ao reabrir um atendimento no televendas.
+
+Versão 12.2135 - 27.07.2018
+	- Criado relatório de produtos por fornecedor (analítico) que utiliza a tabela de codigos do produto nos fornecedores.
+	- Melhorado o relatório de produtos por fornecedor (simples).
+
+Versão 12.2172 - 30.10.2018
+	- Alterado a precisão dos campos de valor para 8 casas decimais.
+	- Alterado a impressão dos recibos de contas a receber para imprimir "2a VIA" caso a data da impressão seja diferente da data de pagamento.
+
+Versão 12.2179 - 01.12.2018
+	- Criado campo "Troca" no cadastro de produtos.
+
+Versão 12.2197 - 25.01.2019
+	- Bloqueado campos Limite de Crédito e Bloquear Venda no cadastro de clientes.
+	- Criado rotinas para alterar esses campos.
+	- Implementado checagem do limnite de crédito na hora de gerar NFe.
+	- Criado relatório de trocas realizadas no período por vendedor.
+	- Criado campo Temperatura no cadastro de televendas.
+	- Criado parâmetros de temperatura para uso no televendas.
+
+Versão 12.2290 - 17.06.2019
+	- Atualizado DLL NFe_Util para 2Gv4.07b.
+	- Criado cadastro de Taxas.
+	- Criado campo taxa no cadastro de Clientes.
+	- Feito ajustes nas rotinas de envio de email de compras.
+    	- Criado cadastro de agendamento de consultas médicas.
+	- Criado cadastro de convênios.
+	- Criado cadastro de tipos de exames.
+	- Correção em relatórios diversos.
+	- Melhorias no controle de locações de objetos.
+
+Versão 12.2300 - 01.07.2019
+	- Criado atalho para fornecedores na tela de envio de email.
+	- Alterado relatório de vendas por tipo de frete para trazer a transportadora e o valor do frete.
+	- Atualizado conjunto de ícones.
+
+Versão 12.2320 - 06.08.2019
+	- Ajustes nas rotinas do chat.
+	- Ajustes na localização de clientes por telefone.
+	- Ajustes no sistema de delivery.
+
+Versão 12.2362 - 07.10.2019
+	- Criado módulo de seguros.
+
+Versão 12.2376 - 15.10.2019
+	- Corrigido informação de multa na rotina de geração de remessa de boletos.
+	- Implementado envio de anexos de seguros, exames, clientes e produtos.
+	- Liberado impressão de DANFE sem a NFe estar autorizada.
+	- Colocado "Sem valor fiscal" na impressão da DANFE.
+
+Versão 12.2377 - 18.10.2019
+	- Alterado impressão de ficha de chamada para permitir imprimir a partir de uma data. Útil quando a turma é anual.
+	- Criado funcionalidade para visualizar os usuários que tem acesso a um determinado componente.
+
+Versão 12.2422 - 14.01.2020
+	- Criado checagem de hash de campos para evitar alterar configurações direto no banco.
+	- Criado tabela para registros do Bloco X.
+	- Atualizado ACBr.
+	- Atualizado NFE_UTIL para 4.07h
+	- Atualizado rotina de geração do sped fiscal.
+
+Versão 12.2434 - 24.01.2020
+	- Criado relatório de seguros sem agrupamento.
+	- Alterado filtros em relatórios de vendas.
+	- Atualizado rotina de geraçào do sped fiscal.
+
+Versão 12.2460 - 12.03.2020
+	- Atualizado rotinas de encriptação e descriptação de senhas.
+	- Criado rotina para tornar a base de dados para somente leitura.
+	- Atualizado rotina da senha periódica para setar a configuração da base como somente leitura.		
+	- Colocado a versão da base de dados na barra de título da janela.
+
+Versão 12.2480 - 18.03.2020
+	- Parametrizado checagens do sped fiscal para as notas de compras.
+	- Criado filtro de valor no relatório de Ordens de Serviço por Cliente sintético.
+
+Versão 12.2541 - 19.06.2020
+	- Criado cadastro de odontogramas.
+	- Criado tela de consulta de exames com o componente DBPlanner.
+	- Criado campo "exceção" no cadastro de classificações fiscais.
+	- Criado relatório de vendas por ramo de atividade.
+	- Criado campos relacionados ao ICMS Retido.
+
+Versão 12.2541 - 25.06.2020
+	- Criado etiqueta para impressão de conferencia de pedido.
+	
+Versão 12.3042 - 26.04.2022
+	- Criado tela específica para alteração de preço de venda.
+	- Alterado o cadastro de produtos para que nao recalcule sempre os campos de preços.
+	- Realocado campos de dados fiscais na tela de produtos.
+	- Refeitos vários relatórios migrando de QuickReport para FastReport.
+
+Versão 15.4307 - 15.02.2026
+	- Longo tempo sem atualizar aqui as alterações no sistema.
+	- Criado função para duplicação de NFSe.
+	- Criado tela para cadastramento de produtos via XML de NFe.
+	- Várias alterações sobre a reforma tributária, incluindo criação de campos e tabelas necessárias.
+	- Cadastro de Regras Fiscais.
+	- Cadastro de Classificações Tributárias.
+	- Criado possibilidade de alterar a logo central da tela principal.
+	- Criado tela para alteração de "tema" do sistema.
+	- Criado aplicativo FIREZAP.EXE para envio de mensagens via whatsapp.
+	- A Runtime passou a emitir NFSe.
+
+-------------------------------------------------------------------------------------------------------------------------------------------

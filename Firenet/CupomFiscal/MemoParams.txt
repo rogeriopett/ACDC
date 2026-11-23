@@ -1,0 +1,26 @@
+Memo1
+[Cabecalho]
+LIN000=<center><b>Runtime Sistemas Ltda.</b></center>
+LIN001=<center>Angelo Torinelli, 78 - Vila Nova</center>
+LIN002=<center>Jaraguá do Sul - SC - 89259-200</center>
+LIN003=<center>CNPJ: 01.234.567/0001-22    IE: 012.345.678.90</center>
+LIN004=<table width=100%><tr><td align=left><code>Data</code> <code>Hora</code></td><td align=right>COO: <b><code>NumCupom</code></b></td></tr></table>
+LIN005=<hr>
+ 
+[Cabecalho_Item]
+LIN000=ITEM   CODIGO     DESCRICAO
+LIN001=QTD         x UNITARIO       Aliq     VALOR (R$)
+LIN002=<hr>
+MascaraItem=III CCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDQQQQQQQQ UU x VVVVVVVVVVVVV AAAAAA TTTTTTTTTTTTT
+ 
+[Rodape]
+LIN000=<hr>
+LIN001=<table width=100%><tr><td align=left><code>Data</code> <code>Hora</code></td><td align=right>Firenet: <b><code>ACBR</code></b></td></tr></table>
+LIN002=<center>Mensagem Final do Cupom</center>
+LIN003=<hr>
+ 
+[Formato]
+Colunas=48
+HTML=0
+HTML_Title_Size=2
+HTML_Font=<font size="2" face="Lucida Console">

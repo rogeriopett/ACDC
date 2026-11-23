@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 320 140 L 260 200 L 200 140 L 240 140 L 240 60 L 280 60 L 280 140 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#009688;fill-opacity:1;" d="M 180 320 C 169 320 160 311 160 300 L 160 200 L 120 200 L 120 300 C 120 333 147 360 180 360 L 370 360 L 370 320 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#009688;fill-opacity:1;" d="M 400 100 L 340 234 C 338 238 335 240 331 240 L 182 240 C 178 240 174 237 173 233 L 124 87 C 118 71 103 60 86 60 L 50 60 L 50 100 L 86 100 L 141 266 C 144 274 151 280 160 280 L 350 280 C 358 280 365 275 368 268 L 444 100 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#00695C;fill-opacity:1;" d="M 70 80 C 70 91.046875 61.046875 100 50 100 C 38.953125 100 30 91.046875 30 80 C 30 68.953125 38.953125 60 50 60 C 61.046875 60 70 68.953125 70 80 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 370 390 C 370 406.570313 356.570313 420 340 420 C 323.429688 420 310 406.570313 310 390 C 310 373.429688 323.429688 360 340 360 C 356.570313 360 370 373.429688 370 390 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#37474F;fill-opacity:1;" d="M 220 390 C 220 406.570313 206.570313 420 190 420 C 173.429688 420 160 406.570313 160 390 C 160 373.429688 173.429688 360 190 360 C 206.570313 360 220 373.429688 220 390 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 350 390 C 350 395.523438 345.523438 400 340 400 C 334.476563 400 330 395.523438 330 390 C 330 384.476563 334.476563 380 340 380 C 345.523438 380 350 384.476563 350 390 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 200 390 C 200 395.523438 195.523438 400 190 400 C 184.476563 400 180 395.523438 180 390 C 180 384.476563 184.476563 380 190 380 C 195.523438 380 200 384.476563 200 390 Z "/>
+</g>
+</svg>

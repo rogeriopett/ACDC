@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#4CAF50;fill-opacity:1;" d="M 440 240 C 440 350.449219 350.449219 440 240 440 C 129.550781 440 40 350.449219 40 240 C 40 129.550781 129.550781 40 240 40 C 350.449219 40 440 129.550781 440 240 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;" d="M 210 140 L 270 140 L 270 340 L 210 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;" d="M 140 210 L 340 210 L 340 270 L 140 270 Z "/>
+</g>
+</svg>

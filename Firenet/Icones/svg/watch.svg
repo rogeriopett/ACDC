@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#00ACC1;fill-opacity:1;" d="M 440 240 C 440 350.441406 350.441406 440 240 440 C 129.558594 440 40 350.441406 40 240 C 40 129.558594 129.558594 40 240 40 C 350.441406 40 440 129.558594 440 240 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#EEEEEE;fill-opacity:1;" d="M 400 240 C 400 328.378906 328.378906 400 240 400 C 151.621094 400 80 328.378906 80 240 C 80 151.621094 151.628906 80 240 80 C 328.371094 80 400 151.628906 400 240 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#78909C;fill-opacity:1;" d="M 230 399.5 C 233.320313 399.699219 236.621094 400 240 400 C 243.378906 400 246.679688 399.699219 250 399.5 L 250 360 L 230 360 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#78909C;fill-opacity:1;" d="M 360 250 L 399.5 250 C 399.699219 246.679688 400 243.378906 400 240 C 400 236.621094 399.699219 233.320313 399.5 230 L 360 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#78909C;fill-opacity:1;" d="M 80.5 250 L 120 250 L 120 230 L 80.5 230 C 80.300781 233.320313 80 236.621094 80 240 C 80 243.378906 80.300781 246.679688 80.5 250 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 316.640625 302.699219 L 299.339844 320 L 231.371094 252.03125 L 248.671875 234.730469 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 270 240 C 270 256.558594 256.558594 270 240 270 C 223.441406 270 210 256.558594 210 240 C 210 223.441406 223.441406 210 240 210 C 256.558594 210 270 223.441406 270 240 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 230 110 L 250 110 L 250 213.359375 L 230 213.359375 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#00ACC1;fill-opacity:1;" d="M 250 240 C 250 245.511719 245.511719 250 240 250 C 234.488281 250 230 245.511719 230 240 C 230 234.488281 234.488281 230 240 230 C 245.511719 230 250 234.488281 250 240 "/>
+</g>
+</svg>

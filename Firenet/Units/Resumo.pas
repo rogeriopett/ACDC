@@ -1,0 +1,453 @@
+unit Resumo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DBCtrls, DB, Grids, DBGrids, ComCtrls, ExtCtrls, Mask, Buttons,
+  PngBitBtn, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+
+type
+  TFormResumo = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    DSReceber: TDataSource;
+    DSTotalReceber: TDataSource;
+    DSPagar: TDataSource;
+    DSTotalPagar: TDataSource;
+    Panel1: TPanel;
+    DBGrid1: TDBGrid;
+    Splitter1: TSplitter;
+    Panel2: TPanel;
+    DBGrid2: TDBGrid;
+    Panel3: TPanel;
+    Label5: TLabel;
+    DBText1: TDBText;
+    Panel4: TPanel;
+    DBText2: TDBText;
+    Label1: TLabel;
+    Label2: TLabel;
+    DBGrid3: TDBGrid;
+    DSVendas: TDataSource;
+    Panel5: TPanel;
+    Label4: TLabel;
+    DBText3: TDBText;
+    DSTotalVendas: TDataSource;
+    DBText4: TDBText;
+    Label6: TLabel;
+    Panel6: TPanel;
+    Label7: TLabel;
+    DBText5: TDBText;
+    DBText6: TDBText;
+    Label8: TLabel;
+    DBGrid4: TDBGrid;
+    Label9: TLabel;
+    DBText7: TDBText;
+    DSNfe: TDataSource;
+    DSTotalNfe: TDataSource;
+    DSClientes: TDataSource;
+    DBGrid5: TDBGrid;
+    MaskEdit1: TMaskEdit;
+    MaskEdit2: TMaskEdit;
+    Label3: TLabel;
+    PngBitBtn1: TPngBitBtn;
+    DBGrid6: TDBGrid;
+    PngBitBtn2: TPngBitBtn;
+    TabSheet6: TTabSheet;
+    DBGrid7: TDBGrid;
+    DSProdutos: TDataSource;
+    DSCheques: TDataSource;
+    QYPagar: TFDQuery;
+    TRPagar: TFDTransaction;
+    QYTotalPagar: TFDQuery;
+    TRTotalPagar: TFDTransaction;
+    QYReceber: TFDQuery;
+    TRReceber: TFDTransaction;
+    QYTotalReceber: TFDQuery;
+    TRTotalReceber: TFDTransaction;
+    QYVendas: TFDQuery;
+    TRVendas: TFDTransaction;
+    QYTotalVendas: TFDQuery;
+    TRTotalVendas: TFDTransaction;
+    QYNfe: TFDQuery;
+    TRNfe: TFDTransaction;
+    QYTotalNfe: TFDQuery;
+    TRTotalNfe: TFDTransaction;
+    QYClientes: TFDQuery;
+    TRClientes: TFDTransaction;
+    QYProdutos: TFDQuery;
+    TRProdutos: TFDTransaction;
+    QYCheques: TFDQuery;
+    TRCheques: TFDTransaction;
+    QYPagarPAG_BAIXADOPOR: TStringField;
+    QYPagarPAG_CODIGO: TIntegerField;
+    QYPagarPAG_CONTA: TIntegerField;
+    QYPagarPAG_DESCPORC: TFMTBCDField;
+    QYPagarPAG_DESCRICAO: TStringField;
+    QYPagarPAG_DESCVALOR: TFMTBCDField;
+    QYPagarPAG_DESPESA: TIntegerField;
+    QYPagarPAG_DIASATRASO: TIntegerField;
+    QYPagarPAG_DIASPRAZO: TIntegerField;
+    QYPagarPAG_DTATUALIZACAO: TDateField;
+    QYPagarPAG_DTCADASTRO: TDateField;
+    QYPagarPAG_DTEMISSAO: TDateField;
+    QYPagarPAG_DTJUROSAPOS: TDateField;
+    QYPagarPAG_DTPAGAMENTO: TDateField;
+    QYPagarPAG_DTVENCIMENTO: TDateField;
+    QYPagarPAG_FORNECEDOR: TIntegerField;
+    QYPagarPAG_HRATUALIZACAO: TTimeField;
+    QYPagarPAG_HRCADASTRO: TTimeField;
+    QYPagarPAG_JUROSPAGO: TFMTBCDField;
+    QYPagarPAG_MULTAPAGO: TFMTBCDField;
+    QYPagarPAG_NOVOCODIGO: TIntegerField;
+    QYPagarPAG_NUMDOCTO: TStringField;
+    QYPagarPAG_OBSERVACOES: TMemoField;
+    QYPagarPAG_PARCELANUM: TIntegerField;
+    QYPagarPAG_PARCELAQTDE: TIntegerField;
+    QYPagarPAG_PORCJUROS: TFMTBCDField;
+    QYPagarPAG_STATUS: TStringField;
+    QYPagarPAG_TIPOBAIXA: TStringField;
+    QYPagarPAG_TIPODOCTO: TStringField;
+    QYPagarPAG_USUARIO: TStringField;
+    QYPagarPAG_VALOR: TFMTBCDField;
+    QYPagarPAG_VALORJUROS: TFMTBCDField;
+    QYPagarPAG_VALORMULTA: TFMTBCDField;
+    QYPagarPAG_VALORORIGINAL: TFMTBCDField;
+    QYPagarPAG_VALORPAGO: TFMTBCDField;
+    QYPagarFOR_AFE: TStringField;
+    QYPagarFOR_ALVARA: TStringField;
+    QYPagarFOR_ALVARASANITARIO: TStringField;
+    QYPagarFOR_ATIVIDADE: TIntegerField;
+    QYPagarFOR_BAIRRO: TStringField;
+    QYPagarFOR_CEP: TStringField;
+    QYPagarFOR_CIDADE: TStringField;
+    QYPagarFOR_CIDADECODIGO: TIntegerField;
+    QYPagarFOR_CNPJ: TStringField;
+    QYPagarFOR_CODIGO: TIntegerField;
+    QYPagarFOR_COMPLEMENTO: TStringField;
+    QYPagarFOR_CONTATO: TStringField;
+    QYPagarFOR_CPF: TStringField;
+    QYPagarFOR_DTATUALIZACAO: TDateField;
+    QYPagarFOR_DTCADASTRO: TDateField;
+    QYPagarFOR_DTNASC: TDateField;
+    QYPagarFOR_EMAIL: TStringField;
+    QYPagarFOR_EMAIL2: TStringField;
+    QYPagarFOR_ENDERECO: TStringField;
+    QYPagarFOR_ESTADO: TStringField;
+    QYPagarFOR_ESTADOCIVIL: TStringField;
+    QYPagarFOR_ESTADOCODIGO: TIntegerField;
+    QYPagarFOR_FANTASIA: TStringField;
+    QYPagarFOR_FONE0800: TStringField;
+    QYPagarFOR_FONE1: TStringField;
+    QYPagarFOR_FONE2: TStringField;
+    QYPagarFOR_FONE3: TStringField;
+    QYPagarFOR_HRATUALIZACAO: TTimeField;
+    QYPagarFOR_HRCADASTRO: TTimeField;
+    QYPagarFOR_IE: TStringField;
+    QYPagarFOR_MSN: TStringField;
+    QYPagarFOR_NEXTEL: TStringField;
+    QYPagarFOR_NOME: TStringField;
+    QYPagarFOR_NUMERO: TStringField;
+    QYPagarFOR_OBSERVACOES: TMemoField;
+    QYPagarFOR_PAIS: TStringField;
+    QYPagarFOR_PAISCODIGO: TIntegerField;
+    QYPagarFOR_REGPROFISSIONAL: TStringField;
+    QYPagarFOR_RG: TStringField;
+    QYPagarFOR_SITE: TStringField;
+    QYPagarFOR_STATUS: TStringField;
+    QYPagarFOR_TIPOPESSOA: TStringField;
+    QYPagarFOR_USUARIO: TStringField;
+    QYTotalPagarVALOR: TFMTBCDField;
+    QYReceberREE_ACRESCIMOPORC: TFMTBCDField;
+    QYReceberREE_ACRESCIMOPORCPAGO: TFMTBCDField;
+    QYReceberREE_ACRESCIMOVALOR: TFMTBCDField;
+    QYReceberREE_ACRESCIMOVALORPAGO: TFMTBCDField;
+    QYReceberREE_BAIXADOPOR: TStringField;
+    QYReceberREE_BOLETO: TIntegerField;
+    QYReceberREE_CLIENTE: TIntegerField;
+    QYReceberREE_CODIGO: TIntegerField;
+    QYReceberREE_CONTA: TIntegerField;
+    QYReceberREE_DESCPORC: TFMTBCDField;
+    QYReceberREE_DESCPORCVENCIMENTO: TFMTBCDField;
+    QYReceberREE_DESCRICAO: TStringField;
+    QYReceberREE_DESCVALOR: TFMTBCDField;
+    QYReceberREE_DIASATRASO: TIntegerField;
+    QYReceberREE_DIASPRAZO: TIntegerField;
+    QYReceberREE_DTATUALIZACAO: TDateField;
+    QYReceberREE_DTCADASTRO: TDateField;
+    QYReceberREE_DTEMISSAO: TDateField;
+    QYReceberREE_DTJUROSAPOS: TDateField;
+    QYReceberREE_DTPAGAMENTO: TDateField;
+    QYReceberREE_DTVENCIMENTO: TDateField;
+    QYReceberREE_HRATUALIZACAO: TTimeField;
+    QYReceberREE_HRCADASTRO: TTimeField;
+    QYReceberREE_JUROSPAGO: TFMTBCDField;
+    QYReceberREE_MULTAPAGO: TFMTBCDField;
+    QYReceberREE_NOVOCODIGO: TIntegerField;
+    QYReceberREE_NUMDOCTO: TStringField;
+    QYReceberREE_OBSERVACOES: TMemoField;
+    QYReceberREE_PARCELANUM: TIntegerField;
+    QYReceberREE_PARCELAQTDE: TIntegerField;
+    QYReceberREE_PORCJUROS: TFMTBCDField;
+    QYReceberREE_RECEITA: TIntegerField;
+    QYReceberREE_STATUS: TStringField;
+    QYReceberREE_TIPOBAIXA: TStringField;
+    QYReceberREE_TIPODOCTO: TStringField;
+    QYReceberREE_USUARIO: TStringField;
+    QYReceberREE_VALOR: TFMTBCDField;
+    QYReceberREE_VALORACESSORIAS: TFMTBCDField;
+    QYReceberREE_VALORJUROS: TFMTBCDField;
+    QYReceberREE_VALORMULTA: TFMTBCDField;
+    QYReceberREE_VALORORIGINAL: TFMTBCDField;
+    QYReceberREE_VALORPAGO: TFMTBCDField;
+    QYReceberREE_VALORSEMDESCONTO: TFMTBCDField;
+    QYReceberREE_VENDA: TIntegerField;
+    QYReceberREE_VENDEDOR: TIntegerField;
+    QYReceberCLI_CODIGO: TIntegerField;
+    QYReceberCLI_NOME: TStringField;
+    QYTotalReceberVALOR: TFMTBCDField;
+    QYVendasVED_CODIGO: TIntegerField;
+    QYVendasVED_DTEMISSAO: TDateField;
+    QYVendasVED_NOME: TStringField;
+    QYVendasVED_STATUS: TStringField;
+    QYVendasVED_USUARIO: TStringField;
+    QYVendasVED_VALORTOTAL: TFMTBCDField;
+    QYVendasVED_VENDEDOR: TIntegerField;
+    QYTotalVendasABERTAS: TFMTBCDField;
+    QYTotalVendasFINALIZADAS: TFMTBCDField;
+    QYNfeNFE_CODIGO: TIntegerField;
+    QYNfeNFE_DTEMISSAO: TDateField;
+    QYNfeNFE_NOME: TStringField;
+    QYNfeNFE_STATUS: TStringField;
+    QYNfeNFE_USUARIO: TStringField;
+    QYNfeNFE_VALORTOTAL: TFMTBCDField;
+    QYNfeNFE_VENDEDOR: TIntegerField;
+    QYTotalNfeABERTAS: TFMTBCDField;
+    QYTotalNfeFINALIZADAS: TFMTBCDField;
+    QYTotalNfeCANCELADAS: TFMTBCDField;
+    QYClientesCLI_AFE: TStringField;
+    QYClientesCLI_ALVARA: TStringField;
+    QYClientesCLI_ALVARASANITARIO: TStringField;
+    QYClientesCLI_ATIVIDADE: TIntegerField;
+    QYClientesCLI_ATUALIZAR: TStringField;
+    QYClientesCLI_BAIRRO: TStringField;
+    QYClientesCLI_BLOQUEARVENDA: TStringField;
+    QYClientesCLI_CEP: TStringField;
+    QYClientesCLI_CIDADE: TStringField;
+    QYClientesCLI_CIDADECODIGO: TIntegerField;
+    QYClientesCLI_CLASSIFICACAO: TStringField;
+    QYClientesCLI_CNPJ: TStringField;
+    QYClientesCLI_CNS: TStringField;
+    QYClientesCLI_CODIGO: TIntegerField;
+    QYClientesCLI_COMPLEMENTO: TStringField;
+    QYClientesCLI_CONDICAO: TIntegerField;
+    QYClientesCLI_CONJUGE: TStringField;
+    QYClientesCLI_CONJUGECPF: TStringField;
+    QYClientesCLI_CONJUGEDTNASC: TDateField;
+    QYClientesCLI_CONJUGERG: TStringField;
+    QYClientesCLI_CONTATO: TStringField;
+    QYClientesCLI_CONTRIBUINTEICMS: TStringField;
+    QYClientesCLI_CPF: TStringField;
+    QYClientesCLI_DESCONTO: TFMTBCDField;
+    QYClientesCLI_DIACOBRANCA: TIntegerField;
+    QYClientesCLI_DTATUALIZACAO: TDateField;
+    QYClientesCLI_DTCADASTRO: TDateField;
+    QYClientesCLI_DTNASC: TDateField;
+    QYClientesCLI_DTOBITO: TDateField;
+    QYClientesCLI_EMAIL: TStringField;
+    QYClientesCLI_EMAIL2: TStringField;
+    QYClientesCLI_ENDERECO: TStringField;
+    QYClientesCLI_ENQUADRAMENTO: TStringField;
+    QYClientesCLI_ESTADO: TStringField;
+    QYClientesCLI_ESTADOCIVIL: TStringField;
+    QYClientesCLI_ESTADOCODIGO: TIntegerField;
+    QYClientesCLI_FANTASIA: TStringField;
+    QYClientesCLI_FONE0800: TStringField;
+    QYClientesCLI_FONE1: TStringField;
+    QYClientesCLI_FONE2: TStringField;
+    QYClientesCLI_FONE3: TStringField;
+    QYClientesCLI_FRETE: TStringField;
+    QYClientesCLI_HRATUALIZACAO: TTimeField;
+    QYClientesCLI_HRCADASTRO: TTimeField;
+    QYClientesCLI_IDESTRANGEIRO: TStringField;
+    QYClientesCLI_IE: TStringField;
+    QYClientesCLI_IM: TIntegerField;
+    QYClientesCLI_LIMITECREDITO: TFMTBCDField;
+    QYClientesCLI_LOCALESTUDA: TIntegerField;
+    QYClientesCLI_LOCALTRABALHO: TIntegerField;
+    QYClientesCLI_MAE: TStringField;
+    QYClientesCLI_MAEEMAIL: TStringField;
+    QYClientesCLI_MAEFONE: TStringField;
+    QYClientesCLI_MAILING: TIntegerField;
+    QYClientesCLI_MENSALISTA: TStringField;
+    QYClientesCLI_MSN: TStringField;
+    QYClientesCLI_NATURALIDADE: TStringField;
+    QYClientesCLI_NEXTEL: TStringField;
+    QYClientesCLI_NOME: TStringField;
+    QYClientesCLI_NUMERO: TStringField;
+    QYClientesCLI_OBITO: TStringField;
+    QYClientesCLI_OBSERVACOES: TMemoField;
+    QYClientesCLI_ORIENTACAOCOBRANCA: TStringField;
+    QYClientesCLI_PAI: TStringField;
+    QYClientesCLI_PAIEMAIL: TStringField;
+    QYClientesCLI_PAIFONE: TStringField;
+    QYClientesCLI_PAIS: TStringField;
+    QYClientesCLI_PAISCODIGO: TIntegerField;
+    QYClientesCLI_PASSWORD: TStringField;
+    QYClientesCLI_PONTOS: TFMTBCDField;
+    QYClientesCLI_PROFISSAO: TStringField;
+    QYClientesCLI_RECEBEAVISOS: TStringField;
+    QYClientesCLI_REGPROFISSIONAL: TStringField;
+    QYClientesCLI_RG: TStringField;
+    QYClientesCLI_SAME: TStringField;
+    QYClientesCLI_SETOR: TIntegerField;
+    QYClientesCLI_SEXO: TStringField;
+    QYClientesCLI_SITE: TStringField;
+    QYClientesCLI_STATUS: TStringField;
+    QYClientesCLI_SUFRAMA: TStringField;
+    QYClientesCLI_TABELAPRECO: TStringField;
+    QYClientesCLI_TAXA: TIntegerField;
+    QYClientesCLI_TELEVENDA: TIntegerField;
+    QYClientesCLI_TIPOCLIENTE: TStringField;
+    QYClientesCLI_TIPOCONSUMIDOR: TStringField;
+    QYClientesCLI_TIPOPESSOA: TStringField;
+    QYClientesCLI_TRANSPORTADORA: TIntegerField;
+    QYClientesCLI_USUARIO: TStringField;
+    QYClientesCLI_VENDEDOR: TIntegerField;
+    QYProdutosPRO_CODIGO: TIntegerField;
+    QYProdutosPRO_CODIGOFAB: TStringField;
+    QYProdutosPRO_NOME: TStringField;
+    QYProdutosPRO_UNIDADE: TStringField;
+    QYProdutosPRO_ESTOQUEATUAL: TFMTBCDField;
+    QYProdutosPRO_PRECOVENDA: TFMTBCDField;
+    QYProdutosPRO_DTCADASTRO: TDateField;
+    QYProdutosGRU_DESCRICAO: TStringField;
+    QYChequesCHE_CODIGO: TIntegerField;
+    QYChequesCHE_CLIENTE: TIntegerField;
+    QYChequesCHE_BANCO: TIntegerField;
+    QYChequesCHE_BOMPARA: TDateField;
+    QYChequesCHE_DTCADASTRO: TDateField;
+    QYChequesCHE_NOME: TStringField;
+    QYChequesCHE_PREDATADO: TStringField;
+    QYChequesCHE_STATUS: TStringField;
+    QYChequesCHE_VALOR: TFMTBCDField;
+    QYChequesCLI_NOME: TStringField;
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
+    procedure PngBitBtn1Click(Sender: TObject);
+    procedure PngBitBtn2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormResumo: TFormResumo;
+
+implementation
+uses DataMod, Funcoes1;
+{$R *.dfm}
+
+procedure TFormResumo.FormCreate(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex:=0;
+  MaskEdit1.Text:=DateToStr(PrimeiroDiaSemana(Date));
+  MaskEdit2.Text:=DateToStr(UltimoDiaSemana(Date));
+  PngBitBtn1.Click;
+end;
+
+procedure TFormResumo.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key=#27 then
+  begin
+    Key:=#0;
+    Close;
+  end;
+end;
+
+procedure TFormResumo.PngBitBtn1Click(Sender: TObject);
+begin
+  //...
+  QYReceber.Close;
+  QYReceber.SQL.Clear;
+  QYReceber.SQL.Add('select * from RECEBER '+
+                    'left join CLIENTES on REE_CLIENTE=CLI_CODIGO '+
+                    'where REE_STATUS=''A'' and REE_DTVENCIMENTO between :datainicial and :datafinal '+
+                    'order by CLI_NOME, REE_DTVENCIMENTO desc');
+  QYReceber.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYReceber.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYReceber.Open;
+  QYTotalReceber.Close;
+  QYTotalReceber.SQL.Clear;
+  QYTotalReceber.SQL.Add('select sum(REE_VALOR+REE_VALORACESSORIAS) as VALOR from RECEBER '+
+                         'left join CLIENTES on REE_CLIENTE=CLI_CODIGO '+
+                         'where REE_STATUS=''A'' and REE_DTVENCIMENTO between :datainicial and :datafinal');
+  QYTotalReceber.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYTotalReceber.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYTotalReceber.Open;
+  //...
+  QYPagar.Close;
+  QYPagar.SQL.Clear;
+  QYPagar.SQL.Add('select * from PAGAR left join FORNECEDORES on PAG_FORNECEDOR=FOR_CODIGO where PAG_STATUS=''A'' and PAG_DTVENCIMENTO between :datainicial and :datafinal order by FOR_NOME, PAG_DTVENCIMENTO desc');
+  QYPagar.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYPagar.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYPagar.Open;
+  QYTotalPagar.Close;
+  QYTotalPagar.SQL.Clear;
+  QYTotalPagar.SQL.Add('select sum(PAG_VALOR) as VALOR from PAGAR left join FORNECEDORES on PAG_FORNECEDOR=FOR_CODIGO where PAG_STATUS=''A'' and PAG_DTVENCIMENTO between :datainicial and :datafinal');
+  QYTotalPagar.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYTotalPagar.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYTotalPagar.Open;
+  //...
+  QYVendas.Close;
+  QYVendas.SQL.Clear;
+  QYVendas.SQL.Add('select VED_CODIGO, VED_NOME, VED_DTEMISSAO, VED_VENDEDOR, VED_STATUS, VED_VALORTOTAL, VED_USUARIO from VENDAS where VED_DTEMISSAO between :datainicial and :datafinal order by VED_NOME');
+  QYVendas.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYVendas.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYVendas.Open;
+  QYTotalVendas.Close;
+  QYTotalVendas.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYTotalVendas.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYTotalVendas.Open;
+  //...
+  QYNfe.Close;
+  QYNfe.SQL.Clear;
+  QYNfe.SQL.Add('select NFE_CODIGO, NFE_NOME, NFE_DTEMISSAO, NFE_VENDEDOR, NFE_STATUS, NFE_VALORTOTAL, NFE_USUARIO from NFE where NFE_DTEMISSAO between :datainicial and :datafinal order by NFE_NOME');
+  QYNfe.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYNfe.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYNfe.Open;
+  QYTotalNfe.Close;
+  QYTotalNfe.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYTotalNfe.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYTotalNfe.Open;
+  //...
+  QYClientes.Close;
+  QYClientes.SQL.Clear;
+  QYClientes.SQL.Add('select * from CLIENTES where CLI_DTCADASTRO between :datainicial and :datafinal order by CLI_DTCADASTRO desc, CLI_NOME');
+  QYClientes.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYClientes.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYClientes.Open;
+  //...
+  QYProdutos.Close;
+  QYProdutos.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  QYProdutos.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  QYProdutos.Open;
+  //...
+  QYCheques.Close;
+  QYCheques.ParamByName('dataatual').AsDate:=Date;
+  QYCheques.Open;
+end;
+
+procedure TFormResumo.PngBitBtn2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

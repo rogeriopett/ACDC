@@ -1,0 +1,22 @@
+[data-pett-theme="blacklight"] {
+    /*nos temas que nao tem no pett-componentes, as declaracoes abaixo se fazem necessarias. */
+    --pett-page-bg: #f7f5f4; 
+    --pett-color-bg: #ffffff;
+    /*...*/
+
+    --cor-barra: #1b1b1b; /*cor da barra superior*/
+    --cor-barra-texto: #e6e6e6;
+    --cor-link: #f83c3c;
+    --cor-menu-fundo: #262626; /*cor da segunda barra com opcoes*/
+    --cor-texto: #404040; /*cor do texto em geral*/
+
+    /* pettmenubar */
+    --pett-menubar-bg: #1b1b1b;
+    --pett-menubar-hover-bg: #262626;
+    --pett-menubar-top-font-family: "Roboto Condensed",sans-serif;
+    --pett-menubar-sub-bg: #f7f5f4;
+
+    /* icones de atalho pagina inicial */
+    --cor-atalho-border: #d6d6d6;
+    --cor-atalho-bg-hover: #d6d6d6;
+}

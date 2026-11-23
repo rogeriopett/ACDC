@@ -1,0 +1,89 @@
+MDFe_Util.DLL - Bibilioteca de utilidades para o MDF-e
+
+ 3.0.1c - 2017-05-18
+
+   . correção para gerar a tag nLacre no grupo lacRod
+   . alteração para elminar os caracteres especiais de quebra de linha da assinatura nos XML obtidos no distNSU
+   . correção para gerar as tags CNPJPg e CPFPg no grupo disp
+
+ 3.0.1b - 2017-04-12
+
+   . correção da tag infMDFe para infMDFeTransp no grupo de documentos vinculados
+   . Atualização do pacote de scehma XML
+   . correção para não gerar a tag CNPJ da seguradora quando não for informado o CNPJ
+   . correção para não gerar a tag RNTRC do grupo infANTT quando não for informado o RNTRC
+   . correção para gerar a tag de grupo do lacrerodoviários como lacRodo ao invés de lacRod
+
+ 3.01a - 2017-03-10
+
+   . correção da seguinte funcionalidades:
+
+     string infMunDescarga(string cMunDescarga, string xMunDescarga, string infCTe_Grupo_Opc, string infNFe_Grupo_Opc, string infMDFe_Grupo_Opc)
+
+ 3.01 - 2017-03-10
+
+   . acrécismo das seguintes funcionalidades:
+
+     string veicPrincipal_v3(string cInt_Opc, string placa, string RENAVAM_Opc, string tara, string capKG_Opc, string capM3_Opc, string prop_Grupo_Opc, string condutor_Grupo, string tpRod, string tpCar, string UF)
+     string veicReboque_v3(string cInt_Opc, string placa, string RENAVAM_Opc, string tara, string capKG, string capM3_Opc, string prop_Grupo_Opc, string tpCar, string UF)
+
+ 3.00 - 2017-02-24
+
+   . atualização para a versão 3.00 do leiaute da MDF-e
+
+ 1.2a - 2015-07-10
+
+  . atualização de schema XML - PL_MDFe_100a_NT032015.zip;
+  . alteração das URL dos WS;
+ 
+ 1.2   - 2015-01-03
+
+  . acréscimo da funcionalidade para consultar os MDF-e não encerrados
+
+  string ConsMDFeNaoEnc(string siglaWS, string siglaUF, int tipoAmbiente, string nomeCertificado, string versao, out string msgDados, out string msgRetWS, out int resultado, out string msgResultado, string CNPJ, out string cUF, out int qtdeMDFe, string proxy, string usuario, string senha, string licenca)
+
+ 1.1b  - 2014-02-21
+ 
+  . correção para informar o nSeq correto no XML do pedido de inclusão do condutor quando o nSeq for > 1 no IncCondutorMDFe
+  
+ 1.1a  - 2013-12-19
+  
+  . correção para gerar a tag qCarga do grupo tot com 4 decimais
+ 
+ 1.00a - 2013-11-07
+
+  . atualização do schema XML para NT_2013/004
+  . acréscimo das seguintes funcionalidades para geração do modal rodoviário:
+     string prop_v10a(string CPF, string CNPJ, string RNTRC, string xNome, string IE_Opc, string UF_Opc, int tpProp)
+     string veicPrincipal_v10a(string cInt_Opc, string placa, string tara, string capKG_Opc, string capM3_Opc, string prop_Grupo_Opc, string condutor_Grupo, string tpRod, string tpCar, string UF)
+     string veicReboque_v10a(string cInt_Opc, string placa, string tara, string capKG, string capM3_Opc, string prop_Grupo_Opc, string tpCar, string UF)
+  . acréscimo de novo evento de inclusão de condutor
+     string IncCondutorMDFe(string siglaWS, int tipoAmbiente, string nomeCertificado, string versao, out string msgDados, out string msgRetWS, out int resultado, out string msgResultado, string chaveMDFe, string nProtocolo, string CPF, string xNome, string dhEvento, int nSeq, out string nProtocoloInc, out string dProtocoloInc, string proxy, string usuario, string senha, string licenca)
+
+Versão: 1.00  - 2013/06/03
+
+  . atualização do schema XML para NT_2013/002
+  . alteração do nome da tag para veicPrincipal para veicTracao
+  .  acréscimo de novas funcionalidades para geração do grupo infUnidTransp
+      string infUnidTransp(string _tpUnidTransp, string _idUnidTransp, string _lacUnidTransp_Opc, string _infUnidCarga_Opc, string _qtdRat_Opc)
+      string lacUnidTransp(string _nLacre)
+      string infUnidCarga(string _tpUnidCarga, string _idUnidCarga, string _lacUnidCarga_Opc, string _qtdRat_Opc)
+      string lacUnidCarga(string _nLacre)
+      string infNFNovo(string _CNPJ, string _UF, string _nNF, string _serie, DateTime _dEmi, double _vNF, string _PIN_Opc, string _infUnidTransp_Opc)
+      string infNFeNovo(string _chNFe, string _SegCodBarra_Opc, string _infUnidTransp_Opc)
+      string infCTNovo(string _nCT, string _serie, string _subser_Opc, DateTime _dEmi, double _vCarga, string _infUnidTransp_Opc)
+      string infCTeNovo(string _chCTe, string _SegCodBarra_Opc, string _infUnidTransp_Opc)
+
+Versão: 0.00b - 2013-03-20
+
+   . atualização do schema XML - NT 2013/001
+
+
+Versão: 0.00a - 2012-11-27
+
+   . correção do tratamento do retorno do evento de cancelamento e encerramento.
+   . correção na geração da tag cMDF para considerar os zeros não significativos.
+
+Versão: 0.00 - 2012-10-15 - versão preliminar
+
+

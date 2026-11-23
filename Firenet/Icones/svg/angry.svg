@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCA28;fill-opacity:1;" d="M 440 240 C 440 350 350 440 240 440 C 130 440 40 350 40 240 C 40 130 130 40 240 40 C 350 40 440 130 440 240 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#B76C09;fill-opacity:1;" d="M 210 360 C 198 360 185 354 172 336 L 188 324 C 206 349 217 341 236 326 C 248 317 262 307 278 310 C 289 312 299 320 308 334 L 291 345 C 285 336 279 331 274 330 C 267 329 257 335 247 342 C 238 350 225 360 210 360 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 371 195 L 260 242 C 260 242 287 285 331 264 C 362 249 371 195 371 195 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 352 229 C 352 251 334 269 312 269 C 290 269 272 251 272 229 C 272 207 290 189 312 189 C 334 189 352 207 352 229 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 332 229 C 332 240 323 249 312 249 C 301 249 292 240 292 229 C 292 218 301 209 312 209 C 323 209 332 218 332 229 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCA28;fill-opacity:1;" d="M 371 195 L 260 242 C 260 242 262 189 292 179 C 322 169 371 195 371 195 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 109 195 L 220 242 C 220 242 193 285 149 264 C 118 249 109 195 109 195 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 210 230 C 210 252 192 270 170 270 C 148 270 130 252 130 230 C 130 208 148 190 170 190 C 192 190 210 208 210 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 190 230 C 190 241 181 250 170 250 C 159 250 150 241 150 230 C 150 219 159 210 170 210 C 181 210 190 219 190 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCA28;fill-opacity:1;" d="M 109 195 L 220 242 C 220 242 218 189 188 179 C 158 169 109 195 109 195 Z "/>
+</g>
+</svg>

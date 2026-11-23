@@ -1,0 +1,7 @@
+Icone_Amarelo ICON "Logomarcas\\Runtime_Amarelo.ico"
+Icone_Azul ICON "Logomarcas\\Runtime_Azul.ico"
+Icone_Laranja ICON "Logomarcas\\Runtime_Laranja.ico"
+Icone_Preto ICON "Logomarcas\\Runtime_Preto.ico"
+Icone_Verde ICON "Logomarcas\\Runtime_Verde.ico"
+Icone_1 ICON "Runtime.ico"
+FE_FONT RCDATA "FE-FONT.TTF"

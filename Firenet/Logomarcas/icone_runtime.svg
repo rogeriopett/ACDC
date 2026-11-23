@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2017 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="502px" height="596px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 101.62 120.66"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil1 {fill:#D10000}
+    .fil2 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="fundo_transparente">
+   <rect class="fil0" width="101.6" height="120.66"/>
+  </g>
+  <g id="icone">
+   <path class="fil1" d="M30.69 10.53l64.04 0c4.82,0 7.79,3.91 6.64,8.72l-19.62 81.99c-1.15,4.82 -5.99,8.73 -10.81,8.73l-64.05 0c-4.81,0 -7.78,-3.91 -6.63,-8.73l19.62 -81.99c1.15,-4.81 5.99,-8.72 10.81,-8.72z"/>
+  </g>
+  <g id="raio">
+   <polygon class="fil2" points="31.92,65.61 51.28,22.62 66.61,22.62 56.81,50.02 71.64,50.02 34.19,103.32 46.76,65.61 "/>
+  </g>
+ </g>
+</svg>

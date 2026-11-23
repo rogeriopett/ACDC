@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#2196F3;fill-opacity:1;" d="M 450 340 L 450 180 C 450 135.820313 414.179688 100 370 100 L 160 100 C 115.820313 100 80 135.820313 80 180 L 80 340 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 380 170 L 420 170 L 420 230 L 380 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 300 170 L 400 170 L 400 190 L 300 190 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF3D00;fill-opacity:1;" d="M 310 180 C 310 191.046875 301.046875 200 290 200 C 278.953125 200 270 191.046875 270 180 C 270 168.953125 278.953125 160 290 160 C 301.046875 160 310 168.953125 310 180 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#DD2C00;fill-opacity:1;" d="M 300 180 C 300 185.523438 295.523438 190 290 190 C 284.476563 190 280 185.523438 280 180 C 280 174.476563 284.476563 170 290 170 C 295.523438 170 300 174.476563 300 180 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCC80;fill-opacity:1;" d="M 250 340 L 300 340 L 300 440 L 250 440 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFA726;fill-opacity:1;" d="M 250 340 L 300 340 L 300 360 L 250 360 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#1976D2;fill-opacity:1;" d="M 160 100 C 115.890625 100 80 135.890625 80 180 L 80 340 L 240 340 L 240 180 C 240 135.890625 204.109375 100 160 100 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#64B5F6;fill-opacity:1;" d="M 160 120 C 126.910156 120 100 146.910156 100 180 L 100 320 L 220 320 L 220 180 C 220 146.910156 193.089844 120 160 120 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#0D47A1;fill-opacity:1;" d="M 200 200 C 200 205.519531 195.519531 210 190 210 L 130 210 C 124.480469 210 120 205.519531 120 200 C 120 194.480469 124.480469 190 130 190 L 190 190 C 195.519531 190 200 194.480469 200 200 Z "/>
+</g>
+</svg>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 320 150 L 320 430 L 100 430 C 78 430 60 412 60 390 L 60 150 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCCBC;fill-opacity:1;" d="M 140 50 L 140 390 C 140 412 122 430 100 430 L 390 430 C 412 430 430 412 430 390 L 430 50 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 100 L 380 100 L 380 140 L 200 140 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 170 L 280 170 L 280 190 L 200 190 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 170 L 380 170 L 380 190 L 300 190 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 210 L 280 210 L 280 230 L 200 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 210 L 380 210 L 380 230 L 300 230 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 250 L 280 250 L 280 270 L 200 270 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 250 L 380 250 L 380 270 L 300 270 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 290 L 280 290 L 280 310 L 200 310 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 290 L 380 290 L 380 310 L 300 310 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 330 L 280 330 L 280 350 L 200 350 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 330 L 380 330 L 380 350 L 300 350 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 200 370 L 280 370 L 280 390 L 200 390 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FF5722;fill-opacity:1;" d="M 300 370 L 380 370 L 380 390 L 300 390 Z "/>
+</g>
+</svg>

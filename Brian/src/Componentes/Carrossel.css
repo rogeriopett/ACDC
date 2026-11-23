@@ -1,0 +1,38 @@
+/* As classes flickity-*, .dot e .is-selected são geradas pelo react-flickity-component. */
+  .flickity-button {
+    background: transparent;
+  }
+  
+  .flickity-button:hover {
+    background: transparent;
+  }
+  
+  .flickity-prev-next-button {
+    width: 45px;
+    height: 45px;
+    border-radius: 55px;
+  }
+  
+  .flickity-button-icon {
+    fill: white;
+  }
+  
+  /* position dots in carousel */
+  .flickity-page-dots {
+    bottom: 5px;
+  }
+  
+  /* white circles */
+  .flickity-page-dots .dot {
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+    background: #198754;
+    border: 1px solid white;
+  }
+  
+  /* fill-in selected dot */
+  .flickity-page-dots .dot.is-selected {
+     background: white;
+  }
+  

@@ -1,0 +1,173 @@
+/* Estilos globais do Brian.
+   As cores vêm do tema do pett-componentes (data-pett-theme no <html>: reddark/redlight),
+   então trocar o tema muda tudo junto. Use as classes abaixo no lugar das cores fixas do Bootstrap
+   (bg-dark, card, link-dark, text-muted, text-success...). */
+
+body {
+    background-color: var(--pett-page-bg);
+    color: var(--pett-color-text);
+    font-family: var(--pett-font-family, Arial, Helvetica, sans-serif); /* mesma fonte dos componentes do pacote */
+    font-size: 15px;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--pett-color-text);
+    text-decoration: none;
+}
+
+/* Barra do topo das telas (antes bg-dark). */
+.barra-tema {
+    background-color: var(--pett-color-bg);
+    color: var(--pett-color-text);
+    border-bottom: 1px solid var(--pett-color-border);
+}
+
+/* Faixa de seção dentro da tela (antes bg-secondary bg-opacity-25). */
+.barra-secao {
+    background-color: var(--pett-field-btn-bg);
+    color: var(--pett-color-text);
+}
+
+/* Título de seção dentro da tela: traço na cor de acento do tema, texto em maiúsculas e uma linha
+   que completa a largura. Ex.: <h2 className="titulo-secao">Meta atual</h2> */
+.titulo-secao {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pett-color-text-muted);
+}
+
+.titulo-secao::before {
+    content: "";
+    width: 4px;
+    height: 1.1em;
+    border-radius: 2px;
+    background-color: var(--pett-color-accent);
+}
+
+.titulo-secao::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--pett-color-border);
+}
+
+/* Item de listagem (antes card rounded-0 border-0 border-bottom). */
+.lista-item {
+    position: relative; /* para o stretched-link */
+    background-color: var(--pett-color-bg);
+    color: var(--pett-color-text);
+    border-bottom: 1px solid var(--pett-color-border);
+}
+
+.lista-link,
+.lista-link:hover {
+    color: var(--pett-color-text);
+}
+
+.texto-suave {
+    color: var(--pett-color-text-muted);
+}
+
+.texto-verde {
+    color: var(--pett-btn-green);
+}
+
+.texto-azul {
+    color: var(--pett-btn-blue);
+}
+
+.texto-vermelho {
+    color: var(--pett-btn-red);
+}
+
+.texto-amarelo {
+    color: var(--pett-btn-orange);
+}
+
+/* list-group do Bootstrap (formulários de visualização) nas cores do tema. */
+.list-group {
+    --bs-list-group-bg: var(--pett-color-bg);
+    --bs-list-group-color: var(--pett-color-text);
+    --bs-list-group-border-color: var(--pett-color-border);
+    --bs-list-group-action-color: var(--pett-color-text);
+    --bs-list-group-action-hover-color: var(--pett-color-text);
+    --bs-list-group-action-hover-bg: var(--pett-field-btn-bg);
+}
+
+/* para formularios onde o campo está vazio. mantém a altura como se estivesse preenchido. */
+.list-group-item p:last-child:empty::before {
+    content: "\00a0"; /*Adiciona um caractere de espaço 'non-breaking space' invisível*/
+    visibility: hidden;
+}
+
+/* Cabeçalho do produto (ProdutoHeader): card no tema, com a mesma largura do list-group. */
+.produto-header {
+    background-color: var(--pett-color-bg);
+    color: var(--pett-color-text);
+    border: 1px solid var(--pett-color-border);
+    border-radius: var(--bs-border-radius, 0.375rem);
+    padding: 0.75rem;
+}
+
+.produto-header-foto {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background-color: #ffffff; /* as fotos dos produtos têm fundo branco */
+    border: 1px solid var(--pett-color-border);
+    border-radius: var(--bs-border-radius, 0.375rem);
+    cursor: zoom-in;
+}
+
+.produto-header-rodape {
+    border-top: 1px solid var(--pett-color-border);
+}
+
+/* Tamanhos de fonte menores para listagens (base do body: 15px). */
+.fonte-sm {
+    font-size: 0.875rem; /* 14px */
+}
+
+.fonte-xs {
+    font-size: 0.75rem; /* 12px */
+}
+
+.badge {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.cabecalho {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--pett-color-text);
+    font-family: "Roboto Condensed", sans-serif;
+    line-height: 1rem;
+}
+
+.limit-width {
+    max-width: 500px;
+}
+
+/* Modal de formulario: corpo com margem lateral menor (o PettModal usa 18px), campos centralizados */
+.modal-campos .pett-modal-body {
+    padding: 10px 8px;
+}
+
+.limit-height {
+    height: 50px;
+    max-height: 50px;
+}
+
+.link-icone {
+    font-size: 10px;
+}

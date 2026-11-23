@@ -1,0 +1,41 @@
+</zera>
+<c></ce>
+<bmp>C:\Runtime\Firenet\LogoCupom.bmp</bmp>
+<n>GP AUTO AR COMERCIO DE AR CONDICIONADO PARA VEICULOS LTDA</n>
+CNPJ: 09.324.851/0001-64 IE: 255.776.250
+FRANCISCO HRUSCHKA, 63 SAO LUIS
+JARAGUA DO SUL/SC CEP: 89253-600 FONE: (047) 2106-0260
+----------------------------------------------------------------
+DOCUMENTO AUXILIAR DA NOTA FISCAL DE CONSUMIDOR ELETRONICA
+<n><in>EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</in></n>
+----------------------------------------------------------------
+<n>ITEM DESCRICAO  CODIGO  QUANTIDADE UN.  VALOR UNIT   VALOR TOTAL</n>
+----------------------------------------------------------------
+001  NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR 
+                   200       1,000 UN     1.244,24      1.244,24
+----------------------------------------------------------------
+QUANTIDADE DE ITENS                                          001
+VALOR TOTAL R$                                          1.244,24
+<n>VALOR A PAGAR R$                                        1.244,24</n>
+----------------------------------------------------------------
+FORMA PAGAMENTO                                    VALOR PAGO R$
+A VISTA                                                 1.244,24
+----------------------------------------------------------------
+</ce>CONSULTA PELA CHAVE DE ACESSO EM
+https://sat.sef.sc.gov.br/nfce/consulta
+4225.1209.3248.5100.0164.6500.1000.0000.8010.9131.1671
+Via consumidor
+CONSUMIDOR: AIRTON GIELOW
+WALTER MARQUARDT, 2595, , VILA NOVA, JARAGUA DO SUL - SC
+<n>NFC-e:</n> 000000080 <n>SÉRIE:</n> 001
+<n><in>EMITIDA EM CONTINGENCIA - PENDENTE DE AUTORIZACAO</in></n>
+<qrcode_tipo>2</qrcode_tipo><qrcode_largura>4</qrcode_largura><qrcode_error>0</qrcode_error><qrcode></qrcode>
+TRIBUTOS APROX. (Lei Fed. 12.741/2012): 276,84
+VENDEDOR: 23 - JEFFERSON JUNKES
+----------------------------------------------------------------
+Runtime Sistemas                          runtimesistemas.com.br
+</c>
+
+
+
+</corte_total>

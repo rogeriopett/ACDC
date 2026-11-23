@@ -1,0 +1,10 @@
+Timestamp=[09/06/2026 14:58:00]
+WS=[distNSU]
+URL=[]
+ambiente=[1]
+certificado=[CN=GP AUTO AR COMERCIO DE AR CONDICIONADO PARA VEICU:09324851000164, OU=presencial, OU=83729848000183, OU=RFB e-CNPJ A1, OU=Secretaria da Receita Federal do Brasil - RFB, L=JARAGUA DO SUL, S=SC, O=ICP-Brasil, C=BR]
+erro=[5405 - Erro: Nenhum certificado válido foi encontrado com o nome [CN=GP AUTO AR COMERCIO DE AR CONDICIONADO PARA VEICU:09324851000164, OU=presencial, OU=83729848000183, OU=RFB e-CNPJ A1, OU=Secretaria da Receita Federal do Brasil - RFB, L=JARAGUA DO SUL, S=SC, O=ICP-Brasil, C=BR] informado no repositório [MY do CurrentUser]]
+msgDados=[]
+msgRetWS=[]
+
+DLL=[NFe_Util 2G v5.0.0n beta 08-11-2025 - © 2008-2025 - www.flexdocs.com.br - Todos os direitos reservados]

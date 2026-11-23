@@ -1,0 +1,34 @@
+|CLI_NOME|		Nome do cliente
+|CLI_ESTADOCIVIL|	Estado civil
+|CLI_CPF|		CPF
+|CLI_RG|		Carteira de Identidade
+|CLI_ENDERECO|		Endereco do cliente
+|CLI_NUMERO|		Numero
+|CLI_CIDADE|		Cidade
+|CLI_ESTADO|		Estado
+|CLI_COMPLEMENTO|	Complemento
+|CLI_CEP|		CEP
+|CLI_BAIRRO|		Bairro
+|EMP_NOME|		Nome da Empresa
+|EMP_ENDERECO|		Endereco da Empresa
+|EMP_NUMERO|		Numero
+|EMP_BAIRRO|		Bairro
+|EMP_CIDADE|		Cidade
+|EMP_ESTADO|		Estado
+|EMP_CNPJ|		CNPJ da Empresa
+|TUR_DESCRICAO|		Descricao da turma
+|TUR_DIAS|		Dias Ex: SEG - QUA - SEX
+|TUR_DTINICIO|		Data inicio das aulas
+|TUR_DTTERMINO|		Data término
+|TUR_CARGAHORARIA|	Carga horária do curso
+|TUR_ENCONTROS|		Numero de encontros
+|TUR_HORARIO|		Horário 
+|TUR_PERIODO|		Periodo
+|TUR_ANO|		Ano
+|VED_CODIGO|		Codigo do pedido de venda.
+|VED_VALORTOTAL|	Valor total do pedido.
+|VED_DESCPORC|		% de desconto
+|VED_TOTALITENS|	Total do pedido sem desconto.
+|VED_CONDICAOMEMO|	Memo com as condicoes de pagamento.
+|CPG_DESCRICAO|		Descricao da condição de pagamento.
+|DATAEXTENSO|		Data por extenso

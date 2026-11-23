@@ -1,0 +1,23 @@
+/* Estilização exclusiva para a página de Login (cores do tema do pett-componentes) */
+
+.login-container {
+    background-color: var(--pett-page-bg);
+    min-height: 100vh;  /* navegadores sem dvh */
+    min-height: 100dvh; /* altura visível no celular: o 100vh inclui a barra do navegador e gerava rolagem */
+    padding: 1rem;      /* o espaço nas bordas fica aqui, e não na margem do card (w-100 + margem passava da largura da tela) */
+}
+
+.login-card {
+    background-color: var(--pett-color-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--pett-color-border);
+}
+
+/* Mensagem de erro */
+.login-alert {
+    background-color: rgba(229, 38, 38, 0.15) !important;
+    border: 1px solid #e52626 !important;
+    color: var(--pett-btn-red) !important;
+    font-size: 0.9rem;
+}

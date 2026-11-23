@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480pt" height="480pt" viewBox="0 0 480 480" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCC80;fill-opacity:1;" d="M 243 227 C 232 216 213 216 201 228 C 189 240 189 258 200 270 L 264 334 C 275 345 294 345 306 333 C 318 321 318 303 307 291 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCC80;fill-opacity:1;" d="M 202 356 L 287 271 L 298 282 C 306 290 327 295 341 281 C 355 267 347 247 340 239 C 333 232 308 207 308 207 C 308 207 322 165 319 143 C 318 124 307 111 284 108 L 234 100 C 192 100 156 105 126 135 L 77 184 C 42 220 40 279 76 315 C 76 315 110 349 153 392 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCC80;fill-opacity:1;" d="M 200 269 C 189 258 170 258 158 270 C 146 282 146 300 157 312 L 208 363 C 219 374 238 374 250 362 C 262 350 262 332 251 320 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFCC80;fill-opacity:1;" d="M 145 299 C 134 288 115 288 103 300 C 91 312 91 330 102 342 L 153 393 C 164 404 183 404 195 392 C 207 380 207 362 196 350 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 97 335 C 77 354 62 366 62 366 C 47 382 46 406 60 420 C 74 434 98 434 113 419 C 114 418 127 406 146 386 Z M 90 405 C 82 405 75 398 75 390 C 75 382 82 375 90 375 C 98 375 105 382 105 390 C 105 398 98 405 90 405 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#607D8B;fill-opacity:1;" d="M 425 105 L 380 150 C 380 150 363 150 346 134 C 330 117 330 100 330 100 L 376 54 C 343 44 311 52 288 75 C 253 110 284 154 275 163 C 273 165 272 166 270 168 L 312 210 C 314 208 316 206 318 204 C 327 195 370 228 406 192 C 427 169 436 141 425 105 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F2A25A;fill-opacity:1;" d="M 300 283 L 270 253 C 266 249 260 249 256 253 C 252 257 252 263 256 267 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F2A25A;fill-opacity:1;" d="M 257 325 L 225 294 C 221 290 215 290 211 294 C 207 298 207 304 211 308 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F2A25A;fill-opacity:1;" d="M 202 355 L 178 330 C 174 326 168 326 164 330 C 160 334 160 340 164 344 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F2A25A;fill-opacity:1;" d="M 274 164 C 276 162 276 160 276 157 L 245 145 L 270 170 C 271 167 273 165 274 164 Z "/>
+</g>
+</svg>

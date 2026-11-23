@@ -1,0 +1,73 @@
+/***********************/
+/* Bootstrap           */
+/***********************/
+.badge {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.navbar-brand {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.nav-link {
+    color: #fff;
+    height: 30px;
+}
+  
+.nav-link:hover {
+    color: #003399;
+    background-color: #dedede;
+}
+  
+.nav-link:focus {
+    color: #000;
+    background-color: #c5c5c5;
+}
+
+.nav-link.active {
+    color: #000 !important;
+    background-color: #c5c5c5;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    background-color: #ffffff;
+}
+
+.navbar-toggler {
+    border: 0px;
+}
+
+.navbar-toggler:focus {  
+    box-shadow: 0 0 0 0;
+}
+
+.nav-tabs {
+    --bs-nav-tabs-border-color: #959595;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f00 !important;
+    background-color: #dadada;
+    border-color: #959595;
+    border-bottom-color: #dadada;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    color: #000000;
+    background-color: #dadada;
+    border-color: #959595;
+    border-bottom-color: #dadada;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
