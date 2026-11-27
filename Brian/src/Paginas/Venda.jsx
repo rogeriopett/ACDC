@@ -13,6 +13,8 @@
 //2026.11.18 - Itens com SwipeableList (react-swipeable-list) trocados pelo PettSwipeItem do pett-componentes (acoes Excluir e Editar).
 //2026.11.18 - Removida a classe mb-1 do size dos PettField* (o espacamento fica com o pett-componentes/row g-1).
 //2026.11.19 - Modais de formulario com a classe modal-campos (margem lateral menor, campos centralizados).
+//2026.11.27 - Mensagem de registro nao encontrado com o componente local NaoEncontrado (PettIcon no lugar do fa-record-vinyl; sem vh-100).
+//2026.11.27 - VerVenda liga o carregando (comecava com setCarregando(false) e o Loading nunca aparecia).
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
@@ -34,6 +36,7 @@ import Api from '../Api';
 import { AuthContext } from '../Contextos/Auth';
 import CondicoesLoc from '../Componentes/CondicoesLoc';
 import Loading from '../Componentes/Loading';
+import NaoEncontrado from '../Componentes/NaoEncontrado';
 import ProdutosLoc from '../Componentes/ProdutosLoc';
 import VendasItens from '../Componentes/VendasItens';
 import { formatarDataStr, formatarHora, tratarCatch } from '../Funcoes';
@@ -61,7 +64,7 @@ function Venda(props) {
     const [ showCondicoesLoc, setShowCondicoesLoc ] = useState(false);
 
     async function VerVenda() {
-        setCarregando(false);
+        setCarregando(true);
         var formData = new FormData();
         formData.set('op', 'visualizar');
         formData.set('VED_CODIGO', id);
@@ -373,11 +376,7 @@ function Venda(props) {
         </div>
 
         <Loading status={carregando}/>
-        <PettIf condicional={venda.VED_CODIGO<=0}>
-            <div className="container limit-width vh-100 d-flex justify-content-center align-items-center">
-                <p className="text-center lead"><span style={{fontSize: '7em'}} className="texto-suave"><i className="fa fa-fw fa-record-vinyl"></i></span><br/>Não foi possível localizar o pedido.</p>
-            </div>  
-        </PettIf>
+        <NaoEncontrado show={!carregando && venda.VED_CODIGO<=0} mensagem="Não foi possível localizar o pedido."/>
         <PettIf condicional={venda.VED_CODIGO>0}>
             
             <div className="container-fluid limit-width mt-2">

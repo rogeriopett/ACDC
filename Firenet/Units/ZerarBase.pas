@@ -775,7 +775,6 @@ begin
       DM.TBParametrosPAR_LOCALFOTOSIMOVEIS.Value:='\\servidor\arquivos\imoveis_fotos';
       DM.TBParametrosPAR_LOCALFOTOSPRODUTOS.Value:='\\servidor\arquivos\produtos_fotos';
       DM.TBParametrosPAR_LOCALIMAGENSCONSULTAS.Value:='\\servidor\arquivos\consultas_imagens';
-      DM.TBParametrosPAR_LOCALLOGOMARCA.Value:='\\servidor\arquivos\logomarca';
       DM.TBParametrosPAR_LOCALMODELOSDOC.Value:='\\servidor\arquivos\modelos';
       DM.TBParametrosPAR_LOCALPADRAO.Value:=1;
       DM.TBParametrosPAR_LOCALPRONTUARIOS.Value:='\\servidor\arquivos\prontuarios';

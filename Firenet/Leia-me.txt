@@ -1,5 +1,111 @@
 MDFe_Util.DLL - Bibilioteca de utilidades para o MDF-e
 
+4.0.0a  - 2026-06-18
+
+  - correção na geração dos indicadores operacionais - ANTT_InfIndicadoresOperacionais
+  - correção da geração do número do CIOT no ambiente de produção  - ANTT_GeraCIOT
+
+4.0.0   - 2026-06-05
+
+- CNPJ alfanumérico
+  - public int CriaChaveNFe2G(string cUF, string Ano, string Mes, string CNPJ, string modelo, string serie, string numero, string tpEmis, string codigoSeguranca, out string msgResultado, out string cNF, out string cDV, out string chaveNFe)
+  - Código Barras chave de acesso com CNPJ alfanumérico
+
+  - ANTT_GeraCIOT - gerar número do CIOT
+     string ANTT_GeraCIOT(int tpAmb, string nomeCertificado, string CpfCnpj, out int cStat, out string msgResultado, out string msgDados, out string CIOT, out string DataGeracao, out string Mensagem)
+
+   - ANTT_ConsultaSitTransp - consultar situação da Transportadora
+
+     string ANTT_ConsultaSitTransp(int tpAmb, string nomeCertificado, string CpfCnpjInteressado, string CpfCnpjTransportador, string RNTRCTransportador, out int cStat, out string msgResultado, out string msgDados, out string NomeRazaoSocialTransportador, out string RNTRCAtivo, out string Mensagem, out string Procotolo, out string Codigo, out string TipoTransportador, out string EquiparadoTAC)
+
+   - ANTT_ConsultaFrotaTransp - consultar frota da Transportadora
+
+     string ANTT_ConsultaFrotaTransp(int tpAmb, string nomeCertificado, string CpfCnpjInteressado, string CpfCnpjTransportador, string RNTRCTransportador, string Placas, out int cStat, out string msgResultado, out string msgDados, out string NomeRazaoSocialTransportador, out string RNTRCAtivo, out string Mensagem, out string Procotolo, out string Codigo, out string Frota)
+
+   - ANTT_DeclaraOpeTransp - declarar operação de transporte
+
+     string ANTT_DeclaraOpeTransp(int tpAmb, string nomeCertificado, string Declaracao, out int cStat, out string msgResultado, out string msgDados, out string IdOperacaoTransporte, out string CodigoVerificador, out string Protocolo, out string Codigo, out string Mensagem, out string AvisoTransportador)
+
+   - ANTT_CancelaOpeTransp - cancelar operação de transporte
+
+     string ANTT_CancelaOpeTransp(int tpAmb, string nomeCertificado, string CIOT16, string MotivoCancelamento, out int cStat, out string msgResultado, out string msgDados, out string DataCancelamento, out string Protocolo, out string Codigo, out string Mensagem)
+
+   - ANTT_RetificaOpeTransp - retificar operação de transporte
+
+     string ANTT_RetificaOpeTransp(int tpAmb, string nomeCertificado, string Retificacao, out int cStat, out string msgResultado, out string msgDados, out string DataRetificacao, out string Protocolo, out string Codigo, out string Mensagem)
+
+   - ANTT_EncerraOpeTransp - encerrar operação de transporte
+
+     string ANTT_EncerraOpeTransp(int tpAmb, string nomeCertificado, string Encerramento, out int cStat, out string msgResultado, out string msgDados, out string DataEncerramento, out string Protocolo, out string Codigo, out string Mensagem)
+
+   - ANTT_ConsultaExcecao - consultar exceção
+
+     string ANTT_ConsultaExcecao(int tpAmb, string nomeCertificado, string CpfCnpjTransportador, out int cStat, out string msgResultado, out string msgDados, out string Flag,out string Codigo, out string Mensagem)
+
+   - ANTT_ConsultaCIOTGerado - consultar CIOT gerado
+
+     string ANTT_ConsultaCIOTGerado(int tpAmb, string nomeCertificado, string CIOT12, int AnoDeclaracao, out int cStat, out string msgResultado, out string msgDados, out string Mensagem, out string Codigo, out string CIOT16)
+
+  - cria dados do veículo
+
+     string ANTT_Veiculo(string Placa, string RNTRC, string NumeroEixos)
+
+  - cria grupo de informações da origem e destino da carga
+
+     string ANTT_OrigemDestino(string CodigoMunicipioOrigem, string CepOrigem, string LatitudeOrigem, string LongitudeOrigem, string CodigoMunicipioDestino, string CepDestino, string LatitudeDestino, string LongitudeDestino, string DistanciaPercorrida)
+
+  - cria grupo de dados da carga
+
+     string ANTT_DadosCarga(string CodigoNaturezaCarga, string PesoCarga, string CodigoTipoCarga, string ContratantesCargFrac)
+
+  - cria grupo de informações do pagamento do frete
+
+     string ANTT_InfPagamento(string TipoPagamento, string CodigoInstituicaoFinanceira, string NumeroAgencia, string NumeroConta, string ChavePix, string CpfCnpjCreditado, string CodigoPagamento, string IdentificadorPix, string IndPagamento, string NumeroParcela, string DataVencimento, string ValorParcela)
+
+   - cria grupo de indicadores operacionais
+
+     string ANTT_InfIndicadoresOperacionais(string IndAltoDesempenho, string IndRetornoVazio, string ComposicaoVeicular)
+
+   - cria declaração de operação de transporte
+
+     string ANTT_Declaracao(string IdOperacaoTransporte, string TipoOperacao, string CpfCnpjContratado, string RNTRCContratado, string CpfCnpjContratante, string RNTRCContratante,
+
+   - cria informação de retificação
+
+     string ANTT_Retificacao(string CIOT16, string ValorFrete, string DataFimViagem, string OrigemDestino, string CodigoNaturezaCarga, string PesoCarga, string CodigoTipoCarga)
+
+    - cria grupo origem destino para retificação
+
+     string ANTT_OrigemDestinoRetificacao(string CodigoMunicipioOrigem, string CepOrigem, string LatitudeOrigem, string LongitudeOrigem, string CodigoMunicipioDestino, string CepDestino, string LatitudeDestino, string LongitudeDestino)
+
+    - cria informação de encerramento
+
+     string ANTT_Encerramento(string CIOT16, string OrigemDestinoEncerramento, string PesoTotalCarga)
+
+    - cria grupo origem destino para encerramento
+
+     string ANTT_OrigemDestinoEncerramento(string CodigoMunicipioOrigem, string CepOrigem, string LatitudeOrigem, string LongitudeOrigem, string CodigoMunicipioDestino, string CepDestino, string LatitudeDestino, string LongitudeDestino, string DistanciaPercorrida, string QtdViagens)
+
+    - formata Json
+
+     string formataJson(string Json)]
+
+     - [MOSTRACIOT] -> geraPDFDAMDFE - opção para mostrar o(s) CIOT(s) no quadro de observações
+
+     - RNTRC - eliminação do limite máximo de 8 dígitos
+
+3.0.10f - 2026-04-08
+
+       - remoção do limite de 12 dígitos do CIOT do grupo infCIOT 
+
+3.0.10e - 2025-12-01
+
+      - correção para não gerar o CIOT quando não informado nenhum conteúdo
+
+3.0.10d - 2025-09-29
+
+      - alteração da validação do schema XML
+
 3.0.10c - 2025-07-03
 
       - alteração para não tratar o cStat=301 e cStat=302 como denegação de uso no enviaMDFe

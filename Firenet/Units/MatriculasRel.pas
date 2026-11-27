@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorios no FastReport (FormMatriculasFast, MAT01 a MAT23); os QuickReports (FormMatriculasQ01 a Q23) ficaram comentados. A opcao 18 (contrato) nao mudou.
 unit MatriculasRel;
 
 interface
@@ -65,36 +67,30 @@ type
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure Edit3Exit(Sender: TObject);
-    procedure Edit3KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit3KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SpeedButton2Click(Sender: TObject);
     procedure Edit3KeyPress(Sender: TObject; var Key: Char);
     procedure BitBtn1Click(Sender: TObject);
     procedure Edit1Exit(Sender: TObject);
-    procedure Edit1KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton1Click(Sender: TObject);
     procedure ComboBox4Change(Sender: TObject);
     procedure Edit5KeyPress(Sender: TObject; var Key: Char);
     procedure Edit6Exit(Sender: TObject);
-    procedure Edit6KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit6KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit6KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton3Click(Sender: TObject);
     procedure Edit8Exit(Sender: TObject);
-    procedure Edit8KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit8KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit8KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton4Click(Sender: TObject);
     procedure Edit10Exit(Sender: TObject);
-    procedure Edit10KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit10KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit10KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton5Click(Sender: TObject);
     procedure Edit12Exit(Sender: TObject);
-    procedure Edit12KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit12KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit12KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton6Click(Sender: TObject);
     procedure Edit14Exit(Sender: TObject);
@@ -118,14 +114,8 @@ var
   FormMatriculasRel: TFormMatriculasRel;
 
 implementation
-uses DataMod, Funcoes1, TurmasLoc, MatriculasQ01, MatriculasQ02,
-  MatriculasQ03, MatriculasQ04, MatriculasQ05, MatriculasQ06,
-  MatriculasQ07, MatriculasQ08, MatriculasQ09, MatriculasQ10,
-  MatriculasQ11, MatriculasQ12, MatriculasQ13, MatriculasQ14, MotivosLoc,
-  MatriculasQ15, MatriculasQ16, DataMod2,
-  MatriculasQ17, MatriculasQ18, Matriculas, MatriculasQ19,
-  AvaliacoesTipoLoc, MatriculasQ20, MatriculasQ21, DataModSearch, MatriculasQ22,
-  MatriculasQ23, FuncoesFirenet;
+uses DataMod, DataMod2, DataModSearch, Funcoes1,  FuncoesFirenet, TurmasLoc,
+  MotivosLoc, Matriculas, AvaliacoesTipoLoc, MatriculasFast;
 {$R *.dfm}
 
 procedure TFormMatriculasRel.FormCreate(Sender: TObject);
@@ -220,9 +210,36 @@ begin
   case ComboBox4.ItemIndex of
     00: begin
           {$REGION 'Matriculas no período por vendedor'}
-          Application.CreateForm(TFormMatriculasQ01, FormMatriculasQ01);
-          FormMatriculasQ01.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
-          FormMatriculasQ01.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ01), trocado pelo FastReport (FormMatriculasFast, MAT01) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ01, FormMatriculasQ01);
+          //FormMatriculasQ01.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
+          //FormMatriculasQ01.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if ComboBox5.Text='M' then Where:=Where+' and MAT_TIPOMATRICULA=''M''' else
+          //if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ01.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
+          //                                   'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by VEN_NOME, CLI_NOME');
+          //FormMatriculasQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ01.FDQuery1.Open;
+          //FormMatriculasQ01.QuickRep1.PreviewModal;
+          //FormMatriculasQ01.Free;
+          //FormMatriculasQ01:=nil;
           Where:='';
           if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
@@ -236,26 +253,56 @@ begin
           if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ01.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
-                                             'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by VEN_NOME, CLI_NOME');
-          FormMatriculasQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ01.FDQuery1.Open;
-          FormMatriculasQ01.QuickRep1.PreviewModal;
-          FormMatriculasQ01.Free;
-          FormMatriculasQ01:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY01.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY01.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY01.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY01.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport1,'Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     01: begin
           {$REGION 'Matriculas no período por turma'}
-          Application.CreateForm(TFormMatriculasQ02, FormMatriculasQ02);
-          FormMatriculasQ02.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
-          FormMatriculasQ02.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ02), trocado pelo FastReport (FormMatriculasFast, MAT02) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ02, FormMatriculasQ02);
+          //FormMatriculasQ02.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
+          //FormMatriculasQ02.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if ComboBox5.Text='M' then Where:=Where+' and MAT_TIPOMATRICULA=''M''' else
+          //if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if not FormMatriculas.MatriculasNoPeriodoPorTurma2.Visible then
+          //FormMatriculasQ02.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
+          //                                   'MAT_STATUS, MAT_TIPO, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by TUR_DESCRICAO, CLI_NOME') else
+          //FormMatriculasQ02.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
+          //                                   'MAT_STATUS, MAT_TIPO, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal and MAT_CONTABILIZAR=''S'' '+Where+' '+
+          //                                   'order by TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ02.FDQuery1.Open;
+          //FormMatriculasQ02.QuickRep1.PreviewModal;
+          //FormMatriculasQ02.Free;
+          //FormMatriculasQ02:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
@@ -269,34 +316,50 @@ begin
           if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          if not FormMatriculas.MatriculasNoPeriodoPorTurma2.Visible then
-          FormMatriculasQ02.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
-                                             'MAT_STATUS, MAT_TIPO, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by TUR_DESCRICAO, CLI_NOME') else
-          FormMatriculasQ02.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
-                                             'MAT_STATUS, MAT_TIPO, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal and MAT_CONTABILIZAR=''S'' '+Where+' '+
-                                             'order by TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ02.FDQuery1.Open;
-          FormMatriculasQ02.QuickRep1.PreviewModal;
-          FormMatriculasQ02.Free;
-          FormMatriculasQ02:=nil;
+          if FormMatriculas.MatriculasNoPeriodoPorTurma2.Visible then Where:=Where+' and MAT_CONTABILIZAR=''S''';
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY02.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY02.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY02.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY02.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport2,'Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     02: begin
           {$REGION 'Matriculas no período por professor'}
-          Application.CreateForm(TFormMatriculasQ09, FormMatriculasQ09);
-          FormMatriculasQ09.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
-          FormMatriculasQ09.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ09), trocado pelo FastReport (FormMatriculasFast, MAT09) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ09, FormMatriculasQ09);
+          //FormMatriculasQ09.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
+          //FormMatriculasQ09.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if ComboBox5.Text='M' then Where:=Where+' and MAT_TIPOMATRICULA=''M''' else
+          //if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ09.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, '+
+          //                                   'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by VEN_NOME, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ09.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ09.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ09.FDQuery1.Open;
+          //FormMatriculasQ09.QuickRep1.PreviewModal;
+          //FormMatriculasQ09.Free;
+          //FormMatriculasQ09:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
@@ -311,51 +374,83 @@ begin
           if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ09.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, '+
-                                             'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by VEN_NOME, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ09.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ09.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ09.FDQuery1.Open;
-          FormMatriculasQ09.QuickRep1.PreviewModal;
-          FormMatriculasQ09.Free;
-          FormMatriculasQ09:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY09.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY09.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY09.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY09.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport9,'Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     03: begin
           {$REGION 'Matriculas com término no período'}
-          Application.CreateForm(TFormMatriculasQ03, FormMatriculasQ03);
-          FormMatriculasQ03.QRLabel12.Caption:='Matrículas com término no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormMatriculasQ03.FDQuery1.Close;
-          FormMatriculasQ03.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ03), trocado pelo FastReport (FormMatriculasFast, MAT03) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ03, FormMatriculasQ03);
+          //FormMatriculasQ03.QRLabel12.Caption:='Matrículas com término no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormMatriculasQ03.FDQuery1.Close;
+          //FormMatriculasQ03.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ03.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, TUR_DESCRICAO, '+
+          //                                   'TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_FONE1 from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'where TUR_DTTERMINO between :datainicial and :datafinal '+
+          //                                   'and MAT_STATUS=''A'' '+Where+' order by CLI_NOME');
+          //FormMatriculasQ03.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ03.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ03.FDQuery1.Open;
+          //FormMatriculasQ03.QuickRep1.PreviewModal;
+          //FormMatriculasQ03.Free;
+          //FormMatriculasQ03:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ03.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, TUR_DESCRICAO, '+
-                                             'TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_FONE1 from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'where TUR_DTTERMINO between :datainicial and :datafinal '+
-                                             'and MAT_STATUS=''A'' '+Where+' order by CLI_NOME');
-          FormMatriculasQ03.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ03.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ03.FDQuery1.Open;
-          FormMatriculasQ03.QuickRep1.PreviewModal;
-          FormMatriculasQ03.Free;
-          FormMatriculasQ03:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY03.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY03.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY03.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY03.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport3,'Matrículas com término no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     04: begin
           {$REGION 'Matriculas com contas a receber analitico (so venda)'}
-          Application.CreateForm(TFormMatriculasQ04, FormMatriculasQ04);
-          FormMatriculasQ04.QRLabel1.Caption:='Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda) - Status: '+ComboBox1.Text;
-          FormMatriculasQ04.FDQuery1.Close;
-          FormMatriculasQ04.FDQuery2.Close;
-          FormMatriculasQ04.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ04), trocado pelo FastReport (FormMatriculasFast, MAT04) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ04, FormMatriculasQ04);
+          //FormMatriculasQ04.QRLabel1.Caption:='Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda) - Status: '+ComboBox1.Text;
+          //FormMatriculasQ04.FDQuery1.Close;
+          //FormMatriculasQ04.FDQuery2.Close;
+          //FormMatriculasQ04.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Copy(Where,1,4)=' and' then begin Delete(Where,1,4); Insert('where ',Where,0); end;
+          //FormMatriculasQ04.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, MAT_VENDAMATERIAL, CLI_NOME, CLI_FONE1, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ04.FDQuery1.Open;
+          //MatriculasQ04.CursoMaterial:='CURSO'; //parametro para ler material ou curso.
+          //Screen.Cursor:=crHourGlass;
+          //FormMatriculasQ04.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
+          //Screen.Cursor:=crDefault;
+          //FormMatriculasQ04.QuickRep1.PreviewModal;
+          //FormMatriculasQ04.Free;
+          //FormMatriculasQ04:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -366,29 +461,49 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          if Copy(Where,1,4)=' and' then begin Delete(Where,1,4); Insert('where ',Where,0); end;
-          FormMatriculasQ04.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, MAT_VENDAMATERIAL, CLI_NOME, CLI_FONE1, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ04.FDQuery1.Open;
-          MatriculasQ04.CursoMaterial:='CURSO'; //parametro para ler material ou curso.
-          Screen.Cursor:=crHourGlass;
-          FormMatriculasQ04.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
-          Screen.Cursor:=crDefault;
-          FormMatriculasQ04.QuickRep1.PreviewModal;
-          FormMatriculasQ04.Free;
-          FormMatriculasQ04:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY04.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY04.ParamByName('material').AsString:='N'; //so venda do curso.
+          FormMatriculasFast.QY04.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY04.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY04.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport4,'Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda) - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     05: begin
           {$REGION 'Matriculas com contas a receber analitico (so venda material)'}
-          Application.CreateForm(TFormMatriculasQ04, FormMatriculasQ04);
-          FormMatriculasQ04.QRLabel1.Caption:='Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda Material) - Status: '+ComboBox1.Text;
-          FormMatriculasQ04.FDQuery1.Close;
-          FormMatriculasQ04.FDQuery2.Close;
-          FormMatriculasQ04.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ04), trocado pelo FastReport (FormMatriculasFast, MAT04) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ04, FormMatriculasQ04);
+          //FormMatriculasQ04.QRLabel1.Caption:='Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda Material) - Status: '+ComboBox1.Text;
+          //FormMatriculasQ04.FDQuery1.Close;
+          //FormMatriculasQ04.FDQuery2.Close;
+          //FormMatriculasQ04.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Copy(Where,1,4)=' and' then begin Delete(Where,1,4); Insert('where ',Where,0); end;
+          //FormMatriculasQ04.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, MAT_VENDAMATERIAL, CLI_NOME, CLI_FONE1, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ04.FDQuery1.Open;
+          //MatriculasQ04.CursoMaterial:='MATERIAL'; //parametro para ler material ou curso.
+          //Screen.Cursor:=crHourGlass;
+          //FormMatriculasQ04.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
+          //Screen.Cursor:=crDefault;
+          //FormMatriculasQ04.QuickRep1.PreviewModal;
+          //FormMatriculasQ04.Free;
+          //FormMatriculasQ04:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -399,37 +514,63 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          if Copy(Where,1,4)=' and' then begin Delete(Where,1,4); Insert('where ',Where,0); end;
-          FormMatriculasQ04.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, MAT_VENDAMATERIAL, CLI_NOME, CLI_FONE1, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ04.FDQuery1.Open;
-          MatriculasQ04.CursoMaterial:='MATERIAL'; //parametro para ler material ou curso.
-          Screen.Cursor:=crHourGlass;
-          FormMatriculasQ04.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
-          Screen.Cursor:=crDefault;
-          FormMatriculasQ04.QuickRep1.PreviewModal;
-          FormMatriculasQ04.Free;
-          FormMatriculasQ04:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY04.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY04.ParamByName('material').AsString:='S'; //so venda de material.
+          FormMatriculasFast.QY04.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY04.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY04.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport4,'Matrículas com contas a receber de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' analítico (Só Venda Material) - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     06: begin
           {$REGION 'Matriculas duplicadas'}
-          Application.CreateForm(TFormMatriculasQ06, FormMatriculasQ06);
-          FormMatriculasQ06.FDQuery1.Open;
-          FormMatriculasQ06.QuickRep1.PreviewModal;
-          FormMatriculasQ06.Free;
-          FormMatriculasQ06:=nil;
+          //QuickReport antigo (FormMatriculasQ06), trocado pelo FastReport (FormMatriculasFast, MAT06) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ06, FormMatriculasQ06);
+          //FormMatriculasQ06.FDQuery1.Open;
+          //FormMatriculasQ06.QuickRep1.PreviewModal;
+          //FormMatriculasQ06.Free;
+          //FormMatriculasQ06:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY06.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport6,'Matrículas duplicadas');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     07: begin
           {$REGION 'Matriculas com venda não entregue'}
-          Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
-          FormMatriculasQ07.QRLabel12.Caption:='Matrículas com venda não entregue';
-          FormMatriculasQ07.FDQuery1.Close;
-          FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ07), trocado pelo FastReport (FormMatriculasFast, MAT07) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
+          //FormMatriculasQ07.QRLabel12.Caption:='Matrículas com venda não entregue';
+          //FormMatriculasQ07.FDQuery1.Close;
+          //FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
+          //                                   'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDA=VED_CODIGO '+
+          //                                   'where TUR_DTINICIO between :datainicial and :datafinal '+
+          //                                   'and VED_ENTREGUE=''N'' '+Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ07.FDQuery1.Open;
+          //FormMatriculasQ07.QuickRep1.PreviewModal;
+          //FormMatriculasQ07.Free;
+          //FormMatriculasQ07:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -440,29 +581,50 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
-                                             'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDAS on MAT_VENDA=VED_CODIGO '+
-                                             'where TUR_DTINICIO between :datainicial and :datafinal '+
-                                             'and VED_ENTREGUE=''N'' '+Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ07.FDQuery1.Open;
-          FormMatriculasQ07.QuickRep1.PreviewModal;
-          FormMatriculasQ07.Free;
-          FormMatriculasQ07:=nil;
+          Where:=Where+' and VED_ENTREGUE=''N''';
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY07.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY07.ParamByName('material').AsString:='N'; //venda do curso.
+          FormMatriculasFast.QY07.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY07.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY07.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport7,'Matrículas com venda não entregue');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     08: begin
           {$REGION 'Matriculas com venda de material não entregue'}
-          Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
-          FormMatriculasQ07.QRLabel12.Caption:='Matrículas com venda de material não entregue';
-          FormMatriculasQ07.QRDBText8.DataField:='MAT_VENDAMATERIAL';
-          FormMatriculasQ07.FDQuery1.Close;
-          FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ07), trocado pelo FastReport (FormMatriculasFast, MAT07) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
+          //FormMatriculasQ07.QRLabel12.Caption:='Matrículas com venda de material não entregue';
+          //FormMatriculasQ07.QRDBText8.DataField:='MAT_VENDAMATERIAL';
+          //FormMatriculasQ07.FDQuery1.Close;
+          //FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
+          //                                   'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDAMATERIAL=VED_CODIGO '+
+          //                                   'where TUR_DTINICIO between :datainicial and :datafinal '+
+          //                                   'and VED_ENTREGUE=''N'' '+Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ07.FDQuery1.Open;
+          //FormMatriculasQ07.QuickRep1.PreviewModal;
+          //FormMatriculasQ07.Free;
+          //FormMatriculasQ07:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -473,28 +635,51 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
-                                             'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDAS on MAT_VENDAMATERIAL=VED_CODIGO '+
-                                             'where TUR_DTINICIO between :datainicial and :datafinal '+
-                                             'and VED_ENTREGUE=''N'' '+Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ07.FDQuery1.Open;
-          FormMatriculasQ07.QuickRep1.PreviewModal;
-          FormMatriculasQ07.Free;
-          FormMatriculasQ07:=nil;
+          Where:=Where+' and VED_ENTREGUE=''N''';
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY07.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY07.ParamByName('material').AsString:='S'; //venda de material.
+          FormMatriculasFast.QY07.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY07.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY07.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport7,'Matrículas com venda de material não entregue');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     09: begin
           {$REGION 'Matriculas com venda de material não entregue com visto'}
-          Application.CreateForm(TFormMatriculasQ08, FormMatriculasQ08);
-          FormMatriculasQ08.QRLabel12.Caption:='Matrículas com venda de material não entregue com visto';
-          FormMatriculasQ08.FDQuery1.Close;
-          FormMatriculasQ08.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ08), trocado pelo FastReport (FormMatriculasFast, MAT08) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ08, FormMatriculasQ08);
+          //FormMatriculasQ08.QRLabel12.Caption:='Matrículas com venda de material não entregue com visto';
+          //FormMatriculasQ08.FDQuery1.Close;
+          //FormMatriculasQ08.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //FormMatriculasQ08.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
+          //                                   'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDAMATERIAL=VED_CODIGO '+
+          //                                   'where TUR_DTINICIO between :datainicial and :datafinal '+
+          //                                   'and VED_ENTREGUE=''N'' '+Where+' '+
+          //                                   'order by TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ08.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ08.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ08.FDQuery1.Open;
+          //FormMatriculasQ08.FDQuery2.Open;
+          //FormMatriculasQ08.QuickRep1.PreviewModal;
+          //FormMatriculasQ08.Free;
+          //FormMatriculasQ08:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -506,31 +691,54 @@ begin
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
-          FormMatriculasQ08.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
-                                             'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, VED_ENTREGUE from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDAS on MAT_VENDAMATERIAL=VED_CODIGO '+
-                                             'where TUR_DTINICIO between :datainicial and :datafinal '+
-                                             'and VED_ENTREGUE=''N'' '+Where+' '+
-                                             'order by TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ08.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ08.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ08.FDQuery1.Open;
-          FormMatriculasQ08.FDQuery2.Open;
-          FormMatriculasQ08.QuickRep1.PreviewModal;
-          FormMatriculasQ08.Free;
-          FormMatriculasQ08:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY08.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY08.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY08.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY08.Open;
+          FormMatriculasFast.QY08A.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport8,'Matrículas com venda de material não entregue com visto');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     10: begin
           {$REGION 'Matriculas no período por convênio'}
-          //contabilização. //alterado o campo de contabilizar para tipo de pagamento e depois para convenio. :(.
-          Application.CreateForm(TFormMatriculasQ10, FormMatriculasQ10);
-          FormMatriculasQ10.QRLabel1.Caption:='Matrículas por convênio de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
-          FormMatriculasQ10.FDQuery1.Close;
-          FormMatriculasQ10.FDQuery2.Close;
-          FormMatriculasQ10.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ10), trocado pelo FastReport (FormMatriculasFast, MAT10) em 2026.11.24:
+          ////contabilização. //alterado o campo de contabilizar para tipo de pagamento e depois para convenio. :(.
+          //Application.CreateForm(TFormMatriculasQ10, FormMatriculasQ10);
+          //FormMatriculasQ10.QRLabel1.Caption:='Matrículas por convênio de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
+          //FormMatriculasQ10.FDQuery1.Close;
+          //FormMatriculasQ10.FDQuery2.Close;
+          //FormMatriculasQ10.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if not FormMatriculas.MatriculasNoPeriodoPorConvenio2.Visible then
+          //FormMatriculasQ10.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, CLI_NOME, VED_CONDICAO, CPG_DESCRICAO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDA=VED_CODIGO '+
+          //                                   'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+
+          //                                   'where MAT_CONTABILIZAR='+QuotedStr(ComboBox2.Text)+Where+' '+
+          //                                   'order by CLI_NOME') else
+          //FormMatriculasQ10.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, CLI_NOME, VED_CONDICAO, CPG_DESCRICAO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDA=VED_CODIGO '+
+          //                                   'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+
+          //                                   'where MAT_CONTABILIZAR=''S'' '+Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ10.FDQuery1.Open;
+          //Screen.Cursor:=crHourGlass;
+          //FormMatriculasQ10.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
+          //Screen.Cursor:=crDefault;
+          //FormMatriculasQ10.QuickRep1.PreviewModal;
+          //FormMatriculasQ10.Free;
+          //FormMatriculasQ10:=nil;
           Where:='';
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
           if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
@@ -539,42 +747,65 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY10.MacroByName('FILTRO').AsRaw:=Where;
           if not FormMatriculas.MatriculasNoPeriodoPorConvenio2.Visible then
-          FormMatriculasQ10.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, CLI_NOME, VED_CONDICAO, CPG_DESCRICAO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDAS on MAT_VENDA=VED_CODIGO '+
-                                             'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+
-                                             'where MAT_CONTABILIZAR='+QuotedStr(ComboBox2.Text)+Where+' '+
-                                             'order by CLI_NOME') else
-          FormMatriculasQ10.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_STATUS, MAT_TURMA, MAT_VENDA, CLI_NOME, VED_CONDICAO, CPG_DESCRICAO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDAS on MAT_VENDA=VED_CODIGO '+
-                                             'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+
-                                             'where MAT_CONTABILIZAR=''S'' '+Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ10.FDQuery1.Open;
-          Screen.Cursor:=crHourGlass;
-          FormMatriculasQ10.CriarTabela(StrToDate(MaskEdit1.Text),StrToDate(MaskEdit2.Text));
-          Screen.Cursor:=crDefault;
-          FormMatriculasQ10.QuickRep1.PreviewModal;
-          FormMatriculasQ10.Free;
-          FormMatriculasQ10:=nil;
+          FormMatriculasFast.QY10.ParamByName('contabilizar').AsString:=ComboBox2.Text else
+          FormMatriculasFast.QY10.ParamByName('contabilizar').AsString:='S';
+          FormMatriculasFast.QY10.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY10.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY10.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport10,'Matrículas por convênio de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     11: begin
           {$REGION 'Alunos com mais de uma matrícula ativa'}
-          Application.CreateForm(TFormMatriculasQ11, FormMatriculasQ11);
-          FormMatriculasQ11.FDQuery1.Open;
-          FormMatriculasQ11.QuickRep1.PreviewModal;
-          FormMatriculasQ11.Free;
-          FormMatriculasQ11:=nil;
+          //QuickReport antigo (FormMatriculasQ11), trocado pelo FastReport (FormMatriculasFast, MAT11) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ11, FormMatriculasQ11);
+          //FormMatriculasQ11.FDQuery1.Open;
+          //FormMatriculasQ11.QuickRep1.PreviewModal;
+          //FormMatriculasQ11.Free;
+          //FormMatriculasQ11:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY11.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport11,'Alunos com mais de uma matrícula ativa');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     12: begin
           {$REGION 'Percentual de desconto'}
-          Application.CreateForm(TFormMatriculasQ12, FormMatriculasQ12);
-          FormMatriculasQ12.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
-          FormMatriculasQ12.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ12), trocado pelo FastReport (FormMatriculasFast, MAT12) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ12, FormMatriculasQ12);
+          //FormMatriculasQ12.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
+          //FormMatriculasQ12.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ12.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
+          //                                   'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO, VED_DESCPORC from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDA=VED_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ12.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ12.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ12.FDQuery1.Open;
+          //FormMatriculasQ12.QuickRep1.PreviewModal;
+          //FormMatriculasQ12.Free;
+          //FormMatriculasQ12:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
@@ -586,50 +817,84 @@ begin
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ12.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_VENDEDOR, MAT_TURMA, MAT_DTCADASTRO, '+
-                                             'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO, VED_DESCPORC from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join VENDEDORES on MAT_VENDEDOR=VEN_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDAS on MAT_VENDA=VED_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ12.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ12.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ12.FDQuery1.Open;
-          FormMatriculasQ12.QuickRep1.PreviewModal;
-          FormMatriculasQ12.Free;
-          FormMatriculasQ12:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY12.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY12.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY12.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY12.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport12,'Percentual de desconto - '+'Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     13: begin
           {$REGION 'Alunos Aniversariantes'}
-          Application.CreateForm(TFormMatriculasQ13, FormMatriculasQ13);
-          FormMatriculasQ13.QRLabel12.Caption:='Alunos Aniversariantes do Mês de '+ComboBox3.Text;
-          FormMatriculasQ13.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ13), trocado pelo FastReport (FormMatriculasFast, MAT13) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ13, FormMatriculasQ13);
+          //FormMatriculasQ13.QRLabel12.Caption:='Alunos Aniversariantes do Mês de '+ComboBox3.Text;
+          //FormMatriculasQ13.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Trim(Edit3.Text)<>'' then Where:=' and TUR_PROFESSOR='+QuotedStr(Edit3.Text)+' ';
+          //if Trim(Edit5.Text)<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text)+' ';
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ13.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, TUR_DESCRICAO, TUR_PROFESSOR, '+
+          //                                   'VEN_NOME, CLI_NOME, CLI_DTNASC from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'where extract(MONTH from CLI_DTNASC)=:mes and MAT_STATUS=''A'' '+Where+
+          //                                   'order by VEN_NOME, TUR_DESCRICAO, CLI_DTNASC');
+          //FormMatriculasQ13.FDQuery1.ParamByName('mes').AsInteger:=ComboBox3.ItemIndex+1;
+          //FormMatriculasQ13.FDQuery1.Open;
+          //FormMatriculasQ13.QuickRep1.PreviewModal;
+          //FormMatriculasQ13.Free;
+          //FormMatriculasQ13:=nil;
           Where:='';
           if Trim(Edit3.Text)<>'' then Where:=' and TUR_PROFESSOR='+QuotedStr(Edit3.Text)+' ';
           if Trim(Edit5.Text)<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text)+' ';
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ13.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, TUR_DESCRICAO, TUR_PROFESSOR, '+
-                                             'VEN_NOME, CLI_NOME, CLI_DTNASC from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'where extract(MONTH from CLI_DTNASC)=:mes and MAT_STATUS=''A'' '+Where+
-                                             'order by VEN_NOME, TUR_DESCRICAO, CLI_DTNASC');
-          FormMatriculasQ13.FDQuery1.ParamByName('mes').AsInteger:=ComboBox3.ItemIndex+1;
-          FormMatriculasQ13.FDQuery1.Open;
-          FormMatriculasQ13.QuickRep1.PreviewModal;
-          FormMatriculasQ13.Free;
-          FormMatriculasQ13:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY13.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY13.ParamByName('mes').AsInteger:=ComboBox3.ItemIndex+1;
+          FormMatriculasFast.QY13.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport13,'Alunos Aniversariantes do Mês de '+ComboBox3.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     14: begin
           {$REGION 'Matrículas no período por motivo desistência'}
-          Application.CreateForm(TFormMatriculasQ14, FormMatriculasQ14);
-          FormMatriculasQ14.QRLabel12.Caption:='Matrículas por motivo desistencia de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
-          FormMatriculasQ14.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ14), trocado pelo FastReport (FormMatriculasFast, MAT14) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ14, FormMatriculasQ14);
+          //FormMatriculasQ14.QRLabel12.Caption:='Matrículas por motivo desistencia de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
+          //FormMatriculasQ14.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if Edit6.Text<>'' then Where:=Where+' and MAT_DESISTENCIA='+QuotedStr(Edit6.Text) else Where:=Where+' and (MAT_DESISTENCIA is not null)';
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ14.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, '+
+          //                                   'VEN_NOME, MOT_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'left join MOTIVOS on MAT_DESISTENCIA=MOT_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
+          //                                   'order by MOT_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ14.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ14.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ14.FDQuery1.Open;
+          //FormMatriculasQ14.QuickRep1.PreviewModal;
+          //FormMatriculasQ14.Free;
+          //FormMatriculasQ14:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
@@ -643,27 +908,51 @@ begin
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ14.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, '+
-                                             'VEN_NOME, MOT_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'left join MOTIVOS on MAT_DESISTENCIA=MOT_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
-                                             'order by MOT_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ14.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ14.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ14.FDQuery1.Open;
-          FormMatriculasQ14.QuickRep1.PreviewModal;
-          FormMatriculasQ14.Free;
-          FormMatriculasQ14:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY14.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY14.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY14.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY14.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport14,'Matrículas por motivo desistência de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     15: begin
           {$REGION 'Matrículas no período por mailing'}
-          Application.CreateForm(TFormMatriculasQ15, FormMatriculasQ15);
-          FormMatriculasQ15.QRLabel12.Caption:='Matrículas por mailing de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
-          FormMatriculasQ15.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ15), trocado pelo FastReport (FormMatriculasFast, MAT15) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ15, FormMatriculasQ15);
+          //FormMatriculasQ15.QRLabel12.Caption:='Matrículas por mailing de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text;
+          //FormMatriculasQ15.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
+          //if Edit8.Text<>'' then Where:=Where+' and CLI_MAILING='+QuotedStr(Edit8.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if ComboBox5.Text='M' then Where:=Where+' and MAT_TIPOMATRICULA=''M''' else
+          //if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ15.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_MAILING, '+
+          //                                   'VEN_NOME, MAI_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'left join MAILINGS on CLI_MAILING=MAI_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
+          //                                   'order by MAI_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ15.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ15.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ15.FDQuery1.Open;
+          //FormMatriculasQ15.QuickRep1.PreviewModal;
+          //FormMatriculasQ15.Free;
+          //FormMatriculasQ15:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
@@ -679,76 +968,94 @@ begin
           if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ15.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_MAILING, '+
-                                             'VEN_NOME, MAI_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'left join MAILINGS on CLI_MAILING=MAI_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
-                                             'order by MAI_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ15.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ15.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ15.FDQuery1.Open;
-          FormMatriculasQ15.QuickRep1.PreviewModal;
-          FormMatriculasQ15.Free;
-          FormMatriculasQ15:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY15.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY15.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY15.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY15.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport15,'Matrículas por mailing de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     16: begin
           {$REGION 'Histórico do aluno'}
-          AbortIf(Edit10.Text='','Selecione o aluno/cliente.');
+          //QuickReport antigo (FormMatriculasQ16), trocado pelo FastReport (FormMatriculasFast, MAT16) em 2026.11.24:
+          //AbortIf(Edit10.Text='','Selecione o aluno/cliente.');
 
-          Application.CreateForm(TFormMatriculasQ16, FormMatriculasQ16);
-          FormMatriculasQ16.QRLabel12.Caption:='Histórico do Aluno';
-          FormMatriculasQ16.FDQuery1.Close;
-          FormMatriculasQ16.FDQuery1.SQL.Clear;
+          //Application.CreateForm(TFormMatriculasQ16, FormMatriculasQ16);
+          //FormMatriculasQ16.QRLabel12.Caption:='Histórico do Aluno';
+          //FormMatriculasQ16.FDQuery1.Close;
+          //FormMatriculasQ16.FDQuery1.SQL.Clear;
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ16.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_CONCEITODISCURSO, MAT_CONCEITOEXERCICIOS, MAT_CONCEITOGERAL, '+
+          //                                   'MAT_CONCEITOLITERATURA, MAT_MEDIAEXERCICIOS, MAT_MEDIAFINAL, MAT_STATUS, MAT_DESISTENCIA, MAT_TURMA, '+
+          //                                   'MAT_DTCADASTRO, MAT_APROVADO, CLI_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_DOMINGO, TUR_SEGUNDA, '+
+          //                                   'TUR_TERCA, TUR_QUARTA, TUR_QUINTA, TUR_SEXTA, TUR_SABADO, TUR_ENCONTROS, TUR_PERIODO, TUR_ANO, VEN_NOME from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'where (MAT_STATUS=''A'' or MAT_STATUS=''B'' or MAT_STATUS=''D'') and MAT_CLIENTE=:cliente '+Where+' order by CLI_NOME');
+          //FormMatriculasQ16.FDQuery1.ParamByName('cliente').AsInteger:=StrToInt(Edit10.Text);
+          //FormMatriculasQ16.FDQuery1.Open;
+          //FormMatriculasQ16.FDQuery2.Open;
+          //FormMatriculasQ16.FDQuery3.Open;
+          //FormMatriculasQ16.FDQuery4.Open;
+          //FormMatriculasQ16.FDQuery5.Open;
+          //FormMatriculasQ16.QuickRep1.PreviewModal;
+          //FormMatriculasQ16.Free;
+          //FormMatriculasQ16:=nil;
+          AbortIf(Edit10.Text='','Selecione o aluno/cliente.');
+          Where:=' and MAT_CLIENTE='+IntToStr(StrToInt(Edit10.Text));
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ16.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_CONCEITODISCURSO, MAT_CONCEITOEXERCICIOS, MAT_CONCEITOGERAL, '+
-                                             'MAT_CONCEITOLITERATURA, MAT_MEDIAEXERCICIOS, MAT_MEDIAFINAL, MAT_STATUS, MAT_DESISTENCIA, MAT_TURMA, '+
-                                             'MAT_DTCADASTRO, MAT_APROVADO, CLI_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_DOMINGO, TUR_SEGUNDA, '+
-                                             'TUR_TERCA, TUR_QUARTA, TUR_QUINTA, TUR_SEXTA, TUR_SABADO, TUR_ENCONTROS, TUR_PERIODO, TUR_ANO, VEN_NOME from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'where (MAT_STATUS=''A'' or MAT_STATUS=''B'' or MAT_STATUS=''D'') and MAT_CLIENTE=:cliente '+Where+' order by CLI_NOME');
-          FormMatriculasQ16.FDQuery1.ParamByName('cliente').AsInteger:=StrToInt(Edit10.Text);
-          FormMatriculasQ16.FDQuery1.Open;
-          FormMatriculasQ16.FDQuery2.Open;
-          FormMatriculasQ16.FDQuery3.Open;
-          FormMatriculasQ16.FDQuery4.Open;
-          FormMatriculasQ16.FDQuery5.Open;
-          FormMatriculasQ16.QuickRep1.PreviewModal;
-          FormMatriculasQ16.Free;
-          FormMatriculasQ16:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY16.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY16.Open;
+          FormMatriculasFast.QY16A.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport16,'Histórico do Aluno');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     17: begin
           {$REGION 'Histórico do aluno por turma'}
-          Application.CreateForm(TFormMatriculasQ16, FormMatriculasQ16);
-          FormMatriculasQ16.QRLabel12.Caption:='Histórico do Aluno';
-          FormMatriculasQ16.FDQuery1.Close;
-          FormMatriculasQ16.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ16), trocado pelo FastReport (FormMatriculasFast, MAT16) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ16, FormMatriculasQ16);
+          //FormMatriculasQ16.QRLabel12.Caption:='Histórico do Aluno';
+          //FormMatriculasQ16.FDQuery1.Close;
+          //FormMatriculasQ16.FDQuery1.SQL.Clear;
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ16.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_CONCEITODISCURSO, MAT_CONCEITOEXERCICIOS, MAT_CONCEITOGERAL, '+
+          //                                   'MAT_CONCEITOLITERATURA, MAT_MEDIAEXERCICIOS, MAT_MEDIAFINAL, MAT_STATUS, MAT_DESISTENCIA, MAT_TURMA, '+
+          //                                   'MAT_DTCADASTRO, MAT_APROVADO, CLI_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_DOMINGO, TUR_SEGUNDA, '+
+          //                                   'TUR_TERCA, TUR_QUARTA, TUR_QUINTA, TUR_SEXTA, TUR_SABADO, TUR_ENCONTROS, TUR_PERIODO, TUR_ANO, VEN_NOME from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'where (MAT_STATUS=''A'' or MAT_STATUS=''B'' or MAT_STATUS=''D'') '+Where+' order by CLI_NOME');
+          //FormMatriculasQ16.FDQuery1.Open;
+          //FormMatriculasQ16.FDQuery2.Open;
+          //FormMatriculasQ16.FDQuery3.Open;
+          //FormMatriculasQ16.FDQuery4.Open;
+          //FormMatriculasQ16.FDQuery5.Open;
+          //FormMatriculasQ16.QuickRep1.PreviewModal;
+          //FormMatriculasQ16.Free;
+          //FormMatriculasQ16:=nil;
+          Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ16.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_CONCEITODISCURSO, MAT_CONCEITOEXERCICIOS, MAT_CONCEITOGERAL, '+
-                                             'MAT_CONCEITOLITERATURA, MAT_MEDIAEXERCICIOS, MAT_MEDIAFINAL, MAT_STATUS, MAT_DESISTENCIA, MAT_TURMA, '+
-                                             'MAT_DTCADASTRO, MAT_APROVADO, CLI_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_DOMINGO, TUR_SEGUNDA, '+
-                                             'TUR_TERCA, TUR_QUARTA, TUR_QUINTA, TUR_SEXTA, TUR_SABADO, TUR_ENCONTROS, TUR_PERIODO, TUR_ANO, VEN_NOME from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'where (MAT_STATUS=''A'' or MAT_STATUS=''B'' or MAT_STATUS=''D'') '+Where+' order by CLI_NOME');
-          FormMatriculasQ16.FDQuery1.Open;
-          FormMatriculasQ16.FDQuery2.Open;
-          FormMatriculasQ16.FDQuery3.Open;
-          FormMatriculasQ16.FDQuery4.Open;
-          FormMatriculasQ16.FDQuery5.Open;
-          FormMatriculasQ16.QuickRep1.PreviewModal;
-          FormMatriculasQ16.Free;
-          FormMatriculasQ16:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY16.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY16.Open;
+          FormMatriculasFast.QY16A.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport16,'Histórico do Aluno');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     18: begin
@@ -772,9 +1079,37 @@ begin
         end;
     19: begin
           {$REGION 'Matrículas no período por local de trabalho'}
-          Application.CreateForm(TFormMatriculasQ18, FormMatriculasQ18);
-          FormMatriculasQ18.QRLabel12.Caption:='Matrículas por local de trabalho de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
-          FormMatriculasQ18.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ18), trocado pelo FastReport (FormMatriculasFast, MAT18) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ18, FormMatriculasQ18);
+          //FormMatriculasQ18.QRLabel12.Caption:='Matrículas por local de trabalho de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
+          //FormMatriculasQ18.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if Edit12.Text<>'' then Where:=Where+' and CLI_LOCALTRABALHO='+QuotedStr(Edit12.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ18.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_LOCALTRABALHO, '+
+          //                                   'VEN_NOME, LCA_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'left join LOCAIS on CLI_LOCALTRABALHO=LCA_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
+          //                                   'order by LCA_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ18.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ18.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ18.FDQuery1.Open;
+          //FormMatriculasQ18.QuickRep1.PreviewModal;
+          //FormMatriculasQ18.Free;
+          //FormMatriculasQ18:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
@@ -788,27 +1123,49 @@ begin
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ18.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_LOCALTRABALHO, '+
-                                             'VEN_NOME, LCA_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'left join LOCAIS on CLI_LOCALTRABALHO=LCA_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
-                                             'order by LCA_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ18.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ18.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ18.FDQuery1.Open;
-          FormMatriculasQ18.QuickRep1.PreviewModal;
-          FormMatriculasQ18.Free;
-          FormMatriculasQ18:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY18.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY18.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY18.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY18.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport18,'Matrículas por local de trabalho de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     20: begin
           {$REGION 'Matrículas no período por local onde estuda'}
-          Application.CreateForm(TFormMatriculasQ19, FormMatriculasQ19);
-          FormMatriculasQ19.QRLabel12.Caption:='Matrículas por local onde estuda de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
-          FormMatriculasQ19.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ19), trocado pelo FastReport (FormMatriculasFast, MAT19) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ19, FormMatriculasQ19);
+          //FormMatriculasQ19.QRLabel12.Caption:='Matrículas por local onde estuda de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text;
+          //FormMatriculasQ19.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if Edit12.Text<>'' then Where:=Where+' and CLI_LOCALESTUDA='+QuotedStr(Edit12.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ19.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_LOCALESTUDA, '+
+          //                                   'VEN_NOME, LCA_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'left join LOCAIS on CLI_LOCALESTUDA=LCA_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
+          //                                   'order by LCA_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ19.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ19.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ19.FDQuery1.Open;
+          //FormMatriculasQ19.QuickRep1.PreviewModal;
+          //FormMatriculasQ19.Free;
+          //FormMatriculasQ19:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
@@ -822,29 +1179,47 @@ begin
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ19.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_DESISTENCIA, CLI_NOME, CLI_LOCALESTUDA, '+
-                                             'VEN_NOME, LCA_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'left join LOCAIS on CLI_LOCALESTUDA=LCA_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+
-                                             'order by LCA_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ19.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ19.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ19.FDQuery1.Open;
-          FormMatriculasQ19.QuickRep1.PreviewModal;
-          FormMatriculasQ19.Free;
-          FormMatriculasQ19:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY19.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY19.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY19.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY19.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport19,'Matrículas por local onde estuda de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     21: begin
           {$REGION 'Matrículas sem venda de material'}
-          Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
-          FormMatriculasQ07.QRLabel12.Caption:='Matrículas sem venda de material';
-          FormMatriculasQ07.QRDBText8.DataField:='MAT_VENDAMATERIAL';
-          FormMatriculasQ07.FDQuery1.Close;
-          FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ07), trocado pelo FastReport (FormMatriculasFast, MAT07) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ07, FormMatriculasQ07);
+          //FormMatriculasQ07.QRLabel12.Caption:='Matrículas sem venda de material';
+          //FormMatriculasQ07.QRDBText8.DataField:='MAT_VENDAMATERIAL';
+          //FormMatriculasQ07.FDQuery1.Close;
+          //FormMatriculasQ07.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
+          //                                   'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'where TUR_DTINICIO between :datainicial and :datafinal '+
+          //                                   'and MAT_VENDAMATERIAL is null '+Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ07.FDQuery1.Open;
+          //FormMatriculasQ07.QuickRep1.PreviewModal;
+          //FormMatriculasQ07.Free;
+          //FormMatriculasQ07:=nil;
           Where:='';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
@@ -855,32 +1230,87 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          FormMatriculasQ07.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_VENDA, MAT_VENDAMATERIAL, TUR_DESCRICAO, '+
-                                             'TUR_DTINICIO, TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'where TUR_DTINICIO between :datainicial and :datafinal '+
-                                             'and MAT_VENDAMATERIAL is null '+Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ07.FDQuery1.Open;
-          FormMatriculasQ07.QuickRep1.PreviewModal;
-          FormMatriculasQ07.Free;
-          FormMatriculasQ07:=nil;
+          Where:=Where+' and MAT_VENDAMATERIAL is null';
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY07.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY07.ParamByName('material').AsString:='S'; //coluna venda mostra a venda de material.
+          FormMatriculasFast.QY07.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY07.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY07.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport7,'Matrículas sem venda de material');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     22: begin
           {$REGION 'Matrículas sem notas do tipo'}
-          AbortIf(Edit15.Text='','Selecione o tipo de avaliação.');
+          //QuickReport antigo (FormMatriculasQ20), trocado pelo FastReport (FormMatriculasFast, MAT20) em 2026.11.24:
+          //AbortIf(Edit15.Text='','Selecione o tipo de avaliação.');
 
-          Application.CreateForm(TFormMatriculasQ20, FormMatriculasQ20);
+          //Application.CreateForm(TFormMatriculasQ20, FormMatriculasQ20);
+          //S:='Matrículas sem avaliação do tipo '+Edit14.Text+'-'+Edit15.Text+' -';
+          //if Edit5.Text<>'' then S:=S+' Periodo: '+Edit5.Text;
+          //if MaskEdit3.Text<>'    ' then S:=S+' Ano: '+MaskEdit3.Text;
+          //FormMatriculasQ20.QRLabel12.Caption:=S;
+          //FormMatriculasQ20.FDQuery1.Close;
+          //FormMatriculasQ20.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Where<>'' then
+          //begin
+          //  Delete(Where,1,4); //retira o " and" do início e troca por where.
+          //  Insert('where ',Where,1);
+          //end;
+          //FormMatriculasQ20.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_DTCADASTRO, TUR_DESCRICAO, '+
+          //                                   'TUR_PROFESSOR, VEN_NOME, TUR_PERIODO, TUR_ANO, CLI_NOME from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+Where+' '+
+          //                                   'order by VEN_NOME, MAT_TURMA, CLI_NOME');
+          //FormMatriculasQ20.FDQuery1.Open;
+          //Screen.Cursor:=crHourGlass;
+          //while not FormMatriculasQ20.FDQuery1.Eof do
+          //begin
+          //  FormMatriculasQ20.FDQuery2.Close;
+          //  FormMatriculasQ20.FDQuery2.ParamByName('matricula').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CODIGO').AsInteger;
+          //  FormMatriculasQ20.FDQuery2.ParamByName('tipo').AsInteger:=StrToInt(Edit14.Text);
+          //  FormMatriculasQ20.FDQuery2.Open;
+          //  if FormMatriculasQ20.FDQuery2.IsEmpty then //se nao tem, insere os dados na tabela auxiliar, para listar depois.
+          //  begin
+          //    FormMatriculasQ20.TBAux.Append;
+          //    FormMatriculasQ20.TBAux.FieldByName('MAT_CODIGO').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CODIGO').AsInteger;
+          //    FormMatriculasQ20.TBAux.FieldByName('MAT_CLIENTE').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CLIENTE').AsInteger;
+          //    FormMatriculasQ20.TBAux.FieldByName('MAT_TURMA').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_TURMA').AsInteger;
+          //    FormMatriculasQ20.TBAux.FieldByName('MAT_STATUS').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_STATUS').AsString;
+          //    FormMatriculasQ20.TBAux.FieldByName('MAT_DTCADASTRO').AsDateTime:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_DTCADASTRO').AsDateTime;
+          //    FormMatriculasQ20.TBAux.FieldByName('TUR_DESCRICAO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_DESCRICAO').AsString;
+          //    FormMatriculasQ20.TBAux.FieldByName('TUR_ANO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_ANO').AsString;
+          //    FormMatriculasQ20.TBAux.FieldByName('TUR_PERIODO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_PERIODO').AsString;
+          //    FormMatriculasQ20.TBAux.FieldByName('TUR_PROFESSOR').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_PROFESSOR').AsInteger;
+          //    FormMatriculasQ20.TBAux.FieldByName('VEN_NOME').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('VEN_NOME').AsString;
+          //    FormMatriculasQ20.TBAux.FieldByName('CLI_NOME').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('CLI_NOME').AsString;
+          //    FormMatriculasQ20.TBAux.Post;
+          //  end;
+          //  FormMatriculasQ20.FDQuery1.Next;
+          //end;
+          //FormMatriculasQ20.TBAux.First;
+          //Screen.Cursor:=crDefault;
+          //FormMatriculasQ20.QuickRep1.PreviewModal;
+          //FormMatriculasQ20.Free;
+          //FormMatriculasQ20:=nil;
+          AbortIf(Edit15.Text='','Selecione o tipo de avaliação.');
           S:='Matrículas sem avaliação do tipo '+Edit14.Text+'-'+Edit15.Text+' -';
           if Edit5.Text<>'' then S:=S+' Periodo: '+Edit5.Text;
           if MaskEdit3.Text<>'    ' then S:=S+' Ano: '+MaskEdit3.Text;
-          FormMatriculasQ20.QRLabel12.Caption:=S;
-          FormMatriculasQ20.FDQuery1.Close;
-          FormMatriculasQ20.FDQuery1.SQL.Clear;
           Where:='';
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
@@ -892,59 +1322,56 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          if Where<>'' then
-          begin
-            Delete(Where,1,4); //retira o " and" do início e troca por where.
-            Insert('where ',Where,1);
-          end;
-          FormMatriculasQ20.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, MAT_DTCADASTRO, TUR_DESCRICAO, '+
-                                             'TUR_PROFESSOR, VEN_NOME, TUR_PERIODO, TUR_ANO, CLI_NOME from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+Where+' '+
-                                             'order by VEN_NOME, MAT_TURMA, CLI_NOME');
-          FormMatriculasQ20.FDQuery1.Open;
-          Screen.Cursor:=crHourGlass;
-          while not FormMatriculasQ20.FDQuery1.Eof do
-          begin
-            FormMatriculasQ20.FDQuery2.Close;
-            FormMatriculasQ20.FDQuery2.ParamByName('matricula').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CODIGO').AsInteger;
-            FormMatriculasQ20.FDQuery2.ParamByName('tipo').AsInteger:=StrToInt(Edit14.Text);
-            FormMatriculasQ20.FDQuery2.Open;
-            if FormMatriculasQ20.FDQuery2.IsEmpty then //se nao tem, insere os dados na tabela auxiliar, para listar depois.
-            begin
-              FormMatriculasQ20.TBAux.Append;
-              FormMatriculasQ20.TBAux.FieldByName('MAT_CODIGO').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CODIGO').AsInteger;
-              FormMatriculasQ20.TBAux.FieldByName('MAT_CLIENTE').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_CLIENTE').AsInteger;
-              FormMatriculasQ20.TBAux.FieldByName('MAT_TURMA').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_TURMA').AsInteger;
-              FormMatriculasQ20.TBAux.FieldByName('MAT_STATUS').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_STATUS').AsString;
-              FormMatriculasQ20.TBAux.FieldByName('MAT_DTCADASTRO').AsDateTime:=FormMatriculasQ20.FDQuery1.FieldByName('MAT_DTCADASTRO').AsDateTime;
-              FormMatriculasQ20.TBAux.FieldByName('TUR_DESCRICAO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_DESCRICAO').AsString;
-              FormMatriculasQ20.TBAux.FieldByName('TUR_ANO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_ANO').AsString;
-              FormMatriculasQ20.TBAux.FieldByName('TUR_PERIODO').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_PERIODO').AsString;
-              FormMatriculasQ20.TBAux.FieldByName('TUR_PROFESSOR').AsInteger:=FormMatriculasQ20.FDQuery1.FieldByName('TUR_PROFESSOR').AsInteger;
-              FormMatriculasQ20.TBAux.FieldByName('VEN_NOME').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('VEN_NOME').AsString;
-              FormMatriculasQ20.TBAux.FieldByName('CLI_NOME').AsString:=FormMatriculasQ20.FDQuery1.FieldByName('CLI_NOME').AsString;
-              FormMatriculasQ20.TBAux.Post;
-            end;
-            FormMatriculasQ20.FDQuery1.Next;
-          end;
-          FormMatriculasQ20.TBAux.First;
-          Screen.Cursor:=crDefault;
-          FormMatriculasQ20.QuickRep1.PreviewModal;
-          FormMatriculasQ20.Free;
-          FormMatriculasQ20:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY20.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY20.ParamByName('tipo').AsInteger:=StrToInt(Edit14.Text);
+          FormMatriculasFast.QY20.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport20,S);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     23: begin
           {$REGION 'Matrículas no período por condição de pagamento'}
-          Application.CreateForm(TFormMatriculasQ21, FormMatriculasQ21);
+          //QuickReport antigo (FormMatriculasQ21), trocado pelo FastReport (FormMatriculasFast, MAT21) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ21, FormMatriculasQ21);
+          //S:='Matrículas por condição de pagamento ';
+          //if Edit5.Text<>'' then S:=S+' Periodo: '+Edit5.Text;
+          //if MaskEdit3.Text<>'    ' then S:=S+' Ano: '+MaskEdit3.Text;
+          //FormMatriculasQ21.QRLabel12.Caption:=S;
+          //FormMatriculasQ21.FDQuery1.Close;
+          //FormMatriculasQ21.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Where<>'' then
+          //begin
+          //  Delete(Where,1,4); //retira o " and" do início e troca por where.
+          //  Insert('where ',Where,1);
+          //end;
+          //FormMatriculasQ21.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_VENDA, VED_VALORTOTAL, '+
+          //                                   'CLI_NOME, VEN_NOME, CPG_CODIGO, CPG_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'left join VENDAS on MAT_VENDA=VED_CODIGO '+
+          //                                   'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+Where+' '+
+          //                                   'order by CPG_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
+          //FormMatriculasQ21.FDQuery1.Open;
+          //FormMatriculasQ21.QuickRep1.PreviewModal;
+          //FormMatriculasQ21.Free;
+          //FormMatriculasQ21:=nil;
           S:='Matrículas por condição de pagamento ';
           if Edit5.Text<>'' then S:=S+' Periodo: '+Edit5.Text;
           if MaskEdit3.Text<>'    ' then S:=S+' Ano: '+MaskEdit3.Text;
-          FormMatriculasQ21.QRLabel12.Caption:=S;
-          FormMatriculasQ21.FDQuery1.Close;
-          FormMatriculasQ21.FDQuery1.SQL.Clear;
           Where:='';
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
@@ -956,32 +1383,53 @@ begin
           if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
           if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
-          if Where<>'' then
-          begin
-            Delete(Where,1,4); //retira o " and" do início e troca por where.
-            Insert('where ',Where,1);
-          end;
-          FormMatriculasQ21.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_STATUS, MAT_VENDA, VED_VALORTOTAL, '+
-                                             'CLI_NOME, VEN_NOME, CPG_CODIGO, CPG_DESCRICAO, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'left join VENDAS on MAT_VENDA=VED_CODIGO '+
-                                             'left join CONDICOES on VED_CONDICAO=CPG_CODIGO '+Where+' '+
-                                             'order by CPG_DESCRICAO, TUR_DESCRICAO, CLI_NOME');
-          FormMatriculasQ21.FDQuery1.Open;
-          FormMatriculasQ21.QuickRep1.PreviewModal;
-          FormMatriculasQ21.Free;
-          FormMatriculasQ21:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY21.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY21.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport21,S);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     24: begin
           {$REGION 'Alunos Aprovados e Reprovados'}
-          Application.CreateForm(TFormMatriculasQ05, FormMatriculasQ05);
-          FormMatriculasQ05.QRLabel12.Caption:='Matrículas - Status: '+ComboBox1.Text+' - Tipo: '+ComboBox5.Text+' - Aprovado: '+ComboBox5.Text;
-          //verificar a necessidade de informar a data inicial e final.... ver com angela.
-          //FormMatriculasQ05.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text+' Aprovado: '+ComboBox5.Text;
-          FormMatriculasQ05.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ05), trocado pelo FastReport (FormMatriculasFast, MAT05) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ05, FormMatriculasQ05);
+          //FormMatriculasQ05.QRLabel12.Caption:='Matrículas - Status: '+ComboBox1.Text+' - Tipo: '+ComboBox5.Text+' - Aprovado: '+ComboBox5.Text;
+          ////verificar a necessidade de informar a data inicial e final.... ver com angela.
+          ////FormMatriculasQ05.QRLabel12.Caption:='Matrículas de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox1.Text+' Tipo: '+ComboBox5.Text+' Aprovado: '+ComboBox5.Text;
+          //FormMatriculasQ05.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if ComboBox5.Text='M' then Where:=Where+' and MAT_TIPOMATRICULA=''M''' else
+          //if ComboBox5.Text='R' then Where:=Where+' and MAT_TIPOMATRICULA=''R''';
+          //if ComboBox6.Text='SIM' then Where:=Where+' and MAT_APROVADO=''S''' else
+          //if ComboBox6.Text='NÃO' then Where:=Where+' and MAT_APROVADO=''N''' else
+          //if ComboBox6.Text='INDEFINIDO' then Where:=Where+' and MAT_APROVADO=''I''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ05.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_TIPOMATRICULA, MAT_APROVADO, '+
+          //                                   'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
+          //                                   'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
+          //                                   'where 1=1 '+Where+' '+
+          //                                   //'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by VEN_NOME, TUR_DESCRICAO, CLI_NOME');
+          ////FormMatriculasQ05.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          ////FormMatriculasQ05.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ05.FDQuery1.Open;
+          //FormMatriculasQ05.QuickRep1.PreviewModal;
+          //FormMatriculasQ05.Free;
+          //FormMatriculasQ05:=nil;
           Where:='';
           if Edit2.Text<>'' then Where:=Where+' and MAT_TURMA='+QuotedStr(Edit1.Text);
           if Edit4.Text<>'' then Where:=Where+' and TUR_PROFESSOR='+QuotedStr(Edit3.Text);
@@ -999,28 +1447,45 @@ begin
           if ComboBox6.Text='INDEFINIDO' then Where:=Where+' and MAT_APROVADO=''I''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ05.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_DTCADASTRO, MAT_TIPOMATRICULA, MAT_APROVADO, '+
-                                             'MAT_STATUS, CLI_NOME, VEN_NOME, TUR_PROFESSOR, TUR_DESCRICAO, TUR_PERIODO, TUR_ANO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS ON MAT_TURMA=TUR_CODIGO '+
-                                             'left join VENDEDORES on TUR_PROFESSOR=VEN_CODIGO '+
-                                             'where 1=1 '+Where+' '+
-                                             //'where MAT_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by VEN_NOME, TUR_DESCRICAO, CLI_NOME');
-          //FormMatriculasQ05.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          //FormMatriculasQ05.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ05.FDQuery1.Open;
-          FormMatriculasQ05.QuickRep1.PreviewModal;
-          FormMatriculasQ05.Free;
-          FormMatriculasQ05:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY05.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY05.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport5,'Matrículas - Status: '+ComboBox1.Text+' - Tipo: '+ComboBox5.Text+' - Aprovado: '+ComboBox6.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     25: begin
           {$REGION 'Matrículas no período com endereço'}
-          Application.CreateForm(TFormMatriculasQ22, FormMatriculasQ22);
-          FormMatriculasQ22.QRLabel12.Caption:='Matrículas no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' com endereço';
-          FormMatriculasQ22.FDQuery1.Close;
-          FormMatriculasQ22.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ22), trocado pelo FastReport (FormMatriculasFast, MAT22) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ22, FormMatriculasQ22);
+          //FormMatriculasQ22.QRLabel12.Caption:='Matrículas no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' com endereço';
+          //FormMatriculasQ22.FDQuery1.Close;
+          //FormMatriculasQ22.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
+          //FormMatriculasQ22.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, TUR_DESCRICAO, '+
+          //                                   'TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_FONE1, CLI_FONE2, CLI_ENDERECO, CLI_NUMERO, CLI_BAIRRO, '+
+          //                                   'CLI_CIDADE, CLI_ESTADO, CLI_COMPLEMENTO, CLI_CEP, CLI_CONTATO from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'where MAT_DTCADASTRO between :datainicial and :datafinal '+
+          //                                   'and MAT_STATUS=''A'' '+Where+' order by CLI_CIDADE, CLI_BAIRRO, CLI_ENDERECO');
+          //FormMatriculasQ22.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ22.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ22.FDQuery1.Open;
+          //FormMatriculasQ22.QuickRep1.PreviewModal;
+          //FormMatriculasQ22.Free;
+          //FormMatriculasQ22:=nil;
           Where:='';
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
           if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
@@ -1032,27 +1497,45 @@ begin
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
           if Edit4.Text<>'' then Where:=Where+' and MAT_VENDEDOR='+QuotedStr(Edit3.Text);
-          FormMatriculasQ22.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, TUR_DESCRICAO, '+
-                                             'TUR_DTTERMINO, TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_FONE1, CLI_FONE2, CLI_ENDERECO, CLI_NUMERO, CLI_BAIRRO, '+
-                                             'CLI_CIDADE, CLI_ESTADO, CLI_COMPLEMENTO, CLI_CEP, CLI_CONTATO from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'where MAT_DTCADASTRO between :datainicial and :datafinal '+
-                                             'and MAT_STATUS=''A'' '+Where+' order by CLI_CIDADE, CLI_BAIRRO, CLI_ENDERECO');
-          FormMatriculasQ22.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ22.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ22.FDQuery1.Open;
-          FormMatriculasQ22.QuickRep1.PreviewModal;
-          FormMatriculasQ22.Free;
-          FormMatriculasQ22:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY22.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY22.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY22.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY22.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport22,'Matrículas no período de '+MaskEdit1.Text+' até '+MaskEdit2.Text+' com endereço');
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
     26: begin
           {$REGION 'Email dos Alunos'}
-          Application.CreateForm(TFormMatriculasQ23, FormMatriculasQ23);
-          FormMatriculasQ23.QRLabel12.Caption:='Emails dos alunos - Período de '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormMatriculasQ23.FDQuery1.Close;
-          FormMatriculasQ23.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormMatriculasQ23), trocado pelo FastReport (FormMatriculasFast, MAT23) em 2026.11.24:
+          //Application.CreateForm(TFormMatriculasQ23, FormMatriculasQ23);
+          //FormMatriculasQ23.QRLabel12.Caption:='Emails dos alunos - Período de '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormMatriculasQ23.FDQuery1.Close;
+          //FormMatriculasQ23.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if ComboBox1.Text='TODAS' then Where:=Where+'' else
+          //if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
+          //if ComboBox1.Text='BAIXADAS' then Where:=Where+' and MAT_STATUS=''B''' else
+          //if ComboBox1.Text='CANCELADAS' then Where:=Where+' and MAT_STATUS=''C''' else
+          //if ComboBox1.Text='DESISTENTES' then Where:=Where+' and MAT_STATUS=''D''' else
+          //if ComboBox1.Text='PRE MATRICULAS' then Where:=Where+' and MAT_STATUS=''P''' else
+          //if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
+          //if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
+          //if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
+          //FormMatriculasQ23.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, '+
+          //                                   'TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_EMAIL from MATRICULAS '+
+          //                                   'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
+          //                                   'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
+          //                                   'where TUR_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                   'order by CLI_NOME');
+          //FormMatriculasQ23.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormMatriculasQ23.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormMatriculasQ23.FDQuery1.Open;
+          //FormMatriculasQ23.QuickRep1.PreviewModal;
+          //FormMatriculasQ23.Free;
+          //FormMatriculasQ23:=nil;
           Where:='';
           if ComboBox1.Text='TODAS' then Where:=Where+'' else
           if ComboBox1.Text='ABERTAS' then Where:=Where+' and MAT_STATUS=''A''' else
@@ -1063,18 +1546,14 @@ begin
           if ComboBox1.Text='TRANSFERIDOS' then Where:=Where+' and MAT_STATUS=''T''';
           if Edit5.Text<>'' then Where:=Where+' and TUR_PERIODO='+QuotedStr(Edit5.Text);
           if MaskEdit3.Text<>'    ' then Where:=Where+' and TUR_ANO='+QuotedStr(MaskEdit3.Text);
-          FormMatriculasQ23.FDQuery1.SQL.Add('select MAT_CODIGO, MAT_CLIENTE, MAT_TURMA, MAT_STATUS, '+
-                                             'TUR_PERIODO, TUR_ANO, CLI_NOME, CLI_EMAIL from MATRICULAS '+
-                                             'left join CLIENTES on MAT_CLIENTE=CLI_CODIGO '+
-                                             'left join TURMAS on MAT_TURMA=TUR_CODIGO '+
-                                             'where TUR_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                             'order by CLI_NOME');
-          FormMatriculasQ23.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormMatriculasQ23.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormMatriculasQ23.FDQuery1.Open;
-          FormMatriculasQ23.QuickRep1.PreviewModal;
-          FormMatriculasQ23.Free;
-          FormMatriculasQ23:=nil;
+          Application.CreateForm(TFormMatriculasFast, FormMatriculasFast);
+          FormMatriculasFast.QY23.MacroByName('FILTRO').AsRaw:=Where;
+          FormMatriculasFast.QY23.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormMatriculasFast.QY23.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormMatriculasFast.QY23.Open;
+          FormMatriculasFast.Mostrar(FormMatriculasFast.frxReport23,'Emails dos alunos - Período de '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormMatriculasFast.Free;
+          FormMatriculasFast:=nil;
           {$ENDREGION}
         end;
   end;

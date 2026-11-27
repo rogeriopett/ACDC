@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorio do odontograma no FastReport (FormOdontogramasFast, ODO01); o QuickReport (FormOdontogramasQ01) ficou comentado.
 unit Odontogramas;
 
 interface
@@ -618,8 +620,8 @@ var
   FormOdontogramas: TFormOdontogramas;
 
 implementation
-uses DataMod, DataMod2, Funcoes1, Main, OdontogramasOpcoes, FuncoesFirenet, ClientesLoc, Clientes, OdontogramasQ01,
-  InputDate, ClientesAnexos;
+uses DataMod, DataMod2, Funcoes1, Main, OdontogramasOpcoes, FuncoesFirenet,
+  ClientesLoc, Clientes, OdontogramasFast, InputDate, ClientesAnexos;
 {$R *.dfm}
 
 procedure TFormOdontogramas.Ajuda2Click(Sender: TObject);
@@ -1367,19 +1369,26 @@ procedure TFormOdontogramas.Relatorios2Click(Sender: TObject);
 begin
   AbortIf(DM2.TBOdontogramas.IsEmpty,'Nenhum odontograma selecionado.');
 
-  Application.CreateForm(TFormOdontogramasQ01, FormOdontogramasQ01);
-  FormOdontogramasQ01.FDQuery1.SQL.Clear;
-  FormOdontogramasQ01.FDQuery1.SQL.Add('select ODO_CLIENTE, ODO_CODIGO, ODO_CORES, ODO_DATA, '+
-                                       'ODO_ESTILOS, ODO_OBSERVACOES, CLI_NOME from ODONTOGRAMAS '+
-                                       //'ODO_DESCRICOES, ODO_ESTILOS, ODO_OBSERVACOES, CLI_NOME from ODONTOGRAMAS '+
-                                       'left join CLIENTES on ODO_CLIENTE=CLI_CODIGO '+
-                                       'where ODO_CLIENTE=:cliente '+
-                                       'order by ODO_DATA desc');
-  FormOdontogramasQ01.FDQuery1.ParamByName('cliente').AsInteger:=DM.TBClientesCLI_CODIGO.Value;
-  FormOdontogramasQ01.FDQuery1.Open;
-  FormOdontogramasQ01.QuickRep1.PreviewModal;
-  FormOdontogramasQ01.Free;
-  FormOdontogramasQ01:=nil;
+  //QuickReport antigo (FormOdontogramasQ01), trocado pelo FastReport (FormOdontogramasFast, ODO01) em 2026.11.24:
+  //Application.CreateForm(TFormOdontogramasQ01, FormOdontogramasQ01);
+  //FormOdontogramasQ01.FDQuery1.SQL.Clear;
+  //FormOdontogramasQ01.FDQuery1.SQL.Add('select ODO_CLIENTE, ODO_CODIGO, ODO_CORES, ODO_DATA, '+
+  //                                     'ODO_ESTILOS, ODO_OBSERVACOES, CLI_NOME from ODONTOGRAMAS '+
+  //                                     //'ODO_DESCRICOES, ODO_ESTILOS, ODO_OBSERVACOES, CLI_NOME from ODONTOGRAMAS '+
+  //                                     'left join CLIENTES on ODO_CLIENTE=CLI_CODIGO '+
+  //                                     'where ODO_CLIENTE=:cliente '+
+  //                                     'order by ODO_DATA desc');
+  //FormOdontogramasQ01.FDQuery1.ParamByName('cliente').AsInteger:=DM.TBClientesCLI_CODIGO.Value;
+  //FormOdontogramasQ01.FDQuery1.Open;
+  //FormOdontogramasQ01.QuickRep1.PreviewModal;
+  //FormOdontogramasQ01.Free;
+  //FormOdontogramasQ01:=nil;
+  Application.CreateForm(TFormOdontogramasFast, FormOdontogramasFast);
+  FormOdontogramasFast.QY01.ParamByName('cliente').AsInteger:=DM.TBClientesCLI_CODIGO.Value;
+  FormOdontogramasFast.QY01.Open;
+  FormOdontogramasFast.Mostrar(FormOdontogramasFast.frxReport1,'Odontogramas');
+  FormOdontogramasFast.Free;
+  FormOdontogramasFast:=nil;
 end;
 
 procedure TFormOdontogramas.MostrarDadosDentes(Estilos: String);

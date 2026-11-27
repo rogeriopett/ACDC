@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { PettButton } from 'pett-componentes';
+import { PettFieldDate } from 'pett-componentes';
 import { PettFieldDrop } from 'pett-componentes';
 import { PettFieldFloat } from 'pett-componentes';
 import { PettFieldLoc } from 'pett-componentes';
@@ -550,7 +551,7 @@ function VendasItens(props) {
                             <PettFieldMoney size="col-lg-2 col-md-3 col-sm-4" label="VALOR IOF" name="VEI_VALORIOF" value={vendaItemModal.VEI_VALORIOF} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
                             <PettFieldText size="col-lg-2 col-md-3 col-sm-4" label="NUM. REGISTRO DI" name="VEI_DINUMERO" value={vendaItemModal.VEI_DINUMERO} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields} keyfilter="int"/>
                             <PettFieldMoney size="col-lg-2 col-md-3 col-sm-4" label="VALOR AFRMM" name="VEI_VALORADRMM" value={vendaItemModal.VEI_VALORADRMM} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
-                            <PettFieldData size="col-lg-2 col-md-3 col-sm-4" label="DATA DI" name="VEI_DIDATA" value={vendaItemModal.VEI_DIDATA} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
+                            <PettFieldDate size="col-lg-2 col-md-3 col-sm-4" label="DATA DI" name="VEI_DIDATA" value={vendaItemModal.VEI_DIDATA} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
                             <PettFieldText size="col-lg-2 col-md-3 col-sm-4" label="LOCAL DESEMBARAÇO" name="VEI_DIDESEMBARACOLOCAL" value={vendaItemModal.VEI_DIDESEMBARACOLOCAL} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
                             <PettFieldDate size="col-lg-2 col-md-3 col-sm-4" label="DATA DESEMBARAÇO" name="VEI_DIDESEMBARACODATA" value={vendaItemModal.VEI_DIDESEMBARACODATA} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>
                             <PettFieldText size="col-lg-2 col-md-3 col-sm-4" label="UF DESEMBARAÇO" name="VEI_DIDESEMBARACOUF" value={vendaItemModal.VEI_DIDESEMBARACOUF} set={setVendaItemModal} readOnly={disableFields} disabled={disableFields}/>

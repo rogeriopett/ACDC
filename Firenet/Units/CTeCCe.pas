@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.Mask,
   Data.DB, Vcl.Grids, Vcl.DBGrids, System.ImageList, Vcl.ImgList, PngImageList,
-  Vcl.Menus, Vcl.Buttons, PngSpeedButton, DBSBtn, Vcl.ExtCtrls, PngBitBtn, QRPDFFilt,
+  Vcl.Menus, Vcl.Buttons, PngSpeedButton, DBSBtn, Vcl.ExtCtrls, PngBitBtn,
   System.UITypes;
 
 type

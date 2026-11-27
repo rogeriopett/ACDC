@@ -6,7 +6,7 @@ $lines = Get-Content (Join-Path $Dir 'DDL_Banco.sql') -Encoding Default
 $text  = $lines -join "`n"
 
 # Colunas que NUNCA vão para a IA (senhas, tokens, chaves, licenças).
-# Manter esta lista igual a COLUNAS_BLOQUEADAS em delphi\IasminValidadorSQL.pas.
+# Manter esta lista igual a COLUNAS_BLOQUEADAS em Firenet\Units\IasminValidadorSQL.pas.
 $bloqueadas = @(
   'CLI_PASSWORD','USU_PASSWORD','SER_SENHAONLINE','EMC_SENHA','EMP_NOSSOSITESENHA','EMP_SUPERSENHA',
   'CON_CLIENTID','CON_CLIENTSECRET','CON_KEYUSER',
@@ -15,7 +15,7 @@ $bloqueadas = @(
   'ZIN_CLIENTTOKEN','ZIN_INSTANCIATOKEN','ZIN_WEBHOOKTOKEN'
 )
 # Tabelas sem acesso para o usuário IA_LEITURA (sql\criar_usuario_leitura.sql).
-# Manter igual a TABELAS_BLOQUEADAS em delphi\IasminValidadorSQL.pas.
+# Manter igual a TABELAS_BLOQUEADAS em Firenet\Units\IasminValidadorSQL.pas.
 $tabelasExcluidas = @('PARAMETROS','EMPRESA','EMAILSCONTAS','ZAPINSTANCIAS','USUARIOS','ACESSOS','SQLS','IASMIN','IASMINLOGS')
 
 # --- Domínios

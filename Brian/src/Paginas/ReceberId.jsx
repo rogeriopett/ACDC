@@ -10,6 +10,7 @@
 //2026.11.18 - Rodape dos modais: btn-group trocado por d-flex gap-1 (espaco entre os botoes).
 //2026.11.18 - Removida a classe mb-1 do size dos PettField* (o espacamento fica com o pett-componentes/row g-1).
 //2026.11.19 - Modais de formulario com a classe modal-campos (margem lateral menor, campos centralizados).
+//2026.11.27 - Mensagem de registro nao encontrado com o componente local NaoEncontrado (PettIcon no lugar do fa-record-vinyl; sem vh-100).
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { NumericFormat } from "react-number-format";
@@ -26,6 +27,7 @@ import { AuthContext } from '../Contextos/Auth';
 import { ParametrosContext } from '../Contextos/Parametros';
 import Formata from '../Componentes/Formata';
 import Loading from '../Componentes/Loading';
+import NaoEncontrado from '../Componentes/NaoEncontrado';
 import { formatarDataStr, tratarCatch } from '../Funcoes';
 
 function ReceberId(props) {
@@ -143,11 +145,7 @@ function ReceberId(props) {
         </div>
 
         <Loading status={carregando}/>
-        <PettIf condicional={receber.REE_CODIGO<=0}>
-            <div className="container limit-width vh-100 d-flex justify-content-center align-items-center">
-                <p className="text-center lead"><span style={{fontSize: '7em'}} className="texto-suave"><i className="fa fa-fw fa-record-vinyl"></i></span><br/>Não foi possível localizar a conta a receber.</p>
-            </div>  
-        </PettIf>
+        <NaoEncontrado show={!carregando && receber.REE_CODIGO<=0} mensagem="Não foi possível localizar a conta a receber."/>
         <PettIf condicional={receber.REE_CODIGO>0}>
             <div className="container-fluid limit-width py-2">
                 <ul className="list-group mb-3">  

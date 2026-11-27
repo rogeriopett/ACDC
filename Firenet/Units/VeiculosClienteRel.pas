@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorio no FastReport (FormVeiculosClienteFast, VEC01); o QuickReport (FormVeiculosClienteQ01) ficou comentado.
 unit VeiculosClienteRel;
 
 interface
@@ -44,7 +46,7 @@ var
   FormVeiculosClienteRel: TFormVeiculosClienteRel;
 
 implementation
-uses DataMod, ClientesLoc, Funcoes1, VeiculosClienteQ01, DataModSearch;
+uses DataMod, ClientesLoc, Funcoes1, DataModSearch, VeiculosClienteFast;
 
 {$R *.dfm}
 
@@ -153,31 +155,51 @@ begin
 end;
 
 procedure TFormVeiculosClienteRel.BitBtn1Click(Sender: TObject);
+var Where: String;
 begin
   case ComboBox1.ItemIndex of
     00: begin
-          Application.CreateForm(TFormVeiculosClienteQ01, FormVeiculosClienteQ01);
-          FormVeiculosClienteQ01.FDQuery1.SQL.Clear;
-          if Edit2.Text='' then
-          FormVeiculosClienteQ01.FDQuery1.SQL.Add('select CLI_NOME, VEL_DESCRICAO, VEC_CLIENTE, VEC_DTVENDA, VEC_COR, VEC_KM, VEC_COMBUSTIVEL, '+
-                                                  'VEC_ANOFAB, VEC_ANOMOD, VEC_TIPO, VEC_RENAVAN, VEC_PLACA from VEICULOSCLIENTE '+
-                                                  'left join CLIENTES on VEC_CLIENTE=CLI_CODIGO '+
-                                                  'left join VEICULOS on VEC_VEICULO=VEL_CODIGO '+
-                                                  'where VEC_DTVENDA between :datainicial and :datafinal '+
-                                                  'order by VEC_CLIENTE, VEC_DTVENDA desc') else
-          FormVeiculosClienteQ01.FDQuery1.SQL.Add('select CLI_NOME, VEL_DESCRICAO, VEC_CLIENTE, VEC_DTVENDA, VEC_COR, VEC_KM, VEC_COMBUSTIVEL, '+
-                                                  'VEC_ANOFAB, VEC_ANOMOD, VEC_TIPO, VEC_RENAVAN, VEC_PLACA from VEICULOSCLIENTE '+
-                                                  'left join CLIENTES on VEC_CLIENTE=CLI_CODIGO '+
-                                                  'left join VEICULOS on VEC_VEICULO=VEL_CODIGO '+
-                                                  'where VEC_DTVENDA between :datainicial and :datafinal '+
-                                                  'and VEC_CLIENTE='+QuotedStr(Edit1.Text)+' '+
-                                                  'order by VEC_CLIENTE, VEC_DTVENDA desc');
-          FormVeiculosClienteQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormVeiculosClienteQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormVeiculosClienteQ01.FDQuery1.Open;
-          FormVeiculosClienteQ01.QuickRep1.PreviewModal;
-          FormVeiculosClienteQ01.Free;
-          FormVeiculosClienteQ01:=nil;
+          //QuickReport antigo (FormVeiculosClienteQ01), trocado pelo FastReport (FormVeiculosClienteFast, VEC01) em 2026.11.24:
+          //Application.CreateForm(TFormVeiculosClienteQ01, FormVeiculosClienteQ01);
+          //FormVeiculosClienteQ01.FDQuery1.SQL.Clear;
+          //if Edit2.Text='' then
+          //FormVeiculosClienteQ01.FDQuery1.SQL.Add('select CLI_NOME, VEL_DESCRICAO, VEC_CLIENTE, VEC_DTVENDA, VEC_COR, VEC_KM, VEC_COMBUSTIVEL, '+
+          //                                        'VEC_ANOFAB, VEC_ANOMOD, VEC_TIPO, VEC_RENAVAN, VEC_PLACA from VEICULOSCLIENTE '+
+          //                                        'left join CLIENTES on VEC_CLIENTE=CLI_CODIGO '+
+          //                                        'left join VEICULOS on VEC_VEICULO=VEL_CODIGO '+
+          //                                        'where VEC_DTVENDA between :datainicial and :datafinal '+
+          //                                        'order by VEC_CLIENTE, VEC_DTVENDA desc') else
+          //FormVeiculosClienteQ01.FDQuery1.SQL.Add('select CLI_NOME, VEL_DESCRICAO, VEC_CLIENTE, VEC_DTVENDA, VEC_COR, VEC_KM, VEC_COMBUSTIVEL, '+
+          //                                        'VEC_ANOFAB, VEC_ANOMOD, VEC_TIPO, VEC_RENAVAN, VEC_PLACA from VEICULOSCLIENTE '+
+          //                                        'left join CLIENTES on VEC_CLIENTE=CLI_CODIGO '+
+          //                                        'left join VEICULOS on VEC_VEICULO=VEL_CODIGO '+
+          //                                        'where VEC_DTVENDA between :datainicial and :datafinal '+
+          //                                        'and VEC_CLIENTE='+QuotedStr(Edit1.Text)+' '+
+          //                                        'order by VEC_CLIENTE, VEC_DTVENDA desc');
+          //FormVeiculosClienteQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormVeiculosClienteQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormVeiculosClienteQ01.FDQuery1.Open;
+          //FormVeiculosClienteQ01.QuickRep1.PreviewModal;
+          //FormVeiculosClienteQ01.Free;
+          //FormVeiculosClienteQ01:=nil;
+          Where:='';
+          if Edit2.Text<>'' then Where:=' and VEC_CLIENTE='+QuotedStr(Edit1.Text);
+          Application.CreateForm(TFormVeiculosClienteFast, FormVeiculosClienteFast);
+          FormVeiculosClienteFast.QY01.SQL.Clear;
+          FormVeiculosClienteFast.QY01.SQL.Add(
+            'select CLI_NOME, VEL_DESCRICAO, VEC_CLIENTE, VEC_DTVENDA, VEC_COR, VEC_KM, VEC_COMBUSTIVEL, '+
+            'VEC_ANOFAB, VEC_ANOMOD, VEC_TIPO, VEC_RENAVAN, VEC_PLACA '+
+            'from VEICULOSCLIENTE '+
+            'left join CLIENTES on VEC_CLIENTE=CLI_CODIGO '+
+            'left join VEICULOS on VEC_VEICULO=VEL_CODIGO '+
+            'where VEC_DTVENDA between :datainicial and :datafinal '+Where+' '+
+            'order by VEC_CLIENTE, VEC_DTVENDA desc ');
+          FormVeiculosClienteFast.QY01.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormVeiculosClienteFast.QY01.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormVeiculosClienteFast.QY01.Open;
+          FormVeiculosClienteFast.Mostrar(FormVeiculosClienteFast.frxReport1,'Veículos de clientes de '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormVeiculosClienteFast.Free;
+          FormVeiculosClienteFast:=nil;
         end;
 //    01: begin
 //        end;

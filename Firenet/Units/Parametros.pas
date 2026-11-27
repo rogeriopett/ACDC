@@ -864,9 +864,6 @@ type
     Label215: TLabel;
     DBEdit112: TDBEdit;
     DBEdit113: TDBEdit;
-    Label241: TLabel;
-    DBEdit114: TDBEdit;
-    PngSpeedButton17: TPngSpeedButton;
     PngSpeedButton33: TPngSpeedButton;
     PngSpeedButton22: TPngSpeedButton;
     Label210: TLabel;
@@ -959,7 +956,6 @@ type
     procedure Label375Click(Sender: TObject);
     procedure PngSpeedButton22Click(Sender: TObject);
     procedure PngSpeedButton33Click(Sender: TObject);
-    procedure PngSpeedButton17Click(Sender: TObject);
     procedure CheckListBox1ClickCheck(Sender: TObject);
     procedure CheckListBox2ClickCheck(Sender: TObject);
     procedure PngSpeedButton28Click(Sender: TObject);
@@ -1487,16 +1483,6 @@ begin
     DM2.TBCteCodigo.Edit;
     DM2.TBCteCodigoCTE_CODIGO.Value:=I;
     DM2.TBCteCodigo.Post;
-  end;
-end;
-
-procedure TFormParametros.PngSpeedButton17Click(Sender: TObject);
-begin
-  FileOpenDialog1.Title:='Selecione a pasta onde será salvo a logomarca.';
-  if FileOpenDialog1.Execute then
-  begin
-    DM.TBParametros.Edit;
-    DM.TBParametrosPAR_LOCALLOGOMARCA.Value:=FileOpenDialog1.FileName;
   end;
 end;
 

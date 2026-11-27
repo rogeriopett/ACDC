@@ -4,8 +4,8 @@ object FormVendasRel: TFormVendasRel
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Relat'#243'rio de Vendas'
-  ClientHeight = 648
-  ClientWidth = 472
+  ClientHeight = 496
+  ClientWidth = 664
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,43 +18,43 @@ object FormVendasRel: TFormVendasRel
   OnKeyPress = FormKeyPress
   TextHeight = 13
   object Label1: TLabel
-    Left = 63
+    Left = 23
     Top = 28
     Width = 79
     Height = 13
     Caption = 'Tipo de relat'#243'rio:'
   end
   object Label2: TLabel
-    Left = 86
-    Top = 68
+    Left = 462
+    Top = 76
     Width = 56
     Height = 13
     Caption = 'Data Inicial:'
   end
   object Label3: TLabel
-    Left = 235
-    Top = 68
+    Left = 467
+    Top = 100
     Width = 51
     Height = 13
     Caption = 'Data Final:'
   end
   object Bevel1: TBevel
     Left = 8
-    Top = 608
-    Width = 457
+    Top = 456
+    Width = 649
     Height = 5
     Shape = bsTopLine
   end
   object Label5: TLabel
-    Left = 93
-    Top = 308
+    Left = 53
+    Top = 100
     Width = 49
     Height = 13
     Caption = 'Vendedor:'
   end
   object SpeedButton1: TPngSpeedButton
-    Left = 444
-    Top = 304
+    Left = 404
+    Top = 96
     Width = 21
     Height = 21
     Enabled = False
@@ -167,15 +167,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label4: TLabel
-    Left = 107
-    Top = 284
+    Left = 67
+    Top = 76
     Width = 35
     Height = 13
     Caption = 'Cliente:'
   end
   object SpeedButton2: TPngSpeedButton
-    Left = 444
-    Top = 280
+    Left = 404
+    Top = 72
     Width = 21
     Height = 21
     Flat = True
@@ -287,15 +287,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label6: TLabel
-    Left = 110
-    Top = 380
+    Left = 70
+    Top = 220
     Width = 32
     Height = 13
     Caption = 'Grupo:'
   end
   object SpeedButton3: TPngSpeedButton
-    Left = 444
-    Top = 376
+    Left = 404
+    Top = 216
     Width = 21
     Height = 21
     Enabled = False
@@ -408,22 +408,22 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label7: TLabel
-    Left = 380
-    Top = 68
+    Left = 492
+    Top = 316
     Width = 26
     Height = 13
     Caption = 'Qtde:'
   end
   object Label8: TLabel
-    Left = 102
-    Top = 404
+    Left = 62
+    Top = 172
     Width = 40
     Height = 13
     Caption = 'Produto:'
   end
   object SpeedButton4: TPngSpeedButton
-    Left = 444
-    Top = 400
+    Left = 404
+    Top = 168
     Width = 21
     Height = 21
     Enabled = False
@@ -536,15 +536,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label9: TLabel
-    Left = 60
-    Top = 116
+    Left = 436
+    Top = 268
     Width = 82
     Height = 13
     Caption = 'Tabela de Pre'#231'o:'
   end
   object SpeedButton5: TPngSpeedButton
-    Left = 444
-    Top = 256
+    Left = 404
+    Top = 336
     Width = 21
     Height = 21
     Enabled = False
@@ -657,22 +657,22 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label10: TLabel
-    Left = 78
-    Top = 260
+    Left = 38
+    Top = 340
     Width = 64
     Height = 13
     Caption = 'Lote Produto:'
   end
   object Label11: TLabel
-    Left = 109
-    Top = 428
+    Left = 69
+    Top = 244
     Width = 33
     Height = 13
     Caption = 'Marca:'
   end
   object SpeedButton6: TPngSpeedButton
-    Left = 444
-    Top = 424
+    Left = 404
+    Top = 240
     Width = 21
     Height = 21
     Enabled = False
@@ -785,15 +785,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label12: TLabel
-    Left = 63
-    Top = 452
+    Left = 23
+    Top = 268
     Width = 79
     Height = 13
     Caption = 'Condi'#231#227'o Pagto:'
   end
   object SpeedButton7: TPngSpeedButton
-    Left = 444
-    Top = 448
+    Left = 404
+    Top = 264
     Width = 21
     Height = 21
     Enabled = False
@@ -906,15 +906,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label13: TLabel
-    Left = 105
-    Top = 356
+    Left = 65
+    Top = 196
     Width = 37
     Height = 13
     Caption = 'Fam'#237'lia:'
   end
   object PngSpeedButton1: TPngSpeedButton
-    Left = 444
-    Top = 352
+    Left = 404
+    Top = 192
     Width = 21
     Height = 21
     Enabled = False
@@ -1027,29 +1027,29 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label14: TLabel
-    Left = 115
-    Top = 140
+    Left = 491
+    Top = 292
     Width = 27
     Height = 13
     Caption = 'Frete:'
   end
   object Label15: TLabel
-    Left = 109
-    Top = 164
+    Left = 485
+    Top = 148
     Width = 33
     Height = 13
     Caption = 'Status:'
   end
   object Label16: TLabel
-    Left = 106
-    Top = 476
+    Left = 66
+    Top = 292
     Width = 36
     Height = 13
     Caption = 'Cidade:'
   end
   object PngSpeedButton2: TPngSpeedButton
-    Left = 444
-    Top = 472
+    Left = 404
+    Top = 288
     Width = 21
     Height = 21
     Enabled = False
@@ -1162,22 +1162,22 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label17: TLabel
-    Left = 116
-    Top = 92
+    Left = 492
+    Top = 124
     Width = 26
     Height = 13
     Caption = 'Data:'
   end
   object Label18: TLabel
-    Left = 106
-    Top = 500
+    Left = 66
+    Top = 316
     Width = 36
     Height = 13
     Caption = 'Estado:'
   end
   object PngSpeedButton3: TPngSpeedButton
-    Left = 444
-    Top = 496
+    Left = 404
+    Top = 312
     Width = 21
     Height = 21
     Enabled = False
@@ -1290,15 +1290,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label19: TLabel
-    Left = 49
-    Top = 524
+    Left = 9
+    Top = 364
     Width = 93
     Height = 13
     Caption = 'Ramo de Atividade:'
   end
   object PngSpeedButton4: TPngSpeedButton
-    Left = 444
-    Top = 520
+    Left = 404
+    Top = 360
     Width = 21
     Height = 21
     Enabled = False
@@ -1411,15 +1411,15 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label20: TLabel
-    Left = 68
-    Top = 548
+    Left = 28
+    Top = 388
     Width = 74
     Height = 13
     Caption = 'Local Trabalho:'
   end
   object PngSpeedButton5: TPngSpeedButton
-    Left = 444
-    Top = 544
+    Left = 404
+    Top = 384
     Width = 21
     Height = 21
     Enabled = False
@@ -1532,29 +1532,29 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label21: TLabel
-    Left = 85
-    Top = 188
+    Left = 461
+    Top = 196
     Width = 57
     Height = 13
     Caption = 'Via Internet:'
   end
   object Label22: TLabel
-    Left = 96
-    Top = 212
+    Left = 472
+    Top = 220
     Width = 46
     Height = 13
     Caption = 'Entregue:'
   end
   object Label23: TLabel
-    Left = 85
-    Top = 332
+    Left = 45
+    Top = 148
     Width = 57
     Height = 13
     Caption = 'Fornecedor:'
   end
   object PngSpeedButton6: TPngSpeedButton
-    Left = 444
-    Top = 328
+    Left = 404
+    Top = 144
     Width = 21
     Height = 21
     Enabled = False
@@ -1667,22 +1667,22 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Label24: TLabel
-    Left = 68
-    Top = 236
+    Left = 444
+    Top = 172
     Width = 74
     Height = 13
     Caption = 'Entrada/Sa'#237'da:'
   end
   object Label25: TLabel
-    Left = 47
-    Top = 572
+    Left = 7
+    Top = 412
     Width = 95
     Height = 13
     Caption = 'Classifica'#231#227'o Fiscal:'
   end
   object PngSpeedButton7: TPngSpeedButton
-    Left = 444
-    Top = 568
+    Left = 404
+    Top = 408
     Width = 21
     Height = 21
     Enabled = False
@@ -1794,10 +1794,138 @@ object FormVendasRel: TFormVendasRel
       6082}
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
+  object Label26: TLabel
+    Left = 29
+    Top = 124
+    Width = 73
+    Height = 13
+    Caption = 'Representante:'
+  end
+  object PngSpeedButton8: TPngSpeedButton
+    Left = 404
+    Top = 120
+    Width = 21
+    Height = 21
+    Enabled = False
+    Flat = True
+    OnClick = PngSpeedButton8Click
+    PngImage.Data = {
+      89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+      6100000A3769434350735247422049454336313936362D322E310000789C9D96
+      775453D91687CFBD37BD5092108A94D06B685202480DBD48912E2A3109104AC0
+      90002236445470445191A6083228E080A34391B1228A850151B1EB041944D471
+      70141B964964AD19DFBC79EFCD9BDF1FF77E6B9FBDCFDD67EF7DD6BA0090FC83
+      05C24C5809800CA15814E1E7C5888D8B676007010CF000036C00E070B3B34216
+      F8460299027CD88C6C9913F817BDBA0E20F9FB2AD33F8CC100FF9F94B9592231
+      0050988CE7F2F8D95C1917C9383D579C25B74FC998B6344DCE304ACE22598232
+      569373F22C5B7CF699650F39F332843C19CB73CEE265F0E4DC27E38D3912BE8C
+      91601917E708F8B932BE26638374498640C66FE4B1197C4E36002892DC2EE673
+      53646C2D63922832822DE37900E048C95FF0D22F58CCCF13CB0FC5CECC5A2E12
+      24A78819265C53868D93138BE1CFCF4DE78BC5CC300E378D23E231D89919591C
+      E1720066CFFC5914796D19B2223BD8383938306D2D6DBE28D47F5DFC9B92F776
+      965E847FEE19441FF8C3F6577E990D00B0A665B5D9FA876D6915005DEB0150BB
+      FD87CD602F008AB2BE750E7D711EBA7C5E52C4E22C672BABDCDC5C4B019F6B29
+      2FE8EFFA9F0E7F435F7CCF52BEDDEFE56178F39338927431435E376E667AA644
+      C4C8CEE270F90CE69F87F81F07FE751E1611FC24BE882F944544CBA64C204C96
+      B55BC813880599428640F89F9AF80FC3FEA4D9B99689DAF811D0965802A5211A
+      407E1E00282A1120097B642BD0EF7D0BC64703F9CD8BD199989DFBCF82FE7D57
+      B84CFEC816247F8E63474432B81251CEEC9AFC5A02342000454003EA401BE803
+      13C004B6C011B8000FE0030241288804716031E0821490014420171480B5A018
+      9482AD6027A80675A0113483367018748163E03438072E81CB6004DC0152300E
+      9E8029F00ACC40108485C810155287742043C81CB28558901BE403054311501C
+      940825434248021540EBA052A81CAA86EAA166E85BE828741ABA000D43B7A051
+      6812FA157A07233009A6C15AB0116C05B3604F38088E8417C1C9F032381F2E82
+      B7C09570037C10EE844FC397E011580A3F81A7118010113AA28B301116C24642
+      917824091121AB9012A4026940DA901EA41FB98A4891A7C85B1406454531504C
+      940BCA1F1585E2A296A156A136A3AA5107509DA83ED455D4286A0AF5114D466B
+      A2CDD1CEE800742C3A199D8B2E4657A09BD01DE8B3E811F438FA150683A1638C
+      318E187F4C1C2615B302B319B31BD38E398519C68C61A6B158AC3AD61CEB8A0D
+      C572B0626C31B60A7B107B127B053B8E7D8323E27470B6385F5C3C4E882BC455
+      E05A702770577013B819BC12DE10EF8C0FC5F3F0CBF165F8467C0F7E083F8E9F
+      2128138C09AE8448422A612DA192D046384BB84B78412412F5884EC470A280B8
+      8658493C443C4F1C25BE255148662436298124216D21ED279D22DD22BD2093C9
+      46640F723C594CDE426E269F21DF27BF51A02A582A0428F014562BD428742A5C
+      5178A688573454F4545CAC98AF58A178447148F1A9125EC94889ADC4515AA554
+      A37454E986D2B43255D9463954394379B3728BF205E547142CC588E243E1518A
+      28FB286728635484AA4F6553B9D475D446EA59EA380D4333A605D05269A5B46F
+      6883B429158A8A9D4AB44A9E4A8DCA7115291DA11BD103E8E9F432FA61FA75FA
+      3B552D554F55BEEA26D536D52BAAAFD5E6A879A8F1D54AD4DAD546D4DEA933D4
+      7DD4D3D4B7A977A9DFD340699869846BE46AECD138ABF1740E6D8ECB1CEE9C92
+      3987E7DCD68435CD3423345768EED31CD09CD6D2D6F2D3CAD2AAD23AA3F5549B
+      AEEDA19DAABD43FB84F6A40E55C74D47A0B343E7A4CE63860AC39391CEA864F4
+      31A6743575FD7525BAF5BA83BA337AC67A517A857AED7AF7F409FA2CFD24FD1D
+      FABDFA53063A0621060506AD06B70DF1862CC314C35D86FD86AF8D8C8D628C36
+      1875193D3256330E30CE376E35BE6B423671375966D26072CD1463CA324D33DD
+      6D7AD90C36B3374B31AB311B3287CD1DCC05E6BBCD872DD0164E16428B068B1B
+      4C12D39399C36C658E5AD22D832D0B2DBB2C9F591958C55B6DB3EAB7FA686D6F
+      9D6EDD687DC7866213685368D363F3ABAD992DD7B6C6F6DA5CF25CDFB9ABE776
+      CF7D6E676EC7B7DB6377D39E6A1F62BFC1BED7FE8383A383C8A1CD61D2D1C031
+      D1B1D6F1068BC60A636D669D77423B7939AD763AE6F4D6D9C159EC7CD8F91717
+      A64B9A4B8BCBA379C6F3F8F31AE78DB9EAB9725CEB5DA56E0CB744B7BD6E5277
+      5D778E7B83FB030F7D0F9E4793C784A7A967AAE741CF675ED65E22AF0EAFD76C
+      67F64AF6296FC4DBCFBBC47BD087E213E553ED73DF57CF37D9B7D577CACFDE6F
+      85DF297FB47F90FF36FF1B015A01DC80E680A940C7C095817D41A4A00541D541
+      0F82CD8245C13D21704860C8F690BBF30DE70BE7778582D080D0EDA1F7C28CC3
+      96857D1F8E090F0BAF097F1861135110D1BF80BA60C9829605AF22BD22CB22EF
+      44994449A27AA315A313A29BA35FC778C794C74863AD6257C65E8AD38813C475
+      C763E3A3E39BE2A717FA2CDCB9703CC13EA138E1FA22E345798B2E2CD6589CBE
+      F8F812C5259C254712D18931892D89EF39A19C06CEF4D280A5B54BA7B86CEE2E
+      EE139E076F076F92EFCA2FE74F24B92695273D4A764DDE9E3C99E29E5291F254
+      C016540B9EA7FAA7D6A5BE4E0B4DDB9FF6293D26BD3D0397919871544811A609
+      FB32B533F33287B3CCB38AB3A4CB9C97ED5C36250A12356543D98BB2BBC534D9
+      CFD480C444B25E329AE3965393F326373AF7489E729E306F60B9D9F24DCB27F2
+      7DF3BF5E815AC15DD15BA05BB0B66074A5E7CAFA55D0AAA5AB7A57EBAF2E5A3D
+      BEC66FCD81B584B5696B7F28B42E2C2F7CB92E665D4F9156D19AA2B1F57EEB5B
+      8B158A45C53736B86CA8DB88DA28D838B869EEA6AA4D1F4B7825174BAD4B2B4A
+      DF6FE66EBEF895CD57955F7DDA92B465B0CCA16CCF56CC56E1D6EBDBDCB71D28
+      572ECF2F1FDB1EB2BD73076347C98E973B97ECBC50615751B78BB04BB24B5A19
+      5CD95D6550B5B5EA7D754AF5488D574D7BAD66EDA6DAD7BB79BBAFECF1D8D356
+      A755575AF76EAF60EFCD7ABFFACE06A3868A7D987D39FB1E364637F67FCDFABA
+      B949A3A9B4E9C37EE17EE98188037DCD8ECDCD2D9A2D65AD70ABA475F260C2C1
+      CBDF787FD3DDC66CAB6FA7B7971E028724871E7F9BF8EDF5C341877B8FB08EB4
+      7D67F85D6D07B5A3A413EA5CDE39D595D225ED8EEB1E3E1A78B4B7C7A5A7E37B
+      CBEFF71FD33D56735CE578D909C289A2139F4EE69F9C3E9575EAE9E9E4D363BD
+      4B7AEF9C893D73AD2FBC6FF06CD0D9F3E77CCF9DE9F7EC3F79DEF5FCB10BCE17
+      8E5E645DECBAE470A973C07EA0E307FB1F3A061D063B871C87BA2F3B5DEE199E
+      377CE28AFB95D357BDAF9EBB1670EDD2C8FC91E1EB51D76FDE48B821BDC9BBF9
+      E856FAADE7B7736ECFDC5973177DB7E49ED2BD8AFB9AF71B7E34FDB15DEA203D
+      3EEA3D3AF060C1833B63DCB1273F65FFF47EBCE821F961C584CE44F323DB47C7
+      267D272F3F5EF878FC49D69399A7C53F2BFF5CFBCCE4D977BF78FC3230153B35
+      FE5CF4FCD3AF9B5FA8BFD8FFD2EE65EF74D8F4FD5719AF665E97BC517F73E02D
+      EB6DFFBB98771333B9EFB1EF2B3F987EE8F918F4F1EEA78C4F9F7E03F784F3FB
+      8F70662A000000097048597300002E2300002E230178A53F7600000231494441
+      5478DA8D936F48137118C7BF77277AE6689BB3D06609CD576621456DB9AB8145
+      149BDD489090DE444120D6842068A55010A16514FDC117415486911BC7CCE845
+      CC04090C251A95928BF24558E8865ABB4C77B7EB7757847167EC79DE3CFCFE7C
+      7E3CDFEFF3A3BC21BF9362701B4011B28F8C0284FAFC4280F209FC5380DABB74
+      972FAFC55A532966166631FC7504E33371438AA4C85504E01F243567CBB7212D
+      A7717FDF1D8869110A499AA2F1535AC0C0E701DC7DD7A503C8C8ECF80BE0EC6E
+      9CDCD20C86F4D3367219533FA635C8B18D47506C2AC6B38928EE8D761903ACAC
+      85BBE2B9049661117CD1027F398F4F73132835D931F4E5255A5D67904AA7D018
+      3D8159D2960E50BD663B17D8DC849BAF3B119B8E21B528425664ED90DA9A0AEE
+      F0B4211C17D0331ED6037697EDE28E561EC6F9A10B184D8EE97AB5B256DCA8B9
+      46041DC6D557D7F5800DB60AAEC515C4E38F4FF060AC5B07285BB90EED3B2FE2
+      E1FB4710E21163117B7CDDF8B6F81DA7064F23399F5CF2BA05679D41D8891E4D
+      FD0124E613C60087C58173D5ADA049DE8A751217A660CE33E37855230A720B20
+      6764D4F7352C6FA336408E5A1CAA6880A22864D4329AA50CCD20F2A117BEF55E
+      AD3ED05BBF3C408D1C3A079B8A2AB16AC56A4CA626F126F1565B5767C455E2FC
+      076208F85FA8906D255B355BF948DD6F8057E0A314A89A6C7F5187A71D794C2E
+      11B41992243B296F787F1D45D3EA8CB2D942FEC4733136B78752057387DCF985
+      2834677B539468A9FF6044F3F317224FED8F79781DA90000000049454E44AE42
+      6082}
+    PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
+  end
+  object Label27: TLabel
+    Left = 463
+    Top = 244
+    Width = 55
+    Height = 13
+    Caption = 'Devolu'#231#227'o:'
+  end
   object ComboBox1: TComboBox
-    Left = 144
+    Left = 104
     Top = 24
-    Width = 321
+    Width = 489
     Height = 21
     Style = csDropDownList
     DropDownCount = 20
@@ -1837,8 +1965,8 @@ object FormVendasRel: TFormVendasRel
       'Vendas por cliente com itens e data de entrega')
   end
   object MaskEdit1: TMaskEdit
-    Left = 144
-    Top = 64
+    Left = 520
+    Top = 72
     Width = 73
     Height = 21
     EditMask = '!99/99/9999;1;_'
@@ -1847,8 +1975,8 @@ object FormVendasRel: TFormVendasRel
     Text = '  /  /    '
   end
   object MaskEdit2: TMaskEdit
-    Left = 288
-    Top = 64
+    Left = 520
+    Top = 96
     Width = 73
     Height = 21
     EditMask = '!99/99/9999;1;_'
@@ -1857,12 +1985,12 @@ object FormVendasRel: TFormVendasRel
     Text = '  /  /    '
   end
   object BitBtn1: TPngBitBtn
-    Left = 264
-    Top = 616
+    Left = 456
+    Top = 464
     Width = 97
     Height = 25
     Caption = '&OK'
-    TabOrder = 40
+    TabOrder = 43
     OnClick = BitBtn1Click
     PngImage.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
@@ -1887,12 +2015,12 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object BitBtn2: TPngBitBtn
-    Left = 368
-    Top = 616
+    Left = 560
+    Top = 464
     Width = 97
     Height = 25
     Caption = '&Fechar'
-    TabOrder = 41
+    TabOrder = 44
     OnClick = BitBtn2Click
     PngImage.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
@@ -2000,121 +2128,121 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Edit1: TEdit
-    Left = 144
-    Top = 304
+    Left = 104
+    Top = 96
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 15
+    TabOrder = 14
     OnEnter = Edit1Enter
     OnExit = Edit1Exit
     OnKeyDown = Edit1KeyDown
     OnKeyPress = Edit1KeyPress
   end
   object Edit2: TEdit
-    Left = 200
-    Top = 304
+    Left = 160
+    Top = 96
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 16
+    TabOrder = 15
   end
   object Edit3: TEdit
-    Left = 144
-    Top = 280
+    Left = 104
+    Top = 72
     Width = 57
     Height = 21
-    TabOrder = 13
+    TabOrder = 12
     OnEnter = Edit3Enter
     OnExit = Edit3Exit
     OnKeyDown = Edit3KeyDown
     OnKeyPress = Edit3KeyPress
   end
   object Edit4: TEdit
-    Left = 200
-    Top = 280
+    Left = 160
+    Top = 72
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 14
+    TabOrder = 13
   end
   object Edit5: TEdit
-    Left = 144
-    Top = 376
+    Left = 104
+    Top = 216
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 21
+    TabOrder = 24
     OnEnter = Edit5Enter
     OnExit = Edit5Exit
     OnKeyDown = Edit5KeyDown
     OnKeyPress = Edit5KeyPress
   end
   object Edit6: TEdit
-    Left = 200
-    Top = 376
+    Left = 160
+    Top = 216
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 22
+    TabOrder = 25
   end
   object Edit7: TEdit
-    Left = 408
-    Top = 64
-    Width = 57
+    Left = 520
+    Top = 312
+    Width = 73
     Height = 21
     Enabled = False
-    TabOrder = 3
+    TabOrder = 11
     OnKeyPress = Edit7KeyPress
   end
   object Edit8: TEdit
-    Left = 144
-    Top = 400
+    Left = 104
+    Top = 168
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 23
+    TabOrder = 20
     OnEnter = Edit8Enter
     OnExit = Edit8Exit
     OnKeyDown = Edit8KeyDown
     OnKeyPress = Edit8KeyPress
   end
   object Edit9: TEdit
-    Left = 200
-    Top = 400
+    Left = 160
+    Top = 168
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 24
+    TabOrder = 21
   end
   object ComboBox3: TComboBox
-    Left = 144
-    Top = 112
-    Width = 193
+    Left = 520
+    Top = 264
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 5
+    TabOrder = 9
   end
   object BitBtn3: TPngBitBtn
     Left = 8
-    Top = 616
+    Top = 464
     Width = 97
     Height = 25
     Caption = '&Ajuda'
-    TabOrder = 43
+    TabOrder = 46
     OnClick = BitBtn3Click
     PngImage.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
@@ -2222,95 +2350,95 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Edit10: TEdit
-    Left = 144
-    Top = 256
+    Left = 104
+    Top = 336
     Width = 57
     Height = 21
     CharCase = ecUpperCase
     Enabled = False
-    TabOrder = 11
+    TabOrder = 34
     OnEnter = Edit10Enter
     OnExit = Edit10Exit
     OnKeyDown = Edit10KeyDown
     OnKeyPress = Edit10KeyPress
   end
   object Edit11: TEdit
-    Left = 144
-    Top = 424
+    Left = 104
+    Top = 240
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 25
+    TabOrder = 26
     OnEnter = Edit11Enter
     OnExit = Edit11Exit
     OnKeyDown = Edit11KeyDown
     OnKeyPress = Edit11KeyPress
   end
   object Edit12: TEdit
-    Left = 200
-    Top = 424
+    Left = 160
+    Top = 240
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 26
+    TabOrder = 27
   end
   object Edit13: TEdit
-    Left = 144
-    Top = 448
+    Left = 104
+    Top = 264
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 27
+    TabOrder = 28
     OnEnter = Edit13Enter
     OnExit = Edit13Exit
     OnKeyDown = Edit13KeyDown
     OnKeyPress = Edit13KeyPress
   end
   object Edit14: TEdit
-    Left = 200
-    Top = 448
+    Left = 160
+    Top = 264
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 28
+    TabOrder = 29
   end
   object Edit15: TEdit
-    Left = 144
-    Top = 352
+    Left = 104
+    Top = 192
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 19
+    TabOrder = 22
     OnEnter = Edit15Enter
     OnExit = Edit15Exit
     OnKeyDown = Edit15KeyDown
     OnKeyPress = Edit15KeyPress
   end
   object Edit16: TEdit
-    Left = 200
-    Top = 352
+    Left = 160
+    Top = 192
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 20
+    TabOrder = 23
   end
   object ComboBox2: TComboBox
-    Left = 144
-    Top = 136
-    Width = 193
+    Left = 520
+    Top = 288
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 6
+    TabOrder = 10
     Items.Strings = (
       '0 - EMITENTE'
       '1 - DEST/REM'
@@ -2318,13 +2446,13 @@ object FormVendasRel: TFormVendasRel
       '9 - SEM FRETE')
   end
   object ComboBox4: TComboBox
-    Left = 144
-    Top = 160
-    Width = 122
+    Left = 520
+    Top = 144
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 7
+    TabOrder = 4
     Items.Strings = (
       'TODAS'
       'ABERTAS'
@@ -2333,117 +2461,117 @@ object FormVendasRel: TFormVendasRel
       'INUTILIZADAS')
   end
   object Edit17: TEdit
-    Left = 144
-    Top = 472
+    Left = 104
+    Top = 288
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 29
+    TabOrder = 30
     OnEnter = Edit17Enter
     OnExit = Edit17Exit
     OnKeyDown = Edit17KeyDown
     OnKeyPress = Edit17KeyPress
   end
   object Edit18: TEdit
-    Left = 200
-    Top = 472
+    Left = 160
+    Top = 288
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 30
+    TabOrder = 31
   end
   object ComboBox5: TComboBox
-    Left = 144
-    Top = 88
-    Width = 122
+    Left = 520
+    Top = 120
+    Width = 137
     Height = 21
     Style = csDropDownList
-    TabOrder = 4
+    TabOrder = 3
     Items.Strings = (
       'EMISSAO PEDIDO'
       'EMISSAO NOTA'
       'DATA ENTREGA')
   end
   object Edit19: TEdit
-    Left = 144
-    Top = 496
+    Left = 104
+    Top = 312
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 31
+    TabOrder = 32
     OnEnter = Edit19Enter
     OnExit = Edit19Exit
     OnKeyDown = Edit19KeyDown
     OnKeyPress = Edit19KeyPress
   end
   object Edit20: TEdit
-    Left = 200
-    Top = 496
+    Left = 160
+    Top = 312
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 32
+    TabOrder = 33
   end
   object Edit21: TEdit
-    Left = 144
-    Top = 520
+    Left = 104
+    Top = 360
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 33
+    TabOrder = 36
     OnEnter = Edit21Enter
     OnExit = Edit21Exit
     OnKeyDown = Edit21KeyDown
     OnKeyPress = Edit21KeyPress
   end
   object Edit22: TEdit
-    Left = 200
-    Top = 520
+    Left = 160
+    Top = 360
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 34
+    TabOrder = 37
   end
   object Edit23: TEdit
-    Left = 144
-    Top = 544
+    Left = 104
+    Top = 384
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 35
+    TabOrder = 38
     OnEnter = Edit23Enter
     OnExit = Edit23Exit
     OnKeyDown = Edit23KeyDown
     OnKeyPress = Edit23KeyPress
   end
   object Edit24: TEdit
-    Left = 200
-    Top = 544
+    Left = 160
+    Top = 384
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 36
+    TabOrder = 39
   end
   object ComboBox6: TComboBox
-    Left = 144
-    Top = 184
-    Width = 122
+    Left = 520
+    Top = 192
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 8
+    TabOrder = 6
     Items.Strings = (
       'TODOS'
       'SIM - ABERTOS'
@@ -2451,25 +2579,25 @@ object FormVendasRel: TFormVendasRel
       'NAO')
   end
   object ComboBox7: TComboBox
-    Left = 144
-    Top = 208
-    Width = 122
+    Left = 520
+    Top = 216
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 9
+    TabOrder = 7
     Items.Strings = (
       'TODOS'
       'SIM'
       'NAO')
   end
   object PngBitBtn1: TPngBitBtn
-    Left = 160
-    Top = 616
+    Left = 352
+    Top = 464
     Width = 97
     Height = 25
     Caption = '&Exportar'
-    TabOrder = 42
+    TabOrder = 45
     OnClick = PngBitBtn1Click
     PngImage.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
@@ -2572,85 +2700,121 @@ object FormVendasRel: TFormVendasRel
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
   object Edit25: TEdit
-    Left = 144
-    Top = 328
+    Left = 104
+    Top = 144
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 17
+    TabOrder = 18
     OnEnter = Edit25Enter
     OnExit = Edit25Exit
     OnKeyDown = Edit25KeyDown
     OnKeyPress = Edit25KeyPress
   end
   object Edit26: TEdit
-    Left = 200
-    Top = 328
+    Left = 160
+    Top = 144
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 18
+    TabOrder = 19
   end
   object ComboBox8: TComboBox
-    Left = 144
-    Top = 232
-    Width = 122
+    Left = 520
+    Top = 168
+    Width = 137
     Height = 21
     Style = csDropDownList
     Enabled = False
-    TabOrder = 10
+    TabOrder = 5
     Items.Strings = (
       'TODOS'
       'ENTRADA'
       'SAIDA')
   end
   object Edit27: TEdit
-    Left = 200
-    Top = 256
+    Left = 160
+    Top = 336
     Width = 244
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 12
+    TabOrder = 35
   end
   object Edit28: TEdit
-    Left = 144
-    Top = 568
+    Left = 104
+    Top = 408
     Width = 57
     Height = 21
     Enabled = False
-    TabOrder = 37
+    TabOrder = 40
     OnEnter = Edit28Enter
     OnExit = Edit28Exit
     OnKeyDown = Edit28KeyDown
     OnKeyPress = Edit28KeyPress
   end
   object Edit29: TEdit
-    Left = 200
-    Top = 568
+    Left = 160
+    Top = 408
     Width = 25
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 38
+    TabOrder = 41
   end
   object Edit30: TEdit
-    Left = 224
-    Top = 568
+    Left = 184
+    Top = 408
     Width = 220
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 39
+    TabOrder = 42
+  end
+  object Edit31: TEdit
+    Left = 104
+    Top = 120
+    Width = 57
+    Height = 21
+    Enabled = False
+    TabOrder = 16
+    OnEnter = Edit31Enter
+    OnExit = Edit31Exit
+    OnKeyDown = Edit31KeyDown
+    OnKeyPress = Edit31KeyPress
+  end
+  object Edit32: TEdit
+    Left = 160
+    Top = 120
+    Width = 244
+    Height = 21
+    TabStop = False
+    CharCase = ecUpperCase
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 17
+  end
+  object ComboBox9: TComboBox
+    Left = 520
+    Top = 240
+    Width = 137
+    Height = 21
+    Style = csDropDownList
+    Enabled = False
+    TabOrder = 8
+    Items.Strings = (
+      'TODOS'
+      'SIM'
+      'NAO')
   end
   object SaveDialog1: TSaveDialog
     Filter = 'Arquivo CSV|*.csv'

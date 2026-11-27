@@ -925,7 +925,7 @@ object FormComprasAlterarProdutos: TFormComprasAlterarProdutos
     Top = 280
     Width = 561
     Height = 273
-    DataSource = DM.DSVendasItens
+    DataSource = DM.DSComprasItens
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TitleFont.Charset = ANSI_CHARSET
@@ -936,83 +936,76 @@ object FormComprasAlterarProdutos: TFormComprasAlterarProdutos
     Columns = <
       item
         Expanded = False
-        FieldName = 'VEI_SEQUENCIA'
-        Title.Caption = 'Item'
-        Width = 27
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'VEI_PRODUTO'
+        FieldName = 'COI_PRODUTO'
         Title.Caption = 'C'#243'digo'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_DESCRICAO'
+        FieldName = 'COI_DESCRICAO'
         Title.Caption = 'Produto'
         Width = 258
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'PRO_UNIDADE'
+        FieldName = 'COI_UNIDADE'
         Title.Caption = 'Un.'
         Width = 26
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_TIPO'
+        FieldName = 'COI_TIPO'
         Title.Caption = 'Tipo'
         Width = 28
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_QUANTIDADE'
+        FieldName = 'COI_QUANTIDADE'
         Title.Caption = 'Quantidade'
         Width = 61
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_VALORUNIT'
+        FieldName = 'COI_VALORUNIT'
         Title.Caption = 'Valor Unit.'
         Width = 90
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_VALORTOTAL'
+        FieldName = 'COI_VALORTOTAL'
         Title.Caption = 'Valor Total'
         Width = 90
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_ALIQICMS'
+        FieldName = 'COI_ALIQICMS'
         Title.Caption = '%ICMS'
         Width = 37
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_ALIQICMSRED'
+        FieldName = 'COI_ALIQICMSRED'
         Title.Caption = '%R.ICMS'
         Width = 49
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_ALIQIPI'
+        FieldName = 'COI_ALIQIPI'
         Title.Caption = '%IPI'
         Width = 30
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VEI_ALIQISS'
+        FieldName = 'COI_ALIQISS'
         Title.Caption = '%ISS'
         Width = 27
         Visible = True

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, StdCtrls, Mask, DBCtrls, ImgList, PngImageList, Menus, Buttons,
-  PngSpeedButton, DBSBtn, ExtCtrls, Grids, DBGrids, PngBitBtn, ComCtrls, QRPDFFilt,
+  PngSpeedButton, DBSBtn, ExtCtrls, Grids, DBGrids, PngBitBtn, ComCtrls,
   System.ImageList, System.UITypes, ACBrBase, ACBrBoleto, ACBrBoletoConversao;
 
 type
@@ -1273,7 +1273,6 @@ begin
 end;
 
 procedure TFormBoletos.SalvarBoletoEmPDF1Click(Sender: TObject);
-var PDFFilter: TQRPDFDocumentFilter;
 begin
   if DM2.TBBoletos.IsEmpty then
   begin

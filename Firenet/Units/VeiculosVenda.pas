@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Imprimir ficha de venda no FastReport (FormVeiculosVendaFast, VEV03); o QuickReport (FormVeiculosVendaQ03) ficou comentado.
 unit VeiculosVenda;
 
 interface
@@ -193,8 +195,8 @@ var
 
 implementation
 uses DataMod, Despesas, Main, VeiculosLoc, OpcionaisSelecionar, Funcoes1,
-  Vendas, Clientes, Vendedores, Veiculos, Pagar, VeiculosVendaLoc,
-  Opcionais, VeiculosVendaRel, VeiculosVendaQ03, ShellAPI, DataMod2, DataModSearch, FuncoesFirenet;
+  Vendas, Clientes, Vendedores, Veiculos, Pagar, VeiculosVendaLoc, Opcionais,
+  VeiculosVendaRel, ShellAPI, DataMod2, DataModSearch, FuncoesFirenet, VeiculosVendaFast;
 
 {$R *.dfm}
 
@@ -547,13 +549,19 @@ begin
   AbortIf(DM2.TBVeiculosVenda.IsEmpty,'Nenhum veículo selecionado.');
   AbortIf(DM2.TBVeiculosVendaVEV_STATUS.Value='A','Este veículo ainda não foi vendido.');
 
-  Application.CreateForm(TFormVeiculosVendaQ03, FormVeiculosVendaQ03);
-  FormVeiculosVendaQ03.QRLabel12.Caption:='Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value);
-  FormVeiculosVendaQ03.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBVeiculosVendaVEV_CODIGO.Value;
-  FormVeiculosVendaQ03.FDQuery1.Open;
-  FormVeiculosVendaQ03.QuickRep1.PreviewModal;
-  FormVeiculosVendaQ03.Free;
-  FormVeiculosVendaQ03:=nil;
+  //QuickReport antigo (FormVeiculosVendaQ03), trocado pelo FastReport (FormVeiculosVendaFast, VEV03) em 2026.11.24:
+  //Application.CreateForm(TFormVeiculosVendaQ03, FormVeiculosVendaQ03);
+  //FormVeiculosVendaQ03.QRLabel12.Caption:='Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value);
+  //FormVeiculosVendaQ03.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBVeiculosVendaVEV_CODIGO.Value;
+  //FormVeiculosVendaQ03.FDQuery1.Open;
+  //FormVeiculosVendaQ03.QuickRep1.PreviewModal;
+  //FormVeiculosVendaQ03.Free;
+  //FormVeiculosVendaQ03:=nil;
+  Application.CreateForm(TFormVeiculosVendaFast, FormVeiculosVendaFast);
+  FormVeiculosVendaFast.PrepararFicha(DM2.TBVeiculosVendaVEV_CODIGO.Value);
+  FormVeiculosVendaFast.Mostrar(FormVeiculosVendaFast.frxReport3,'Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value));
+  FormVeiculosVendaFast.Free;
+  FormVeiculosVendaFast:=nil;
 end;
 
 procedure TFormVeiculosVenda.ConsultarDadosDoVeiculoNoDetran1Click(

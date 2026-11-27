@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.23 - Comissao do representante (VED_REPRESENTANTE, VED_COMISSAOREP, VED_TOTALCOMISSAOREP, VEI_COMISSAOREP, VEI_VALORCOMISSAOREP) nas tabelas e nos calculos; CalcularTotaisVendaItens com a reducao de 100% no IBS/CBS, como no DataMod do Firenet.
 unit DataModFirenet;
 
 interface
@@ -375,7 +377,6 @@ type
     TBParametrosPAR_LOCALFOTOSIMOVEIS: TStringField;
     TBParametrosPAR_LOCALFOTOSPRODUTOS: TStringField;
     TBParametrosPAR_LOCALIMAGENSCONSULTAS: TStringField;
-    TBParametrosPAR_LOCALLOGOMARCA: TStringField;
     TBParametrosPAR_LOCALMODELOSDOC: TStringField;
     TBParametrosPAR_LOCALPADRAO: TIntegerField;
     TBParametrosPAR_LOCALPRONTUARIOS: TStringField;
@@ -639,6 +640,9 @@ type
     TBVendasVED_CODIMPORTACAO: TStringField;
     TBVendasVED_COMISSAO: TFMTBCDField;
     TBVendasVED_COMISSAOPOR: TStringField;
+    TBVendasVED_COMISSAOREP: TFMTBCDField;
+    TBVendasVED_REPRESENTANTE: TIntegerField;
+    TBVendasVED_TOTALCOMISSAOREP: TFMTBCDField;
     TBVendasVED_COMPLEMENTO: TStringField;
     TBVendasVED_CONDICAO: TIntegerField;
     TBVendasVED_CONDICAOMEMO: TMemoField;
@@ -806,6 +810,8 @@ type
     TBVendasItensVEI_CODIGOBARRAS: TStringField;
     TBVendasItensVEI_CODIGOFAB: TStringField;
     TBVendasItensVEI_COMISSAO: TFMTBCDField;
+    TBVendasItensVEI_COMISSAOREP: TFMTBCDField;
+    TBVendasItensVEI_VALORCOMISSAOREP: TFMTBCDField;
     TBVendasItensVEI_COMPLEMENTO: TStringField;
     TBVendasItensVEI_COMPOEBASEICMS: TStringField;
     TBVendasItensVEI_COMPOEBASEICMSST: TStringField;
@@ -2631,6 +2637,7 @@ begin
       'sum(VEI_VALORCOFINS) as VALORCOFINS, '+
       'sum(VEI_VALORCOFINSST) as VALORCOFINSST, '+
       'sum(VEI_VALORCOMISSAO) as VALORCOMISSAO, '+
+      'sum(VEI_VALORCOMISSAOREP) as VALORCOMISSAOREP, '+
       'sum(VEI_VALORFCP) as VALORFCP, '+
       'sum(VEI_VALORFCPST) as VALORFCPST, '+
       'sum(VEI_VALORFRETE) as VALORFRETE, '+
@@ -2698,6 +2705,7 @@ begin
     TBVendasVED_TOTALCOFINS.Value       :=Query2.FieldByName('VALORCOFINS').AsExtended;
     TBVendasVED_TOTALCOFINSST.Value     :=Query2.FieldByName('VALORCOFINSST').AsExtended;
     TBVendasVED_TOTALCOMISSAO.Value     :=Query2.FieldByName('VALORCOMISSAO').AsExtended;
+    TBVendasVED_TOTALCOMISSAOREP.Value  :=Query2.FieldByName('VALORCOMISSAOREP').AsExtended;
     TBVendasVED_TOTALFCP.Value          :=Query2.FieldByName('VALORFCP').AsExtended;
     TBVendasVED_TOTALFCPST.Value        :=Query2.FieldByName('VALORFCPST').AsExtended;
     TBVendasVED_TOTALICMS.Value         :=Query2.FieldByName('VALORICMS').AsExtended;
@@ -3208,6 +3216,13 @@ begin
     TBVendasItensVEI_VALORCOMISSAO.Value:=0;
     {$ENDREGION}
 
+    {$REGION 'calcula a comissão do representante sobre o item. (por produto).'}
+    //valor total - IPI - ICMSST / 100 * %comissao.
+    if TBVendasItensNAT_CALCULACOMISSAO.Value='S' then
+    TBVendasItensVEI_VALORCOMISSAOREP.Value:=Decimais((((TBVendasItensVEI_VALORTOTAL.AsExtended-TBVendasItensVEI_VALORIPI.AsExtended-TBVendasItensVEI_VALORICMSST.AsExtended)/100.0)*TBVendasItensVEI_COMISSAOREP.AsExtended),2) else
+    TBVendasItensVEI_VALORCOMISSAOREP.Value:=0;
+    {$ENDREGION}
+
     {$REGION 'calcula o lucro no item.'}
     TBVendasItensVEI_PRECOCUSTOTOTAL.Value:=TBVendasItensVEI_PRECOCUSTO.Value*TBVendasItensVEI_QUANTIDADE.Value;
     TBVendasItensVEI_LUCROVALOR.Value:=TBVendasItensVEI_VALORTOTAL.Value-TBVendasItensVEI_PRECOCUSTOTOTAL.Value;
@@ -3402,7 +3417,7 @@ begin
       - TBVendasItensVEI_VALORIBSMUNDIF.AsExtended
       - TBVendasItensVEI_VALORIBSMUNDEV.AsExtended,2
     );
-    if TBVendasItensVEI_ALIQIBSMUNEFE.Value>0 then
+    if ((TBVendasItensVEI_ALIQIBSMUNEFE.Value>0) or (TBVendasItensVEI_ALIQIBSMUNRED.Value=100)) then
     TBVendasItensVEI_VALORIBSMUN.Value:=Decimais(
         TBVendasItensVEI_BASEIBSCBS.AsExtended
       * (TBVendasItensVEI_ALIQIBSMUNEFE.AsExtended/100)
@@ -3417,7 +3432,7 @@ begin
       - TBVendasItensVEI_VALORIBSUFDIF.AsExtended
       - TBVendasItensVEI_VALORIBSUFDEV.AsExtended, 2
     );
-    if TBVendasItensVEI_ALIQIBSUFEFE.Value>0 then
+    if ((TBVendasItensVEI_ALIQIBSUFEFE.Value>0) or (TBVendasItensVEI_ALIQIBSUFRED.Value=100)) then
     TBVendasItensVEI_VALORIBSUF.Value:=Decimais(
         TBVendasItensVEI_BASEIBSCBS.AsExtended
       * (TBVendasItensVEI_ALIQIBSUFEFE.AsExtended/100)
@@ -3433,7 +3448,7 @@ begin
       - TBVendasItensVEI_VALORCBSDIF.AsExtended
       - TBVendasItensVEI_VALORCBSDEV.AsExtended, 2
     );
-    if TBVendasItensVEI_ALIQCBSEFE.Value>0 then
+    if ((TBVendasItensVEI_ALIQCBSEFE.Value>0) or (TBVendasItensVEI_ALIQCBSRED.Value=100)) then
     TBVendasItensVEI_VALORCBS.Value:=Decimais(
         TBVendasItensVEI_BASEIBSCBS.AsExtended
       * (TBVendasItensVEI_ALIQCBSEFE.AsExtended/100)
@@ -3526,6 +3541,7 @@ begin
   TBVendasVED_TOTALCOFINS.Value:=0;
   TBVendasVED_TOTALCOFINSST.Value:=0;
   TBVendasVED_TOTALCOMISSAO.Value:=0;
+  TBVendasVED_TOTALCOMISSAOREP.Value:=0;
   TBVendasVED_TOTALFCP.Value:=0;
   TBVendasVED_TOTALFCPST.Value:=0;
   TBVendasVED_TOTALICMS.Value:=0;
@@ -3634,6 +3650,8 @@ begin
   TBVendasItensVEI_VALORCOFINS.Value:=0;
   TBVendasItensVEI_VALORCOFINSST.Value:=0;
   TBVendasItensVEI_VALORCOMISSAO.Value:=0;
+  TBVendasItensVEI_COMISSAOREP.Value:=0;
+  TBVendasItensVEI_VALORCOMISSAOREP.Value:=0;
   TBVendasItensVEI_VALORFCP.Value:=0;
   TBVendasItensVEI_VALORFCPST.Value:=0;
   TBVendasItensVEI_VALORFRETE.Value:=0;

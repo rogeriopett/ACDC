@@ -1523,7 +1523,7 @@ object FormVendasItens: TFormVendasItens
     Top = 263
     Width = 849
     Height = 274
-    ActivePage = TabSheet1
+    ActivePage = TabSheet5
     HotTrack = True
     Images = PngImageList1
     TabOrder = 39
@@ -4960,7 +4960,6 @@ object FormVendasItens: TFormVendasItens
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 833
       end
     end
   end

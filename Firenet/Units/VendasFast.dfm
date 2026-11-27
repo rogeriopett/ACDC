@@ -1421,7 +1421,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -2870,6 +2869,10 @@ object FormVendasFast: TFormVendasFast
       item
         Name = 'DATA'
         Value = ''
+      end
+      item
+        Name = 'NAT_DEVOLUCAO'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -2910,7 +2913,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3498,9 +3500,9 @@ object FormVendasFast: TFormVendasFast
         end
         object Memo12: TfrxMemoView
           AllowVectorExport = True
-          Left = 198.107606670000000000
+          Left = 194.328076670000000000
           Top = 0.666666670000000000
-          Width = 61.821583330000000000
+          Width = 65.601113330000000000
           Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3763,7 +3765,7 @@ object FormVendasFast: TFormVendasFast
           AllowVectorExport = True
           Left = 372.953000000000000000
           Top = 15.784786670000000000
-          Width = 80.719233330000000000
+          Width = 61.821583330000000000
           Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3796,7 +3798,7 @@ object FormVendasFast: TFormVendasFast
           AllowVectorExport = True
           Left = 110.000000000000000000
           Top = 15.784786670000000000
-          Width = 152.530303330000000000
+          Width = 80.719233330000000000
           Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3806,6 +3808,39 @@ object FormVendasFast: TFormVendasFast
           Frame.Typ = []
           Memo.UTF8W = (
             '[DATA]')
+          ParentFont = False
+        end
+        object Memo46: TfrxMemoView
+          AllowVectorExport = True
+          Left = 194.328076670000000000
+          Top = 15.784786670000000000
+          Width = 65.601113330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Devolu'#231#227'o:')
+          ParentFont = False
+        end
+        object Memo47: TfrxMemoView
+          AllowVectorExport = True
+          Left = 262.958000370000000000
+          Top = 15.784786670000000000
+          Width = 61.821583330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[NAT_DEVOLUCAO]')
           ParentFont = False
         end
       end
@@ -3935,6 +3970,10 @@ object FormVendasFast: TFormVendasFast
       item
         Name = 'VED_ENTRADASAIDA'
         Value = ''
+      end
+      item
+        Name = 'NAT_DEVOLUCAO'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -3975,7 +4014,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -4811,9 +4849,9 @@ object FormVendasFast: TFormVendasFast
         end
         object Memo12: TfrxMemoView
           AllowVectorExport = True
-          Left = 198.107606670000000000
+          Left = 194.328076670000000000
           Top = 0.666666670000000000
-          Width = 61.821583330000000000
+          Width = 65.601113330000000000
           Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5076,7 +5114,7 @@ object FormVendasFast: TFormVendasFast
           AllowVectorExport = True
           Left = 110.000000000000000000
           Top = 16.118120000000000000
-          Width = 103.396413330000000000
+          Width = 80.719233330000000000
           Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5187,6 +5225,39 @@ object FormVendasFast: TFormVendasFast
             
               'Linhas com fundo azul representam clientes que foram cadastrados' +
               ' no per'#237'odo informado.')
+          ParentFont = False
+        end
+        object Memo64: TfrxMemoView
+          AllowVectorExport = True
+          Left = 194.328076670000000000
+          Top = 16.118120000000000000
+          Width = 65.601113330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Devolu'#231#227'o:')
+          ParentFont = False
+        end
+        object Memo65: TfrxMemoView
+          AllowVectorExport = True
+          Left = 262.958000370000000000
+          Top = 16.118120000000000000
+          Width = 61.821583330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[NAT_DEVOLUCAO]')
           ParentFont = False
         end
       end
@@ -5363,7 +5434,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -6818,7 +6888,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -8224,7 +8293,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -9634,7 +9702,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -10978,7 +11045,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -11798,7 +11864,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -12748,7 +12813,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -13454,7 +13518,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -14449,7 +14512,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -15632,7 +15694,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -16714,7 +16775,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -18227,7 +18287,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -20069,7 +20128,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -21155,7 +21213,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -22296,7 +22353,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -23506,7 +23562,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -24709,7 +24764,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -25632,7 +25686,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -26780,7 +26833,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -27763,6 +27815,10 @@ object FormVendasFast: TFormVendasFast
       item
         Name = 'GRU_DESCRICAO'
         Value = ''
+      end
+      item
+        Name = 'NAT_DEVOLUCAO'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -27804,7 +27860,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -28663,6 +28718,37 @@ object FormVendasFast: TFormVendasFast
             '[VED_ENTRADASAIDA]')
           ParentFont = False
         end
+        object Memo54: TfrxMemoView
+          AllowVectorExport = True
+          Left = 650.079160000000000000
+          Width = 88.278293330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Devolu'#231#227'o:')
+          ParentFont = False
+        end
+        object Memo58: TfrxMemoView
+          AllowVectorExport = True
+          Left = 740.787880000000000000
+          Width = 92.057823330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[NAT_DEVOLUCAO]')
+          ParentFont = False
+        end
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
@@ -29002,6 +29088,10 @@ object FormVendasFast: TFormVendasFast
       item
         Name = 'VED_ENTRADASAIDA'
         Value = ''
+      end
+      item
+        Name = 'NAT_DEVOLUCAO'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -29042,7 +29132,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -29659,6 +29748,39 @@ object FormVendasFast: TFormVendasFast
             '[VED_ENTRADASAIDA]')
           ParentFont = False
         end
+        object Memo42: TfrxMemoView
+          AllowVectorExport = True
+          Left = 495.118430000000000000
+          Top = 15.118120000000000000
+          Width = 88.278293330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Devolu'#231#227'o:')
+          ParentFont = False
+        end
+        object Memo43: TfrxMemoView
+          AllowVectorExport = True
+          Left = 585.827150000000000000
+          Top = 15.118120000000000000
+          Width = 95.837353330000000000
+          Height = 13.228346460000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[NAT_DEVOLUCAO]')
+          ParentFont = False
+        end
       end
       object DetailData1: TfrxDetailData
         FillType = ftBrush
@@ -30020,7 +30142,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -30995,7 +31116,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -32889,7 +33009,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -33893,7 +34012,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -34022,7 +34140,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -36255,7 +36372,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -39484,7 +39600,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -42083,7 +42198,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -43953,7 +44067,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -45014,7 +45127,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -47099,10 +47211,12 @@ object FormVendasFast: TFormVendasFast
     ParamData = <
       item
         Name = 'DATAINICIAL'
+        DataType = ftDate
         ParamType = ptInput
       end
       item
         Name = 'DATAFINAL'
+        DataType = ftDate
         ParamType = ptInput
       end>
   end
@@ -47206,14 +47320,17 @@ object FormVendasFast: TFormVendasFast
     ParamData = <
       item
         Name = 'DATAINICIAL'
+        DataType = ftDate
         ParamType = ptInput
       end
       item
         Name = 'DATAFINAL'
+        DataType = ftDate
         ParamType = ptInput
       end
       item
         Name = 'VED_VENDEDOR'
+        DataType = ftInteger
         ParamType = ptInput
       end>
   end
@@ -48070,7 +48187,6 @@ object FormVendasFast: TFormVendasFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite

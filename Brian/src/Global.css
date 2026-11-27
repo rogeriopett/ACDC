@@ -107,6 +107,47 @@ a {
     visibility: hidden;
 }
 
+/* CampoInfo: dados só de leitura (rótulo pequeno em cima, valor embaixo).
+   O grupo é a caixa com os cantos arredondados; os campos ficam lado a lado pelo size (col-*)
+   e só há uma linha entre as linhas de campos (border-top de cada campo, a primeira fica escondida). */
+.campo-info-grupo {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    background-color: var(--pett-color-bg);
+    color: var(--pett-color-text);
+    border: 1px solid var(--pett-color-border);
+    border-radius: var(--bs-border-radius, 0.375rem);
+}
+
+.campo-info {
+    margin-top: -1px;
+    border-top: 1px solid var(--pett-color-border);
+    padding: 0.375rem 0.5rem 0.5rem;
+}
+
+.campo-info-label {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    color: var(--pett-color-text-muted);
+}
+
+.campo-info-valor {
+    line-height: 1.2;
+    min-height: 1.2em; /* campo vazio mantém a altura */
+    overflow-wrap: anywhere;
+}
+
+/* NaoEncontrado: mensagem centralizada no espaço abaixo da barra do topo (sem vh-100, que fazia a página rolar). */
+.nao-encontrado {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 /* Cabeçalho do produto (ProdutoHeader): card no tema, com a mesma largura do list-group. */
 .produto-header {
     background-color: var(--pett-color-bg);

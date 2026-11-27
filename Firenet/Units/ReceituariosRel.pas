@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorio no FastReport (FormReceituariosFast, RCT01); o QuickReport (FormReceituariosQ01) ficou comentado.
 unit ReceituariosRel;
 
 interface
@@ -40,7 +42,7 @@ var
   FormReceituariosRel: TFormReceituariosRel;
 
 implementation
-uses DataMod, Funcoes1, ClientesLoc, ReceituariosQ01, DataModSearch;
+uses DataMod, Funcoes1, ClientesLoc, DataModSearch, ReceituariosFast;
 {$R *.dfm}
 
 procedure TFormReceituariosRel.BitBtn1Click(Sender: TObject);
@@ -49,23 +51,44 @@ begin
   Where:='';
   case ComboBox1.ItemIndex of
     00: begin
-          Application.CreateForm(TFormReceituariosQ01, FormReceituariosQ01);
-          if Edit2.Text<>'' then
-          Where:='where RCT_CLIENTE='+Edit1.Text;
-          FormReceituariosQ01.FDQuery1.SQL.Clear;
-          FormReceituariosQ01.FDQuery1.SQL.Add('select RCT_CLIENTE, RCT_DIA01, RCT_DIA02, RCT_DIA03, RCT_DIA04, RCT_DIA05, RCT_DIA06, '+
-                                               'RCT_DIA07, RCT_DIA08, RCT_DIA09, RCT_DIA10, RCT_DIA11, RCT_DIA12, RCT_DIA13, RCT_DIA14, '+
-                                               'RCT_DIA15, RCT_DIA16, RCT_DIA17, RCT_DIA18, RCT_DIA19, RCT_DIA20, RCT_DIA21, RCT_DIA22, '+
-                                               'RCT_DIA23, RCT_DIA24, RCT_DIA25, RCT_DIA26, RCT_DIA27, RCT_DIA28, RCT_DIA29, RCT_DIA30, '+
-                                               'RCT_DIA31, RCT_DOSAGEM, RCT_MEDICAMENTO, RCT_ORDEM, CLI_CONTATO, CLI_FONE1, '+
-                                               'CLI_FONE2, CLI_NOME, CLI_DTNASC, MTO_NOME from RECEITUARIOS '+
-                                               'left join CLIENTES on RCT_CLIENTE=CLI_CODIGO '+
-                                               'left join MEDICAMENTOS on RCT_MEDICAMENTO=MTO_CODIGO '+Where+' '+
-                                               'order by CLI_NOME, RCT_ORDEM, RCT_CODIGO');
-          FormReceituariosQ01.FDQuery1.Open;
-          FormReceituariosQ01.QuickRep1.PreviewModal;
-          FormReceituariosQ01.Free;
-          FormReceituariosQ01:=nil;
+          //QuickReport antigo (FormReceituariosQ01), trocado pelo FastReport (FormReceituariosFast, RCT01) em 2026.11.24:
+          //Application.CreateForm(TFormReceituariosQ01, FormReceituariosQ01);
+          //if Edit2.Text<>'' then
+          //Where:='where RCT_CLIENTE='+Edit1.Text;
+          //FormReceituariosQ01.FDQuery1.SQL.Clear;
+          //FormReceituariosQ01.FDQuery1.SQL.Add('select RCT_CLIENTE, RCT_DIA01, RCT_DIA02, RCT_DIA03, RCT_DIA04, RCT_DIA05, RCT_DIA06, '+
+          //                                     'RCT_DIA07, RCT_DIA08, RCT_DIA09, RCT_DIA10, RCT_DIA11, RCT_DIA12, RCT_DIA13, RCT_DIA14, '+
+          //                                     'RCT_DIA15, RCT_DIA16, RCT_DIA17, RCT_DIA18, RCT_DIA19, RCT_DIA20, RCT_DIA21, RCT_DIA22, '+
+          //                                     'RCT_DIA23, RCT_DIA24, RCT_DIA25, RCT_DIA26, RCT_DIA27, RCT_DIA28, RCT_DIA29, RCT_DIA30, '+
+          //                                     'RCT_DIA31, RCT_DOSAGEM, RCT_MEDICAMENTO, RCT_ORDEM, CLI_CONTATO, CLI_FONE1, '+
+          //                                     'CLI_FONE2, CLI_NOME, CLI_DTNASC, MTO_NOME from RECEITUARIOS '+
+          //                                     'left join CLIENTES on RCT_CLIENTE=CLI_CODIGO '+
+          //                                     'left join MEDICAMENTOS on RCT_MEDICAMENTO=MTO_CODIGO '+Where+' '+
+          //                                     'order by CLI_NOME, RCT_ORDEM, RCT_CODIGO');
+          //FormReceituariosQ01.FDQuery1.Open;
+          //FormReceituariosQ01.QuickRep1.PreviewModal;
+          //FormReceituariosQ01.Free;
+          //FormReceituariosQ01:=nil;
+          Where:='';
+          if Edit2.Text<>'' then Where:='where RCT_CLIENTE='+QuotedStr(Edit1.Text);
+          Application.CreateForm(TFormReceituariosFast, FormReceituariosFast);
+          FormReceituariosFast.QY01.SQL.Clear;
+          FormReceituariosFast.QY01.SQL.Add(
+            'select RCT_CLIENTE, '+
+            'RCT_DIA01, RCT_DIA02, RCT_DIA03, RCT_DIA04, RCT_DIA05, RCT_DIA06, RCT_DIA07, RCT_DIA08, '+
+            'RCT_DIA09, RCT_DIA10, RCT_DIA11, RCT_DIA12, RCT_DIA13, RCT_DIA14, RCT_DIA15, RCT_DIA16, '+
+            'RCT_DIA17, RCT_DIA18, RCT_DIA19, RCT_DIA20, RCT_DIA21, RCT_DIA22, RCT_DIA23, RCT_DIA24, '+
+            'RCT_DIA25, RCT_DIA26, RCT_DIA27, RCT_DIA28, RCT_DIA29, RCT_DIA30, RCT_DIA31, '+
+            'RCT_DOSAGEM, RCT_MEDICAMENTO, RCT_ORDEM, CLI_CONTATO, CLI_FONE1, CLI_FONE2, CLI_NOME, CLI_DTNASC, MTO_NOME, '+
+            'datediff(year, CLI_DTNASC, current_date) - iif(dateadd(datediff(year, CLI_DTNASC, current_date) year to CLI_DTNASC) > current_date, 1, 0) as IDADE '+
+            'from RECEITUARIOS '+
+            'left join CLIENTES on RCT_CLIENTE=CLI_CODIGO '+
+            'left join MEDICAMENTOS on RCT_MEDICAMENTO=MTO_CODIGO '+Where+' '+
+            'order by CLI_NOME, RCT_ORDEM, RCT_CODIGO ');
+          FormReceituariosFast.QY01.Open;
+          FormReceituariosFast.Mostrar(FormReceituariosFast.frxReport1,'Ficha de Receituário');
+          FormReceituariosFast.Free;
+          FormReceituariosFast:=nil;
         end;
   end;
 end;

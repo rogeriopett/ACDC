@@ -6,7 +6,7 @@ uses
   Windows, Messages, System.SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBSBtn, ExtCtrls, DB, Menus, StdCtrls, Buttons, Grids, DBGrids, DBCtrls,
   Mask, ComCtrls, IDAttachmentFile, xmldom, XMLIntf, msxmldom, XMLDoc, PngSpeedButton,
-  ImgList, PngImageList, PngBitBtn, QRPDFFilt, System.ImageList, System.UITypes,
+  ImgList, PngImageList, PngBitBtn, System.ImageList, System.UITypes,
   System.Zip, System.IOUtils, System.Types, FireDAC.Stan.Intf, FireDAC.Stan.Param,
   FireDAC.Phys.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,

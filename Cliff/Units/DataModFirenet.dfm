@@ -4,7 +4,7 @@ object DMFirenet: TDMFirenet
   Width = 1059
   object FDConnection1: TFDConnection
     Params.Strings = (
-      'Database=C:\Runtime\Firenet\Dados\firenet_distribuidora.fdb'
+      'Database=C:\Runtime\ACDC\Firenet\Dados\firenet_distribuidora.fdb'
       'User_Name=sysdba'
       'Password=borland'
       'Protocol=TCPIP'
@@ -2271,11 +2271,6 @@ object DMFirenet: TDMFirenet
       Origin = 'PAR_LOCALIMAGENSCONSULTAS'
       Size = 200
     end
-    object TBParametrosPAR_LOCALLOGOMARCA: TStringField
-      FieldName = 'PAR_LOCALLOGOMARCA'
-      Origin = 'PAR_LOCALLOGOMARCA'
-      Size = 200
-    end
     object TBParametrosPAR_LOCALMODELOSDOC: TStringField
       FieldName = 'PAR_LOCALMODELOSDOC'
       Origin = 'PAR_LOCALMODELOSDOC'
@@ -3547,6 +3542,7 @@ object DMFirenet: TDMFirenet
       'VED_CODIMPORTACAO,'
       'VED_COMISSAO,'
       'VED_COMISSAOPOR,'
+      'VED_COMISSAOREP,'
       'VED_COMPLEMENTO,'
       'VED_CONDICAO,'
       'VED_CONDICAOMEMO,'
@@ -3624,6 +3620,7 @@ object DMFirenet: TDMFirenet
       'VED_REBOQUEPLACA,'
       'VED_REBOQUEPLACAUF,'
       'VED_REBOQUERNTC,'
+      'VED_REPRESENTANTE,'
       'VED_RG,'
       'VED_SEQUENCIAITEM,'
       'VED_STATUS,'
@@ -3637,6 +3634,7 @@ object DMFirenet: TDMFirenet
       'VED_TOTALCOFINS,'
       'VED_TOTALCOFINSST,'
       'VED_TOTALCOMISSAO,'
+      'VED_TOTALCOMISSAOREP,'
       'VED_TOTALFCP,'
       'VED_TOTALFCPST,'
       'VED_TOTALICMS,'
@@ -3882,6 +3880,11 @@ object DMFirenet: TDMFirenet
       FieldName = 'VED_COMISSAOPOR'
       Origin = 'VED_COMISSAOPOR'
       Size = 1
+    end
+    object TBVendasVED_COMISSAOREP: TFMTBCDField
+      FieldName = 'VED_COMISSAOREP'
+      Origin = 'VED_COMISSAOREP'
+      Precision = 18
     end
     object TBVendasVED_COMPLEMENTO: TStringField
       FieldName = 'VED_COMPLEMENTO'
@@ -4249,6 +4252,11 @@ object DMFirenet: TDMFirenet
       FieldName = 'VED_REBOQUERNTC'
       Origin = 'VED_REBOQUERNTC'
     end
+    object TBVendasVED_REPRESENTANTE: TIntegerField
+      FieldName = 'VED_REPRESENTANTE'
+      Origin = 'VED_REPRESENTANTE'
+      Required = True
+    end
     object TBVendasVED_RG: TStringField
       FieldName = 'VED_RG'
       Origin = 'VED_RG'
@@ -4309,6 +4317,11 @@ object DMFirenet: TDMFirenet
     object TBVendasVED_TOTALCOMISSAO: TFMTBCDField
       FieldName = 'VED_TOTALCOMISSAO'
       Origin = 'VED_TOTALCOMISSAO'
+      Precision = 18
+    end
+    object TBVendasVED_TOTALCOMISSAOREP: TFMTBCDField
+      FieldName = 'VED_TOTALCOMISSAOREP'
+      Origin = 'VED_TOTALCOMISSAOREP'
       Precision = 18
     end
     object TBVendasVED_TOTALFCP: TFMTBCDField
@@ -4697,6 +4710,7 @@ object DMFirenet: TDMFirenet
       'VEI_CODIGOBARRAS,'
       'VEI_CODIGOFAB,'
       'VEI_COMISSAO,'
+      'VEI_COMISSAOREP,'
       'VEI_COMPLEMENTO,'
       'VEI_COMPOEBASEICMS,'
       'VEI_COMPOEBASEICMSST,'
@@ -4773,6 +4787,7 @@ object DMFirenet: TDMFirenet
       'VEI_VALORCOFINS,'
       'VEI_VALORCOFINSST,'
       'VEI_VALORCOMISSAO,'
+      'VEI_VALORCOMISSAOREP,'
       'VEI_VALORFCP,'
       'VEI_VALORFCPST,'
       'VEI_VALORFRETE,'
@@ -5148,6 +5163,11 @@ object DMFirenet: TDMFirenet
       Origin = 'VEI_COMISSAO'
       Precision = 18
     end
+    object TBVendasItensVEI_COMISSAOREP: TFMTBCDField
+      FieldName = 'VEI_COMISSAOREP'
+      Origin = 'VEI_COMISSAOREP'
+      Precision = 18
+    end
     object TBVendasItensVEI_COMPLEMENTO: TStringField
       FieldName = 'VEI_COMPLEMENTO'
       Origin = 'VEI_COMPLEMENTO'
@@ -5510,6 +5530,11 @@ object DMFirenet: TDMFirenet
     object TBVendasItensVEI_VALORCOMISSAO: TFMTBCDField
       FieldName = 'VEI_VALORCOMISSAO'
       Origin = 'VEI_VALORCOMISSAO'
+      Precision = 18
+    end
+    object TBVendasItensVEI_VALORCOMISSAOREP: TFMTBCDField
+      FieldName = 'VEI_VALORCOMISSAOREP'
+      Origin = 'VEI_VALORCOMISSAOREP'
       Precision = 18
     end
     object TBVendasItensVEI_VALORFCP: TFMTBCDField
@@ -7604,6 +7629,7 @@ object DMFirenet: TDMFirenet
       '  VED_CIDADE, VED_CIDADECODIGO, VED_CLIENTE, '
       '  VED_CNPJ, VED_CODIGO, VED_CODIMPORTACAO, '
       '  VED_COMISSAO, VED_COMISSAOPOR, VED_COMPLEMENTO, '
+      '  VED_COMISSAOREP, VED_REPRESENTANTE, VED_TOTALCOMISSAOREP, '
       '  VED_CONDICAO, VED_CONDICAOMEMO, VED_CONFERIDO, '
       '  VED_CONFERIDODATA, VED_CONFERIDOPOR, VED_CONTATO, '
       '  VED_CPF, VED_CUSTOTOTAL, VED_DAV, VED_DESCPORC, '
@@ -7680,6 +7706,9 @@ object DMFirenet: TDMFirenet
       
         '  :NEW_VED_COMISSAO, :NEW_VED_COMISSAOPOR, :NEW_VED_COMPLEMENTO,' +
         ' '
+      
+        '  :NEW_VED_COMISSAOREP, :NEW_VED_REPRESENTANTE, :NEW_VED_TOTALCO' +
+        'MISSAOREP, '
       '  :NEW_VED_CONDICAO, :NEW_VED_CONDICAOMEMO, :NEW_VED_CONFERIDO, '
       
         '  :NEW_VED_CONFERIDODATA, :NEW_VED_CONFERIDOPOR, :NEW_VED_CONTAT' +
@@ -7885,6 +7914,10 @@ object DMFirenet: TDMFirenet
       
         '  VED_COMISSAO = :NEW_VED_COMISSAO, VED_COMISSAOPOR = :NEW_VED_C' +
         'OMISSAOPOR, '
+      
+        '  VED_COMISSAOREP = :NEW_VED_COMISSAOREP, VED_REPRESENTANTE = :N' +
+        'EW_VED_REPRESENTANTE, '
+      '  VED_TOTALCOMISSAOREP = :NEW_VED_TOTALCOMISSAOREP, '
       
         '  VED_COMPLEMENTO = :NEW_VED_COMPLEMENTO, VED_CONDICAO = :NEW_VE' +
         'D_CONDICAO, '
@@ -8269,6 +8302,7 @@ object DMFirenet: TDMFirenet
       '  VEI_CLASSFISCAL, VEI_CLASSTRIBIBSCBS, VEI_CLASSTRIBIS, '
       '  VEI_CODIGO, VEI_CODIGOBARRAS, VEI_CODIGOFAB, '
       '  VEI_COMISSAO, VEI_COMPLEMENTO, VEI_COMPOEBASEICMS, '
+      '  VEI_COMISSAOREP, VEI_VALORCOMISSAOREP, '
       '  VEI_COMPOEBASEICMSST, VEI_COMPOETOTAL, VEI_CONVERSAO, '
       '  VEI_CSTCOFINS, VEI_CSTIBSCBS, VEI_CSTICMS, '
       '  VEI_CSTIPI, VEI_CSTIS, VEI_CSTPIS, VEI_DESCMAX, '
@@ -8364,6 +8398,7 @@ object DMFirenet: TDMFirenet
       
         '  :NEW_VEI_COMISSAO, :NEW_VEI_COMPLEMENTO, :NEW_VEI_COMPOEBASEIC' +
         'MS, '
+      '  :NEW_VEI_COMISSAOREP, :NEW_VEI_VALORCOMISSAOREP, '
       
         '  :NEW_VEI_COMPOEBASEICMSST, :NEW_VEI_COMPOETOTAL, :NEW_VEI_CONV' +
         'ERSAO, '
@@ -8581,6 +8616,9 @@ object DMFirenet: TDMFirenet
       
         '  VEI_COMISSAO = :NEW_VEI_COMISSAO, VEI_COMPLEMENTO = :NEW_VEI_C' +
         'OMPLEMENTO, '
+      
+        '  VEI_COMISSAOREP = :NEW_VEI_COMISSAOREP, VEI_VALORCOMISSAOREP =' +
+        ' :NEW_VEI_VALORCOMISSAOREP, '
       
         '  VEI_COMPOEBASEICMS = :NEW_VEI_COMPOEBASEICMS, VEI_COMPOEBASEIC' +
         'MSST = :NEW_VEI_COMPOEBASEICMSST, '

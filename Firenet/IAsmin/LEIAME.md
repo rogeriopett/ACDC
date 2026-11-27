@@ -7,7 +7,7 @@ Tela do ERP em que o usuário faz uma pergunta em português e a IA gera o SQL. 
 | Caminho | O que é |
 |---|---|
 | `01_instrucoes.md` … `06_exemplos.md` | Contexto enviado à IA. Vão para `<pasta do Firenet.exe>\IAsmin\` em cada cliente (pasta fixa). |
-| `delphi\` | Units Delphi 12 (VCL + FireDAC). As telas `IasminConsulta` e `IasminConfig` têm `.dfm` e podem ser editadas no designer. |
+| `..\Units\Iasmin*` | Units Delphi 12 (VCL + FireDAC), junto com as do ERP em `Firenet\Units`. As telas `IasminConsulta` e `IasminConfig` têm `.dfm` e podem ser editadas no designer. |
 | `sql\criar_usuario_leitura.sql` | Cria o usuário Firebird `IA_LEITURA` (só SELECT). Rodar uma vez por cliente. |
 | `ferramentas\gerar_contexto.ps1` | Gera `02` e `03` a partir do `DDL_Banco.sql`. Rodar quando o banco mudar. |
 | `ferramentas\levantar_dominios.sql` | `EXECUTE BLOCK` que lista numa grade só os valores de todas as flags `VARCHAR(1)`, para completar o `04`. Rodar no SQL Editor do IBExpert. Para o isql, use `levantar_dominios_isql.sql`. |
@@ -15,7 +15,7 @@ Tela do ERP em que o usuário faz uma pergunta em português e a IA gera o SQL. 
 
 ## Integração no ERP
 
-1. Adicione ao projeto: `IasminConfigDados`, `IasminProvedores`, `IasminValidadorSQL`, `IasminMotor`, `IasminConfig`, `IasminConsulta` (pasta `delphi\`).
+1. Adicione ao projeto: `IasminConfigDados`, `IasminProvedores`, `IasminValidadorSQL`, `IasminMotor`, `IasminConfig`, `IasminConsulta` (pasta `Firenet\Units\`; já estão no `Firenet.dpr`).
    Depois, em **Project > Options > Application > Forms**, tire `FormIasminConsulta` e `FormIasminConfig` de *Auto-create forms*: as duas telas são criadas sob demanda.
    Ao editar o visual, mantenha os nomes dos componentes e eventos. As opções de segurança do `FDConexao`, `FDTransacao` e `FDQuery` são reaplicadas em `FormCreate`; mudar essas opções no Object Inspector não tem efeito.
 2. Num item de menu:

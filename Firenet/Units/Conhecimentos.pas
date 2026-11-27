@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - DACTEs aereo, rodoviario lotacao e rodoviario fracionada no FastReport (FormConhecimentosFast.GerarDACTE); os QuickReports (FormConhecimentosQ01*) ficaram comentados.
 unit Conhecimentos;
 
 interface
@@ -7,7 +9,7 @@ uses
   Dialogs, StdCtrls, DB, Buttons, IDAttachmentFile, PngBitBtn, Grids, DBGrids,
   DBCtrls, Mask, ComCtrls, ImgList, PngImageList, Menus, XMLDoc, PngSpeedButton,
   DBSBtn, ExtCtrls, ACBrCTe, ACBrCTeDACTEClass, xmldom, XMLIntf, msxmldom,
-  QRPDFFilt, System.ImageList, ACBrBase, ACBrDFe, System.UITypes, FireDAC.Stan.Intf,
+  System.ImageList, ACBrBase, ACBrDFe, System.UITypes, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, FireDAC.Comp.DataSet;
@@ -835,16 +837,15 @@ var
   FormConhecimentos: TFormConhecimentos;
 
 implementation
-uses CTe_Util_TLB, DataMod, DataMod2, Funcoes1, FuncoesFirenet, Parametros, Main, Receber, ClientesLoc,
-  ShellAPI, Clientes, Condicoes, Enderecos, Icms, Naturezas, EnderecosRuasLoc, FrotasLoc,
-  Frotas, ConhecimentosLoc, ConhecimentosRel, ConhecimentosNotas,
-  NaturezasLoc, pcteConversaoCte, pcnConversao, ConhecimentosFinalizar,
-  ConhecimentosCancelar, ConhecimentosValidar, VendedoresLoc, Vendedores,
-  ConhecimentosArquivosXML, ConhecimentosCarga, ZiparDFE,
-  DataModSearch, ConhecimentosInutilizados, ConhecimentosQ01Aereo, EmailsEnviar,
-  ConhecimentosQ01Rodoviario, CteRecebido, ConhecimentosQ01RodoviarioFracionada,
-  CTeCampos, CTeCCe, CondicoesLoc, System.Zip, System.IOUtils, System.Types,
-  CteFuncoes;
+uses CTe_Util_TLB, DataMod, DataMod2, DataModSearch, Funcoes1, FuncoesFirenet,
+  Parametros, Main, Receber, ClientesLoc, ShellAPI, Clientes, Condicoes,
+  Enderecos, Icms, Naturezas, EnderecosRuasLoc, FrotasLoc, Frotas,
+  ConhecimentosLoc, ConhecimentosRel, ConhecimentosNotas, NaturezasLoc,
+  pcteConversaoCte, pcnConversao, ConhecimentosFinalizar, ConhecimentosCancelar,
+  ConhecimentosValidar, VendedoresLoc, Vendedores, ConhecimentosArquivosXML,
+  ConhecimentosCarga, ZiparDFE, ConhecimentosInutilizados, EmailsEnviar,
+  CteRecebido, CTeCampos, CTeCCe, CondicoesLoc, System.Zip, System.IOUtils,
+  System.Types, CteFuncoes, ConhecimentosFast;
 {$R *.dfm}
 {$I ACBr.inc}
 
@@ -1472,99 +1473,108 @@ begin
 end;
 
 procedure TFormConhecimentos.GerarDACTEAereo(Visualizar, GerarPDF: Boolean; ArquivoPDF: String);
-var PDFFilter: TQRPDFDocumentFilter;
+//QuickReport antigo (FormConhecimentosQ01Aereo), trocado pelo FastReport (FormConhecimentosFast.frxReport7) em 2026.11.24:
+//var PDFFilter: TQRPDFDocumentFilter;
+//begin
+  //Application.CreateForm(TFormConhecimentosQ01Aereo, FormConhecimentosQ01Aereo);
+  //if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01Aereo.QRLabel174.Font.Color:=clWhite;
+  //FormConhecimentosQ01Aereo.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
+  //FormConhecimentosQ01Aereo.QYCte.Open;
+  //FormConhecimentosQ01Aereo.QYCteNotas.Open;
+  //FormConhecimentosQ01Aereo.QYCteCarga.Open;
+  //FormConhecimentosQ01Aereo.QuickRep1.Prepare; //faz gerar o PageCount.
+  //FormConhecimentosQ01Aereo.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01Aereo.QuickRep1.QRPrinter.PageCount);
+  //if Visualizar then
+  //begin
+  //  if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
+  //  FormConhecimentosQ01Aereo.QuickRep1.PreviewModal else
+  //  FormConhecimentosQ01Aereo.QuickRep1.Print;
+  //end;
+  //if GerarPDF then
+  //begin
+  //  //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
+  //  PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
+  //  FormConhecimentosQ01Aereo.QuickRep1.ExportToFilter(PDFFilter);
+  //end;
+  //FormConhecimentosQ01Aereo.QuickRep1.QRPrinter:=nil; //libera pagecount.
+  //FormConhecimentosQ01Aereo.Free;
+  //FormConhecimentosQ01Aereo:=nil;
 begin
-  Application.CreateForm(TFormConhecimentosQ01Aereo, FormConhecimentosQ01Aereo);
-  if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01Aereo.QRLabel174.Font.Color:=clWhite;
-  FormConhecimentosQ01Aereo.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
-  FormConhecimentosQ01Aereo.QYCte.Open;
-  FormConhecimentosQ01Aereo.QYCteNotas.Open;
-  FormConhecimentosQ01Aereo.QYCteCarga.Open;
-  FormConhecimentosQ01Aereo.QuickRep1.Prepare; //faz gerar o PageCount.
-  FormConhecimentosQ01Aereo.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01Aereo.QuickRep1.QRPrinter.PageCount);
-
-  if Visualizar then
-  begin
-    if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
-    FormConhecimentosQ01Aereo.QuickRep1.PreviewModal else
-    FormConhecimentosQ01Aereo.QuickRep1.Print;
-  end;
-
-  if GerarPDF then
-  begin
-    //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
-    PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
-    FormConhecimentosQ01Aereo.QuickRep1.ExportToFilter(PDFFilter);
-  end;
-
-  FormConhecimentosQ01Aereo.QuickRep1.QRPrinter:=nil; //libera pagecount.
-  FormConhecimentosQ01Aereo.Free;
-  FormConhecimentosQ01Aereo:=nil;
+  Application.CreateForm(TFormConhecimentosFast, FormConhecimentosFast);
+  FormConhecimentosFast.GerarDACTE(FormConhecimentosFast.frxReport7,DM2.TBCteCTE_CODIGO.Value,Visualizar,GerarPDF,ArquivoPDF);
+  FormConhecimentosFast.Free;
+  FormConhecimentosFast:=nil;
 end;
 
 procedure TFormConhecimentos.GerarDACTERodoviarioLotacao(Visualizar, GerarPDF: Boolean; ArquivoPDF: String);
-var PDFFilter: TQRPDFDocumentFilter;
+//QuickReport antigo (FormConhecimentosQ01RodoviarioLotacao), trocado pelo FastReport (FormConhecimentosFast.frxReport8) em 2026.11.24:
+//var PDFFilter: TQRPDFDocumentFilter;
+//begin
+  //Application.CreateForm(TFormConhecimentosQ01RodoviarioLotacao, FormConhecimentosQ01RodoviarioLotacao);
+  //if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01RodoviarioLotacao.QRLabel174.Font.Color:=clWhite;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCte.Open;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCteNotas.Open;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCteCarga.Open;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCteVeiculos.Open;
+  //FormConhecimentosQ01RodoviarioLotacao.QYCteNotas.FetchAll; //total de registros.
+  //FormConhecimentosQ01RodoviarioLotacao.QuickRep1.Prepare; //faz gerar o PageCount.
+  //FormConhecimentosQ01RodoviarioLotacao.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01RodoviarioLotacao.QuickRep1.QRPrinter.PageCount);
+  //if Visualizar then
+  //begin
+  //  if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
+  //  FormConhecimentosQ01RodoviarioLotacao.QuickRep1.PreviewModal else
+  //  FormConhecimentosQ01RodoviarioLotacao.QuickRep1.Print;
+  //end;
+  //if GerarPDF then
+  //begin
+  //  //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
+  //  PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
+  //  FormConhecimentosQ01RodoviarioLotacao.QuickRep1.ExportToFilter(PDFFilter);
+  //end;
+  //FormConhecimentosQ01RodoviarioLotacao.QuickRep1.QRPrinter:=nil; //libera pagecount.
+  //FormConhecimentosQ01RodoviarioLotacao.Free;
+  //FormConhecimentosQ01RodoviarioLotacao:=nil;
 begin
-  Application.CreateForm(TFormConhecimentosQ01RodoviarioLotacao, FormConhecimentosQ01RodoviarioLotacao);
-  if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01RodoviarioLotacao.QRLabel174.Font.Color:=clWhite;
-  FormConhecimentosQ01RodoviarioLotacao.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
-  FormConhecimentosQ01RodoviarioLotacao.QYCte.Open;
-  FormConhecimentosQ01RodoviarioLotacao.QYCteNotas.Open;
-  FormConhecimentosQ01RodoviarioLotacao.QYCteCarga.Open;
-  FormConhecimentosQ01RodoviarioLotacao.QYCteVeiculos.Open;
-  FormConhecimentosQ01RodoviarioLotacao.QYCteNotas.FetchAll; //total de registros.
-  FormConhecimentosQ01RodoviarioLotacao.QuickRep1.Prepare; //faz gerar o PageCount.
-  FormConhecimentosQ01RodoviarioLotacao.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01RodoviarioLotacao.QuickRep1.QRPrinter.PageCount);
-
-  if Visualizar then
-  begin
-    if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
-    FormConhecimentosQ01RodoviarioLotacao.QuickRep1.PreviewModal else
-    FormConhecimentosQ01RodoviarioLotacao.QuickRep1.Print;
-  end;
-
-  if GerarPDF then
-  begin
-    //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
-    PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
-    FormConhecimentosQ01RodoviarioLotacao.QuickRep1.ExportToFilter(PDFFilter);
-  end;
-
-  FormConhecimentosQ01RodoviarioLotacao.QuickRep1.QRPrinter:=nil; //libera pagecount.
-  FormConhecimentosQ01RodoviarioLotacao.Free;
-  FormConhecimentosQ01RodoviarioLotacao:=nil;
+  Application.CreateForm(TFormConhecimentosFast, FormConhecimentosFast);
+  FormConhecimentosFast.GerarDACTE(FormConhecimentosFast.frxReport8,DM2.TBCteCTE_CODIGO.Value,Visualizar,GerarPDF,ArquivoPDF);
+  FormConhecimentosFast.Free;
+  FormConhecimentosFast:=nil;
 end;
 
 procedure TFormConhecimentos.GerarDACTERodoviarioFracionada(Visualizar, GerarPDF: Boolean; ArquivoPDF: String);
-var PDFFilter: TQRPDFDocumentFilter;
+//QuickReport antigo (FormConhecimentosQ01RodoviarioFracionada), trocado pelo FastReport (FormConhecimentosFast.frxReport9) em 2026.11.24:
+//var PDFFilter: TQRPDFDocumentFilter;
+//begin
+  //Application.CreateForm(TFormConhecimentosQ01RodoviarioFracionada, FormConhecimentosQ01RodoviarioFracionada);
+  //if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01RodoviarioFracionada.QRLabel174.Font.Color:=clWhite;
+  //FormConhecimentosQ01RodoviarioFracionada.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
+  //FormConhecimentosQ01RodoviarioFracionada.QYCte.Open;
+  //FormConhecimentosQ01RodoviarioFracionada.QYCteNotas.Open;
+  //FormConhecimentosQ01RodoviarioFracionada.QYCteCarga.Open;
+  //FormConhecimentosQ01RodoviarioFracionada.QYCteNotas.FetchAll; //total de registros.
+  //FormConhecimentosQ01RodoviarioFracionada.QuickRep1.Prepare; //faz gerar o PageCount.
+  //FormConhecimentosQ01RodoviarioFracionada.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01RodoviarioFracionada.QuickRep1.QRPrinter.PageCount);
+  //if Visualizar then
+  //begin
+  //  if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
+  //  FormConhecimentosQ01RodoviarioFracionada.QuickRep1.PreviewModal else
+  //  FormConhecimentosQ01RodoviarioFracionada.QuickRep1.Print;
+  //end;
+  //if GerarPDF then
+  //begin
+  //  //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
+  //  PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
+  //  FormConhecimentosQ01RodoviarioFracionada.QuickRep1.ExportToFilter(PDFFilter);
+  //end;
+  //FormConhecimentosQ01RodoviarioFracionada.QuickRep1.QRPrinter:=nil; //libera pagecount.
+  //FormConhecimentosQ01RodoviarioFracionada.Free;
+  //FormConhecimentosQ01RodoviarioFracionada:=nil;
 begin
-  Application.CreateForm(TFormConhecimentosQ01RodoviarioFracionada, FormConhecimentosQ01RodoviarioFracionada);
-  if DM.TBParametrosPAR_TIPOAMBIENTECTE.Value='1' then FormConhecimentosQ01RodoviarioFracionada.QRLabel174.Font.Color:=clWhite;
-  FormConhecimentosQ01RodoviarioFracionada.QYCte.ParamByName('codigo').AsInteger:=DM2.TBCteCTE_CODIGO.Value;
-  FormConhecimentosQ01RodoviarioFracionada.QYCte.Open;
-  FormConhecimentosQ01RodoviarioFracionada.QYCteNotas.Open;
-  FormConhecimentosQ01RodoviarioFracionada.QYCteCarga.Open;
-  FormConhecimentosQ01RodoviarioFracionada.QYCteNotas.FetchAll; //total de registros.
-  FormConhecimentosQ01RodoviarioFracionada.QuickRep1.Prepare; //faz gerar o PageCount.
-  FormConhecimentosQ01RodoviarioFracionada.QRLabel145.Caption:='/'+IntToStr(FormConhecimentosQ01RodoviarioFracionada.QuickRep1.QRPrinter.PageCount);
-
-  if Visualizar then
-  begin
-    if DM.TBParametrosPAR_CTEVISUALIZARDACTE.Value='S' then
-    FormConhecimentosQ01RodoviarioFracionada.QuickRep1.PreviewModal else
-    FormConhecimentosQ01RodoviarioFracionada.QuickRep1.Print;
-  end;
-
-  if GerarPDF then
-  begin
-    //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DACTE.PDF');
-    PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
-    FormConhecimentosQ01RodoviarioFracionada.QuickRep1.ExportToFilter(PDFFilter);
-  end;
-
-  FormConhecimentosQ01RodoviarioFracionada.QuickRep1.QRPrinter:=nil; //libera pagecount.
-  FormConhecimentosQ01RodoviarioFracionada.Free;
-  FormConhecimentosQ01RodoviarioFracionada:=nil;
+  Application.CreateForm(TFormConhecimentosFast, FormConhecimentosFast);
+  FormConhecimentosFast.GerarDACTE(FormConhecimentosFast.frxReport9,DM2.TBCteCTE_CODIGO.Value,Visualizar,GerarPDF,ArquivoPDF);
+  FormConhecimentosFast.Free;
+  FormConhecimentosFast:=nil;
 end;
 
 procedure TFormConhecimentos.DACTE1Click(Sender: TObject);

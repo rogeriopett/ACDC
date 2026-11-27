@@ -4,6 +4,8 @@
 //2026.11.18 - Cores seguem o tema do pett-componentes (classes do Global.css no lugar das cores fixas do Bootstrap).
 //2026.11.18 - Removidas classes que nao existem em nenhum CSS (sup-reset, lh-2, topspace-*; text-trucate corrigido para text-truncate).
 //2026.11.18 - Imports reorganizados (externos; pett-componentes em ordem alfabetica; Api, contextos, hooks, componentes, outros e CSS).
+//2026.11.27 - Mensagem de registro nao encontrado com o componente local NaoEncontrado (PettIcon no lugar do fa-record-vinyl; sem vh-100).
+//2026.11.27 - Loading tirado de dentro da barra do topo (sticky), onde cobria a tela; fica abaixo da barra, como nas outras telas.
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
@@ -16,6 +18,7 @@ import { AuthContext } from '../Contextos/Auth';
 import Carrossel from '../Componentes/Carrossel';
 import ProdutoHeader from '../Componentes/ProdutoHeader';
 import Loading from '../Componentes/Loading';
+import NaoEncontrado from '../Componentes/NaoEncontrado';
 import { formatarDataStr, tratarCatch } from '../Funcoes';
 
 function Produto(props) {
@@ -69,7 +72,6 @@ function Produto(props) {
     return <>    
         <div className="barra-tema sticky-top">
             <div className="container-fluid limit-width p-0">
-                <Loading status={carregando}/>
                 <div className="row">
                     <div className="col-12 limit-height d-flex justify-content-between align-items-center">
                         <div>
@@ -84,11 +86,8 @@ function Produto(props) {
             </div>
         </div>
 
-        <PettIf condicional={produto.PRO_CODIGO<=0}>
-            <div className="container limit-width vh-100 d-flex justify-content-center align-items-center">
-                <p className="text-center lead"><span style={{fontSize: '7em'}} className="texto-suave"><i className="fa fa-fw fa-record-vinyl"></i></span><br/>Não foi possível localizar o produto.</p>
-            </div>  
-        </PettIf>
+        <Loading status={carregando}/>
+        <NaoEncontrado show={!carregando && produto.PRO_CODIGO<=0} mensagem="Não foi possível localizar o produto."/>
         <PettIf condicional={produto.PRO_CODIGO>0}>
             <div className="container-fluid limit-width py-2">
                 <PettIf condicional={ imagens.length > 0 }>

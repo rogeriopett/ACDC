@@ -8,7 +8,7 @@ uses
   PngBitBtn, Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls, Vcl.Mask, Vcl.ComCtrls,
   PngSpeedButton, DBSBtn, Vcl.ExtCtrls, System.ImageList, Vcl.ImgList,
   PngImageList, Vcl.Menus, ACBrBase, ACBrDFe, ACBrDFeSSL, ACBrDFe.Conversao, pcnConversao,
-  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, QRPDFFilt, System.UITypes,
+  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, System.UITypes,
   ACBrNFSeX, ACBrNFSeXConversao, ACBrNFSeXWebservicesResponse, ACBrNFSeXWebserviceBase,
   SHDocVw, Vcl.OleCtrls, System.Zip, System.IOUtils, System.Types, System.StrUtils,
   blcksock,

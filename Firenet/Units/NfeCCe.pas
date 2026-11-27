@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, Buttons, PngSpeedButton, DBSBtn, ExtCtrls,
-  ImgList, PngImageList, Menus, Grids, DBGrids, Mask, IDAttachmentFile, QRPDFFilt,
+  ImgList, PngImageList, Menus, Grids, DBGrids, Mask, IDAttachmentFile,
   Data.DB, System.ImageList, System.UITypes;
 
 type

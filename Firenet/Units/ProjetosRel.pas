@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorios no FastReport (FormProjetosFast, PRJ01 a PRJ09); os QuickReports (FormProjetosQ01 a Q09) ficaram comentados.
 unit ProjetosRel;
 
 interface
@@ -70,9 +72,7 @@ var
   FormProjetosRel: TFormProjetosRel;
 
 implementation
-uses ProjetosQ02, Funcoes1, ProjetosQ03, FuncoesFirenet,
-  ProjetosQ04, ProjetosQ05, ProjetosQ06, ProjetosQ01, DataMod, DataMod2,
-  ProjetosQ07, ProjetosQ08, FasesLoc, ProjetosQ09, DataModSearch;
+uses Funcoes1, FuncoesFirenet, DataMod, DataMod2, FasesLoc, DataModSearch, ProjetosFast;
 
 {$R *.dfm}
 
@@ -109,190 +109,371 @@ var Where, Where2: AnsiString;
 begin
   case ComboBox1.ItemIndex of
     00: begin
+          //QuickReport antigo (FormProjetosQ01), trocado pelo FastReport (FormProjetosFast, PRJ01) em 2026.11.24:
+          //AbortIf(DM2.TBProjetos.IsEmpty,'Nenhum projeto selecionado.');
+          //Application.CreateForm(TFormProjetosQ01, FormProjetosQ01);
+          //FormProjetosQ01.QRLabel1.Caption:='Ficha de Projeto - '+IntToStr(DM2.TBProjetosPRJ_CODIGO.Value);
+          //FormProjetosQ01.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
+          //FormProjetosQ01.FDQuery2.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
+          //FormProjetosQ01.FDQuery1.Open;
+          //FormProjetosQ01.FDQuery2.Open;
+          //FormProjetosQ01.QuickRep1.PreviewModal;
+          //FormProjetosQ01.Free;
+          //FormProjetosQ01:=nil;
           AbortIf(DM2.TBProjetos.IsEmpty,'Nenhum projeto selecionado.');
-
-          Application.CreateForm(TFormProjetosQ01, FormProjetosQ01);
-          FormProjetosQ01.QRLabel1.Caption:='Ficha de Projeto - '+IntToStr(DM2.TBProjetosPRJ_CODIGO.Value);
-          FormProjetosQ01.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
-          FormProjetosQ01.FDQuery2.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
-          FormProjetosQ01.FDQuery1.Open;
-          FormProjetosQ01.FDQuery2.Open;
-          FormProjetosQ01.QuickRep1.PreviewModal;
-          FormProjetosQ01.Free;
-          FormProjetosQ01:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY01.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
+          FormProjetosFast.QY01A.ParamByName('codigo').AsInteger:=DM2.TBProjetosPRJ_CODIGO.Value;
+          FormProjetosFast.QY01.Open;
+          FormProjetosFast.QY01A.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport1,'Ficha de Projeto - '+IntToStr(DM2.TBProjetosPRJ_CODIGO.Value));
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     01: begin
-          Application.CreateForm(TFormProjetosQ02, FormProjetosQ02);
-          FormProjetosQ02.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
-          FormProjetosQ02.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ02), trocado pelo FastReport (FormProjetosFast, PRJ02) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ02, FormProjetosQ02);
+          //FormProjetosQ02.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
+          //FormProjetosQ02.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit3.Text<>'' then Where:='and PRJ_CLIENTE='+QuotedStr(Edit3.Text);
+          //if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
+          //FormProjetosQ02.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                 'order by CLI_NOME, VEN_NOME');
+          //FormProjetosQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ02.FDQuery1.Open;
+          //FormProjetosQ02.QuickRep1.PreviewModal;
+          //FormProjetosQ02.Free;
+          //FormProjetosQ02:=nil;
           Where:='';
           if Edit3.Text<>'' then Where:='and PRJ_CLIENTE='+QuotedStr(Edit3.Text);
           if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
-          FormProjetosQ02.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                           'order by CLI_NOME, VEN_NOME');
-          FormProjetosQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ02.FDQuery1.Open;
-          FormProjetosQ02.QuickRep1.PreviewModal;
-          FormProjetosQ02.Free;
-          FormProjetosQ02:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY02.SQL.Clear;
+          FormProjetosFast.QY02.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+            'order by CLI_NOME, VEN_NOME ');
+          FormProjetosFast.QY02.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY02.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY02.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport2,'Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     02: begin
-          Application.CreateForm(TFormProjetosQ03, FormProjetosQ03);
-          FormProjetosQ03.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
-          FormProjetosQ03.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ03), trocado pelo FastReport (FormProjetosFast, PRJ03) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ03, FormProjetosQ03);
+          //FormProjetosQ03.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
+          //FormProjetosQ03.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
+          //FormProjetosQ03.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ03.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ03.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ03.FDQuery1.Open;
+          //FormProjetosQ03.QuickRep1.PreviewModal;
+          //FormProjetosQ03.Free;
+          //FormProjetosQ03:=nil;
           Where:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
           if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
-          FormProjetosQ03.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ03.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ03.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ03.FDQuery1.Open;
-          FormProjetosQ03.QuickRep1.PreviewModal;
-          FormProjetosQ03.Free;
-          FormProjetosQ03:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY03.SQL.Clear;
+          FormProjetosFast.QY03.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY03.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY03.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY03.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport3,'Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     03: begin
-          Application.CreateForm(TFormProjetosQ04, FormProjetosQ04);
-          FormProjetosQ04.QRLabel1.Caption:='Projetos com visita em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormProjetosQ04.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ04), trocado pelo FastReport (FormProjetosFast, PRJ04) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ04, FormProjetosQ04);
+          //FormProjetosQ04.QRLabel1.Caption:='Projetos com visita em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormProjetosQ04.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //FormProjetosQ04.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'CLI_NOME, VEN_NOME, PRJ_DTVISITAPREVISTA, PRJ_DTPRIMEIROCONTATO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTVISITAPREVISTA between :datainicial and :datafinal and PRJ_STATUSVISITA=''ABERTO'' '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ04.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ04.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ04.FDQuery1.Open;
+          //FormProjetosQ04.QuickRep1.PreviewModal;
+          //FormProjetosQ04.Free;
+          //FormProjetosQ04:=nil;
           Where:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
-          FormProjetosQ04.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'CLI_NOME, VEN_NOME, PRJ_DTVISITAPREVISTA, PRJ_DTPRIMEIROCONTATO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTVISITAPREVISTA between :datainicial and :datafinal and PRJ_STATUSVISITA=''ABERTO'' '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ04.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ04.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ04.FDQuery1.Open;
-          FormProjetosQ04.QuickRep1.PreviewModal;
-          FormProjetosQ04.Free;
-          FormProjetosQ04:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY04.SQL.Clear;
+          FormProjetosFast.QY04.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'CLI_NOME, VEN_NOME, PRJ_DTVISITAPREVISTA, PRJ_DTPRIMEIROCONTATO, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTVISITAPREVISTA between :datainicial and :datafinal and PRJ_STATUSVISITA=''ABERTO'' '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY04.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY04.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY04.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport4,'Projetos com visita em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     04: begin
-          Application.CreateForm(TFormProjetosQ07, FormProjetosQ07);
-          FormProjetosQ07.QRLabel1.Caption:='Projetos com projeto CAD em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormProjetosQ07.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ07), trocado pelo FastReport (FormProjetosFast, PRJ07) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ07, FormProjetosQ07);
+          //FormProjetosQ07.QRLabel1.Caption:='Projetos com projeto CAD em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormProjetosQ07.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //FormProjetosQ07.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTPROJETOCADPREVISTO between :datainicial and :datafinal and PRJ_STATUSPROJETOCAD=''ABERTO'' '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ07.FDQuery1.Open;
+          //FormProjetosQ07.QuickRep1.PreviewModal;
+          //FormProjetosQ07.Free;
+          //FormProjetosQ07:=nil;
           Where:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
-          FormProjetosQ07.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTPROJETOCADPREVISTO between :datainicial and :datafinal and PRJ_STATUSPROJETOCAD=''ABERTO'' '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ07.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ07.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ07.FDQuery1.Open;
-          FormProjetosQ07.QuickRep1.PreviewModal;
-          FormProjetosQ07.Free;
-          FormProjetosQ07:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY07.SQL.Clear;
+          FormProjetosFast.QY07.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTPROJETOCADPREVISTO between :datainicial and :datafinal and PRJ_STATUSPROJETOCAD=''ABERTO'' '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY07.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY07.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY07.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport7,'Projetos com projeto CAD em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     05: begin
-          Application.CreateForm(TFormProjetosQ05, FormProjetosQ05);
-          FormProjetosQ05.QRLabel1.Caption:='Projetos com orçamento em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormProjetosQ05.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ05), trocado pelo FastReport (FormProjetosFast, PRJ05) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ05, FormProjetosQ05);
+          //FormProjetosQ05.QRLabel1.Caption:='Projetos com orçamento em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormProjetosQ05.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //FormProjetosQ05.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTORCAMENTOPREVISTO between :datainicial and :datafinal and PRJ_STATUSORCAMENTO=''ABERTO'' '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ05.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ05.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ05.FDQuery1.Open;
+          //FormProjetosQ05.QuickRep1.PreviewModal;
+          //FormProjetosQ05.Free;
+          //FormProjetosQ05:=nil;
           Where:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
-          FormProjetosQ05.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTORCAMENTOPREVISTO between :datainicial and :datafinal and PRJ_STATUSORCAMENTO=''ABERTO'' '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ05.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ05.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ05.FDQuery1.Open;
-          FormProjetosQ05.QuickRep1.PreviewModal;
-          FormProjetosQ05.Free;
-          FormProjetosQ05:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY05.SQL.Clear;
+          FormProjetosFast.QY05.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'CLI_NOME, VEN_NOME, PRJ_DTORCAMENTOPREVISTO, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTORCAMENTOPREVISTO between :datainicial and :datafinal and PRJ_STATUSORCAMENTO=''ABERTO'' '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY05.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY05.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY05.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport5,'Projetos com orçamento em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     06: begin
-          Application.CreateForm(TFormProjetosQ06, FormProjetosQ06);
-          FormProjetosQ06.QRLabel1.Caption:='Projetos com apresentação em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
-          FormProjetosQ06.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ06), trocado pelo FastReport (FormProjetosFast, PRJ06) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ06, FormProjetosQ06);
+          //FormProjetosQ06.QRLabel1.Caption:='Projetos com apresentação em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text;
+          //FormProjetosQ06.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //FormProjetosQ06.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'CLI_NOME, VEN_NOME, PRJ_DTAPRESENTACAOPREVISTA, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTAPRESENTACAOPREVISTA between :datainicial and :datafinal and PRJ_STATUSAPRESENTACAO=''ABERTO'' '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ06.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ06.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ06.FDQuery1.Open;
+          //FormProjetosQ06.QuickRep1.PreviewModal;
+          //FormProjetosQ06.Free;
+          //FormProjetosQ06:=nil;
           Where:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
-          FormProjetosQ06.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'CLI_NOME, VEN_NOME, PRJ_DTAPRESENTACAOPREVISTA, PRJ_TIPO, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTAPRESENTACAOPREVISTA between :datainicial and :datafinal and PRJ_STATUSAPRESENTACAO=''ABERTO'' '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ06.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ06.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ06.FDQuery1.Open;
-          FormProjetosQ06.QuickRep1.PreviewModal;
-          FormProjetosQ06.Free;
-          FormProjetosQ06:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY06.SQL.Clear;
+          FormProjetosFast.QY06.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'CLI_NOME, VEN_NOME, PRJ_DTAPRESENTACAOPREVISTA, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTAPRESENTACAOPREVISTA between :datainicial and :datafinal and PRJ_STATUSAPRESENTACAO=''ABERTO'' '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY06.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY06.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY06.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport6,'Projetos com apresentação em aberto de: '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     07: begin
-          Application.CreateForm(TFormProjetosQ08, FormProjetosQ08);
-          FormProjetosQ08.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
-          FormProjetosQ08.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ08), trocado pelo FastReport (FormProjetosFast, PRJ08) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ08, FormProjetosQ08);
+          //FormProjetosQ08.QRLabel1.Caption:='Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
+          //FormProjetosQ08.FDQuery1.SQL.Clear;
+          //Where:=''; Where2:='';
+          //if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
+          //if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
+          //FormProjetosQ08.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
+          //                                 'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+          //                                 'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+          //                                 'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                 'order by VEN_NOME, CLI_NOME');
+          //FormProjetosQ08.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ08.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ08.FDQuery1.Open;
+          //FormProjetosQ08.FDQuery2.SQL.Clear;
+          //if ComboBox3.Text<>'TODAS' then Where2:=Where2+' and PJF_STATUS='+QuotedStr(ComboBox3.Text);
+          //FormProjetosQ08.FDQuery2.SQL.Add('select * from PROJETOSFASES '+
+          //                                 'left join FASES on PJF_FASE=FAS_CODIGO '+
+          //                                 'where PJF_PROJETO=:PRJ_CODIGO '+Where2+' order by PJF_CODIGO desc');
+          //FormProjetosQ08.FDQuery2.Open;
+          //FormProjetosQ08.QuickRep1.PreviewModal;
+          //FormProjetosQ08.Free;
+          //FormProjetosQ08:=nil;
           Where:=''; Where2:='';
           if Edit1.Text<>'' then Where:='and PRJ_ARQUITETO='+QuotedStr(Edit1.Text);
           if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
-          FormProjetosQ08.FDQuery1.SQL.Add('select PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_CODIGO, PRJ_STATUSPROJETO, '+
-                                           'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO from PROJETOS '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
-                                           'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
-                                           'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                           'order by VEN_NOME, CLI_NOME');
-          FormProjetosQ08.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ08.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ08.FDQuery1.Open;
-
-          FormProjetosQ08.FDQuery2.SQL.Clear;
           if ComboBox3.Text<>'TODAS' then Where2:=Where2+' and PJF_STATUS='+QuotedStr(ComboBox3.Text);
-
-          FormProjetosQ08.FDQuery2.SQL.Add('select * from PROJETOSFASES '+
-                                           'left join FASES on PJF_FASE=FAS_CODIGO '+
-                                           'where PJF_PROJETO=:PRJ_CODIGO '+Where2+' order by PJF_CODIGO desc');
-          FormProjetosQ08.FDQuery2.Open;
-          FormProjetosQ08.QuickRep1.PreviewModal;
-          FormProjetosQ08.Free;
-          FormProjetosQ08:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY08.SQL.Clear;
+          FormProjetosFast.QY08.SQL.Add(
+            'select PRJ_CODIGO, PRJ_NOME, PRJ_ARQUITETO, PRJ_CLIENTE, PRJ_TIPO, PRJ_VALORTOTAL, PRJ_STATUSPROJETO, '+
+            'PRJ_DTCADASTRO, CLI_NOME, VEN_NOME, PJT_DESCRICAO '+
+            'from PROJETOS '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on PRJ_ARQUITETO=VEN_CODIGO '+
+            'left join PROJETOSTIPOS on PRJ_TIPO=PJT_CODIGO '+
+            'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+            'order by VEN_NOME, CLI_NOME ');
+          FormProjetosFast.QY08.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY08.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY08A.SQL.Clear;
+          FormProjetosFast.QY08A.SQL.Add(
+            'select PJF_FASE, FAS_DESCRICAO, PJF_DTPREVISAO, PJF_DTINICIO, PJF_DTFIM, PJF_STATUS '+
+            'from PROJETOSFASES '+
+            'left join FASES on PJF_FASE=FAS_CODIGO '+
+            'where PJF_PROJETO=:PRJ_CODIGO '+Where2+' '+
+            'order by PJF_CODIGO desc ');
+          FormProjetosFast.QY08.Open;
+          FormProjetosFast.QY08A.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport8,'Projetos de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
     08: begin
-          Application.CreateForm(TFormProjetosQ09, FormProjetosQ09);
-          FormProjetosQ09.QRLabel1.Caption:='Projetos por fase de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
-          FormProjetosQ09.FDQuery1.SQL.Clear;
+          //QuickReport antigo (FormProjetosQ09), trocado pelo FastReport (FormProjetosFast, PRJ09) em 2026.11.24:
+          //Application.CreateForm(TFormProjetosQ09, FormProjetosQ09);
+          //FormProjetosQ09.QRLabel1.Caption:='Projetos por fase de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text;
+          //FormProjetosQ09.FDQuery1.SQL.Clear;
+          //Where:='';
+          //if Edit6.Text<>'' then Where:='and PJF_FASE='+QuotedStr(Edit5.Text);
+          //if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
+          //if ComboBox3.Text<>'TODAS' then Where:=Where+' and PJF_STATUS='+QuotedStr(ComboBox3.Text);
+          //FormProjetosQ09.FDQuery1.SQL.Add('select PJF_DTINICIO, PJF_DTFIM, PJF_DTPREVISAO, PJF_FASE, PJF_PROJETO, PJF_STATUS, '+
+          //                                 'PRJ_CODIGO, PRJ_NOME, PRJ_CLIENTE, PRJ_STATUSPROJETO, CLI_NOME, FAS_DESCRICAO from PROJETOSFASES '+
+          //                                 'left join PROJETOS on PJF_PROJETO=PRJ_CODIGO '+
+          //                                 'left join FASES on PJF_FASE=FAS_CODIGO '+
+          //                                 'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+          //                                 'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+          //                                 'order by FAS_DESCRICAO, CLI_NOME');
+          //FormProjetosQ09.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormProjetosQ09.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormProjetosQ09.FDQuery1.Open;
+          //FormProjetosQ09.QuickRep1.PreviewModal;
+          //FormProjetosQ09.Free;
+          //FormProjetosQ09:=nil;
           Where:='';
           if Edit6.Text<>'' then Where:='and PJF_FASE='+QuotedStr(Edit5.Text);
           if ComboBox2.Text<>'TODOS' then Where:=Where+' and PRJ_STATUSPROJETO='+QuotedStr(ComboBox2.Text);
           if ComboBox3.Text<>'TODAS' then Where:=Where+' and PJF_STATUS='+QuotedStr(ComboBox3.Text);
-          FormProjetosQ09.FDQuery1.SQL.Add('select PJF_DTINICIO, PJF_DTFIM, PJF_DTPREVISAO, PJF_FASE, PJF_PROJETO, PJF_STATUS, '+
-                                           'PRJ_CODIGO, PRJ_NOME, PRJ_CLIENTE, PRJ_STATUSPROJETO, CLI_NOME, FAS_DESCRICAO from PROJETOSFASES '+
-                                           'left join PROJETOS on PJF_PROJETO=PRJ_CODIGO '+
-                                           'left join FASES on PJF_FASE=FAS_CODIGO '+
-                                           'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
-                                           'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
-                                           'order by FAS_DESCRICAO, CLI_NOME');
-          FormProjetosQ09.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormProjetosQ09.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormProjetosQ09.FDQuery1.Open;
-          FormProjetosQ09.QuickRep1.PreviewModal;
-          FormProjetosQ09.Free;
-          FormProjetosQ09:=nil;
+          Application.CreateForm(TFormProjetosFast, FormProjetosFast);
+          FormProjetosFast.QY09.SQL.Clear;
+          FormProjetosFast.QY09.SQL.Add(
+            'select PJF_DTINICIO, PJF_DTFIM, PJF_DTPREVISAO, PJF_FASE, PJF_PROJETO, PJF_STATUS, '+
+            'PRJ_CODIGO, PRJ_NOME, PRJ_CLIENTE, PRJ_STATUSPROJETO, CLI_NOME, FAS_DESCRICAO '+
+            'from PROJETOSFASES '+
+            'left join PROJETOS on PJF_PROJETO=PRJ_CODIGO '+
+            'left join FASES on PJF_FASE=FAS_CODIGO '+
+            'left join CLIENTES on PRJ_CLIENTE=CLI_CODIGO '+
+            'where PRJ_DTCADASTRO between :datainicial and :datafinal '+Where+' '+
+            'order by FAS_DESCRICAO, CLI_NOME ');
+          FormProjetosFast.QY09.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormProjetosFast.QY09.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormProjetosFast.QY09.Open;
+          FormProjetosFast.Mostrar(FormProjetosFast.frxReport9,'Projetos por fase de: '+MaskEdit1.Text+' até '+MaskEdit2.Text+' - Status: '+ComboBox2.Text);
+          FormProjetosFast.Free;
+          FormProjetosFast:=nil;
         end;
   end; //case.
 end;

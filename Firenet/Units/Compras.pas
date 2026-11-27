@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, StdCtrls, DBCtrls, Buttons, DBSBtn, ExtCtrls, Mask, IDAttachmentFile,
   Grids, DBGrids, DB, ComCtrls, ImgList, PngImageList, PngSpeedButton, PngBitBtn,
-  QRPDFFilt, System.ImageList, System.UITypes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  System.ImageList, System.UITypes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
 
@@ -1639,7 +1639,6 @@ end;
 
 procedure TFormCompras.GerarEmailCompra;
 var MM: TMemo;
-  PDFFilter: TQRPDFDocumentFilter;
 begin
   DM.TBFornecedores.Close;
   DM.TBFornecedores.ParamByName('codigo').AsInteger:=DM.TBComprasCOM_FORNECEDOR.Value;

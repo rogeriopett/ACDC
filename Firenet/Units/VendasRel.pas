@@ -93,6 +93,12 @@ type
     Edit28: TEdit;
     Edit29: TEdit;
     Edit30: TEdit;
+    Label26: TLabel;
+    PngSpeedButton8: TPngSpeedButton;
+    Edit31: TEdit;
+    Edit32: TEdit;
+    Label27: TLabel;
+    ComboBox9: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure BitBtn2Click(Sender: TObject);
@@ -171,6 +177,11 @@ type
     procedure Edit10Enter(Sender: TObject);
     procedure Edit10Exit(Sender: TObject);
     procedure Edit10KeyPress(Sender: TObject; var Key: Char);
+    procedure PngSpeedButton8Click(Sender: TObject);
+    procedure Edit31Enter(Sender: TObject);
+    procedure Edit31Exit(Sender: TObject);
+    procedure Edit31KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Edit31KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -194,6 +205,7 @@ begin
   ComboBox6.ItemIndex:=0;
   ComboBox7.ItemIndex:=0;
   ComboBox8.ItemIndex:=0;
+  ComboBox9.ItemIndex:=0;
   MaskEdit1.Text:=DateToStr(PrimeiroDia(Date),FS);
   MaskEdit2.Text:=DateToStr(UltimoDia(Date),FS);
   Edit7.Text:='20';
@@ -475,6 +487,11 @@ begin
   LocClassFiscalBotao(Edit28,Edit30,Edit29);
 end;
 
+procedure TFormVendasRel.PngSpeedButton8Click(Sender: TObject);
+begin
+  LocVendedoresBotao(Edit31,Edit32,nil);
+end;
+
 procedure TFormVendasRel.BitBtn2Click(Sender: TObject);
 begin
   Close;
@@ -620,12 +637,15 @@ begin
           if ComboBox4.Text='INUTILIZADAS' then Where:=Where+' and VED_STATUS='+QuotedStr('I');
           if ComboBox8.Text='ENTRADA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('E');
           if ComboBox8.Text='SAIDA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('S');
+          if ComboBox9.Text='SIM' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('S');
+          if ComboBox9.Text='NAO' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('N');
           Application.CreateForm(TFormVendasFast, FormVendasFast);
           FormVendasFast.QY25.Close;
           FormVendasFast.QY25.SQL.Clear;
           FormVendasFast.QY25.SQL.Add(
             'select VED_VENDEDOR, VEN_NOME, sum(VED_VALORTOTAL) as VALORTOTALVENDEDOR from VENDAS '+
             'left join VENDEDORES on VED_VENDEDOR=VEN_CODIGO '+
+            'left join NATUREZAS on VED_CFOP=NAT_CODIGO '+
             'where VED_DTEMISSAO between :datainicial and :datafinal '+Where+' '+
             'group by VED_VENDEDOR, VEN_NOME order by VEN_NOME');
           FormVendasFast.QY25a.Close;
@@ -642,6 +662,7 @@ begin
             '        select D1.VED_CLIENTE, D1.VED_NOME, D1.VED_VENDEDOR, D1.TOTALVENDA, sum(D1.TOTALVENDA) over() as TOTALVENDAGERAL, '+
             '        cast(D1.TOTALVENDA as numeric (15,4)) / cast(sum(D1.TOTALVENDA) over() as numeric (15,4)) * 100 as PERCENTUAL from ( '+
             '            select VED_CLIENTE, VED_NOME, VED_VENDEDOR, sum(VED_VALORTOTAL) as TOTALVENDA from VENDAS '+
+            '            left join NATUREZAS on VED_CFOP=NAT_CODIGO '+
             '            where VED_DTEMISSAO between :datainicial and :datafinal and VED_VENDEDOR=:VED_VENDEDOR '+Where+' '+
             '            group by VED_VENDEDOR, VED_CLIENTE, VED_NOME '+
             '            order by VED_VENDEDOR, 4 desc) D1) D2) D3');
@@ -662,6 +683,7 @@ begin
           FormVendasFast.frxReport25.Variables['VED_ENTRADASAIDA']:=QuotedStr(ComboBox8.Text);
           FormVendasFast.frxReport25.Variables['VEN_CODIGO']:=QuotedStr(Edit1.Text);
           FormVendasFast.frxReport25.Variables['VEN_NOME']:=QuotedStr(Edit2.Text);
+          FormVendasFast.frxReport25.Variables['NAT_DEVOLUCAO']:=QuotedStr(ComboBox9.Text);
           FormVendasFast.frxReport25.ShowReport;
           FormVendasFast.Free;
           FormVendasFast:=nil;
@@ -682,6 +704,8 @@ begin
           if ComboBox4.Text='INUTILIZADAS' then Where:=Where+' and VED_STATUS='+QuotedStr('I');
           if ComboBox8.Text='ENTRADA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('E');
           if ComboBox8.Text='SAIDA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('S');
+          if ComboBox9.Text='SIM' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('S');
+          if ComboBox9.Text='NAO' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('N');
           Application.CreateForm(TFormVendasFast, FormVendasFast);
           FormVendasFast.QY24.Close;
           FormVendasFast.QY24.SQL.Clear;
@@ -708,6 +732,7 @@ begin
             '            select VEI_PRODUTO, sum(VEI_QUANTIDADE) as QTDEVENDIDA, sum(VEI_VALORTOTAL) as VALORTOTALITEM, PRO_NOME, PRO_FAMILIA, '+
             '            PRO_GRUPO, PRO_PRECOCUSTO, PRO_PRECOVENDA, PRO_UNIDADE from VENDASITENS '+
             '            left join VENDAS on VEI_VENDA=VED_CODIGO '+
+            '            left join NATUREZAS on VED_CFOP=NAT_CODIGO '+
             '            left join PRODUTOS on VEI_PRODUTO=PRO_CODIGO '+
             '            where VED_DTEMISSAO between :datainicial and :datafinal '+Where+' '+
             '            group by VEI_PRODUTO, PRO_NOME, PRO_FAMILIA, PRO_GRUPO, PRO_PRECOCUSTO, PRO_PRECOVENDA, PRO_UNIDADE '+
@@ -728,6 +753,7 @@ begin
           FormVendasFast.frxReport24.Variables['GRU_DESCRICAO']:=QuotedStr(Edit6.Text);
           FormVendasFast.frxReport24.Variables['FAM_CODIGO']:=QuotedStr(Edit15.Text);
           FormVendasFast.frxReport24.Variables['FAM_DESCRICAO']:=QuotedStr(Edit16.Text);
+          FormVendasFast.frxReport24.Variables['NAT_DEVOLUCAO']:=QuotedStr(ComboBox9.Text);
           FormVendasFast.frxReport24.ShowReport;
           FormVendasFast.Free;
           FormVendasFast:=nil;
@@ -1734,6 +1760,8 @@ begin
           if ComboBox7.Text='NAO' then Where:=Where+' and VED_ENTREGUE='+QuotedStr('N');
           if ComboBox8.Text='ENTRADA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('E');
           if ComboBox8.Text='SAIDA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('S');
+          if ComboBox9.Text='SIM' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('S');
+          if ComboBox9.Text='NAO' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('N');
 
           Application.CreateForm(TFormVendasFast, FormVendasFast);
           FormVendasFast.QY04.Close;
@@ -1745,6 +1773,7 @@ begin
             'left join CLIENTES on VED_CLIENTE=CLI_CODIGO '+
             'left join VENDEDORES on VED_VENDEDOR=VEN_CODIGO '+
             'left join NFE on VED_NFE=NFE_CODIGO '+
+            'left join NATUREZAS on VED_CFOP=NAT_CODIGO '+
             'where '+Where+' '+
             'order by VEN_NOME, VED_NOME, VED_DTEMISSAO desc');
           FormVendasFast.QY04.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
@@ -1769,6 +1798,7 @@ begin
           FormVendasFast.frxReport4.Variables['FANTASIA']:=QuotedStr(DM.TBParametrosPAR_IMPRIMIRNOMEFANTASIA.Value);
           FormVendasFast.frxReport4.Variables['LCA_CODIGO']:=QuotedStr(Edit23.Text);
           FormVendasFast.frxReport4.Variables['LCA_DESCRICAO']:=QuotedStr(Edit24.Text);
+          FormVendasFast.frxReport4.Variables['NAT_DEVOLUCAO']:=QuotedStr(ComboBox9.Text);
           FormVendasFast.frxReport4.ShowReport;
           FormVendasFast.Free;
           FormVendasFast:=nil;
@@ -1911,6 +1941,8 @@ begin
           if ComboBox7.Text='NAO' then Where:=Where+' and VED_ENTREGUE='+QuotedStr('N');
           if ComboBox8.Text='ENTRADA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('E');
           if ComboBox8.Text='SAIDA' then Where:=Where+' and VED_ENTRADASAIDA='+QuotedStr('S');
+          if ComboBox9.Text='SIM' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('S');
+          if ComboBox9.Text='NAO' then Where:=Where+' and NAT_DEVOLUCAO='+QuotedStr('N');
 
           Application.CreateForm(TFormVendasFast, FormVendasFast);
           FormVendasFast.QY03.Close;
@@ -1919,6 +1951,7 @@ begin
             'select VED_VENDEDOR, VED_DTEMISSAO, coalesce(sum(VED_TOTALITENS),0) as TOTALITENS, coalesce(sum(VED_VALORTOTAL),0) as TOTAL, count(VED_VENDEDOR) as QTDE, VEN_NOME from VENDAS '+
             'left join VENDEDORES on VED_VENDEDOR=VEN_CODIGO '+
             'left join NFE on VED_NFE=NFE_CODIGO '+
+            'left join NATUREZAS on VED_CFOP=NAT_CODIGO '+
             'where '+Where+' '+
             'group by VED_VENDEDOR, VED_DTEMISSAO, VEN_NOME '+
             'order by VED_VENDEDOR, VED_DTEMISSAO');
@@ -1941,6 +1974,7 @@ begin
           FormVendasFast.frxReport3.Variables['CLI_NOME']:=QuotedStr(Edit4.Text);
           FormVendasFast.frxReport3.Variables['VEN_CODIGO']:=QuotedStr(Edit1.Text);
           FormVendasFast.frxReport3.Variables['VEN_NOME']:=QuotedStr(Edit2.Text);
+          FormVendasFast.frxReport3.Variables['NAT_DEVOLUCAO']:=QuotedStr(ComboBox9.Text);
           FormVendasFast.frxReport3.ShowReport;
           FormVendasFast.Free;
           FormVendasFast:=nil;
@@ -2118,6 +2152,31 @@ begin
   SpeedButton1.Click;
 end;
 
+procedure TFormVendasRel.Edit31Enter(Sender: TObject);
+begin
+  DM.CodigosOld:=(Sender as TEdit).Text;
+end;
+
+procedure TFormVendasRel.Edit31Exit(Sender: TObject);
+begin
+  LocVendedoresExit(Edit31,Edit32,nil);
+end;
+
+procedure TFormVendasRel.Edit31KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (not (ssCTRL in Shift)) and (Key=VK_RETURN) then
+  Perform(WM_NEXTDLGCTL,0,0);
+  if (ssCTRL in Shift) and (Key=VK_RETURN) then //CTRL + ENTER.
+  PngSpeedButton8.Click;
+end;
+
+procedure TFormVendasRel.Edit31KeyPress(Sender: TObject; var Key: Char);
+begin
+  if not CharInSet(Key,['0'..'9',#8,#13]) then Key:=#0;
+  if Key=#8 then DM.CodigosOld:='';
+end;
+
 procedure TFormVendasRel.Edit3Enter(Sender: TObject);
 begin
   DM.CodigosOld:=(Sender as TEdit).Text;
@@ -2160,6 +2219,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=True;   SpeedButton3.Enabled:=True;
@@ -2175,6 +2235,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     01: begin
@@ -2186,6 +2247,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2201,6 +2263,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     02: begin
@@ -2212,6 +2275,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2227,6 +2291,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     03: begin
@@ -2238,6 +2303,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=True;
+          ComboBox9.Enabled:=True;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2253,6 +2319,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     04: begin
@@ -2264,6 +2331,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=True;
+          ComboBox9.Enabled:=True;
           Edit1.Enabled:=False;  SpeedButton1.Enabled:=False;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=True;   SpeedButton3.Enabled:=True;
@@ -2279,6 +2347,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     05: begin
@@ -2290,6 +2359,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2305,6 +2375,7 @@ begin
           Edit23.Enabled:=True;  PngSpeedButton5.Enabled:=True;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     06: begin
@@ -2316,6 +2387,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2331,6 +2403,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     07: begin
@@ -2342,6 +2415,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2357,6 +2431,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     08: begin
@@ -2368,6 +2443,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2383,6 +2459,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     09: begin
@@ -2394,6 +2471,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=False;  SpeedButton1.Enabled:=False;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=True;   SpeedButton3.Enabled:=True;
@@ -2409,6 +2487,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     10: begin
@@ -2420,6 +2499,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2435,6 +2515,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     11: begin
@@ -2446,6 +2527,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2461,6 +2543,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     12: begin
@@ -2472,6 +2555,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=False;  SpeedButton1.Enabled:=False;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2487,6 +2571,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=True;  PngSpeedButton6.Enabled:=True;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     13: begin
@@ -2498,6 +2583,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2513,6 +2599,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     14: begin
@@ -2524,6 +2611,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2539,6 +2627,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     15: begin
@@ -2550,6 +2639,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2565,6 +2655,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=True;  PngSpeedButton7.Enabled:=True;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     16: begin
@@ -2576,6 +2667,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2591,6 +2683,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     17: begin
@@ -2602,6 +2695,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=False;  SpeedButton1.Enabled:=False;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2617,6 +2711,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     18: begin
@@ -2628,6 +2723,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2643,6 +2739,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     19: begin
@@ -2654,6 +2751,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2669,6 +2767,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     20: begin
@@ -2680,6 +2779,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2695,6 +2795,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     21: begin
@@ -2706,6 +2807,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;  SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=True;   SpeedButton3.Enabled:=True;
@@ -2721,6 +2823,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     22: begin
@@ -2732,6 +2835,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2747,6 +2851,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     23: begin
@@ -2758,6 +2863,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2773,6 +2879,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     24: begin
@@ -2784,6 +2891,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2799,6 +2907,7 @@ begin
           Edit23.Enabled:=True;  PngSpeedButton5.Enabled:=True;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     25: begin
@@ -2810,6 +2919,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=True;
+          ComboBox9.Enabled:=True;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2825,6 +2935,7 @@ begin
           Edit23.Enabled:=True;  PngSpeedButton5.Enabled:=True;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     26: begin
@@ -2836,6 +2947,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2851,6 +2963,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     27: begin
@@ -2862,6 +2975,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2877,6 +2991,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     28: begin
@@ -2888,6 +3003,7 @@ begin
           ComboBox6.Enabled:=False;
           ComboBox7.Enabled:=False;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2903,6 +3019,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     29: begin
@@ -2914,6 +3031,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=True;
+          ComboBox9.Enabled:=True;
           Edit1.Enabled:=True;   SpeedButton1.Enabled:=True;
           Edit3.Enabled:=False;  SpeedButton2.Enabled:=False;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2929,6 +3047,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
     30: begin
@@ -2940,6 +3059,7 @@ begin
           ComboBox6.Enabled:=True;
           ComboBox7.Enabled:=True;
           ComboBox8.Enabled:=False;
+          ComboBox9.Enabled:=False;
           Edit1.Enabled:=False;  SpeedButton1.Enabled:=False;
           Edit3.Enabled:=True;   SpeedButton2.Enabled:=True;
           Edit5.Enabled:=False;  SpeedButton3.Enabled:=False;
@@ -2955,6 +3075,7 @@ begin
           Edit23.Enabled:=False; PngSpeedButton5.Enabled:=False;
           Edit25.Enabled:=False; PngSpeedButton6.Enabled:=False;
           Edit28.Enabled:=False; PngSpeedButton7.Enabled:=False;
+          Edit31.Enabled:=False; PngSpeedButton8.Enabled:=True;
           {$ENDREGION}
         end;
 

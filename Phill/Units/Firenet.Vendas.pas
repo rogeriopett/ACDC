@@ -1,3 +1,8 @@
+//Atualizacoes:
+//2026.11.23 - Comissao do vendedor e representante (vendedor do cliente) na capa; VEI_COMISSAO/VEI_COMISSAOREP pelo SetarComissaoItem (PAR_COMISSAOPOR), no lugar do valor vindo do Angus; GerarNfe copia o representante e as comissoes dele.
+//2026.11.23 - Reforma tributaria: Atualizar/Inserir leem VED_GOVERNAMENTAL, VED_GOVERNAMENTALOP, VED_GOVERNAMENTALALIQRED, VED_NOTADEBITO e VED_NOTACREDITO; GerarNfe copia esses campos e os totais de IBS/CBS/IS para a NF-e; CopiarItensVendaParaNfe copia os campos de IBS/CBS/IS dos itens, como no Firenet.
+//2026.11.23 - GerarNfe recalcula os totais da NF-e (CalcularTotaisNFe) e grava 0 no NFE_BASEIRRF/NFE_TOTALIRRF, como no Firenet.
+//2026.11.23 - Representante (VED_REPRESENTANTE) vem do Angus; no inserir, sem representante, assume o vendedor. A comissao do representante e recalculada quando ele muda.
 unit Firenet.Vendas;
 
 interface
@@ -22,6 +27,7 @@ function AtualizarItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 function InserirItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 function ExcluirItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 procedure ReordenarItens(DM: TDMFirenet; Venda: Integer);
+procedure SetarComissaoItem(DM: TDMFirenet);
 
 procedure CopiarCapaVendaParaNfe(DM: TDMFirenet);
 procedure CopiarItensVendaParaNfe(DM: TDMFirenet);
@@ -201,7 +207,7 @@ function Atualizar(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 var
   Retorno, Registro, Usuario: TJSONObject;
   Listagem: TJSONArray;
-  VED_CODIGO: Integer;
+  VED_CODIGO, RepresentanteAnterior, VendedorAnterior: Integer;
   VED_DESCRICAO, VED_STATUS, VED_TIPO: String;
   VED_VALOR: Extended;
 begin
@@ -219,6 +225,8 @@ begin
     raise Exception.Create('Registro não encontrado.');
 
     DM.TBVendas.Edit;
+    RepresentanteAnterior:=DM.TBVendasVED_REPRESENTANTE.Value;
+    VendedorAnterior:=DM.TBVendasVED_VENDEDOR.Value;
     //DM.TBVendasVED_ALIQICMSCREDSN.Value     :=
     DM.TBVendasVED_BAIRRO.Value             :=San(Req.ContentFields.Field('VED_BAIRRO').AsString);
     //DM.TBVendasVED_BAIXADATA.Value          :=
@@ -275,6 +283,11 @@ begin
     DM.TBVendasVED_FONE1.Value              :=FormatarFone(Req.ContentFields.Field('VED_FONE1').AsString);
     DM.TBVendasVED_FORMAPAGTO.Value         :=San(Req.ContentFields.Field('VED_FORMAPAGTO').AsString);
     DM.TBVendasVED_FRETE.Value              :=San(Req.ContentFields.Field('VED_FRETE').AsString);
+    DM.TBVendasVED_GOVERNAMENTAL.Value      :=San(Req.ContentFields.Field('VED_GOVERNAMENTAL').AsString);
+    if DM.TBVendasVED_GOVERNAMENTAL.Value='' then DM.TBVendasVED_GOVERNAMENTAL.Value:='0 - NENHUM';
+    DM.TBVendasVED_GOVERNAMENTALALIQRED.Value:=Req.ContentFields.Field('VED_GOVERNAMENTALALIQRED').AsFloat;
+    DM.TBVendasVED_GOVERNAMENTALOP.Value    :=San(Req.ContentFields.Field('VED_GOVERNAMENTALOP').AsString);
+    if DM.TBVendasVED_GOVERNAMENTALOP.Value='' then DM.TBVendasVED_GOVERNAMENTALOP.Value:='0 - NENHUM';
     DM.TBVendasVED_HRATUALIZACAO.Value      :=Time;
     //DM.TBVendasVED_HRCADASTRO.Value         :=
     DM.TBVendasVED_IDESTRANGEIRO.Value      :=San(Req.ContentFields.Field('VED_IDESTRANGEIRO').AsString);
@@ -291,6 +304,10 @@ begin
     //DM.TBVendasVED_NFE.Value                :=
     DM.TBVendasVED_NOME.Value               :=San(Req.ContentFields.Field('VED_NOME').AsString);
     //DM.TBVendasVED_NOTA.Value               :=
+    DM.TBVendasVED_NOTACREDITO.Value        :=San(Req.ContentFields.Field('VED_NOTACREDITO').AsString);
+    if DM.TBVendasVED_NOTACREDITO.Value='' then DM.TBVendasVED_NOTACREDITO.Value:='00 - NENHUM';
+    DM.TBVendasVED_NOTADEBITO.Value         :=San(Req.ContentFields.Field('VED_NOTADEBITO').AsString);
+    if DM.TBVendasVED_NOTADEBITO.Value='' then DM.TBVendasVED_NOTADEBITO.Value:='00 - NENHUM';
     DM.TBVendasVED_NUMERO.Value             :=San(Req.ContentFields.Field('VED_NUMERO').AsString);
     DM.TBVendasVED_OBSERVACOES.Value        :=San(Req.ContentFields.Field('VED_OBSERVACOES').AsString);
     DM.TBVendasVED_PAIS.Value               :=San(Req.ContentFields.Field('VED_PAIS').AsString);
@@ -363,6 +380,14 @@ begin
     //DM.TBVendasVED_VIAINTERNETSTATUS.Value  :=
     DM.TBVendasVED_VOLUMES.Value            :=Req.ContentFields.Field('VED_VOLUMES').AsInteger;
     DM.TBVendasVED_VOLUMESNUM.Value         :=San(Req.ContentFields.Field('VED_VOLUMESNUM').AsString);
+    //representante digitado no Angus; vazio mantem o atual.
+    if SoNumeros(Req.ContentFields.Field('VED_REPRESENTANTE').AsString)>0 then
+    DM.TBVendasVED_REPRESENTANTE.Value:=SoNumeros(Req.ContentFields.Field('VED_REPRESENTANTE').AsString);
+    //comissao do vendedor e do representante: so quando eles mudam ou ainda nao tem.
+    if (DM.TBVendasVED_VENDEDOR.Value<>VendedorAnterior) or DM.TBVendasVED_COMISSAO.IsNull then
+    DM.TBVendasVED_COMISSAO.AsExtended:=GetComissaoVendedor(DM,DM.TBVendasVED_VENDEDOR.Value);
+    if (DM.TBVendasVED_REPRESENTANTE.Value<>RepresentanteAnterior) or DM.TBVendasVED_COMISSAOREP.IsNull then
+    DM.TBVendasVED_COMISSAOREP.AsExtended:=GetComissaoVendedor(DM,DM.TBVendasVED_REPRESENTANTE.Value);
     DM.TBVendas.Post;
 
     Registro:=DM.TBVendas.ToJSONObject;
@@ -462,6 +487,11 @@ begin
     DM.TBVendasVED_FONE1.Value              :=FormatarFone(Req.ContentFields.Field('VED_FONE1').AsString);
     DM.TBVendasVED_FORMAPAGTO.Value         :=San(Req.ContentFields.Field('VED_FORMAPAGTO').AsString);
     DM.TBVendasVED_FRETE.Value              :=San(Req.ContentFields.Field('VED_FRETE').AsString);
+    DM.TBVendasVED_GOVERNAMENTAL.Value      :=San(Req.ContentFields.Field('VED_GOVERNAMENTAL').AsString);
+    if DM.TBVendasVED_GOVERNAMENTAL.Value='' then DM.TBVendasVED_GOVERNAMENTAL.Value:='0 - NENHUM';
+    DM.TBVendasVED_GOVERNAMENTALALIQRED.Value:=Req.ContentFields.Field('VED_GOVERNAMENTALALIQRED').AsFloat;
+    DM.TBVendasVED_GOVERNAMENTALOP.Value    :=San(Req.ContentFields.Field('VED_GOVERNAMENTALOP').AsString);
+    if DM.TBVendasVED_GOVERNAMENTALOP.Value='' then DM.TBVendasVED_GOVERNAMENTALOP.Value:='0 - NENHUM';
     DM.TBVendasVED_HRATUALIZACAO.Value      :=Time;
     //DM.TBVendasVED_HRCADASTRO.Value         :=
     DM.TBVendasVED_IDESTRANGEIRO.Value      :=San(Req.ContentFields.Field('VED_IDESTRANGEIRO').AsString);
@@ -478,6 +508,10 @@ begin
     //DM.TBVendasVED_NFE.Value                :=
     DM.TBVendasVED_NOME.Value               :=San(Req.ContentFields.Field('VED_NOME').AsString);
     //DM.TBVendasVED_NOTA.Value               :=
+    DM.TBVendasVED_NOTACREDITO.Value        :=San(Req.ContentFields.Field('VED_NOTACREDITO').AsString);
+    if DM.TBVendasVED_NOTACREDITO.Value='' then DM.TBVendasVED_NOTACREDITO.Value:='00 - NENHUM';
+    DM.TBVendasVED_NOTADEBITO.Value         :=San(Req.ContentFields.Field('VED_NOTADEBITO').AsString);
+    if DM.TBVendasVED_NOTADEBITO.Value='' then DM.TBVendasVED_NOTADEBITO.Value:='00 - NENHUM';
     DM.TBVendasVED_NUMERO.Value             :=San(Req.ContentFields.Field('VED_NUMERO').AsString);
     DM.TBVendasVED_OBSERVACOES.Value        :=San(Req.ContentFields.Field('VED_OBSERVACOES').AsString);
     DM.TBVendasVED_PAIS.Value               :=San(Req.ContentFields.Field('VED_PAIS').AsString);
@@ -550,6 +584,13 @@ begin
     //DM.TBVendasVED_VIAINTERNETSTATUS.Value  :=
     DM.TBVendasVED_VOLUMES.Value            :=Req.ContentFields.Field('VED_VOLUMES').AsInteger;
     DM.TBVendasVED_VOLUMESNUM.Value         :=San(Req.ContentFields.Field('VED_VOLUMESNUM').AsString);
+    //comissao do vendedor e do representante.
+    DM.TBVendasVED_COMISSAO.AsExtended      :=GetComissaoVendedor(DM,VED_VENDEDOR);
+    //representante digitado no Angus ou, sem ele, o vendedor.
+    DM.TBVendasVED_REPRESENTANTE.Value      :=SoNumeros(Req.ContentFields.Field('VED_REPRESENTANTE').AsString);
+    if DM.TBVendasVED_REPRESENTANTE.Value=0 then
+    DM.TBVendasVED_REPRESENTANTE.Value      :=VED_VENDEDOR;
+    DM.TBVendasVED_COMISSAOREP.AsExtended   :=GetComissaoVendedor(DM,DM.TBVendasVED_REPRESENTANTE.Value);
     DM.TBVendas.Post;
 
     Retorno:=TJSONObject.Create;
@@ -790,6 +831,7 @@ begin
 
     CopiarCapaVendaParaNfe(DM);
     CopiarItensVendaParaNfe(DM);
+    DM.CalcularTotaisNFe(False); //como no Firenet (TBNfeItensAfterPost): recalcula os totais da nota com os itens recalculados.
 
     //deixa a nota em aberto para possíveis ajustes.
     DM.TBNfe.Edit;
@@ -935,7 +977,7 @@ begin
     //DM.TBVendasItensVEI_CODIGO.Value             :=Req.ContentFields.Field('VEI_CODIGO').AsInteger';
     DM.TBVendasItensVEI_CODIGOBARRAS.Value       :=San(Req.ContentFields.Field('VEI_CODIGOBARRAS').AsString);
     DM.TBVendasItensVEI_CODIGOFAB.Value          :=San(Req.ContentFields.Field('VEI_CODIGOFAB').AsString);
-    DM.TBVendasItensVEI_COMISSAO.Value           :=Req.ContentFields.Field('VEI_COMISSAO').AsExtended;
+    //DM.TBVendasItensVEI_COMISSAO.Value           :=Req.ContentFields.Field('VEI_COMISSAO').AsExtended; //pelo SetarComissaoItem, antes do Post.
     DM.TBVendasItensVEI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('VEI_COMPLEMENTO').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMS.Value     :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMS').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMSST.Value   :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMSST').AsString);
@@ -1034,6 +1076,7 @@ begin
     DM.TBVendasItensVEI_VALORTRIBUTOSMUN.Value   :=Req.ContentFields.Field('VEI_VALORTRIBUTOSMUN').AsExtended;
     DM.TBVendasItensVEI_VALORUNIT.Value          :=Req.ContentFields.Field('VEI_VALORUNIT').AsExtended;
     DM.TBVendasItensVEI_VENDA.Value              :=Req.ContentFields.Field('VEI_VENDA').AsInteger;
+    SetarComissaoItem(DM);
     DM.TBVendasItens.Post;
     DM.TBVendasItens.Close;
 
@@ -1133,7 +1176,7 @@ begin
     //DM.TBVendasItensVEI_CODIGO.Value             :=Req.ContentFields.Field('VEI_CODIGO').AsInteger';
     DM.TBVendasItensVEI_CODIGOBARRAS.Value       :=San(Req.ContentFields.Field('VEI_CODIGOBARRAS').AsString);
     DM.TBVendasItensVEI_CODIGOFAB.Value          :=San(Req.ContentFields.Field('VEI_CODIGOFAB').AsString);
-    DM.TBVendasItensVEI_COMISSAO.Value           :=Req.ContentFields.Field('VEI_COMISSAO').AsExtended;
+    //DM.TBVendasItensVEI_COMISSAO.Value           :=Req.ContentFields.Field('VEI_COMISSAO').AsExtended; //pelo SetarComissaoItem, antes do Post.
     DM.TBVendasItensVEI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('VEI_COMPLEMENTO').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMS.Value     :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMS').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMSST.Value   :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMSST').AsString);
@@ -1232,6 +1275,7 @@ begin
     DM.TBVendasItensVEI_VALORTRIBUTOSMUN.Value   :=Req.ContentFields.Field('VEI_VALORTRIBUTOSMUN').AsExtended;
     DM.TBVendasItensVEI_VALORUNIT.Value          :=Req.ContentFields.Field('VEI_VALORUNIT').AsExtended;
     DM.TBVendasItensVEI_VENDA.Value              :=DM.TBVendasVED_CODIGO.Value; //Req.ContentFields.Field('VEI_VENDA').AsInteger;
+    SetarComissaoItem(DM);
     DM.TBVendasItens.Post;
     DM.TBVendasItens.Close;
 
@@ -1332,6 +1376,26 @@ begin
   DM.TRQuery1.Commit;
 end;
 
+procedure SetarComissaoItem(DM: TDMFirenet);
+// Percentual de comissao do item, como no Firenet: com VED_COMISSAOPOR='V' (PAR_COMISSAOPOR) vem da capa (vendedor e representante), senao do cadastro do produto.
+begin
+  if DM.TBVendasVED_COMISSAOPOR.Value='V' then
+  begin
+    DM.TBVendasItensVEI_COMISSAO.Value   :=DM.TBVendasVED_COMISSAO.Value;
+    DM.TBVendasItensVEI_COMISSAOREP.Value:=DM.TBVendasVED_COMISSAOREP.Value;
+  end else
+  begin
+    DM.Query1.Close;
+    DM.Query1.SQL.Clear;
+    DM.Query1.SQL.Add('select PRO_COMISSAO from PRODUTOS where PRO_CODIGO=:codigo');
+    DM.Query1.ParamByName('codigo').AsInteger:=DM.TBVendasItensVEI_PRODUTO.Value;
+    DM.Query1.Open;
+    DM.TBVendasItensVEI_COMISSAO.AsExtended   :=DM.Query1.FieldByName('PRO_COMISSAO').AsExtended;
+    DM.TBVendasItensVEI_COMISSAOREP.AsExtended:=DM.Query1.FieldByName('PRO_COMISSAO').AsExtended;
+    DM.Query1.Close;
+  end;
+end;
+
 procedure CopiarCapaVendaParaNfe(DM: TDMFirenet);
 begin
   DM.TBNfe.Insert;
@@ -1343,12 +1407,15 @@ begin
   //DM.TBNfeNFE_BAIXAPOR.Value:=
   DM.TBNfeNFE_BASECOFINS.Value:=DM.TBVendasVED_BASECOFINS.Value;
   DM.TBNfeNFE_BASECOFINSST.Value:=DM.TBVendasVED_BASECOFINSST.Value;
+  DM.TBNfeNFE_BASEIBSCBS.Value:=DM.TBVendasVED_BASEIBSCBS.Value;
   DM.TBNfeNFE_BASEICMS.Value:=DM.TBVendasVED_BASEICMS.Value;
   DM.TBNfeNFE_BASEICMSST.Value:=DM.TBVendasVED_BASEICMSST.Value;
   DM.TBNfeNFE_BASEII.Value:=DM.TBVendasVED_BASEII.Value;
   DM.TBNfeNFE_BASEIPI.Value:=DM.TBVendasVED_BASEIPI.Value;
+  DM.TBNfeNFE_BASEIRRF.Value:=0; //em vendas nao tem.
   DM.TBNfeNFE_BASEPIS.Value:=DM.TBVendasVED_BASEPIS.Value;
   DM.TBNfeNFE_BASEISS.Value:=DM.TBVendasVED_BASEISS.Value;
+  DM.TBNfeNFE_BASEIS.Value:=DM.TBVendasVED_BASEIS.Value;
   DM.TBNfeNFE_BASEPISST.Value:=DM.TBVendasVED_BASEPISST.Value;
   DM.TBNfeNFE_CEP.Value:=DM.TBVendasVED_CEP.Value;
   DM.TBNfeNFE_CFOP.Value:=DM.TBVendasVED_CFOP.Value;
@@ -1358,10 +1425,19 @@ begin
   DM.TBNfeNFE_CIDADECODIGO.Value:=DM.TBVendasVED_CIDADECODIGO.Value;
   DM.TBNfeNFE_CLIENTE.Value:=DM.TBVendasVED_CLIENTE.Value;
   DM.TBNfeNFE_CNPJ.Value:=DM.TBVendasVED_CNPJ.Value;
+  DM.TBNfeNFE_CBSCREDPRES.Value:=DM.TBVendasVED_CBSCREDPRES.Value;
+  DM.TBNfeNFE_CBSCREDPRESSUS.Value:=DM.TBVendasVED_CBSCREDPRESSUS.Value;
+  DM.TBNfeNFE_CBSDEVOLUCAO.Value:=DM.TBVendasVED_CBSDEVOLUCAO.Value;
+  DM.TBNfeNFE_CBSDIFERIMENTO.Value:=DM.TBVendasVED_CBSDIFERIMENTO.Value;
+  DM.TBNfeNFE_CBSMONO.Value:=DM.TBVendasVED_CBSMONO.Value;
+  DM.TBNfeNFE_CBSMONORETENCAO.Value:=DM.TBVendasVED_CBSMONORETENCAO.Value;
+  DM.TBNfeNFE_CBSMONORETIDO.Value:=DM.TBVendasVED_CBSMONORETIDO.Value;
+  DM.TBNfeNFE_CBSVALOR.Value:=DM.TBVendasVED_CBSVALOR.Value;
   //DM.TBNfeNFE_CODIGO - evento afterpost define o codigo.
   //DM.TBNfeNFE_CODIGONUMERICO
   DM.TBNfeNFE_COMISSAO.Value:=DM.TBVendasVED_COMISSAO.Value;
   DM.TBNfeNFE_COMISSAOPOR.Value:=DM.TBVendasVED_COMISSAOPOR.Value;
+  DM.TBNfeNFE_COMISSAOREP.Value:=DM.TBVendasVED_COMISSAOREP.Value;
   DM.TBNfeNFE_COMPLEMENTO.Value:=DM.TBVendasVED_COMPLEMENTO.Value;
   DM.TBNfeNFE_CONDICAO.Value:=DM.TBVendasVED_CONDICAO.Value;
   DM.TBNfeNFE_CONDICAOMEMO.Value:=DM.TBVendasVED_CONDICAOMEMO.Value;
@@ -1395,9 +1471,24 @@ begin
   DM.TBNfeNFE_FONE1.Value:=DM.TBVendasVED_FONE1.Value;
   DM.TBNfeNFE_FORMAPAGTO.Value:=DM.TBVendasVED_FORMAPAGTO.Value;
   DM.TBNfeNFE_FRETE.Value:=DM.TBVendasVED_FRETE.Value;
+  DM.TBNfeNFE_GOVERNAMENTAL.Value:=DM.TBVendasVED_GOVERNAMENTAL.Value;
+  DM.TBNfeNFE_GOVERNAMENTALALIQRED.Value:=DM.TBVendasVED_GOVERNAMENTALALIQRED.Value;
+  DM.TBNfeNFE_GOVERNAMENTALOP.Value:=DM.TBVendasVED_GOVERNAMENTALOP.Value;
   DM.TBNfeNFE_HRATUALIZACAO.Value:=Time;
   DM.TBNfeNFE_HRCADASTRO.Value:=Time;
   DM.TBNfeNFE_IDESTRANGEIRO.Value:=DM.TBVendasVED_IDESTRANGEIRO.Value;
+  DM.TBNfeNFE_IBSCREDPRES.Value:=DM.TBVendasVED_IBSCREDPRES.Value;
+  DM.TBNfeNFE_IBSCREDPRESSUS.Value:=DM.TBVendasVED_IBSCREDPRESSUS.Value;
+  DM.TBNfeNFE_IBSMONO.Value:=DM.TBVendasVED_IBSMONO.Value;
+  DM.TBNfeNFE_IBSMONORETENCAO.Value:=DM.TBVendasVED_IBSMONORETENCAO.Value;
+  DM.TBNfeNFE_IBSMONORETIDO.Value:=DM.TBVendasVED_IBSMONORETIDO.Value;
+  DM.TBNfeNFE_IBSMUNDEVOLUCAO.Value:=DM.TBVendasVED_IBSMUNDEVOLUCAO.Value;
+  DM.TBNfeNFE_IBSMUNDIFERIMENTO.Value:=DM.TBVendasVED_IBSMUNDIFERIMENTO.Value;
+  DM.TBNfeNFE_IBSMUNVALOR.Value:=DM.TBVendasVED_IBSMUNVALOR.Value;
+  DM.TBNfeNFE_IBSUFDEVOLUCAO.Value:=DM.TBVendasVED_IBSUFDEVOLUCAO.Value;
+  DM.TBNfeNFE_IBSUFDIFERIMENTO.Value:=DM.TBVendasVED_IBSUFDIFERIMENTO.Value;
+  DM.TBNfeNFE_IBSUFVALOR.Value:=DM.TBVendasVED_IBSUFVALOR.Value;
+  DM.TBNfeNFE_IBSVALOR.Value:=DM.TBVendasVED_IBSVALOR.Value;
   DM.TBNfeNFE_IE.Value:=DM.TBVendasVED_IE.Value;
   DM.TBNfeNFE_INFOADICFISCO.Value:=DM.TBVendasVED_INFOADICFISCO.Value;
   DM.TBNfeNFE_INFOCOMPLEMENTAR.Value:=DM.TBVendasVED_INFOCOMPLEMENTAR.Value;
@@ -1416,6 +1507,8 @@ begin
   DM.TBNfeNFE_MOVIMENTAESTOQUE.Value:=DM.TBVendasVED_MOVIMENTAESTOQUE.Value;
   DM.TBNfeNFE_MOVIMENTAFINANCEIRO.Value:=DM.TBVendasVED_MOVIMENTAFINANCEIRO.Value;
   DM.TBNfeNFE_NOME.Value:=DM.TBVendasVED_NOME.Value;
+  DM.TBNfeNFE_NOTACREDITO.Value:=DM.TBVendasVED_NOTACREDITO.Value;
+  DM.TBNfeNFE_NOTADEBITO.Value:=DM.TBVendasVED_NOTADEBITO.Value;
   DM.TBNfeNFE_NUMERO.Value:=DM.TBVendasVED_NUMERO.Value;
   DM.TBNfeNFE_OBSERVACOES.Value:=DM.TBVendasVED_OBSERVACOES.Value;
   DM.TBNfeNFE_PAIS.Value:=DM.TBVendasVED_PAIS.Value;
@@ -1432,6 +1525,7 @@ begin
   DM.TBNfeNFE_REBOQUEPLACA.Value:=DM.TBVendasVED_REBOQUEPLACA.Value;
   DM.TBNfeNFE_REBOQUEPLACAUF.Value:=DM.TBVendasVED_REBOQUEPLACAUF.Value;
   DM.TBNfeNFE_REBOQUERNTC.Value:=DM.TBVendasVED_REBOQUERNTC.Value;
+  DM.TBNfeNFE_REPRESENTANTE.Value:=DM.TBVendasVED_REPRESENTANTE.Value;
   //DM.TBNfeNFE_RECIBO
   //DM.TBNfeNFE_RECIBODH
   DM.TBNfeNFE_RG.Value:=DM.TBVendasVED_RG.Value;
@@ -1449,6 +1543,7 @@ begin
   DM.TBNfeNFE_TOTALCOFINS.Value:=DM.TBVendasVED_TOTALCOFINS.Value;
   DM.TBNfeNFE_TOTALCOFINSST.Value:=DM.TBVendasVED_TOTALCOFINSST.Value;
   DM.TBNfeNFE_TOTALCOMISSAO.Value:=DM.TBVendasVED_TOTALCOMISSAO.Value;
+  DM.TBNfeNFE_TOTALCOMISSAOREP.Value:=DM.TBVendasVED_TOTALCOMISSAOREP.Value;
   DM.TBNfeNFE_TOTALFCP.Value:=DM.TBVendasVED_TOTALFCP.Value;
   DM.TBNfeNFE_TOTALFCPST.Value:=DM.TBVendasVED_TOTALFCPST.Value;
   DM.TBNfeNFE_TOTALICMS.Value:=DM.TBVendasVED_TOTALICMS.Value;
@@ -1459,6 +1554,8 @@ begin
   DM.TBNfeNFE_TOTALII.Value:=DM.TBVendasVED_TOTALII.Value;
   DM.TBNfeNFE_TOTALIOF.Value:=DM.TBVendasVED_TOTALIOF.Value;
   DM.TBNfeNFE_TOTALIPI.Value:=DM.TBVendasVED_TOTALIPI.Value;
+  DM.TBNfeNFE_TOTALIRRF.Value:=0; //em vendas nao tem.
+  DM.TBNfeNFE_TOTALIS.Value:=DM.TBVendasVED_TOTALIS.Value;
   DM.TBNfeNFE_TOTALISS.Value:=DM.TBVendasVED_TOTALISS.Value;
   DM.TBNfeNFE_TOTALISSDEDUCAO.Value:=DM.TBVendasVED_TOTALISSDEDUCAO.Value;
   DM.TBNfeNFE_TOTALISSDESCCOND.Value:=DM.TBVendasVED_TOTALISSDESCCOND.Value;
@@ -1490,6 +1587,7 @@ begin
   DM.TBNfeNFE_VALORFRETE.Value:=DM.TBVendasVED_VALORFRETE.Value;
   DM.TBNfeNFE_VALORSEGURO.Value:=DM.TBVendasVED_VALORSEGURO.Value;
   DM.TBNfeNFE_VALORTOTAL.Value:=DM.TBVendasVED_VALORTOTAL.Value;
+  DM.TBNfeNFE_VALORTOTALRTC.Value:=DM.TBVendasVED_VALORTOTALRTC.Value;
   DM.TBNfeNFE_VEICULOPLACA.Value:=DM.TBVendasVED_VEICULOPLACA.Value;
   DM.TBNfeNFE_VEICULOPLACAUF.Value:=DM.TBVendasVED_VEICULOPLACAUF.Value;
   DM.TBNfeNFE_VEICULORNTC.Value:=DM.TBVendasVED_VEICULORNTC.Value;
@@ -1515,10 +1613,24 @@ begin
   begin
     { TODO -oRogerio -cCampos : IGUALAR CAMPOS }
     DM.TBNfeItens.Insert; //quando incluir campos novos na tabela, incluir os mesmoS aqui. em ordem alfabética.
+    DM.TBNfeItensNFI_ALIQCBS.Value:=DM.TBVendasItensVEI_ALIQCBS.Value;
+    DM.TBNfeItensNFI_ALIQCBSCREDPRES.Value:=DM.TBVendasItensVEI_ALIQCBSCREDPRES.Value;
+    DM.TBNfeItensNFI_ALIQCBSDIF.Value:=DM.TBVendasItensVEI_ALIQCBSDIF.Value;
+    DM.TBNfeItensNFI_ALIQCBSEFE.Value:=DM.TBVendasItensVEI_ALIQCBSEFE.Value;
+    DM.TBNfeItensNFI_ALIQCBSRED.Value:=DM.TBVendasItensVEI_ALIQCBSRED.Value;
     DM.TBNfeItensNFI_ALIQCOFINS.Value:=DM.TBVendasItensVEI_ALIQCOFINS.Value;
     DM.TBNfeItensNFI_ALIQCOFINSST.Value:=DM.TBVendasItensVEI_ALIQCOFINSST.Value;
     DM.TBNfeItensNFI_ALIQFCP.Value:=DM.TBVendasItensVEI_ALIQFCP.Value;
     DM.TBNfeItensNFI_ALIQFCPST.Value:=DM.TBVendasItensVEI_ALIQFCPST.Value;
+    DM.TBNfeItensNFI_ALIQIBSCREDPRES.Value:=DM.TBVendasItensVEI_ALIQIBSCREDPRES.Value;
+    DM.TBNfeItensNFI_ALIQIBSMUN.Value:=DM.TBVendasItensVEI_ALIQIBSMUN.Value;
+    DM.TBNfeItensNFI_ALIQIBSMUNDIF.Value:=DM.TBVendasItensVEI_ALIQIBSMUNDIF.Value;
+    DM.TBNfeItensNFI_ALIQIBSMUNEFE.Value:=DM.TBVendasItensVEI_ALIQIBSMUNEFE.Value;
+    DM.TBNfeItensNFI_ALIQIBSMUNRED.Value:=DM.TBVendasItensVEI_ALIQIBSMUNRED.Value;
+    DM.TBNfeItensNFI_ALIQIBSUF.Value:=DM.TBVendasItensVEI_ALIQIBSUF.Value;
+    DM.TBNfeItensNFI_ALIQIBSUFDIF.Value:=DM.TBVendasItensVEI_ALIQIBSUFDIF.Value;
+    DM.TBNfeItensNFI_ALIQIBSUFEFE.Value:=DM.TBVendasItensVEI_ALIQIBSUFEFE.Value;
+    DM.TBNfeItensNFI_ALIQIBSUFRED.Value:=DM.TBVendasItensVEI_ALIQIBSUFRED.Value;
     DM.TBNfeItensNFI_ALIQICMS.Value:=DM.TBVendasItensVEI_ALIQICMS.Value;
     DM.TBNfeItensNFI_ALIQICMSADICST.Value:=DM.TBVendasItensVEI_ALIQICMSADICST.Value;
     DM.TBNfeItensNFI_ALIQICMSINTER.Value:=DM.TBVendasItensVEI_ALIQICMSINTER.Value;
@@ -1528,38 +1640,48 @@ begin
     DM.TBNfeItensNFI_ALIQICMSSTRET.Value:=DM.TBVendasItensVEI_ALIQICMSSTRET.Value;
     DM.TBNfeItensNFI_ALIQII.Value:=DM.TBVendasItensVEI_ALIQII.Value;
     DM.TBNfeItensNFI_ALIQIPI.Value:=DM.TBVendasItensVEI_ALIQIPI.Value;
+    DM.TBNfeItensNFI_ALIQIS.Value:=DM.TBVendasItensVEI_ALIQIS.Value;
+    DM.TBNfeItensNFI_ALIQISESP.Value:=DM.TBVendasItensVEI_ALIQISESP.Value;
     DM.TBNfeItensNFI_ALIQISS.Value:=DM.TBVendasItensVEI_ALIQISS.Value;
     DM.TBNfeItensNFI_ALIQPIS.Value:=DM.TBVendasItensVEI_ALIQPIS.Value;
     DM.TBNfeItensNFI_ALIQPISST.Value:=DM.TBVendasItensVEI_ALIQPISST.Value;
     DM.TBNfeItensNFI_ALMOXARIFADO.Value:=DM.TBVendasItensVEI_ALMOXARIFADO.Value;
     DM.TBNfeItensNFI_BASECOFINS.Value:=DM.TBVendasItensVEI_BASECOFINS.Value;
     DM.TBNfeItensNFI_BASECOFINSST.Value:=DM.TBVendasItensVEI_BASECOFINSST.Value;
+    DM.TBNfeItensNFI_BASEIBSCBS.Value:=DM.TBVendasItensVEI_BASEIBSCBS.Value;
     DM.TBNfeItensNFI_BASEICMS.Value:=DM.TBVendasItensVEI_BASEICMS.Value;
     DM.TBNfeItensNFI_BASEICMSRED.Value:=DM.TBVendasItensVEI_BASEICMSRED.Value;
     DM.TBNfeItensNFI_BASEICMSST.Value:=DM.TBVendasItensVEI_BASEICMSST.Value;
     DM.TBNfeItensNFI_BASEICMSSTRET.Value:=DM.TBVendasItensVEI_BASEICMSSTRET.Value;
     DM.TBNfeItensNFI_BASEII.Value:=DM.TBVendasItensVEI_BASEII.Value;
     DM.TBNfeItensNFI_BASEIPI.Value:=DM.TBVendasItensVEI_BASEIPI.Value;
+    DM.TBNfeItensNFI_BASEIS.Value:=DM.TBVendasItensVEI_BASEIS.Value;
     DM.TBNfeItensNFI_BASEISS.Value:=DM.TBVendasItensVEI_BASEISS.Value;
     DM.TBNfeItensNFI_BASEPIS.Value:=DM.TBVendasItensVEI_BASEPIS.Value;
     DM.TBNfeItensNFI_BASEPISST.Value:=DM.TBVendasItensVEI_BASEPISST.Value;
     DM.TBNfeItensNFI_BENEFICIO.Value:=DM.TBVendasItensVEI_BENEFICIO.Value;
+    DM.TBNfeItensNFI_CBSCREDITOPRES.Value:=DM.TBVendasItensVEI_CBSCREDITOPRES.Value;
     DM.TBNfeItensNFI_CEST.Value:=DM.TBVendasItensVEI_CEST.Value;
     DM.TBNfeItensNFI_CFOP.Value:=DM.TBVendasItensVEI_CFOP.Value;
     DM.TBNfeItensNFI_CIDADEISS.Value:=DM.TBVendasItensVEI_CIDADEISS.Value;
     DM.TBNfeItensNFI_CLASSFISCAL.Value:=DM.TBVendasItensVEI_CLASSFISCAL.Value;
+    DM.TBNfeItensNFI_CLASSTRIBIBSCBS.Value:=DM.TBVendasItensVEI_CLASSTRIBIBSCBS.Value;
+    DM.TBNfeItensNFI_CLASSTRIBIS.Value:=DM.TBVendasItensVEI_CLASSTRIBIS.Value;
     //DM.TBNfeItensNFI_CODIGO.Value:= //chave primaria.
     DM.TBNfeItensNFI_CODIGOBARRAS.Value:=DM.TBVendasItensVEI_CODIGOBARRAS.Value;
     DM.TBNfeItensNFI_CODIGOFAB.Value:=DM.TBVendasItensVEI_CODIGOFAB.Value;
     DM.TBNfeItensNFI_COMISSAO.Value:=DM.TBVendasItensVEI_COMISSAO.Value;
+    DM.TBNfeItensNFI_COMISSAOREP.Value:=DM.TBVendasItensVEI_COMISSAOREP.Value;
     DM.TBNfeItensNFI_COMPLEMENTO.Value:=DM.TBVendasItensVEI_COMPLEMENTO.Value;
     DM.TBNfeItensNFI_COMPOEBASEICMS.Value:=DM.TBVendasItensVEI_COMPOEBASEICMS.Value;
     DM.TBNfeItensNFI_COMPOEBASEICMSST.Value:=DM.TBVendasItensVEI_COMPOEBASEICMSST.Value;
     DM.TBNfeItensNFI_COMPOETOTAL.Value:=DM.TBVendasItensVEI_COMPOETOTAL.Value;
     DM.TBNfeItensNFI_CONVERSAO.Value:=DM.TBVendasItensVEI_CONVERSAO.Value;
     DM.TBNfeItensNFI_CSTCOFINS.Value:=DM.TBVendasItensVEI_CSTCOFINS.Value;
+    DM.TBNfeItensNFI_CSTIBSCBS.Value:=DM.TBVendasItensVEI_CSTIBSCBS.Value;
     DM.TBNfeItensNFI_CSTICMS.Value:=DM.TBVendasItensVEI_CSTICMS.Value;
     DM.TBNfeItensNFI_CSTIPI.Value:=DM.TBVendasItensVEI_CSTIPI.Value;
+    DM.TBNfeItensNFI_CSTIS.Value:=DM.TBVendasItensVEI_CSTIS.Value;
     DM.TBNfeItensNFI_CSTPIS.Value:=DM.TBVendasItensVEI_CSTPIS.Value;
     DM.TBNfeItensNFI_DESCMAX.Value:=DM.TBVendasItensVEI_DESCMAX.Value;
     DM.TBNfeItensNFI_DESCPORC.Value:=DM.TBVendasItensVEI_DESCPORC.Value;
@@ -1583,6 +1705,7 @@ begin
     DM.TBNfeItensNFI_EXQUANTIDADE.Value:=DM.TBVendasItensVEI_EXQUANTIDADE.Value;
     DM.TBNfeItensNFI_EXREGISTRO.Value:=DM.TBVendasItensVEI_EXREGISTRO.Value;
     DM.TBNfeItensNFI_FCI.Value:=DM.TBVendasItensVEI_FCI.Value;
+    DM.TBNfeItensNFI_IBSCREDITOPRES.Value:=DM.TBVendasItensVEI_IBSCREDITOPRES.Value;
     DM.TBNfeItensNFI_INCENTIVOISS.Value:=DM.TBVendasItensVEI_INCENTIVOISS.Value;
     DM.TBNfeItensNFI_INDICADORISS.Value:=DM.TBVendasItensVEI_INDICADORISS.Value;
     DM.TBNfeItensNFI_INFOADICIONAL.Value:=DM.TBVendasItensVEI_INFOADICIONAL.Value;
@@ -1615,12 +1738,27 @@ begin
     DM.TBNfeItensNFI_UNIDADE.Value:=DM.TBVendasItensVEI_UNIDADE.Value;
     DM.TBNfeItensNFI_VALORACESSORIAS.Value:=DM.TBVendasItensVEI_VALORACESSORIAS.Value;
     DM.TBNfeItensNFI_VALORADUANA.Value:=DM.TBVendasItensVEI_VALORADUANA.Value;
+    DM.TBNfeItensNFI_VALORCBS.Value:=DM.TBVendasItensVEI_VALORCBS.Value;
+    DM.TBNfeItensNFI_VALORCBSCREDPRES.Value:=DM.TBVendasItensVEI_VALORCBSCREDPRES.Value;
+    DM.TBNfeItensNFI_VALORCBSCREDPRESSUS.Value:=DM.TBVendasItensVEI_VALORCBSCREDPRESSUS.Value;
+    DM.TBNfeItensNFI_VALORCBSDEV.Value:=DM.TBVendasItensVEI_VALORCBSDEV.Value;
+    DM.TBNfeItensNFI_VALORCBSDIF.Value:=DM.TBVendasItensVEI_VALORCBSDIF.Value;
     DM.TBNfeItensNFI_VALORCOFINS.Value:=DM.TBVendasItensVEI_VALORCOFINS.Value;
     DM.TBNfeItensNFI_VALORCOFINSST.Value:=DM.TBVendasItensVEI_VALORCOFINSST.Value;
     DM.TBNfeItensNFI_VALORCOMISSAO.Value:=DM.TBVendasItensVEI_VALORCOMISSAO.Value;
+    DM.TBNfeItensNFI_VALORCOMISSAOREP.Value:=DM.TBVendasItensVEI_VALORCOMISSAOREP.Value;
     DM.TBNfeItensNFI_VALORFCP.Value:=DM.TBVendasItensVEI_VALORFCP.Value;
     DM.TBNfeItensNFI_VALORFCPST.Value:=DM.TBVendasItensVEI_VALORFCPST.Value;
     DM.TBNfeItensNFI_VALORFRETE.Value:=DM.TBVendasItensVEI_VALORFRETE.Value;
+    DM.TBNfeItensNFI_VALORIBS.Value:=DM.TBVendasItensVEI_VALORIBS.Value;
+    DM.TBNfeItensNFI_VALORIBSCREDPRES.Value:=DM.TBVendasItensVEI_VALORIBSCREDPRES.Value;
+    DM.TBNfeItensNFI_VALORIBSCREDPRESSUS.Value:=DM.TBVendasItensVEI_VALORIBSCREDPRESSUS.Value;
+    DM.TBNfeItensNFI_VALORIBSMUN.Value:=DM.TBVendasItensVEI_VALORIBSMUN.Value;
+    DM.TBNfeItensNFI_VALORIBSMUNDEV.Value:=DM.TBVendasItensVEI_VALORIBSMUNDEV.Value;
+    DM.TBNfeItensNFI_VALORIBSMUNDIF.Value:=DM.TBVendasItensVEI_VALORIBSMUNDIF.Value;
+    DM.TBNfeItensNFI_VALORIBSUF.Value:=DM.TBVendasItensVEI_VALORIBSUF.Value;
+    DM.TBNfeItensNFI_VALORIBSUFDEV.Value:=DM.TBVendasItensVEI_VALORIBSUFDEV.Value;
+    DM.TBNfeItensNFI_VALORIBSUFDIF.Value:=DM.TBVendasItensVEI_VALORIBSUFDIF.Value;
     DM.TBNfeItensNFI_VALORICMS.Value:=DM.TBVendasItensVEI_VALORICMS.Value;
     DM.TBNfeItensNFI_VALORICMSCREDSN.Value:=DM.TBVendasItensVEI_VALORICMSCREDSN.Value;
     DM.TBNfeItensNFI_VALORICMSDESONERADO.Value:=DM.TBVendasItensVEI_VALORICMSDESONERADO.Value;
@@ -1632,6 +1770,7 @@ begin
     DM.TBNfeItensNFI_VALORII.Value:=DM.TBVendasItensVEI_VALORII.Value;
     DM.TBNfeItensNFI_VALORIOF.Value:=DM.TBVendasItensVEI_VALORIOF.Value;
     DM.TBNfeItensNFI_VALORIPI.Value:=DM.TBVendasItensVEI_VALORIPI.Value;
+    DM.TBNfeItensNFI_VALORIS.Value:=DM.TBVendasItensVEI_VALORIS.Value;
     DM.TBNfeItensNFI_VALORISS.Value:=DM.TBVendasItensVEI_VALORISS.Value;
     DM.TBNfeItensNFI_VALORISSDEDUCAO.Value:=DM.TBVendasItensVEI_VALORISSDEDUCAO.Value;
     DM.TBNfeItensNFI_VALORISSDESCCOND.Value:=DM.TBVendasItensVEI_VALORISSDESCCOND.Value;
@@ -1660,7 +1799,7 @@ begin
     DM.TBNfeItensPIS_DESCRICAO1.Value:=DM.TBVendasItensPIS_DESCRICAO1.Value; //cofins.
     DM.TBNfeItensNAT_CALCULACREDITOSN.Value:=DM.TBVendasItensNAT_CALCULACREDITOSN.Value;
     DM.TBNfeItensNAT_DESCRICAO.Value:=DM.TBVendasItensNAT_DESCRICAO.Value;
-    DM.TBNfeItensPRO_CODIGO.Value:=DM.TBVendasItensPRO_CODIGO.Value;
+    DM.TBNfeItensPRO_CODIGO.Value:=DM.TBVendasItensVEI_PRODUTO.Value;
     DM.TBNfeItensPRO_CLASSFISCAL.Value:=DM.TBVendasItensPRO_CLASSFISCAL.Value;
     DM.TBNfeItensPRO_CSTICMS.Value:=DM.TBVendasItensPRO_CSTICMS.Value;
     DM.TBNfeItensPRO_NOME.Value:=DM.TBVendasItensPRO_NOME.Value;

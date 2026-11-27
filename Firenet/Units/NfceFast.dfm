@@ -1920,7 +1920,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -2874,7 +2873,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3737,7 +3735,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -5237,7 +5234,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -6420,7 +6416,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -7168,7 +7163,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -7592,7 +7586,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -8277,7 +8270,6 @@ object FormNfceFast: TFormNfceFast
           Height = 60.472440940000000000
           Center = True
           Frame.Typ = []
-          Stretched = True
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite

@@ -270,6 +270,7 @@ procedure AtualizarVersao403;
 procedure AtualizarVersao404;
 procedure AtualizarVersao405;
 procedure AtualizarVersao406;
+procedure AtualizarVersao407;
 
 var
   TabelasParaReordenar: TStringList;
@@ -597,6 +598,7 @@ begin
           403: AtualizarVersao404;
           404: AtualizarVersao405;
           405: AtualizarVersao406;
+          406: AtualizarVersao407;
           else raise Exception.CreateFmt('Não existe rotina de atualização da versão %d.',[VersaoAtual+1]);
         end;
       until DM.TBVersaoVER_VERSAOBASE.AsInteger=VersaoBase;
@@ -698,6 +700,17 @@ end;
 //   'insert into TELAS (TEL_NOMEFORM, TEL_DESCRICAO, TEL_STATUS, TEL_MODULO) values (''TFormFornecedoresAnexos'',''Cadastro de Fornecedores - Anexos'',''A'',100);'
 //   'delete from SQLS where SQL_FORM=''FormClientesLoc'';'
 ////////////////////////////////////////////////////////////////////////////////
+procedure AtualizarVersao407;
+begin
+  ExecutarScript(407,
+    'ALTER TABLE PARAMETROS DROP PAR_LOCALLOGOMARCA;'+#13#10
+  );
+  TabelasParaReordenar.Add('PARAMETROS');
+
+  DM.AtualizarComponentes:=True;
+  DM.AtualizarUsuariosAcessos:=True;
+end;
+
 procedure AtualizarVersao406;
 begin
   ExecutarScript(406,

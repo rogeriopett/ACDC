@@ -1,4 +1,5 @@
-
+//Atualizacoes:
+//2026.11.23 - Opcoes da reforma tributaria: selectGovernamental, selectGovernamentalOp, selectNotaCredito e selectNotaDebito.
 export const selectSimNao = [
     { value: "S", label: "SIM" },
     { value: "N", label: "NÃO" }
@@ -154,6 +155,22 @@ export const selectFormaPagamento = [
     { value: "PROMISSORIA", label: "PROMISSORIA" },
 ];
 
+// Reforma tributária: tipo de ente governamental (mesmas opções do Firenet).
+export const selectGovernamental = [
+    { value: "0 - NENHUM", label: "0 - NENHUM" },
+    { value: "1 - UNIAO", label: "1 - UNIAO" },
+    { value: "2 - ESTADO", label: "2 - ESTADO" },
+    { value: "3 - DISTRITO FEDERAL", label: "3 - DISTRITO FEDERAL" },
+    { value: "4 - MUNICIPIO", label: "4 - MUNICIPIO" },
+];
+
+// Reforma tributária: tipo de operação com ente governamental (mesmas opções do Firenet).
+export const selectGovernamentalOp = [
+    { value: "0 - NENHUM", label: "0 - NENHUM" },
+    { value: "1 - FORNECIMENTO", label: "1 - FORNECIMENTO" },
+    { value: "2 - RECEBIMENTO DE PAGAMENTO", label: "2 - RECEBIMENTO DE PAGAMENTO" },
+];
+
 export const selectIndicadorIss = [
     { value: "1 - EXIGIVEL", label: "1 - EXIGIVEL" },
     { value: "2 - NAO INCIDENCIA", label: "2 - NAO INCIDENCIA" },
@@ -211,6 +228,24 @@ export const selectModalidade = [
     { value: "1 - PAUTA (VALOR)", label: "1 - PAUTA (VALOR)" },
     { value: "2 - PRECO TABELADO MAXIMO (VALOR)", label: "2 - PRECO TABELADO MAXIMO (VALOR)" },
     { value: "3 - VALOR DA OPERACAO", label: "3 - VALOR DA OPERACAO" },
+];
+
+// Reforma tributária: tipo da nota de crédito (mesmas opções do Firenet).
+export const selectNotaCredito = [
+    { value: "00 - NENHUM", label: "00 - NENHUM" },
+];
+
+// Reforma tributária: tipo da nota de débito (mesmas opções do Firenet).
+export const selectNotaDebito = [
+    { value: "00 - NENHUM", label: "00 - NENHUM" },
+    { value: "01 - TRANSFERENCIA DE CREDITOS PARA COOPERATIVAS", label: "01 - TRANSFERENCIA DE CREDITOS PARA COOPERATIVAS" },
+    { value: "02 - ANULACAO DE CREDITO POR SAIDAS IMUNES/ISENTAS", label: "02 - ANULACAO DE CREDITO POR SAIDAS IMUNES/ISENTAS" },
+    { value: "03 - DEBITOS DE NOTAS FISCAIS NAO PROCESSADAS NA APURACAO", label: "03 - DEBITOS DE NOTAS FISCAIS NAO PROCESSADAS NA APURACAO" },
+    { value: "04 - MULTA E JUROS", label: "04 - MULTA E JUROS" },
+    { value: "05 - TRANSFERENCIA DE CREDITO NA SUCESSAO", label: "05 - TRANSFERENCIA DE CREDITO NA SUCESSAO" },
+    { value: "06 - PAGAMENTO ANTECIPADO", label: "06 - PAGAMENTO ANTECIPADO" },
+    { value: "07 - PERDA EM ESTOQUE", label: "07 - PERDA EM ESTOQUE" },
+    { value: "08 - DESENQUADRAMENTO DO SIMPLES NACIONAL", label: "08 - DESENQUADRAMENTO DO SIMPLES NACIONAL" },
 ];
 
 export const selectModalidadeST = [

@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Impressao das notas promissorias no FastReport (FormPromissoriasFast, PRM01); o QuickReport (FormPromissoriasQ01) ficou comentado.
 unit PromissoriasLoc;
 
 interface
@@ -89,7 +91,7 @@ const
   NomeArquivoFormTxt='FormPromissoriasLoc.txt';
 
 implementation
-uses DataMod, Funcoes1, PromissoriasQ01, FuncoesFirenet;
+uses DataMod, Funcoes1, FuncoesFirenet, PromissoriasFast;
 {$R *.dfm}
 
 procedure TFormPromissoriasLoc.DBGrid1KeyPress(Sender: TObject;
@@ -241,19 +243,33 @@ procedure TFormPromissoriasLoc.BitBtn1Click(Sender: TObject);
 begin
   AbortIf(QYPromissorias.IsEmpty,'Nenhuma nota promissória selecionada.');
 
-  Application.CreateForm(TFormPromissoriasQ01, FormPromissoriasQ01);
-  FormPromissoriasQ01.FDQuery1.Close;
-  FormPromissoriasQ01.FDQuery1.SQL.Clear;
-  FormPromissoriasQ01.FDQuery1.SQL:=QYPromissorias.SQL;
-  if FormPromissoriasQ01.FDQuery1.ParamCount>0 then
+  //QuickReport antigo (FormPromissoriasQ01), trocado pelo FastReport (FormPromissoriasFast, PRM01) em 2026.11.24:
+  //Application.CreateForm(TFormPromissoriasQ01, FormPromissoriasQ01);
+  //FormPromissoriasQ01.FDQuery1.Close;
+  //FormPromissoriasQ01.FDQuery1.SQL.Clear;
+  //FormPromissoriasQ01.FDQuery1.SQL:=QYPromissorias.SQL;
+  //if FormPromissoriasQ01.FDQuery1.ParamCount>0 then
+  //begin
+  //  FormPromissoriasQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+  //  FormPromissoriasQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+  //end;
+  //FormPromissoriasQ01.FDQuery1.Open;
+  //FormPromissoriasQ01.QuickRep1.PreviewModal;
+  //FormPromissoriasQ01.Free;
+  //FormPromissoriasQ01:=nil;
+  Application.CreateForm(TFormPromissoriasFast, FormPromissoriasFast);
+  FormPromissoriasFast.QY01.Close;
+  FormPromissoriasFast.QY01.SQL.Clear;
+  FormPromissoriasFast.QY01.SQL:=QYPromissorias.SQL;
+  if FormPromissoriasFast.QY01.ParamCount>0 then
   begin
-    FormPromissoriasQ01.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-    FormPromissoriasQ01.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+    FormPromissoriasFast.QY01.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+    FormPromissoriasFast.QY01.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
   end;
-  FormPromissoriasQ01.FDQuery1.Open;
-  FormPromissoriasQ01.QuickRep1.PreviewModal;
-  FormPromissoriasQ01.Free;
-  FormPromissoriasQ01:=nil;
+  FormPromissoriasFast.QY01.Open;
+  FormPromissoriasFast.Mostrar(FormPromissoriasFast.frxReport1,'Notas Promissórias');
+  FormPromissoriasFast.Free;
+  FormPromissoriasFast:=nil;
 end;
 
 end.

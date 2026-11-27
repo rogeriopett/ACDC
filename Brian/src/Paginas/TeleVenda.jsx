@@ -14,6 +14,7 @@
 //2026.11.18 - Data do proximo contato: PettFieldMask trocado pelo PettFieldDate; enviada em aaaa-mm-dd (formatarDataIso).
 //2026.11.18 - Removida a classe mb-1 do size dos PettField* (o espacamento fica com o pett-componentes/row g-1).
 //2026.11.19 - Modais de formulario com a classe modal-campos (margem lateral menor, campos centralizados).
+//2026.11.27 - Mensagem de registro nao encontrado com o componente local NaoEncontrado (PettIcon no lugar do fa-record-vinyl; sem vh-100).
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import nl2br from 'nl2br';
@@ -31,6 +32,7 @@ import { PettModal } from 'pett-componentes';
 import Api from '../Api';
 import { AuthContext } from '../Contextos/Auth';
 import Loading from '../Componentes/Loading';
+import NaoEncontrado from '../Componentes/NaoEncontrado';
 import MotivosLoc from '../Componentes/MotivosLoc';
 import ViasLoc from '../Componentes/ViasLoc';
 import { formatarDataIso, formatarDataStr, formatarHoraStr, tratarCatch } from '../Funcoes';
@@ -208,11 +210,7 @@ function TeleVenda(props) {
         </div>
 
         <Loading status={carregando}/>
-        <PettIf condicional={televenda.TEV_CODIGO<=0}>
-            <div className="container limit-width vh-100 d-flex justify-content-center align-items-center">
-                <p className="text-center lead"><span style={{fontSize: '7em'}} className="texto-suave"><i className="fa fa-fw fa-record-vinyl"></i></span><br/>Não foi possível localizar o atendimento.</p>
-            </div>  
-        </PettIf>
+        <NaoEncontrado show={!carregando && televenda.TEV_CODIGO<=0} mensagem="Não foi possível localizar o atendimento."/>
         <PettIf condicional={televenda.TEV_CODIGO>0}>
             <div className="container-fluid limit-width pt-2">
                 <ul className="list-group mb-3">  

@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - DAMDFE no FastReport (FormMdfeFast.GerarDAMDFE, MDF01); o QuickReport (FormMdfeQ01Rodoviario) ficou comentado no GerarDAMDFE.
 unit Mdfe;
 
 interface
@@ -5,7 +7,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Buttons,
-  PngBitBtn, Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls, Vcl.Mask, Vcl.ComCtrls, QRPDFFilt,
+  PngBitBtn, Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls, Vcl.Mask, Vcl.ComCtrls,
   Vcl.Menus, System.ImageList, Vcl.ImgList, PngImageList, PngSpeedButton,
   DBSBtn, Vcl.ExtCtrls, ACBrBase, ACBrDFe, ACBrMDFe, System.UITypes,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
@@ -496,8 +498,8 @@ implementation
 uses DataMod, DataMod2, Main, MdfeLoc, Funcoes1, FuncoesFirenet, MDFe_Util_TLB,
   EnderecosCidadesLoc, EnderecosEstadosLoc, FrotasLoc, VendedoresLoc, Clientes,
   Frotas, Vendedores, MdfeArquivosXML, MdfeValidar, MdfeDocumentos,
-  MdfeQ01Rodoviario, InputDate, MdfeRel, ZiparDFE, DataModSearch,
-  FornecedoresLoc, ClientesLoc, Fornecedores, System.Zip, System.IOUtils, System.Types;
+  MdfeFast, InputDate, MdfeRel, ZiparDFE, DataModSearch, FornecedoresLoc,
+  ClientesLoc, Fornecedores, System.Zip, System.IOUtils, System.Types;
 {$R *.dfm}
 
 procedure TFormMdfe.GerarArquivoMDFe1Click(Sender: TObject);
@@ -1180,41 +1182,43 @@ begin
 end;
 
 procedure TFormMdfe.GerarDAMDFE(Visualizar, GerarPDF: Boolean; ArquivoPDF: String);
-var S: String;
-  PDFFilter: TQRPDFDocumentFilter;
+//QuickReport antigo (FormMdfeQ01Rodoviario), trocado pelo FastReport (FormMdfeFast, MDF01) em 2026.11.24:
+//var S: String;
+  //PDFFilter: TQRPDFDocumentFilter;
+//begin
+  //Application.CreateForm(TFormMdfeQ01Rodoviario, FormMdfeQ01Rodoviario);
+  //if DM2.TBMdfeMDF_STATUS.Value<>'C' then
+  //FormMdfeQ01Rodoviario.QRLabel132.Caption:=''; //retira a palavra "cancelada".
+  //FormMdfeQ01Rodoviario.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBMdfeMDF_CODIGO.Value;
+  //FormMdfeQ01Rodoviario.FDQuery1.Open;
+  //FormMdfeQ01Rodoviario.FDQuery2.Open;
+  //FormMdfeQ01Rodoviario.FDQuery2.FetchAll;
+  //FormMdfeQ01Rodoviario.QRAsBarcode1.Text:=FormMdfeQ01Rodoviario.FDQuery1.FieldByName('MDF_CHAVEACESSO').AsString;
+  //S:=FormMdfeQ01Rodoviario.FDQuery1.FieldByName('MDF_CHAVEACESSO').AsString;
+  //Insert('.',S,5); Insert('.',S,10); Insert('.',S,15); Insert('.',S,20); Insert('.',S,25); Insert('.',S,30); Insert('.',S,35); Insert('.',S,40); Insert('.',S,45); Insert('.',S,50);
+  //FormMdfeQ01Rodoviario.QRLabel127.Caption:=S;
+  //FormMdfeQ01Rodoviario.QuickRep1.Prepare; //faz gerar o PageCount.
+  //FormMdfeQ01Rodoviario.QRLabel125.Caption:='/ '+IntToStr(FormMdfeQ01Rodoviario.QuickRep1.QRPrinter.PageCount);
+  //if Visualizar then
+  //begin
+  //  if DM.TBParametrosPAR_NFEVISUALIZARDANFE.Value='S' then
+  //  FormMdfeQ01Rodoviario.QuickRep1.PreviewModal else
+  //  FormMdfeQ01Rodoviario.QuickRep1.Print;
+  //end;
+  //if GerarPDF then
+  //begin
+  //  //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DANFE.PDF');
+  //  PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
+  //  FormMdfeQ01Rodoviario.QuickRep1.ExportToFilter(PDFFilter);
+  //end;
+  //FormMdfeQ01Rodoviario.QuickRep1.QRPrinter:=nil; //libera pagecount.
+  //FormMdfeQ01Rodoviario.Free;
+  //FormMdfeQ01Rodoviario:=nil;
 begin
-  Application.CreateForm(TFormMdfeQ01Rodoviario, FormMdfeQ01Rodoviario);
-  if DM2.TBMdfeMDF_STATUS.Value<>'C' then
-  FormMdfeQ01Rodoviario.QRLabel132.Caption:=''; //retira a palavra "cancelada".
-  FormMdfeQ01Rodoviario.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBMdfeMDF_CODIGO.Value;
-  FormMdfeQ01Rodoviario.FDQuery1.Open;
-  FormMdfeQ01Rodoviario.FDQuery2.Open;
-  FormMdfeQ01Rodoviario.FDQuery2.FetchAll;
-  FormMdfeQ01Rodoviario.QRAsBarcode1.Text:=FormMdfeQ01Rodoviario.FDQuery1.FieldByName('MDF_CHAVEACESSO').AsString;
-  S:=FormMdfeQ01Rodoviario.FDQuery1.FieldByName('MDF_CHAVEACESSO').AsString;
-  Insert('.',S,5); Insert('.',S,10); Insert('.',S,15); Insert('.',S,20); Insert('.',S,25); Insert('.',S,30); Insert('.',S,35); Insert('.',S,40); Insert('.',S,45); Insert('.',S,50);
-  FormMdfeQ01Rodoviario.QRLabel127.Caption:=S;
-
-  FormMdfeQ01Rodoviario.QuickRep1.Prepare; //faz gerar o PageCount.
-  FormMdfeQ01Rodoviario.QRLabel125.Caption:='/ '+IntToStr(FormMdfeQ01Rodoviario.QuickRep1.QRPrinter.PageCount);
-
-  if Visualizar then
-  begin
-    if DM.TBParametrosPAR_NFEVISUALIZARDANFE.Value='S' then
-    FormMdfeQ01Rodoviario.QuickRep1.PreviewModal else
-    FormMdfeQ01Rodoviario.QuickRep1.Print;
-  end;
-
-  if GerarPDF then
-  begin
-    //PDFFilter:=TQRPDFDocumentFilter.Create(ExtractFilePath(Application.ExeName)+'\Print\DANFE.PDF');
-    PDFFilter:=TQRPDFDocumentFilter.Create(ArquivoPDF);
-    FormMdfeQ01Rodoviario.QuickRep1.ExportToFilter(PDFFilter);
-  end;
-
-  FormMdfeQ01Rodoviario.QuickRep1.QRPrinter:=nil; //libera pagecount.
-  FormMdfeQ01Rodoviario.Free;
-  FormMdfeQ01Rodoviario:=nil;
+  Application.CreateForm(TFormMdfeFast, FormMdfeFast);
+  FormMdfeFast.GerarDAMDFE(DM2.TBMdfeMDF_CODIGO.Value,Visualizar,GerarPDF,ArquivoPDF);
+  FormMdfeFast.Free;
+  FormMdfeFast:=nil;
 end;
 
 procedure TFormMdfe.DBEdit25KeyPress(Sender: TObject; var Key: Char);

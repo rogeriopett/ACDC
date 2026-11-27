@@ -21,13 +21,13 @@ Tela do ERP Firenet em que o usuário faz uma pergunta em português, a IA gera 
 | `04_dominios.md` | Significado dos códigos de status e flags, levantado no código do ERP |
 | `05_regras_negocio.md` | Faturamento, inadimplência, faixas de cliente ativo e outras regras |
 | `06_exemplos.md` | 20 perguntas com SQL, ainda `[não testado]` no banco |
-| `delphi\IasminConsulta.pas/.dfm` | `TFormIasminConsulta`, a tela principal: `TFormIasminConsulta.Abrir(DM.FDConnection1, DM.UsuarioLogin)` abre em **modal** (pedido do usuário) e libera o form ao fechar. Grava o log em `IASMINLOGS` na thread principal (`AoReceber`). |
-| `delphi\IasminConfig.pas/.dfm` | `TFormIasminConfig`, a tela de configuração: `TFormIasminConfig.Executar(Conexao, UsuarioERP, Cfg)` |
-| `delphi\IasminConfigDados.pas` | `TIAConfig` e `TIALog`; lê e grava a tabela `IASMIN` (uma linha, `IAS_CODIGO = 1`) e grava em `IASMINLOGS`; chave e senha cifradas com AES-256 (CNG) |
+| `..\Units\IasminConsulta.pas/.dfm` | `TFormIasminConsulta`, a tela principal: `TFormIasminConsulta.Abrir(DM.FDConnection1, DM.UsuarioLogin)` abre em **modal** (pedido do usuário) e libera o form ao fechar. Grava o log em `IASMINLOGS` na thread principal (`AoReceber`). |
+| `..\Units\IasminConfig.pas/.dfm` | `TFormIasminConfig`, a tela de configuração: `TFormIasminConfig.Executar(Conexao, UsuarioERP, Cfg)` |
+| `..\Units\IasminConfigDados.pas` | `TIAConfig` e `TIALog`; lê e grava a tabela `IASMIN` (uma linha, `IAS_CODIGO = 1`) e grava em `IASMINLOGS`; chave e senha cifradas com AES-256 (CNG) |
 | `sql\revogar_leitura_iasmin.sql` | Revoga o SELECT do usuário de leitura em `IASMIN`/`IASMINLOGS`. O generator `GEN_IASMINLOGS` já foi criado pelo usuário. |
-| `delphi\IasminProvedores.pas` | Chamadas HTTP aos provedores: `IAGerar(Cfg, Sistema, Mensagens)` |
-| `delphi\IasminMotor.pas` | `TIAContexto`, que lê os .md, e `TIAMotor`, que faz `Perguntar`, `Corrigir` e `TestarConexao` |
-| `delphi\IasminValidadorSQL.pas` | `ValidarSQL` e `LimparSQL` |
+| `..\Units\IasminProvedores.pas` | Chamadas HTTP aos provedores: `IAGerar(Cfg, Sistema, Mensagens)` |
+| `..\Units\IasminMotor.pas` | `TIAContexto`, que lê os .md, e `TIAMotor`, que faz `Perguntar`, `Corrigir` e `TestarConexao` |
+| `..\Units\IasminValidadorSQL.pas` | `ValidarSQL` e `LimparSQL` |
 | `sql\criar_usuario_leitura.sql` | Cria o usuário `IA_LEITURA`, só com SELECT |
 | `ferramentas\gerar_contexto.ps1` | Regera `02` e `03` a partir do `DDL_Banco.sql` |
 | `ferramentas\levantar_dominios.sql` | Um `EXECUTE BLOCK` que devolve numa grade só os valores das flags `VARCHAR(1)`. Roda no SQL Editor do IBExpert, porque o Script Executive não mostra o resultado. Cada SELECT usa `EXECUTE STATEMENT` por causa do limite de 256 contextos por comando. O `levantar_dominios_isql.sql` é a mesma coisa com `SET TERM`, para o isql. |
@@ -78,7 +78,7 @@ Precisam ficar **iguais** em três lugares: `gerar_contexto.ps1` (`$tabelasExclu
 
 - **Banco:** não acessar o banco nem testar senhas sem o usuário autorizar. A tentativa via `isql` foi bloqueada pelas permissões.
 - **Credenciais:** não usar as que estão em `DataMod.dfm` (SYSDBA em texto puro) nem no `DDL_Banco.sql`.
-- **Fontes do ERP:** os arquivos de `C:\Runtime\Firenet\Units` servem só para consulta. Não alterar.
+- **Fontes do ERP:** os arquivos de `C:\Runtime\ACDC\Firenet\Units` servem só para consulta. Não alterar. A exceção são as units `Iasmin*`, que ficam nessa pasta desde 2026-11-23 (antes ficavam em `IAsmin\delphi\`).
 
 ## Como compilar e testar
 
@@ -86,14 +86,17 @@ O teste está em `ferramentas\teste\TesteIA.dpr`. Rodar no PowerShell, a partir 
 
 ```powershell
 $bds = 'C:\Program Files (x86)\Embarcadero\Studio\23.0'
-$t = 'C:\Runtime\Firenet\IAsmin\ferramentas\teste'
+$t = 'C:\Runtime\ACDC\Firenet\IAsmin\ferramentas\teste'
 $png = 'C:\Runtime\Componentes\PngComponents\Source'   # os forms usam TPngBitBtn/TPngSpeedButton
 New-Item -ItemType Directory -Force "$t\bin" | Out-Null
 # $t\stub tem DataMod e DataMod2 mínimos: a IasminConsulta usa DM.UsuarioLogin e o DataMod2 do ERP (aba de log, DM2.DSIasminLogs);
 # ao usar outro campo de DM/DM2 na tela, declare-o também no stub,
 # e as units do ERP não compilam fora do projeto (há uma unit Classes.pas que conflita com a RTL).
-& "$bds\bin\dcc32.exe" -B -Q -CC "-U$bds\lib\win32\release;C:\Runtime\Firenet\IAsmin\delphi;$png;$t\stub" "-I$png" "-R$bds\lib\win32\release;$png" "-NSSystem;Vcl;Vcl.Imaging;Winapi;Data;FireDAC" "-N0$t\bin" "-E$t\bin" "$t\TesteIA.dpr"
-& "$t\bin\TesteIA.exe" 'C:\Runtime\Firenet\IAsmin'   # deve terminar com "Falhas: 0"
+# as units Iasmin ficam em Firenet\Units; copie so elas, porque a pasta inteira no -U puxa o Classes.pas do ERP.
+New-Item -ItemType Directory -Force "$t\src" | Out-Null
+Copy-Item 'C:\Runtime\ACDC\Firenet\Units\Iasmin*.*' "$t\src" -Force
+& "$bds\bin\dcc32.exe" -B -Q -CC "-U$bds\lib\win32\release;$t\src;$png;$t\stub" "-I$png" "-R$bds\lib\win32\release;$png" "-NSSystem;Vcl;Vcl.Imaging;Winapi;Data;FireDAC" "-N0$t\bin" "-E$t\bin" "$t\TesteIA.dpr"
+& "$t\bin\TesteIA.exe" 'C:\Runtime\ACDC\Firenet\IAsmin'   # deve terminar com "Falhas: 0"
 ```
 
 ## Situação em 06/11/2026

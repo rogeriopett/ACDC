@@ -1,3 +1,6 @@
+//Atualizacoes:
+//2026.11.23 - Aba Reforma Tributaria (IBS/CBS/IS, ente governamental e nota de debito/credito); imports reorganizados.
+//2026.11.23 - Envia o representante (VED_REPRESENTANTE) ao salvar.
 import React, { useContext, useEffect, useState } from 'react';
 
 import { PettButton } from 'pett-componentes';
@@ -6,7 +9,6 @@ import { PettFieldDate } from 'pett-componentes';
 import { PettFieldDrop } from 'pett-componentes';
 import { PettFieldFloat } from 'pett-componentes';
 import { PettFieldLoc } from 'pett-componentes';
-import { PettFieldMask } from 'pett-componentes';
 import { PettFieldMoney } from 'pett-componentes';
 import { PettFieldText } from 'pett-componentes';
 import { PettFieldTextArea } from 'pett-componentes';
@@ -16,8 +18,11 @@ import { PettMensagem } from 'pett-componentes';
 import { PettTab } from 'pett-componentes';
 import { PettTabPanel } from 'pett-componentes';
 
-import { AuthContext } from '../../Contextos/Auth';
 import Api from '../../Api';
+import { AuthContext } from '../../Contextos/Auth';
+import { useListagem } from '../../Hooks/useListagem';
+import { useLocalizar, CLIENTES, CONDICOES, FORNECEDORES, NATUREZAS, VENDEDORES  } from '../../Hooks/useLocalizar';
+import { useTabela } from '../../Hooks/useTabela';
 import AtualizadoPor from '../../Componentes/AtualizadoPor.jsx';
 import BarraOpcoes from '../../Componentes/BarraOpcoes';
 import BarraSuperior from '../../Componentes/BarraSuperior';
@@ -31,16 +36,14 @@ import Rodape from '../../Componentes/Rodape';
 import Sentinela from '../../Componentes/Sentinela';
 import VendasItens from './VendasItens';
 import VendedoresLoc from '../../Componentes/Localizadores/VendedoresLoc';
-import { selectDiaVencimento, selectFormaPagamento, selectFrete, selectStatusVendas, selectTipoAtendimento, selectTipoConsumidor, selectTipoOperacao } from '../../Combox.js';
+import { selectDiaVencimento, selectFormaPagamento, selectFrete, selectGovernamental, selectGovernamentalOp, selectNotaCredito, selectNotaDebito, selectStatusVendas, selectTipoAtendimento, selectTipoConsumidor, selectTipoOperacao } from '../../Combox.js';
 import { primeiroDiaMes, ultimoDiaMes, formatarDataStr, formatarDataStr2, formatarMoeda, tratarCatch, formatarDataFb, hoje, formatarMoedaStr } from '../../Funcoes';
-import { useListagem } from '../../Hooks/useListagem';
-import { useTabela } from '../../Hooks/useTabela';
-import { useLocalizar, CLIENTES, CONDICOES, FORNECEDORES, NATUREZAS, VENDEDORES  } from '../../Hooks/useLocalizar';
 
 const mapaClientes        = { VED_CLIENTE: 'CLI_CODIGO', VED_CONDICAO: 'CLI_CONDICAO', VED_CONTATO: 'CLI_CONTATO', VED_FORMAPAGTO: 'CPG_FORMAPAGTO', VED_NOME: 'CLI_NOME', VED_TIPOCONSUMIDOR: 'CLI_TIPOCONSUMIDOR', CPG_DESCRICAO: 'CPG_DESCRICAO', CPG_MEIOPAGAMENTO: 'CPG_MEIOPAGAMENTO' };
 const mapaCondicoes       = { VED_CONDICAO: 'CPG_CODIGO', VED_FORMAPAGTO: 'CPG_FORMAPAGTO', CPG_DESCRICAO: 'CPG_DESCRICAO', CPG_MEIOPAGAMENTO: 'CPG_MEIOPAGAMENTO' };
 const mapaExpedidores     = { VED_EXPEDIDOPOR: 'VEN_CODIGO', VEN_NOME1: 'VEN_NOME' };
 const mapaNaturezas       = { VED_CFOP: 'NAT_CODIGO', VED_CFOPDESC: 'NAT_DESCRICAO', VED_ENTRADASAIDA: 'NAT_ENTRADASAIDA', VED_MOVIMENTAESTOQUE: 'NAT_MOVIMENTAESTOQUE', VED_MOVIMENTAFINANCEIRO: 'NAT_MOVIMENTAFINANCEIRO' };
+const mapaRepresentantes  = { VED_REPRESENTANTE: 'VEN_CODIGO', VEN_NOME2: 'VEN_NOME' };
 const mapaTransportadoras = { VED_TRANSPORTADORA: 'FOR_CODIGO', VED_TRANSPNOME: 'FOR_NOME' };
 const mapaVendedores      = { VED_VENDEDOR: 'VEN_CODIGO', VEN_NOME: 'VEN_NOME' };
 
@@ -64,13 +67,23 @@ const vazio = {
     VED_BAIXAPOR: '',
     VED_BASECOFINS: '0',
     VED_BASECOFINSST: '0',
+    VED_BASEIBSCBS: '0',
     VED_BASEICMS: '0',
     VED_BASEICMSST: '0',
     VED_BASEII: '0',
     VED_BASEIPI: '0',
+    VED_BASEIS: '0',
     VED_BASEISS: '0',
     VED_BASEPIS: '0',
     VED_BASEPISST: '0',
+    VED_CBSCREDPRES: '0', 
+    VED_CBSCREDPRESSUS: '0', 
+    VED_CBSDEVOLUCAO: '0', 
+    VED_CBSDIFERIMENTO: '0', 
+    VED_CBSMONO: '0', 
+    VED_CBSMONORETENCAO: '0', 
+    VED_CBSMONORETIDO: '0',
+    VED_CBSVALOR: '0',
     VED_CEP: '',
     VED_CFOP: '',
     VED_CFOPDESC: '',
@@ -82,6 +95,7 @@ const vazio = {
     VED_CLIENTE: '',
     VED_COMISSAO: '0',
     VED_COMISSAOPOR: '',
+    VED_COMISSAOREP: '',
     VED_COMPLEMENTO: '',
     VED_CONDICAO: '',
     VED_CONDICAOMEMO: '',
@@ -91,6 +105,7 @@ const vazio = {
     VED_CONTATO: '',
     VED_CPF: '',
     VED_CUSTOTOTAL: '0',
+    VED_DAV: 'N',
     VED_DESCPORC: '0',
     VED_DESCPORCCLIENTE: '0',
     VED_DESCPORCCONDICAO: '0',
@@ -100,6 +115,7 @@ const vazio = {
     VED_DTATUALIZACAO: '',
     VED_DTCADASTRO: hoje,
     VED_DTEMISSAO: hoje,
+    VED_DTENTREGA: '',
     VED_DTPRESTSERVICO: hoje,
     VED_DTSAIDA: hoje,
     VED_ENDERECO: '',
@@ -114,6 +130,23 @@ const vazio = {
     VED_FONE1: '',
     VED_FORMAPAGTO: '',
     VED_FRETE: '',
+    VED_GOVERNAMENTAL: '0 - NENHUM',
+    VED_GOVERNAMENTALALIQRED: '0',
+    VED_GOVERNAMENTALOP: '0 - NENHUM',
+    VED_HRATUALIZACAO: '',
+    VED_HRCADASTRO: '',
+    VED_IBSCREDPRES: '0', 
+    VED_IBSCREDPRESSUS: '0', 
+    VED_IBSMONO: '0', 
+    VED_IBSMONORETENCAO: '0', 
+    VED_IBSMONORETIDO: '0',
+    VED_IBSMUNDEVOLUCAO: '0', 
+    VED_IBSMUNDIFERIMENTO: '0',
+    VED_IBSMUNVALOR: '0', 
+    VED_IBSUFDEVOLUCAO: '0', 
+    VED_IBSUFDIFERIMENTO: '0', 
+    VED_IBSUFVALOR: '0', 
+    VED_IBSVALOR: '0', 
     VED_IDESTRANGEIRO: '',
     VED_IE: '',
     VED_INFOADICFISCO: '',
@@ -125,9 +158,12 @@ const vazio = {
     VED_MARCA: '',
     VED_MOVIMENTAESTOQUE: '',
     VED_MOVIMENTAFINANCEIRO: '',
+    VED_NFCE: '',
     VED_NFE: '',
     VED_NOME: '',
     VED_NOTA: '',
+    VED_NOTACREDITO: '00 - NENHUM',
+    VED_NOTADEBITO: '00 - NENHUM', 
     VED_NUMERO: '',
     VED_OBSERVACOES: '',
     VED_PAIS: 'BRASIL',
@@ -135,9 +171,11 @@ const vazio = {
     VED_PEDIDOCLIENTE: '',
     VED_PESOBRUTO: '0',
     VED_PESOLIQ: '0',
+    VED_PRODUCAO: '',
     VED_REBOQUEPLACA: '',
     VED_REBOQUEPLACAUF: '',
     VED_REBOQUERNTC: '',
+    VED_REPRESENTANTE: '',
     VED_RG: '',
     VED_SEQUENCIAITEM: '0',
     VED_STATUS: 'A',
@@ -151,6 +189,7 @@ const vazio = {
     VED_TOTALCOFINS: '0',
     VED_TOTALCOFINSST: '0',
     VED_TOTALCOMISSAO: '0',
+    VED_TOTALCOMISSAOREP: '0',
     VED_TOTALFCP: '0',
     VED_TOTALFCPST: '0',
     VED_TOTALICMS: '0',
@@ -161,6 +200,7 @@ const vazio = {
     VED_TOTALII: '0',
     VED_TOTALIOF: '0',
     VED_TOTALIPI: '0',
+    VED_TOTALIS: '0',
     VED_TOTALISS: '0',
     VED_TOTALISSDEDUCAO: '0',
     VED_TOTALISSDESCCOND: '0',
@@ -192,6 +232,7 @@ const vazio = {
     VED_VALORFRETE: '0',
     VED_VALORSEGURO: '0',
     VED_VALORTOTAL: '0',
+    VED_VALORTOTALRTC: '0',
     VED_VEICULOPLACA: '',
     VED_VEICULOPLACAUF: '',
     VED_VEICULORNTC: '',
@@ -204,7 +245,6 @@ const vazio = {
 
 // Campos enviados ao salvar. Datas convertidas de DD/MM/AAAA para AAAA-MM-DD.
 const transformarDados = (dados) => ({
-    VED_ALIQICMS: dados.VED_ALIQICMS || '',
     VED_CLIENTE: dados.VED_CLIENTE || '',
     VED_CODIGO: dados.VED_CODIGO || '',
     VED_BAIRRO: dados.VED_BAIRRO || '',
@@ -242,6 +282,9 @@ const transformarDados = (dados) => ({
     VED_FONE1: dados.VED_FONE1 || '',
     VED_FORMAPAGTO: dados.VED_FORMAPAGTO || '',
     VED_FRETE: dados.VED_FRETE || '',
+    VED_GOVERNAMENTAL: dados.VED_GOVERNAMENTAL || '',
+    VED_GOVERNAMENTALALIQRED: dados.VED_GOVERNAMENTALALIQRED || '',
+    VED_GOVERNAMENTALOP: dados.VED_GOVERNAMENTALOP || '',
     VED_IDESTRANGEIRO: dados.VED_IDESTRANGEIRO || '',
     VED_IE: dados.VED_IE || '',
     VED_INFOADICFISCO: dados.VED_INFOADICFISCO || '',
@@ -253,6 +296,8 @@ const transformarDados = (dados) => ({
     VED_NFE: dados.VED_NFE || '',
     VED_NOME: dados.VED_NOME || '',
     VED_NOTA: dados.VED_NOTA || '',
+    VED_NOTACREDITO: dados.VED_NOTACREDITO || '',
+    VED_NOTADEBITO: dados.VED_NOTADEBITO || '',
     VED_NUMERO: dados.VED_NUMERO || '',
     VED_OBSERVACOES: dados.VED_OBSERVACOES || '',
     VED_PAIS: dados.VED_PAIS || '',
@@ -263,6 +308,7 @@ const transformarDados = (dados) => ({
     VED_REBOQUEPLACA: dados.VED_REBOQUEPLACA || '',
     VED_REBOQUEPLACAUF: dados.VED_REBOQUEPLACAUF || '',
     VED_REBOQUERNTC: dados.VED_REBOQUERNTC || '',
+    VED_REPRESENTANTE: dados.VED_REPRESENTANTE || '',
     VED_RG: dados.VED_RG || '',
     VED_SEQUENCIAITEM: dados.VED_SEQUENCIAITEM || '',
     VED_STATUS: dados.VED_STATUS || '',
@@ -329,6 +375,7 @@ function Vendas() {
     const [ showCondicoesLoc, setShowCondicoesLoc ] = useState(false);
     const [ showExpedidoresLoc, setShowExpedidoresLoc ] = useState(false);
     const [ showNaturezasLoc, setShowNaturezasLoc ] = useState(false);
+    const [ showRepresentantesLoc, setShowRepresentantesLoc ] = useState(false);
     const [ showVendedoresLoc, setShowVendedoresLoc ] = useState(false);
     const [ showTransportadorasLoc, setShowTransportadorasLoc ] = useState(false);
     const [ showItem, setShowItem ] = useState(false);
@@ -519,16 +566,21 @@ function Vendas() {
                         <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6 mb-1" label="VALOR TOTAL" name="VED_VALORTOTAL" value={venda.VED_VALORTOTAL} readOnly disabled/> */}
 
                         <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Código: <span className="fw-bold">{venda.VED_CODIGO}</span></div>
-                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Num. Nota: <span className="fw-bold">{venda.VED_NOTA}</span></div>
                         <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Num. NFe: <span className="fw-bold">{venda.VED_NFE}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Num. NFCe: <span className="fw-bold">{venda.VED_NFCE}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Num. Nota: <span className="fw-bold">{venda.VED_NOTA}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Produção: <span className="fw-bold">{venda.VED_PRODUCAO}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Emissão: <span className="fw-bold">{formatarDataStr(venda.VED_DTEMISSAO)}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">DAV:&nbsp;
+                            <PettIf condicional={venda.VED_DAV==='S'}><span className="badge bg-primary">SIM</span></PettIf>
+                            <PettIf condicional={venda.VED_DAV==='N'}><span className="badge bg-danger">NÃO</span></PettIf>
+                        </div>
                         <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Status:&nbsp;
                             <PettIf condicional={venda.VED_STATUS==='A'}><span className="badge bg-primary">ABERTO</span></PettIf>
                             <PettIf condicional={venda.VED_STATUS==='C'}><span className="badge bg-danger">CANCELADO</span></PettIf>
                             <PettIf condicional={venda.VED_STATUS==='F'}><span className="badge bg-success">FINALIZADO</span></PettIf>
                             <PettIf condicional={venda.VED_STATUS==='I'}><span className="badge bg-warning">INUTILIZADO</span></PettIf>
                         </div>
-                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Emissão: <span className="fw-bold">{formatarDataStr(venda.VED_DTEMISSAO)}</span></div>
-                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Valor Total: <span className="fw-bold">{formatarMoedaStr(venda.VED_VALORTOTAL)}</span></div>
                         <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Entrada/Saída:&nbsp;
                             <PettIf condicional={venda.VED_ENTRADASAIDA==='E'}><span className="badge bg-primary">ENTRADA</span></PettIf>
                             <PettIf condicional={venda.VED_ENTRADASAIDA==='S'}><span className="badge bg-success">SAÍDA</span></PettIf>
@@ -553,9 +605,11 @@ function Vendas() {
                             <PettIf condicional={venda.VED_VIAINTERNETSTATUS==='A'}><span className="badge bg-primary">ABERTO</span></PettIf>
                             <PettIf condicional={venda.VED_VIAINTERNETSTATUS==='F'}><span className="badge bg-success">FINALIZADO</span></PettIf>
                         </div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Valor Total: <span className="fw-bold text-primary">{formatarMoedaStr(venda.VED_VALORTOTAL)}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Valor Total RTC: <span className="fw-bold text-primary">{formatarMoedaStr(venda.VED_VALORTOTALRTC)}</span></div>
                     </div>
 
-                    <PettTab className="mb-5">
+                    <PettTab className="mb-5 mt-3">
                         <PettTabPanel header="Geral">
                             <div className="row mb-3 g-1">
                                 <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="CLIENTE" name="VED_CLIENTE" value={String(venda.VED_CLIENTE)} set={setVenda} onClick={() => setShowClientesLoc(true)} onBlur={(e) => localizar(CLIENTES, e.target.value, setVenda, mapaClientes)} readOnly={disableFields} disabled={disableFields}/>
@@ -564,21 +618,21 @@ function Vendas() {
                                 <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="DESCRIÇÃO CFOP" name="VED_CFOPDESC" value={venda.VED_CFOPDESC} readOnly disabled/>
                                 <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="VENDEDOR" name="VED_VENDEDOR" value={venda.VED_VENDEDOR} set={setVenda} onClick={() => setShowVendedoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setVenda, mapaVendedores)} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME VENDEDOR" name="VEN_NOME" value={venda.VEN_NOME} readOnly disabled/>
-                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="EXPEDIDO POR" name="VED_EXPEDIDOPOR" value={venda.VED_EXPEDIDOPOR} set={setVenda} onClick={() => setShowExpedidoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setVenda, mapaExpedidores)} readOnly={disableFields} disabled={disableFields}/>                          
-                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME EXPEDIDO POR" name="VEN_NOME1" value={venda.VEN_NOME1} readOnly disabled/>                          
+                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="EXPEDIDO POR" name="VED_EXPEDIDOPOR" value={venda.VED_EXPEDIDOPOR} set={setVenda} onClick={() => setShowExpedidoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setVenda, mapaExpedidores)} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME EXPEDIDO POR" name="VEN_NOME1" value={venda.VEN_NOME1} readOnly disabled/>
+                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="REPRESENTANTE" name="VED_REPRESENTANTE" value={venda.VED_REPRESENTANTE} set={setVenda} onClick={() => setShowRepresentantesLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setVenda, mapaRepresentantes)} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME REPRESENTANTE" name="VEN_NOME2" value={venda.VEN_NOME2} readOnly disabled/>                          
                                 <PettFieldText size="col-lg-3 col-md-3 col-sm-6" label="CONTATO" name="VED_CONTATO" value={venda.VED_CONTATO} set={setVenda} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO ATENDIMENTO" name="VED_TIPOATENDIMENTO" value={venda.VED_TIPOATENDIMENTO} set={setVenda} options={selectTipoAtendimento} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO OPERAÇÃO" name="VED_TIPOOPERACAO" value={venda.VED_TIPOOPERACAO} set={setVenda} options={selectTipoOperacao} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO CONSUMIDOR" name="VED_TIPOCONSUMIDOR" value={venda.VED_TIPOCONSUMIDOR} set={setVenda} options={selectTipoConsumidor} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="PEDIDO CLIENTE" name="VED_PEDIDOCLIENTE" value={venda.VED_PEDIDOCLIENTE} set={setVenda} readOnly={disableFields} disabled={disableFields}/>
-                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO" name="VED_COMISSAO" value={venda.VED_COMISSAO} readOnly disabled/>
-                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO" name="VED_TOTALCOMISSAO" value={venda.VED_TOTALCOMISSAO} readOnly disabled/>
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="ENTRADA/SAÍDA" name="VED_ENTRADASAIDA" value={venda.VED_ENTRADASAIDA} readOnly disabled/> */}
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="MOV. ESTOQUE" name="VED_MOVIMENTAESTOQUE" value={venda.VED_MOVIMENTAESTOQUE} readOnly disabled/> */}
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="MOV. FINANCEIRO" name="VED_MOVIMENTAFINANCEIRO" value={venda.VED_MOVIMENTAFINANCEIRO} readOnly disabled/> */}
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="DATA CADASTRO" name="VED_DTCADASTRO" value={formatarDataStr(venda.VED_DTCADASTRO)} readOnly disabled/>
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="ENTREGUE" name="VED_ENTREGUE" value={venda.VED_ENTREGUE} readOnly disabled/> */}
-                                <PettFieldMask size="col-lg-2 col-md-4 col-sm-6" label="DATA SAÍDA" name="VED_DTSAIDA" value={venda.VED_DTSAIDA} set={setVenda} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldDate size="col-lg-2 col-md-4 col-sm-6" label="DATA SAÍDA" name="VED_DTSAIDA" value={venda.VED_DTSAIDA} set={setVenda} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="DATA BAIXA" name="VED_DTBAIXA" value={formatarDataStr(venda.VED_DTBAIXA)} readOnly disabled/>
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="BAIXADO POR" name="VED_BAIXAPOR" value={venda.VED_BAIXAPOR} readOnly disabled/>
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="CONFERIDO EM" name="VED_CONFERIDOEM" value={venda.VED_CONFERIDOEM} readOnly disabled/>
@@ -663,6 +717,14 @@ function Vendas() {
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="VALOR TOTAL" name="VED_VALORTOTAL" value={venda.VED_VALORTOTAL} readOnly disabled/>
                             </div>
 
+                            <strong>Totais Comissão</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO" name="VED_COMISSAO" value={venda.VED_COMISSAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO" name="VED_TOTALCOMISSAO" value={venda.VED_TOTALCOMISSAO} readOnly disabled/>
+                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO REP." name="VED_COMISSAOREP" value={venda.VED_COMISSAOREP} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO REP." name="VED_TOTALCOMISSAOREP" value={venda.VED_TOTALCOMISSAOREP} readOnly disabled/>
+                            </div>
+
                             <strong>Totais ICMS</strong>
                             <div className="row mb-3 g-1">
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE CALC." name="VED_BASEICMS" value={venda.VED_BASEICMS} readOnly disabled/>
@@ -729,7 +791,57 @@ function Vendas() {
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="ESTADUAL" name="VED_TOTALTRIBUTOSEST" value={venda.VED_TOTALTRIBUTOSEST} readOnly disabled/>
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUNICIPAL" name="VED_TOTALTRIBUTOSMUN" value={venda.VED_TOTALTRIBUTOSMUN} readOnly disabled/>
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="IMPORTAÇÃO" name="VED_TOTALTRIBUTOSIMP" value={venda.VED_TOTALTRIBUTOSIMP} readOnly disabled/>
-                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL" name="VED_TOTALTRIBUTOS" value={venda.VED_TOTALTRIBUTOS} readOnly disabled/>                            
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL" name="VED_TOTALTRIBUTOS" value={venda.VED_TOTALTRIBUTOS} readOnly disabled/>
+                            </div>
+                        </PettTabPanel>
+                        <PettTabPanel header="Reforma Tributária">
+                            <strong>Ente Governamental</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldDrop size="col-lg-3 col-md-4 col-sm-6" label="TIPO ENTE GOVERNAMENTAL" name="VED_GOVERNAMENTAL" value={venda.VED_GOVERNAMENTAL} set={setVenda} options={selectGovernamental} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldDrop size="col-lg-3 col-md-4 col-sm-6" label="TIPO OPERAÇÃO GOVERNAMENTAL" name="VED_GOVERNAMENTALOP" value={venda.VED_GOVERNAMENTALOP} set={setVenda} options={selectGovernamentalOp} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldFloat size="col-lg-2 col-md-4 col-sm-6" label="% REDUTOR" name="VED_GOVERNAMENTALALIQRED" value={venda.VED_GOVERNAMENTALALIQRED} set={setVenda} minDigits={2} maxDigits={4} readOnly={disableFields} disabled={disableFields}/>
+                            </div>
+
+                            <strong>Nota de Débito/Crédito</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldDrop size="col-lg-6 col-md-6 col-sm-12" label="TIPO NF DÉBITO" name="VED_NOTADEBITO" value={venda.VED_NOTADEBITO} set={setVenda} options={selectNotaDebito} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldDrop size="col-lg-6 col-md-6 col-sm-12" label="TIPO NF CRÉDITO" name="VED_NOTACREDITO" value={venda.VED_NOTACREDITO} set={setVenda} options={selectNotaCredito} readOnly={disableFields} disabled={disableFields}/>
+                            </div>
+
+                            <strong>Totais IBS/CBS/IS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE IBS/CBS" name="VED_BASEIBSCBS" value={venda.VED_BASEIBSCBS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE IS" name="VED_BASEIS" value={venda.VED_BASEIS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL IS" name="VED_TOTALIS" value={venda.VED_TOTALIS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL NF (RTC)" name="VED_VALORTOTALRTC" value={venda.VED_VALORTOTALRTC} readOnly disabled/>
+                            </div>
+
+                            <strong>CBS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO" name="VED_CBSCREDPRES" value={venda.VED_CBSCREDPRES} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO SUSP." name="VED_CBSCREDPRESSUS" value={venda.VED_CBSCREDPRESSUS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="DEVOLUÇÃO" name="VED_CBSDEVOLUCAO" value={venda.VED_CBSDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="DIFERIMENTO" name="VED_CBSDIFERIMENTO" value={venda.VED_CBSDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO" name="VED_CBSMONO" value={venda.VED_CBSMONO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETENÇÃO" name="VED_CBSMONORETENCAO" value={venda.VED_CBSMONORETENCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETIDO" name="VED_CBSMONORETIDO" value={venda.VED_CBSMONORETIDO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL CBS" name="VED_CBSVALOR" value={venda.VED_CBSVALOR} readOnly disabled/>
+                            </div>
+
+                            <strong>IBS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO" name="VED_IBSCREDPRES" value={venda.VED_IBSCREDPRES} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO SUSP." name="VED_IBSCREDPRESSUS" value={venda.VED_IBSCREDPRESSUS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. DEVOLUÇÃO" name="VED_IBSMUNDEVOLUCAO" value={venda.VED_IBSMUNDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. DIFERIMENTO" name="VED_IBSMUNDIFERIMENTO" value={venda.VED_IBSMUNDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. VALOR" name="VED_IBSMUNVALOR" value={venda.VED_IBSMUNVALOR} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. DEVOLUÇÃO" name="VED_IBSUFDEVOLUCAO" value={venda.VED_IBSUFDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. DIFERIMENTO" name="VED_IBSUFDIFERIMENTO" value={venda.VED_IBSUFDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. VALOR" name="VED_IBSUFVALOR" value={venda.VED_IBSUFVALOR} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO" name="VED_IBSMONO" value={venda.VED_IBSMONO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETENÇÃO" name="VED_IBSMONORETENCAO" value={venda.VED_IBSMONORETENCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETIDO" name="VED_IBSMONORETIDO" value={venda.VED_IBSMONORETIDO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL IBS" name="VED_IBSVALOR" value={venda.VED_IBSVALOR} readOnly disabled/>
                             </div>
                         </PettTabPanel>
                     </PettTab>
@@ -779,6 +891,7 @@ function Vendas() {
         <NaturezasLoc showModal={showNaturezasLoc} onCloseModal={(data) => { selecionar(data, setVenda, mapaNaturezas); setShowNaturezasLoc(false); }}/>
         <VendedoresLoc showModal={showVendedoresLoc} onCloseModal={(data) => { selecionar(data, setVenda, mapaVendedores); setShowVendedoresLoc(false); }}/>
         <VendedoresLoc showModal={showExpedidoresLoc} onCloseModal={(data) => { selecionar(data, setVenda, mapaExpedidores); setShowExpedidoresLoc(false); }}/>
+        <VendedoresLoc showModal={showRepresentantesLoc} onCloseModal={(data) => { selecionar(data, setVenda, mapaRepresentantes); setShowRepresentantesLoc(false); }}/>
         <VendasItens showModal={showItem} onCloseModal={itemClose} venda={venda} item={vendaItem} />
     </>
 }

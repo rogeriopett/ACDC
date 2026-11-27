@@ -3304,7 +3304,7 @@ object FormVendas: TFormVendas
     Top = 92
     Width = 845
     Height = 436
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
     OnChange = PageControl1Change

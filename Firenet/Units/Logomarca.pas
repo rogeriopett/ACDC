@@ -11,31 +11,20 @@ uses
 
 type
   TFormLogomarca = class(TForm)
-    PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    Image1: TImage;
-    Label1: TLabel;
-    Bevel1: TBevel;
-    PngBitBtn1: TPngBitBtn;
-    PngBitBtn2: TPngBitBtn;
-    PngBitBtn3: TPngBitBtn;
     OpenPictureDialog1: TOpenPictureDialog;
+    OpenDialog1: TOpenDialog;
     Label2: TLabel;
-    Image2: TImage;
     Bevel2: TBevel;
+    Image2: TImage;
     PngBitBtn4: TPngBitBtn;
     PngBitBtn5: TPngBitBtn;
     PngBitBtn6: TPngBitBtn;
-    OpenDialog1: TOpenDialog;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
-    procedure PngBitBtn1Click(Sender: TObject);
-    procedure PngBitBtn3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure PngBitBtn2Click(Sender: TObject);
     procedure PngBitBtn4Click(Sender: TObject);
     procedure PngBitBtn5Click(Sender: TObject);
+    procedure PngBitBtn6Click(Sender: TObject);
   private
     { Private declarations }
     ArquivoSVG: String; //arquivo .svg selecionado e ainda nao gravado.
@@ -55,9 +44,7 @@ uses DataMod, Main, Funcoes1, System.IOUtils;
 
 procedure TFormLogomarca.FormCreate(Sender: TObject);
 begin
-  PngBitBtn2.Enabled:=False;
   PngBitBtn5.Enabled:=False;
-  PageControl1.ActivePageIndex:=0;
 end;
 
 procedure TFormLogomarca.FormKeyPress(Sender: TObject; var Key: Char);
@@ -71,58 +58,7 @@ end;
 
 procedure TFormLogomarca.FormShow(Sender: TObject);
 begin
-  Pasta:=IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value);
-  if not DirectoryExists(Pasta) then
-  ForceDirectories(Pasta);
-
-  if FileExists(Pasta+'Logomarca.png') then
-  Image1.Picture.LoadFromFile(Pasta+'Logomarca.png') else
-  Image1.Picture:=Image1.Picture;
-
   MostrarSVGGravado;
-end;
-
-procedure TFormLogomarca.PngBitBtn1Click(Sender: TObject);
-begin
-  if OpenPictureDialog1.Execute then
-  begin
-    if not ChecarTamanhoImagem(700,400,OpenPictureDialog1.FileName) then
-    begin
-      MessageDlg('A imagem informada não tem as dimensões de 700x400 pixels.',mtError,[mbOk],0);
-      Exit;
-    end;
-
-    Image1.Picture.LoadFromFile(OpenPictureDialog1.FileName);
-    PngBitBtn2.Enabled:=True;
-  end;
-end;
-
-procedure TFormLogomarca.PngBitBtn2Click(Sender: TObject);
-var Arquivo: String;
-begin
-  Pasta:=DM.TBParametrosPAR_LOCALLOGOMARCA.Value;
-  if not DirectoryExists(Pasta) then
-  ForceDirectories(Pasta);
-
-  if OpenPictureDialog1.FileName<>'' then
-  begin
-    if not ChecarTamanhoImagem(700,400,OpenPictureDialog1.FileName) then
-    begin
-      MessageDlg('A imagem informada não tem as dimensões de 700x400 pixels.',mtError,[mbOk],0);
-      Exit;
-    end;
-
-    Arquivo:='Logomarca.png';
-    CopyFile(PChar(OpenPictureDialog1.FileName),PChar(Pasta+Arquivo),False);
-    FormMain.Image1.Picture.LoadFromFile(IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value)+'Logomarca.png');
-    Application.ProcessMessages;
-    Close;
-  end;
-end;
-
-procedure TFormLogomarca.PngBitBtn3Click(Sender: TObject);
-begin
-  Close;
 end;
 
 //O arquivo precisa ser um SVG e nao pode ter script (o Brian e o Angus mostram essa logo no navegador).
@@ -202,6 +138,11 @@ begin
   ArquivoSVG:='';
   PngBitBtn5.Enabled:=False;
   MessageDlg('Logomarca SVG gravada.',mtInformation,[mbOk],0);
+  Close;
+end;
+
+procedure TFormLogomarca.PngBitBtn6Click(Sender: TObject);
+begin
   Close;
 end;
 

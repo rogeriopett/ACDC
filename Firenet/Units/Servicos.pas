@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, Grids, DBGrids, Mask, ComCtrls, Buttons,
   Menus, DBSBtn, ExtCtrls, DB, ImgList, PngImageList, PngSpeedButton, PngBitBtn,
-  System.ImageList, System.UITypes, QRPDFFilt, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  System.ImageList, System.UITypes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
 
@@ -709,7 +709,7 @@ begin
     DM.TBVendasVED_BASEICMSST.Value             :=DM.TBServicosSER_BASEICMSST.Value;
     DM.TBVendasVED_BASEII.Value                 :=0; //DM.TBServicosSER_BASEII.Value;
     DM.TBVendasVED_BASEIPI.Value                :=DM.TBServicosSER_BASEIPI.Value;
-    DM.TBVendasVED_BASEIS.Value                 :=0; //DM.TBServicosSER_BASEIS.Value;
+    DM.TBVendasVED_BASEIS.Value                 :=DM.TBServicosSER_BASEIS.Value;
     DM.TBVendasVED_BASEISS.Value                :=DM.TBServicosSER_BASEISS.Value;
     DM.TBVendasVED_BASEPIS.Value                :=DM.TBServicosSER_BASEPIS.Value;
     DM.TBVendasVED_BASEPISST.Value              :=DM.TBServicosSER_BASEPISST.Value;
@@ -722,7 +722,7 @@ begin
     DM.TBVendasVED_CBSMONORETIDO.Value          :=DM.TBServicosSER_CBSMONORETIDO.Value;
     DM.TBVendasVED_CBSVALOR.Value               :=DM.TBServicosSER_CBSVALOR.Value;
     DM.TBVendasVED_CEP.Value                    :=DM.TBClientesCLI_CEP.Value;
-    DM.TBVendasVED_CFOP.Value                   :=DM.TBParametrosPAR_CFOPPADRAO.Value;
+    DM.TBVendasVED_CFOP.Value                   :=DM.TBServicosSER_CFOP.Value; //no after insert é preenchido esse CFOP.
     //DM.TBVendasVED_CFOPDESC.Value               :=
     DM.TBVendasVED_CIDADE.Value                 :=DM.TBClientesCLI_CIDADE.Value;
     DM.TBVendasVED_CIDADECODIGO.Value           :=DM.TBClientesCLI_CIDADECODIGO.Value;
@@ -732,6 +732,7 @@ begin
     //QYVendasVED_CODIMPORTACAO.Value             :=DM.TBVendasVED_CODIMPORTACAO.Value;
     DM.TBVendasVED_COMISSAO.Value               :=DM.TBServicosSER_COMISSAO.Value;
     //DM.TBVendasVED_COMISSAOPOR.Value            := nao tem
+    DM.TBVendasVED_COMISSAOREP.Value            :=DM.TBServicosSER_COMISSAO.Value;
     DM.TBVendasVED_COMPLEMENTO.Value            :=DM.TBClientesCLI_COMPLEMENTO.Value;
     DM.TBVendasVED_CONDICAO.Value               :=DM.TBClientesCLI_CONDICAO.Value;
     //DM.TBVendasVED_CONDICAOMEMO.Value           :=
@@ -801,7 +802,7 @@ begin
     DM.TBVendasVED_NOTACREDITO.Value            :='00 - NENHUM'; //DM.TBServicosSER_NOTACREDITO.Value;
     DM.TBVendasVED_NOTADEBITO.Value             :='00 - NENHUM'; //DM.TBServicosSER_NOTADEBITO.Value;
     DM.TBVendasVED_NUMERO.Value                 :=DM.TBClientesCLI_NUMERO.Value;
-    //DM.TBVendasVED_OBSERVACOES.Value            :=
+    DM.TBVendasVED_OBSERVACOES.Value            :=DM.TBServicosSER_OBSERVACOES.Value;
     DM.TBVendasVED_PAIS.Value                   :=DM.TBClientesCLI_PAIS.Value;
     DM.TBVendasVED_PAISCODIGO.Value             :=DM.TBClientesCLI_PAISCODIGO.Value;
 //    DM.TBVendasVED_PEDIDOCLIENTE.Value          :=
@@ -811,6 +812,7 @@ begin
     //DM.TBVendasVED_REBOQUEPLACA.Value           :=DM.TBVendasVED_REBOQUEPLACA.Value;
     //DM.TBVendasVED_REBOQUEPLACAUF.Value         :=DM.TBVendasVED_REBOQUEPLACAUF.Value;
 //    DM.TBVendasVED_REBOQUERNTC.Value            :=DM.TBVendasVED_REBOQUERNTC.Value;
+    DM.TBVendasVED_REPRESENTANTE.Value          :=DM.TBServicosSER_TECNICO.Value;
     DM.TBVendasVED_RG.Value                     :=DM.TBClientesCLI_RG.Value;
     DM.TBVendasVED_SEQUENCIAITEM.Value          :=DM.TBServicosSER_SEQUENCIAITEM.Value;
     //DM.TBVendasVED_STATUS.Value                 :=
@@ -823,7 +825,8 @@ begin
     DM.TBVendasVED_TOTALBRUTO.Value             :=DM.TBServicosSER_TOTALBRUTO.Value;
     DM.TBVendasVED_TOTALCOFINS.Value            :=DM.TBServicosSER_TOTALCOFINS.Value;
     DM.TBVendasVED_TOTALCOFINSST.Value          :=DM.TBServicosSER_TOTALCOFINSST.Value;
-    //DM.TBVendasVED_TOTALCOMISSAO.Value          := nao tem
+    DM.TBVendasVED_TOTALCOMISSAO.Value          :=DM.TBServicosSER_TOTALCOMISSAO.Value;
+    DM.TBVendasVED_TOTALCOMISSAOREP.Value       :=DM.TBServicosSER_TOTALCOMISSAO.Value;
     DM.TBVendasVED_TOTALFCP.Value               :=DM.TBServicosSER_TOTALFCP.Value;
     DM.TBVendasVED_TOTALFCPST.Value             :=DM.TBServicosSER_TOTALFCPST.Value;
     DM.TBVendasVED_TOTALICMS.Value              :=DM.TBServicosSER_TOTALICMS.Value;
@@ -862,9 +865,9 @@ begin
     //DM.TBVendasVED_TRANSPNOME.Value             := nao tem
     //DM.TBVendasVED_TRANSPORTADORA.Value         := nao tem
     //DM.TBVendasVED_USUARIO.Value                :=
-    //DM.TBVendasVED_VALORDESPACES.Value          := nao tem
-    //DM.TBVendasVED_VALORFRETE.Value             := nao tem
-    //DM.TBVendasVED_VALORSEGURO.Value            := nao tem
+    DM.TBVendasVED_VALORDESPACES.Value          :=DM.TBServicosSER_VALORDESPACES.Value;
+    DM.TBVendasVED_VALORFRETE.Value             :=DM.TBServicosSER_VALORFRETE.Value;
+    DM.TBVendasVED_VALORSEGURO.Value            :=DM.TBServicosSER_VALORSEGURO.Value;
     DM.TBVendasVED_VALORTOTAL.Value             :=DM.TBServicosSER_VALORTOTAL.Value;
     DM.TBVendasVED_VALORTOTALRTC.Value          :=DM.TBServicosSER_VALORTOTALRTC.Value;
     //DM.TBVendasVED_VEICULOPLACA.Value           :=
@@ -909,7 +912,7 @@ begin
         DM.TBVendasItensVEI_ALIQICMSRED.Value        :=DM.TBServicosItensSEI_ALIQICMSRED.Value;
         DM.TBVendasItensVEI_ALIQICMSST.Value         :=DM.TBServicosItensSEI_ALIQICMSST.Value;
         DM.TBVendasItensVEI_ALIQICMSSTRET.Value      :=DM.TBServicosItensSEI_ALIQICMSSTRET.Value;
-        DM.TBVendasItensVEI_ALIQII.Value             :=DM.TBServicosItensSEI_ALIQIPI.Value;
+        DM.TBVendasItensVEI_ALIQII.Value             :=0; //DM.TBServicosItensSEI_ALIQII.Value;
         DM.TBVendasItensVEI_ALIQIPI.Value            :=DM.TBServicosItensSEI_ALIQIPI.Value;
         DM.TBVendasItensVEI_ALIQIS.Value             :=DM.TBServicosItensSEI_ALIQIS.Value;
         DM.TBVendasItensVEI_ALIQISESP.Value          :=DM.TBServicosItensSEI_ALIQISESP.Value;
@@ -924,7 +927,7 @@ begin
         DM.TBVendasItensVEI_BASEICMSRED.Value        :=DM.TBServicosItensSEI_BASEICMSRED.Value;
         DM.TBVendasItensVEI_BASEICMSST.Value         :=DM.TBServicosItensSEI_BASEICMSST.Value;
         DM.TBVendasItensVEI_BASEICMSSTRET.Value      :=0; //DM.TBServicosItensSEI_BASEICMSSTRET.Value;
-        DM.TBVendasItensVEI_BASEII.Value             :=DM.TBServicosItensSEI_BASEIPI.Value;
+        DM.TBVendasItensVEI_BASEII.Value             :=0; //DM.TBServicosItensSEI_BASEII.Value;
         DM.TBVendasItensVEI_BASEIPI.Value            :=DM.TBServicosItensSEI_BASEIPI.Value;
         DM.TBVendasItensVEI_BASEIS.Value             :=DM.TBServicosItensSEI_BASEIS.Value;
         DM.TBVendasItensVEI_BASEISS.Value            :=DM.TBServicosItensSEI_BASEISS.Value;
@@ -942,6 +945,7 @@ begin
         DM.TBVendasItensVEI_CODIGOBARRAS.Value       :=DM.TBServicosItensSEI_CODIGOBARRAS.Value;
         DM.TBVendasItensVEI_CODIGOFAB.Value          :=DM.TBServicosItensSEI_CODIGOFAB.Value;
         DM.TBVendasItensVEI_COMISSAO.Value           :=DM.TBServicosItensSEI_COMISSAO.Value;
+        DM.TBVendasItensVEI_COMISSAOREP.Value        :=DM.TBServicosItensSEI_COMISSAO.Value; //o mesmo
         DM.TBVendasItensVEI_COMPLEMENTO.Value        :=DM.TBServicosItensSEI_COMPLEMENTO.Value;
         DM.TBVendasItensVEI_COMPOEBASEICMS.Value     :=DM.TBServicosItensSEI_COMPOEBASEICMS.Value;
         DM.TBVendasItensVEI_COMPOEBASEICMSST.Value   :=DM.TBServicosItensSEI_COMPOEBASEICMSST.Value;
@@ -1019,6 +1023,7 @@ begin
         DM.TBVendasItensVEI_VALORCOFINS.Value        :=DM.TBServicosItensSEI_VALORCOFINS.Value;
         DM.TBVendasItensVEI_VALORCOFINSST.Value      :=DM.TBServicosItensSEI_VALORCOFINSST.Value;
         DM.TBVendasItensVEI_VALORCOMISSAO.Value      :=DM.TBServicosItensSEI_VALORCOMISSAO.Value;
+        DM.TBVendasItensVEI_VALORCOMISSAOREP.Value   :=DM.TBServicosItensSEI_VALORCOMISSAO.Value;
         DM.TBVendasItensVEI_VALORFCP.Value           :=DM.TBServicosItensSEI_VALORFCP.Value;
         DM.TBVendasItensVEI_VALORFCPST.Value         :=DM.TBServicosItensSEI_VALORFCPST.Value;
         DM.TBVendasItensVEI_VALORFRETE.Value         :=DM.TBServicosItensSEI_VALORFRETE.Value;
@@ -1062,11 +1067,15 @@ begin
         DM.TBVendasItensVEI_VALORUNIT.Value          :=DM.TBServicosItensSEI_VALORUNIT.Value;
         //DM.TBVendasItensVEI_VENDA.Value:=
 
+        DM.TBVendasItensNAT_CALCULACOMISSAO.Value    :=DM.TBServicosItensNAT_CALCULACOMISSAO.Value;
+        DM.TBVendasItensNAT_CALCULACREDITOSN.Value   :=DM.TBServicosItensNAT_CALCULACREDITOSN.Value;
+
         DM.TBVendasItens.Post;
       end;
       DM.TBServicosItens.Next;
     end;
     //...
+    DM.CalcularTotaisVenda(True);
 
     MessageDlg('Baixa OK. Um novo pedido de venda foi gerado. A tela de pedido de venda será aberta.',mtInformation,[mbOk],0);
     if PedidodeVendas1.Enabled then
@@ -1323,7 +1332,6 @@ end;
 
 procedure TFormServicos.GerarEmailOrdemServico;
 var MM: TMemo;
-  PDFFilter: TQRPDFDocumentFilter;
   ArquivoPDF: String;
 begin
   DM.TBClientes.Close;

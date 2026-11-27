@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorios no FastReport (FormVeiculosVendaFast, VEV01 a VEV04); os QuickReports (FormVeiculosVendaQ01 a Q04) ficaram comentados.
 unit VeiculosVendaRel;
 
 interface
@@ -28,8 +30,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure Edit1Exit(Sender: TObject);
-    procedure Edit1KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure SpeedButton1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
@@ -45,8 +46,7 @@ var
   FormVeiculosVendaRel: TFormVeiculosVendaRel;
 
 implementation
-uses VeiculosVendaQ01, VeiculosVendaQ02, VeiculosVendaQ03, Funcoes1,
-  DataMod, VeiculosVendaQ04, DataMod2, DataModSearch, FuncoesFirenet;
+uses DataMod, DataMod2, DataModSearch, FuncoesFirenet, Funcoes1, VeiculosVendaFast;
 
 {$R *.dfm}
 
@@ -74,62 +74,102 @@ begin
 end;
 
 procedure TFormVeiculosVendaRel.BitBtn1Click(Sender: TObject);
+var Where: String;
 begin
   case ComboBox1.ItemIndex of
     00: begin
-          Application.CreateForm(TFormVeiculosVendaQ01, FormVeiculosVendaQ01);
-          FormVeiculosVendaQ01.FDQuery1.Open;
-          FormVeiculosVendaQ01.QuickRep1.PreviewModal;
-          FormVeiculosVendaQ01.Free;
-          FormVeiculosVendaQ01:=nil;
+          //QuickReport antigo (FormVeiculosVendaQ01), trocado pelo FastReport (FormVeiculosVendaFast, VEV01) em 2026.11.24:
+          //Application.CreateForm(TFormVeiculosVendaQ01, FormVeiculosVendaQ01);
+          //FormVeiculosVendaQ01.FDQuery1.Open;
+          //FormVeiculosVendaQ01.QuickRep1.PreviewModal;
+          //FormVeiculosVendaQ01.Free;
+          //FormVeiculosVendaQ01:=nil;
+          Application.CreateForm(TFormVeiculosVendaFast, FormVeiculosVendaFast);
+          FormVeiculosVendaFast.QY01.Open;
+          FormVeiculosVendaFast.Mostrar(FormVeiculosVendaFast.frxReport1,'Veículos à venda');
+          FormVeiculosVendaFast.Free;
+          FormVeiculosVendaFast:=nil;
         end;
     01: begin
-          Application.CreateForm(TFormVeiculosVendaQ02, FormVeiculosVendaQ02);
-          FormVeiculosVendaQ02.FDQuery1.Close;
-          FormVeiculosVendaQ02.FDQuery1.SQL.Clear;
-          if Edit2.Text='' then
-          FormVeiculosVendaQ02.FDQuery1.SQL.Add('select VEV_VENDEDOR, VEV_ANOFAB, VEV_ANOMOD, VEV_PLACA, VEV_DTVENDA, VEV_VALORVENDIDO, '+
-                                                'VEL_DESCRICAO, CLI_NOME, VEN_NOME, VEV_VALORVENDIDO - (VEV_VALORCOMPRA+VEV_DESPESAS) as LUCRO from VEICULOSVENDA '+
-                                                'left join VEICULOS on VEV_VEICULO=VEL_CODIGO '+
-                                                'left join CLIENTES on VEV_CLIENTE=CLI_CODIGO '+
-                                                'left join VENDEDORES on VEV_VENDEDOR=VEN_CODIGO '+
-                                                'where VEV_DTVENDA between :datainicial and :datafinal and VEV_STATUS=''V'' '+
-                                                'order by VEN_NOME, VEV_DTVENDA desc') else
-          FormVeiculosVendaQ02.FDQuery1.SQL.Add('select VEV_VENDEDOR, VEV_ANOFAB, VEV_ANOMOD, VEV_PLACA, VEV_DTVENDA, VEV_VALORVENDIDO, '+
-                                                'VEL_DESCRICAO, CLI_NOME, VEN_NOME, VEV_VALORVENDIDO - (VEV_VALORCOMPRA+VEV_DESPESAS) as LUCRO from VEICULOSVENDA '+
-                                                'left join VEICULOS on VEV_VEICULO=VEL_CODIGO '+
-                                                'left join CLIENTES on VEV_CLIENTE=CLI_CODIGO '+
-                                                'left join VENDEDORES on VEV_VENDEDOR=VEN_CODIGO '+
-                                                'where VEV_DTVENDA between :datainicial and :datafinal and VEV_STATUS=''V'' '+
-                                                'and VEV_VENDEDOR='+QuotedStr(Edit1.Text)+' '+
-                                                'order by VEN_NOME, VEV_DTVENDA desc');
-          FormVeiculosVendaQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
-          FormVeiculosVendaQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
-          FormVeiculosVendaQ02.FDQuery1.Open;
-          FormVeiculosVendaQ02.QuickRep1.PreviewModal;
-          FormVeiculosVendaQ02.Free;
-          FormVeiculosVendaQ02:=nil;
+          //QuickReport antigo (FormVeiculosVendaQ02), trocado pelo FastReport (FormVeiculosVendaFast, VEV02) em 2026.11.24:
+          //Application.CreateForm(TFormVeiculosVendaQ02, FormVeiculosVendaQ02);
+          //FormVeiculosVendaQ02.FDQuery1.Close;
+          //FormVeiculosVendaQ02.FDQuery1.SQL.Clear;
+          //if Edit2.Text='' then
+          //FormVeiculosVendaQ02.FDQuery1.SQL.Add('select VEV_VENDEDOR, VEV_ANOFAB, VEV_ANOMOD, VEV_PLACA, VEV_DTVENDA, VEV_VALORVENDIDO, '+
+          //                                      'VEL_DESCRICAO, CLI_NOME, VEN_NOME, VEV_VALORVENDIDO - (VEV_VALORCOMPRA+VEV_DESPESAS) as LUCRO from VEICULOSVENDA '+
+          //                                      'left join VEICULOS on VEV_VEICULO=VEL_CODIGO '+
+          //                                      'left join CLIENTES on VEV_CLIENTE=CLI_CODIGO '+
+          //                                      'left join VENDEDORES on VEV_VENDEDOR=VEN_CODIGO '+
+          //                                      'where VEV_DTVENDA between :datainicial and :datafinal and VEV_STATUS=''V'' '+
+          //                                      'order by VEN_NOME, VEV_DTVENDA desc') else
+          //FormVeiculosVendaQ02.FDQuery1.SQL.Add('select VEV_VENDEDOR, VEV_ANOFAB, VEV_ANOMOD, VEV_PLACA, VEV_DTVENDA, VEV_VALORVENDIDO, '+
+          //                                      'VEL_DESCRICAO, CLI_NOME, VEN_NOME, VEV_VALORVENDIDO - (VEV_VALORCOMPRA+VEV_DESPESAS) as LUCRO from VEICULOSVENDA '+
+          //                                      'left join VEICULOS on VEV_VEICULO=VEL_CODIGO '+
+          //                                      'left join CLIENTES on VEV_CLIENTE=CLI_CODIGO '+
+          //                                      'left join VENDEDORES on VEV_VENDEDOR=VEN_CODIGO '+
+          //                                      'where VEV_DTVENDA between :datainicial and :datafinal and VEV_STATUS=''V'' '+
+          //                                      'and VEV_VENDEDOR='+QuotedStr(Edit1.Text)+' '+
+          //                                      'order by VEN_NOME, VEV_DTVENDA desc');
+          //FormVeiculosVendaQ02.FDQuery1.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          //FormVeiculosVendaQ02.FDQuery1.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          //FormVeiculosVendaQ02.FDQuery1.Open;
+          //FormVeiculosVendaQ02.QuickRep1.PreviewModal;
+          //FormVeiculosVendaQ02.Free;
+          //FormVeiculosVendaQ02:=nil;
+          Where:='';
+          if Edit2.Text<>'' then Where:=' and VEV_VENDEDOR='+QuotedStr(Edit1.Text);
+          Application.CreateForm(TFormVeiculosVendaFast, FormVeiculosVendaFast);
+          FormVeiculosVendaFast.QY02.SQL.Clear;
+          FormVeiculosVendaFast.QY02.SQL.Add(
+            'select VEV_VENDEDOR, VEV_ANOFAB, VEV_ANOMOD, VEV_PLACA, VEV_DTVENDA, VEV_VALORVENDIDO, VEL_DESCRICAO, CLI_NOME, VEN_NOME, '+
+            'VEV_VALORVENDIDO - (VEV_VALORCOMPRA+VEV_DESPESAS) as LUCRO '+
+            'from VEICULOSVENDA '+
+            'left join VEICULOS on VEV_VEICULO=VEL_CODIGO '+
+            'left join CLIENTES on VEV_CLIENTE=CLI_CODIGO '+
+            'left join VENDEDORES on VEV_VENDEDOR=VEN_CODIGO '+
+            'where VEV_DTVENDA between :datainicial and :datafinal and VEV_STATUS=''V'' '+Where+' '+
+            'order by VEN_NOME, VEV_DTVENDA desc ');
+          FormVeiculosVendaFast.QY02.ParamByName('datainicial').AsDate:=StrToDate(MaskEdit1.Text,FS);
+          FormVeiculosVendaFast.QY02.ParamByName('datafinal').AsDate:=StrToDate(MaskEdit2.Text,FS);
+          FormVeiculosVendaFast.QY02.Open;
+          FormVeiculosVendaFast.Mostrar(FormVeiculosVendaFast.frxReport2,'Veículos vendidos de '+MaskEdit1.Text+' até '+MaskEdit2.Text);
+          FormVeiculosVendaFast.Free;
+          FormVeiculosVendaFast:=nil;
         end;
     02: begin
+          //QuickReport antigo (FormVeiculosVendaQ03), trocado pelo FastReport (FormVeiculosVendaFast, VEV03) em 2026.11.24:
+          //AbortIf(DM2.TBVeiculosVenda.IsEmpty,'Nenhum veículo selecionado.');
+          //AbortIf(DM2.TBVeiculosVendaVEV_STATUS.Value='A','Este veículo ainda não foi vendido.');
+          //Application.CreateForm(TFormVeiculosVendaQ03, FormVeiculosVendaQ03);
+          //FormVeiculosVendaQ03.QRLabel12.Caption:='Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value);
+          //FormVeiculosVendaQ03.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBVeiculosVendaVEV_CODIGO.Value;
+          //FormVeiculosVendaQ03.FDQuery1.Open;
+          //FormVeiculosVendaQ03.QuickRep1.PreviewModal;
+          //FormVeiculosVendaQ03.Free;
+          //FormVeiculosVendaQ03:=nil;
           AbortIf(DM2.TBVeiculosVenda.IsEmpty,'Nenhum veículo selecionado.');
           AbortIf(DM2.TBVeiculosVendaVEV_STATUS.Value='A','Este veículo ainda não foi vendido.');
-
-          Application.CreateForm(TFormVeiculosVendaQ03, FormVeiculosVendaQ03);
-          FormVeiculosVendaQ03.QRLabel12.Caption:='Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value);
-          FormVeiculosVendaQ03.FDQuery1.ParamByName('codigo').AsInteger:=DM2.TBVeiculosVendaVEV_CODIGO.Value;
-          FormVeiculosVendaQ03.FDQuery1.Open;
-          FormVeiculosVendaQ03.QuickRep1.PreviewModal;
-          FormVeiculosVendaQ03.Free;
-          FormVeiculosVendaQ03:=nil;
+          Application.CreateForm(TFormVeiculosVendaFast, FormVeiculosVendaFast);
+          FormVeiculosVendaFast.PrepararFicha(DM2.TBVeiculosVendaVEV_CODIGO.Value);
+          FormVeiculosVendaFast.Mostrar(FormVeiculosVendaFast.frxReport3,'Ficha de venda de veículo - '+IntToStr(DM2.TBVeiculosVendaVEV_CODIGO.Value));
+          FormVeiculosVendaFast.Free;
+          FormVeiculosVendaFast:=nil;
         end;
     03: begin
-          Application.CreateForm(TFormVeiculosVendaQ04, FormVeiculosVendaQ04);
-//          FormVeiculosVendaQ04.QRLabel13.Caption:='Ficha de venda de veículo - '+IntToStr(DM.TBVeiculosVendaVEV_CODIGO.Value);
-//          FormVeiculosVendaQ04.FDQuery1.ParamByName('codigo').AsInteger:=DM.TBVeiculosVendaVEV_CODIGO.Value;
-          FormVeiculosVendaQ04.FDQuery1.Open;
-          FormVeiculosVendaQ04.QuickRep1.PreviewModal;
-          FormVeiculosVendaQ04.Free;
-          FormVeiculosVendaQ04:=nil;
+          //QuickReport antigo (FormVeiculosVendaQ04), trocado pelo FastReport (FormVeiculosVendaFast, VEV04) em 2026.11.24:
+          //Application.CreateForm(TFormVeiculosVendaQ04, FormVeiculosVendaQ04);
+////          FormVeiculosVendaQ04.QRLabel13.Caption:='Ficha de venda de veículo - '+IntToStr(DM.TBVeiculosVendaVEV_CODIGO.Value);
+////          FormVeiculosVendaQ04.FDQuery1.ParamByName('codigo').AsInteger:=DM.TBVeiculosVendaVEV_CODIGO.Value;
+          //FormVeiculosVendaQ04.FDQuery1.Open;
+          //FormVeiculosVendaQ04.QuickRep1.PreviewModal;
+          //FormVeiculosVendaQ04.Free;
+          //FormVeiculosVendaQ04:=nil;
+          Application.CreateForm(TFormVeiculosVendaFast, FormVeiculosVendaFast);
+          FormVeiculosVendaFast.QY04.Open;
+          FormVeiculosVendaFast.Mostrar(FormVeiculosVendaFast.frxReport4,'Custo total dos veículos à venda');
+          FormVeiculosVendaFast.Free;
+          FormVeiculosVendaFast:=nil;
         end;
   end;
 end;
@@ -144,8 +184,7 @@ begin
   LocVendedoresExit(Edit1,Edit2,nil);
 end;
 
-procedure TFormVeiculosVendaRel.Edit1KeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+procedure TFormVeiculosVendaRel.Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (not (ssCTRL in Shift)) and (Key=VK_RETURN) then
   Perform(WM_NEXTDLGCTL,0,0);

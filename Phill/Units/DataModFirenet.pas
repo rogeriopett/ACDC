@@ -1,3 +1,9 @@
+//Atualizacoes:
+//2026.11.23 - Representante e comissao do representante (VED_/NFE_REPRESENTANTE, *_COMISSAOREP, *_TOTALCOMISSAOREP, *_VALORCOMISSAOREP) nas vendas e NF-e; CalcularTotaisVenda/VendaItens como no DataMod do Firenet (comissao do representante e credito SN pelo TBIcms).
+//2026.11.23 - CalcularTotaisNFe, CalcularTotaisNFeItens (TBNfeItensBeforePost) e SimularCondicaoNfe trazidas do DataMod do Firenet; NFE_BASEIRRF/NFE_TOTALIRRF e CPG_SOMENTEDIASUTEIS no TBNfe/TBCondicoes e vencimento em dia util no SimularCondicaoVenda, como no Firenet.
+//2026.11.23 - TBNfeAfterInsert e TBNfeItensAfterInsert trazidos do DataMod do Firenet; AbrirEmpresaParametros (EMPRESA e PARAMETROS codigo 1, como no Firenet) chamado nos calculos e nos AfterInsert.
+//2026.11.23 - TBVendasAfterInsert e TBVendasItensAfterInsert atualizados pelo DataMod do Firenet (padroes e zeros da reforma tributaria, DAV, ente governamental, nota de debito/credito, campos NAT_ do join etc.).
+//2026.11.23 - TBNfe traz o nome do representante (VEN_NOME2), como o TBVendas.
 unit DataModFirenet;
 
 interface
@@ -13,21 +19,19 @@ uses
 type
   TDMFirenet = class(TDataModule)
     DSCondicoes: TDataSource;
-    DSMarkups: TDataSource;
     DSConsultas: TDataSource;
-    DSVendas: TDataSource;
-    DSProdutos: TDataSource;
+    DSMarkups: TDataSource;
     DSNfe: TDataSource;
+    DSProdutos: TDataSource;
+    DSVendas: TDataSource;
     FDConnection1: TFDConnection;
+    FDQuery1: TFDQuery;
+    FDTransaction1: TFDTransaction;
+    FDUpdateSQL1: TFDUpdateSQL;
     Query1: TFDQuery;
-    TRQuery1: TFDTransaction;
     Query2: TFDQuery;
-    TRQuery2: TFDTransaction;
     Query3: TFDQuery;
-    TRQuery3: TFDTransaction;
     TBAgrupadores: TFDQuery;
-    TRAgrupadores: TFDTransaction;
-    UPAgrupadores: TFDUpdateSQL;
     TBAgrupadoresAGR_CODIGO: TIntegerField;
     TBAgrupadoresAGR_DESCRICAO: TStringField;
     TBAgrupadoresAGR_DTATUALIZACAO: TDateField;
@@ -35,12 +39,7 @@ type
     TBAgrupadoresAGR_HRATUALIZACAO: TTimeField;
     TBAgrupadoresAGR_HRCADASTRO: TTimeField;
     TBAgrupadoresAGR_USUARIO: TStringField;
-    FDQuery1: TFDQuery;
-    FDTransaction1: TFDTransaction;
-    FDUpdateSQL1: TFDUpdateSQL;
     TBAliquotas: TFDQuery;
-    TRAliquotas: TFDTransaction;
-    UPAliquotas: TFDUpdateSQL;
     TBAliquotasALI_ALIQCBS: TFMTBCDField;
     TBAliquotasALI_ALIQFCP: TFMTBCDField;
     TBAliquotasALI_ALIQFCPST: TFMTBCDField;
@@ -56,8 +55,6 @@ type
     TBAliquotasALI_IEST: TStringField;
     TBAliquotasALI_NOMEESTADO: TStringField;
     TBAlmoxarifados: TFDQuery;
-    TRAlmoxarifados: TFDTransaction;
-    UPAlmoxarifados: TFDUpdateSQL;
     TBAlmoxarifadosALM_CODIGO: TIntegerField;
     TBAlmoxarifadosALM_DESCRICAO: TStringField;
     TBAlmoxarifadosALM_DTATUALIZACAO: TDateField;
@@ -67,8 +64,6 @@ type
     TBAlmoxarifadosALM_STATUS: TStringField;
     TBAlmoxarifadosALM_USUARIO: TStringField;
     TBAtividades: TFDQuery;
-    TRAtividades: TFDTransaction;
-    UPAtividades: TFDUpdateSQL;
     TBAtividadesATI_CODIGO: TIntegerField;
     TBAtividadesATI_DESCRICAO: TStringField;
     TBAtividadesATI_DTATUALIZACAO: TDateField;
@@ -77,8 +72,6 @@ type
     TBAtividadesATI_HRCADASTRO: TTimeField;
     TBAtividadesATI_USUARIO: TStringField;
     TBBancos: TFDQuery;
-    TRBancos: TFDTransaction;
-    UPBancos: TFDUpdateSQL;
     TBBancosBAN_CODIGO: TIntegerField;
     TBBancosBAN_DTATUALIZACAO: TDateField;
     TBBancosBAN_DTCADASTRO: TDateField;
@@ -88,8 +81,6 @@ type
     TBBancosBAN_STATUS: TStringField;
     TBBancosBAN_USUARIO: TStringField;
     TBBeneficios: TFDQuery;
-    TRBeneficios: TFDTransaction;
-    UPBeneficios: TFDUpdateSQL;
     TBBeneficiosBEN_CODIGO: TStringField;
     TBBeneficiosBEN_DESCRICAO: TMemoField;
     TBBeneficiosBEN_DTATUALIZACAO: TDateField;
@@ -99,8 +90,6 @@ type
     TBBeneficiosBEN_TIPO: TStringField;
     TBBeneficiosBEN_USUARIO: TStringField;
     TBCaixa: TFDQuery;
-    TRCaixa: TFDTransaction;
-    UPCaixa: TFDUpdateSQL;
     TBCaixaCAI_CLIENTE: TIntegerField;
     TBCaixaCAI_CLIENTENOME: TStringField;
     TBCaixaCAI_CODIGO: TIntegerField;
@@ -125,9 +114,13 @@ type
     TBCaixaCAI_VENDEDOR: TIntegerField;
     TBCaixaCON_NOME: TStringField;
     TBCaixaVEN_NOME: TStringField;
+    TBCidades: TFDQuery;
+    TBCidadesCID_CODIGO: TIntegerField;
+    TBCidadesCID_DIMOB: TIntegerField;
+    TBCidadesCID_ESTADO: TIntegerField;
+    TBCidadesCID_NOME: TStringField;
+    TBCidadesCID_PAIS: TIntegerField;
     TBClassFiscal: TFDQuery;
-    TRClassFiscal: TFDTransaction;
-    UPClassFiscal: TFDUpdateSQL;
     TBClassFiscalCLF_ALIQUOTAESTADUAL: TFMTBCDField;
     TBClassFiscalCLF_ALIQUOTAIMPORTACAO: TFMTBCDField;
     TBClassFiscalCLF_ALIQUOTAMUNICIPAL: TFMTBCDField;
@@ -144,8 +137,7 @@ type
     TBClassFiscalCLF_VIGENCIAFIM: TDateField;
     TBClassFiscalCLF_VIGENCIAINI: TDateField;
     TBClientes: TFDQuery;
-    TRClientes: TFDTransaction;
-    UPClientes: TFDUpdateSQL;
+    TBClientesATI_DESCRICAO: TStringField;
     TBClientesCLI_AFE: TStringField;
     TBClientesCLI_ALVARA: TStringField;
     TBClientesCLI_ALVARASANITARIO: TStringField;
@@ -176,9 +168,9 @@ type
     TBClientesCLI_CONTRIBUINTEICMS: TStringField;
     TBClientesCLI_CPF: TStringField;
     TBClientesCLI_DESCONTO: TFMTBCDField;
+    TBClientesCLI_DIACOBRANCA: TIntegerField;
     TBClientesCLI_DTATUALIZACAO: TDateField;
     TBClientesCLI_DTCADASTRO: TDateField;
-    TBClientesCLI_DIACOBRANCA: TIntegerField;
     TBClientesCLI_DTNASC: TDateField;
     TBClientesCLI_DTOBITO: TDateField;
     TBClientesCLI_EMAIL: TStringField;
@@ -204,8 +196,8 @@ type
     TBClientesCLI_IECOB: TStringField;
     TBClientesCLI_IM: TIntegerField;
     TBClientesCLI_LIMITECREDITO: TFMTBCDField;
-    TBClientesCLI_LOCALTRABALHO: TIntegerField;
     TBClientesCLI_LOCALESTUDA: TIntegerField;
+    TBClientesCLI_LOCALTRABALHO: TIntegerField;
     TBClientesCLI_MAE: TStringField;
     TBClientesCLI_MAEEMAIL: TStringField;
     TBClientesCLI_MAEFONE: TStringField;
@@ -249,20 +241,18 @@ type
     TBClientesCLI_TRANSPORTADORA: TIntegerField;
     TBClientesCLI_USUARIO: TStringField;
     TBClientesCLI_VENDEDOR: TIntegerField;
-    TBClientesATI_DESCRICAO: TStringField;
     TBClientesCPG_DESCRICAO: TStringField;
     TBClientesFOR_NOME: TStringField;
-    TBClientesMAI_DESCRICAO: TStringField;
-    TBClientesVEN_NOME: TStringField;
-    TBClientesVEN_NOME1: TStringField;
     TBClientesLCA_DESCRICAO: TStringField;
     TBClientesLCA_DESCRICAO1: TStringField;
+    TBClientesMAI_DESCRICAO: TStringField;
     TBClientesTAX_DESCRICAO: TStringField;
     TBClientesTAX_TIPO: TStringField;
     TBClientesTAX_VALOR: TFMTBCDField;
+    TBClientesVEN_NOME: TStringField;
+    TBClientesVEN_NOME1: TStringField;
     TBCondicoes: TFDQuery;
-    TRCondicoes: TFDTransaction;
-    UPCondicoes: TFDUpdateSQL;
+    TBCondicoesCON_NOME: TStringField;
     TBCondicoesCPG_ATUALIZAR: TStringField;
     TBCondicoesCPG_BAIXARPRIMEIRAPARC: TStringField;
     TBCondicoesCPG_CODIGO: TIntegerField;
@@ -281,23 +271,21 @@ type
     TBCondicoesCPG_MOBILE: TStringField;
     TBCondicoesCPG_PADRAO: TStringField;
     TBCondicoesCPG_PARCELASIGUAIS: TStringField;
+    TBCondicoesCPG_SOMENTEDIASUTEIS: TStringField;
     TBCondicoesCPG_STATUS: TStringField;
     TBCondicoesCPG_TIPOINTEGRACAO: TStringField;
     TBCondicoesCPG_TIPOPAGAMENTO: TStringField;
     TBCondicoesCPG_TOTALPARCELAS: TIntegerField;
     TBCondicoesCPG_TOTALPORCENTAGEM: TFMTBCDField;
     TBCondicoesCPG_USUARIO: TStringField;
-    TBCondicoesCON_NOME: TStringField;
     TBCondicoesItens: TFDQuery;
-    TRCondicoesItens: TFDTransaction;
-    UPCondicoesItens: TFDUpdateSQL;
     TBCondicoesItensCPI_CODIGO: TIntegerField;
     TBCondicoesItensCPI_CONDICAO: TIntegerField;
     TBCondicoesItensCPI_DIAS: TIntegerField;
     TBCondicoesItensCPI_PORCENTAGEM: TFMTBCDField;
     TBConsultas: TFDQuery;
-    TRConsultas: TFDTransaction;
-    UPConsultas: TFDUpdateSQL;
+    TBConsultasCLI_NOME: TStringField;
+    TBConsultasCLI_SOLICITANTE: TStringField;
     TBConsultasCOS_CLIENTE: TIntegerField;
     TBConsultasCOS_CODIGO: TIntegerField;
     TBConsultasCOS_CONVENIO: TIntegerField;
@@ -316,22 +304,17 @@ type
     TBConsultasCOS_STATUS: TStringField;
     TBConsultasCOS_USUARIO: TStringField;
     TBConsultasCOS_VALORTOTAL: TFMTBCDField;
-    TBConsultasCLI_NOME: TStringField;
-    TBConsultasCLI_SOLICITANTE: TStringField;
     TBConsultasCOV_DESCRICAO: TStringField;
-    TBConsultasVEN_NOME: TStringField;
     TBConsultasItens: TFDQuery;
-    TRConsultasItens: TFDTransaction;
-    UPConsultasItens: TFDUpdateSQL;
     TBConsultasItensCSI_CODIGO: TIntegerField;
     TBConsultasItensCSI_CONSULTA: TIntegerField;
     TBConsultasItensCSI_DESCRICAO: TStringField;
     TBConsultasItensCSI_EXAME: TIntegerField;
     TBConsultasItensCSI_SIGLA: TStringField;
     TBConsultasItensCSI_VALOR: TFMTBCDField;
+    TBConsultasVEN_NOME: TStringField;
     TBContas: TFDQuery;
-    TRContas: TFDTransaction;
-    UPContas: TFDUpdateSQL;
+    TBContasBAN_NOME: TStringField;
     TBContasCON_AGENCIA: TStringField;
     TBContasCON_AGENCIADIGITO: TIntegerField;
     TBContasCON_ATUALIZAR: TStringField;
@@ -388,10 +371,7 @@ type
     TBContasCON_TIPOCOBRANCA: TStringField;
     TBContasCON_USUARIO: TStringField;
     TBContasCON_VALORBOLETO: TFMTBCDField;
-    TBContasBAN_NOME: TStringField;
     TBContatos: TFDQuery;
-    TRContatos: TFDTransaction;
-    UPContatos: TFDUpdateSQL;
     TBContatosCTT_CLIENTE: TIntegerField;
     TBContatosCTT_CODIGO: TIntegerField;
     TBContatosCTT_DTATUALIZACAO: TDateField;
@@ -403,8 +383,6 @@ type
     TBContatosCTT_NOME: TStringField;
     TBContatosCTT_USUARIO: TStringField;
     TBConvenios: TFDQuery;
-    TRConvenios: TFDTransaction;
-    UPConvenios: TFDUpdateSQL;
     TBConveniosCOV_CODIGO: TIntegerField;
     TBConveniosCOV_DESCRICAO: TStringField;
     TBConveniosCOV_DTATUALIZACAO: TDateField;
@@ -415,8 +393,7 @@ type
     TBConveniosCOV_STATUS: TStringField;
     TBConveniosCOV_USUARIO: TStringField;
     TBDespesas: TFDQuery;
-    TRDespesas: TFDTransaction;
-    UPDespesas: TFDUpdateSQL;
+    TBDespesasAGR_DESCRICAO: TStringField;
     TBDespesasDES_AGRUPADOR: TIntegerField;
     TBDespesasDES_CODIGO: TIntegerField;
     TBDespesasDES_DESCRICAO: TStringField;
@@ -425,10 +402,7 @@ type
     TBDespesasDES_HRATUALIZACAO: TTimeField;
     TBDespesasDES_HRCADASTRO: TTimeField;
     TBDespesasDES_USUARIO: TStringField;
-    TBDespesasAGR_DESCRICAO: TStringField;
     TBEmailsContas: TFDQuery;
-    TREmailsContas: TFDTransaction;
-    UPEmailsContas: TFDUpdateSQL;
     TBEmailsContasEMC_ASSINATURA: TMemoField;
     TBEmailsContasEMC_CODIGO: TIntegerField;
     TBEmailsContasEMC_CONFIRMACAO: TStringField;
@@ -451,8 +425,6 @@ type
     TBEmailsContasEMC_TLS: TStringField;
     TBEmailsContasEMC_USUARIO: TStringField;
     TBEmpresa: TFDQuery;
-    TREmpresa: TFDTransaction;
-    UPEmpresa: TFDUpdateSQL;
     TBEmpresaEMP_BAIRRO: TStringField;
     TBEmpresaEMP_CEP: TStringField;
     TBEmpresaEMP_CIDADE: TStringField;
@@ -461,6 +433,7 @@ type
     TBEmpresaEMP_CNPJ: TStringField;
     TBEmpresaEMP_CNPJPREFEITURA: TStringField;
     TBEmpresaEMP_CODIGO: TIntegerField;
+    TBEmpresaEMP_CODIGOCLIENTE: TIntegerField;
     TBEmpresaEMP_CONTABILIDADE: TIntegerField;
     TBEmpresaEMP_EMAIL: TStringField;
     TBEmpresaEMP_EMAILSUPORTE: TStringField;
@@ -483,8 +456,9 @@ type
     TBEmpresaEMP_PAISCODIGO: TIntegerField;
     TBEmpresaEMP_SUPERSENHA: TStringField;
     TBEstoque: TFDQuery;
-    TREstoque: TFDTransaction;
-    UPEstoque: TFDUpdateSQL;
+    TBEstoqueALM_DESCRICAO: TStringField;
+    TBEstoqueCLI_CODIGO: TIntegerField;
+    TBEstoqueCLI_NOME: TStringField;
     TBEstoqueEST_ALMOXARIFADO: TIntegerField;
     TBEstoqueEST_CLIENTE: TIntegerField;
     TBEstoqueEST_CODIGO: TIntegerField;
@@ -509,18 +483,13 @@ type
     TBEstoqueEST_USUARIO: TStringField;
     TBEstoqueEST_VALORUNIT: TFMTBCDField;
     TBEstoqueEST_VENDEDOR: TIntegerField;
-    TBEstoqueALM_DESCRICAO: TStringField;
-    TBEstoqueCLI_CODIGO: TIntegerField;
-    TBEstoqueCLI_NOME: TStringField;
-    TBEstoquePRO_CODIGO: TIntegerField;
-    TBEstoquePRO_NOME: TStringField;
     TBEstoqueFOR_CODIGO: TIntegerField;
     TBEstoqueFOR_NOME: TStringField;
+    TBEstoquePRO_CODIGO: TIntegerField;
+    TBEstoquePRO_NOME: TStringField;
     TBEstoqueVEN_CODIGO: TIntegerField;
     TBEstoqueVEN_NOME: TStringField;
     TBExamesTipos: TFDQuery;
-    TRExamesTipos: TFDTransaction;
-    UPExamesTipos: TFDUpdateSQL;
     TBExamesTiposEXT_CODIGO: TIntegerField;
     TBExamesTiposEXT_CODIGO2: TStringField;
     TBExamesTiposEXT_DESCRICAO: TStringField;
@@ -534,8 +503,6 @@ type
     TBExamesTiposEXT_USUARIO: TStringField;
     TBExamesTiposEXT_VALOR: TFMTBCDField;
     TBFamilias: TFDQuery;
-    TRFamilias: TFDTransaction;
-    UPFamilias: TFDUpdateSQL;
     TBFamiliasFAM_CODIGO: TIntegerField;
     TBFamiliasFAM_DESCRICAO: TStringField;
     TBFamiliasFAM_DTATUALIZACAO: TDateField;
@@ -545,8 +512,7 @@ type
     TBFamiliasFAM_INTERNET: TStringField;
     TBFamiliasFAM_USUARIO: TStringField;
     TBFornecedores: TFDQuery;
-    TRFornecedores: TFDTransaction;
-    UPFornecedores: TFDUpdateSQL;
+    TBFornecedoresATI_DESCRICAO: TStringField;
     TBFornecedoresFOR_AFE: TStringField;
     TBFornecedoresFOR_ALVARA: TStringField;
     TBFornecedoresFOR_ALVARASANITARIO: TStringField;
@@ -590,10 +556,7 @@ type
     TBFornecedoresFOR_STATUS: TStringField;
     TBFornecedoresFOR_TIPOPESSOA: TStringField;
     TBFornecedoresFOR_USUARIO: TStringField;
-    TBFornecedoresATI_DESCRICAO: TStringField;
     TBGrupos: TFDQuery;
-    TRGrupos: TFDTransaction;
-    UPGrupos: TFDUpdateSQL;
     TBGruposGRU_CODIGO: TIntegerField;
     TBGruposGRU_DESCRICAO: TStringField;
     TBGruposGRU_DTATUALIZACAO: TDateField;
@@ -604,8 +567,6 @@ type
     TBGruposGRU_STATUS: TStringField;
     TBGruposGRU_USUARIO: TStringField;
     TBIcms: TFDQuery;
-    TRIcms: TFDTransaction;
-    UPIcms: TFDUpdateSQL;
     TBIcmsICM_CALCULACREDITOSN: TStringField;
     TBIcmsICM_CODIGO: TIntegerField;
     TBIcmsICM_DESCRICAO: TStringField;
@@ -615,8 +576,6 @@ type
     TBIcmsICM_HRCADASTRO: TTimeField;
     TBIcmsICM_USUARIO: TStringField;
     TBIpi: TFDQuery;
-    TRIpi: TFDTransaction;
-    UPIpi: TFDUpdateSQL;
     TBIpiIPI_CODIGO: TIntegerField;
     TBIpiIPI_DESCRICAO: TStringField;
     TBIpiIPI_DTATUALIZACAO: TDateField;
@@ -625,8 +584,6 @@ type
     TBIpiIPI_HRCADASTRO: TTimeField;
     TBIpiIPI_USUARIO: TStringField;
     TBIss: TFDQuery;
-    TRIss: TFDTransaction;
-    UPIss: TFDUpdateSQL;
     TBIssISS_ALIQUOTAESTADUAL: TFMTBCDField;
     TBIssISS_ALIQUOTAIMPORTACAO: TFMTBCDField;
     TBIssISS_ALIQUOTAMUNICIPAL: TFMTBCDField;
@@ -639,8 +596,6 @@ type
     TBIssISS_HRCADASTRO: TTimeField;
     TBIssISS_USUARIO: TStringField;
     TBLocais: TFDQuery;
-    TRLocais: TFDTransaction;
-    UPLocais: TFDUpdateSQL;
     TBLocaisLCA_CODIGO: TIntegerField;
     TBLocaisLCA_CONVENIADO: TStringField;
     TBLocaisLCA_DESCRICAO: TStringField;
@@ -650,8 +605,6 @@ type
     TBLocaisLCA_HRCADASTRO: TTimeField;
     TBLocaisLCA_USUARIO: TStringField;
     TBMailings: TFDQuery;
-    TRMailings: TFDTransaction;
-    UPMailings: TFDUpdateSQL;
     TBMailingsMAI_CODIGO: TIntegerField;
     TBMailingsMAI_DESCRICAO: TStringField;
     TBMailingsMAI_DTATUALIZACAO: TDateField;
@@ -660,8 +613,6 @@ type
     TBMailingsMAI_HRCADASTRO: TTimeField;
     TBMailingsMAI_USUARIO: TStringField;
     TBMarcas: TFDQuery;
-    TRMarcas: TFDTransaction;
-    UPMarcas: TFDUpdateSQL;
     TBMarcasMAR_CODIGO: TIntegerField;
     TBMarcasMAR_DESCRICAO: TStringField;
     TBMarcasMAR_DTATUALIZACAO: TDateField;
@@ -670,8 +621,11 @@ type
     TBMarcasMAR_HRCADASTRO: TTimeField;
     TBMarcasMAR_USUARIO: TStringField;
     TBMarkups: TFDQuery;
-    TRMarkups: TFDTransaction;
-    UPMarkups: TFDUpdateSQL;
+    TBMarkupsItens: TFDQuery;
+    TBMarkupsItensMKI_CODIGO: TIntegerField;
+    TBMarkupsItensMKI_DESCRICAO: TStringField;
+    TBMarkupsItensMKI_MARKUP: TIntegerField;
+    TBMarkupsItensMKI_PORCENTAGEM: TFMTBCDField;
     TBMarkupsMKP_CODIGO: TIntegerField;
     TBMarkupsMKP_DESCRICAO: TStringField;
     TBMarkupsMKP_DTATUALIZACAO: TDateField;
@@ -680,16 +634,12 @@ type
     TBMarkupsMKP_HRCADASTRO: TTimeField;
     TBMarkupsMKP_MARKUP: TFMTBCDField;
     TBMarkupsMKP_USUARIO: TStringField;
-    TBMarkupsItens: TFDQuery;
-    TRMarkupsItens: TFDTransaction;
-    UPMarkupsItens: TFDUpdateSQL;
-    TBMarkupsItensMKI_CODIGO: TIntegerField;
-    TBMarkupsItensMKI_DESCRICAO: TStringField;
-    TBMarkupsItensMKI_MARKUP: TIntegerField;
-    TBMarkupsItensMKI_PORCENTAGEM: TFMTBCDField;
     TBMetas: TFDQuery;
-    TRMetas: TFDTransaction;
-    UPMetas: TFDUpdateSQL;
+    TBMetasConfig: TFDQuery;
+    TBMetasConfigMTG_CODIGO: TIntegerField;
+    TBMetasConfigMTG_FIM: TFMTBCDField;
+    TBMetasConfigMTG_INICIO: TFMTBCDField;
+    TBMetasConfigMTG_PORCENTAGEM: TFMTBCDField;
     TBMetasMET_BONUSPORC: TFMTBCDField;
     TBMetasMET_BONUSVALOR: TFMTBCDField;
     TBMetasMET_CODIGO: TIntegerField;
@@ -713,16 +663,7 @@ type
     TBMetasMET_USUARIO: TStringField;
     TBMetasMET_VENDEDOR: TIntegerField;
     TBMetasVEN_NOME: TStringField;
-    TBMetasConfig: TFDQuery;
-    TRMetasConfig: TFDTransaction;
-    UPMetasConfig: TFDUpdateSQL;
-    TBMetasConfigMTG_CODIGO: TIntegerField;
-    TBMetasConfigMTG_FIM: TFMTBCDField;
-    TBMetasConfigMTG_INICIO: TFMTBCDField;
-    TBMetasConfigMTG_PORCENTAGEM: TFMTBCDField;
     TBMotivos: TFDQuery;
-    TRMotivos: TFDTransaction;
-    UPMotivos: TFDUpdateSQL;
     TBMotivosMOT_CODIGO: TIntegerField;
     TBMotivosMOT_DESCRICAO: TStringField;
     TBMotivosMOT_DTATUALIZACAO: TDateField;
@@ -732,8 +673,6 @@ type
     TBMotivosMOT_STATUS: TStringField;
     TBMotivosMOT_USUARIO: TStringField;
     TBNaturezas: TFDQuery;
-    TRNaturezas: TFDTransaction;
-    UPNaturezas: TFDUpdateSQL;
     TBNaturezasNAT_CALCULACOMISSAO: TStringField;
     TBNaturezasNAT_CALCULACREDITOSN: TStringField;
     TBNaturezasNAT_CODIGO: TIntegerField;
@@ -751,8 +690,214 @@ type
     TBNaturezasNAT_OBSERVACOES: TMemoField;
     TBNaturezasNAT_USUARIO: TStringField;
     TBNfe: TFDQuery;
-    TRNfe: TFDTransaction;
-    UPNfe: TFDUpdateSQL;
+    TBNfeCLI_FANTASIA: TStringField;
+    TBNfeCPG_DESCRICAO: TStringField;
+    TBNfeCPG_MEIOPAGAMENTO: TStringField;
+    TBNfeCPG_TIPOINTEGRACAO: TStringField;
+    TBNfeCPG_TIPOPAGAMENTO: TStringField;
+    TBNfeItens: TFDQuery;
+    TBNfeItensALM_DESCRICAO: TStringField;
+    TBNfeItensCLF_DESCRICAO: TStringField;
+    TBNfeItensCLT_DESCRICAO: TStringField;
+    TBNfeItensCLT_DESCRICAO1: TStringField;
+    TBNfeItensICM_CALCULACREDITOSN: TStringField;
+    TBNfeItensICM_DESCRICAO: TStringField;
+    TBNfeItensIPI_DESCRICAO: TStringField;
+    TBNfeItensISS_DESCRICAO: TStringField;
+    TBNfeItensNAT_CALCULACOMISSAO: TStringField;
+    TBNfeItensNAT_CALCULACREDITOSN: TStringField;
+    TBNfeItensNAT_DESCRICAO: TStringField;
+    TBNfeItensNAT_INFORMADIFAL: TStringField;
+    TBNfeItensNFI_ALIQCBS: TFMTBCDField;
+    TBNfeItensNFI_ALIQCBSCREDPRES: TFMTBCDField;
+    TBNfeItensNFI_ALIQCBSDIF: TFMTBCDField;
+    TBNfeItensNFI_ALIQCBSEFE: TFMTBCDField;
+    TBNfeItensNFI_ALIQCBSRED: TFMTBCDField;
+    TBNfeItensNFI_ALIQCOFINS: TFMTBCDField;
+    TBNfeItensNFI_ALIQCOFINSST: TFMTBCDField;
+    TBNfeItensNFI_ALIQFCP: TFMTBCDField;
+    TBNfeItensNFI_ALIQFCPST: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSCREDPRES: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSMUN: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSMUNDIF: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSMUNEFE: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSMUNRED: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSUF: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSUFDIF: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSUFEFE: TFMTBCDField;
+    TBNfeItensNFI_ALIQIBSUFRED: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMS: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSADICST: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSINTER: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSINTERPART: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSRED: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSST: TFMTBCDField;
+    TBNfeItensNFI_ALIQICMSSTRET: TFMTBCDField;
+    TBNfeItensNFI_ALIQII: TFMTBCDField;
+    TBNfeItensNFI_ALIQIPI: TFMTBCDField;
+    TBNfeItensNFI_ALIQIS: TFMTBCDField;
+    TBNfeItensNFI_ALIQISESP: TFMTBCDField;
+    TBNfeItensNFI_ALIQISS: TFMTBCDField;
+    TBNfeItensNFI_ALIQPIS: TFMTBCDField;
+    TBNfeItensNFI_ALIQPISST: TFMTBCDField;
+    TBNfeItensNFI_ALMOXARIFADO: TIntegerField;
+    TBNfeItensNFI_BASECOFINS: TFMTBCDField;
+    TBNfeItensNFI_BASECOFINSST: TFMTBCDField;
+    TBNfeItensNFI_BASEIBSCBS: TFMTBCDField;
+    TBNfeItensNFI_BASEICMS: TFMTBCDField;
+    TBNfeItensNFI_BASEICMSRED: TFMTBCDField;
+    TBNfeItensNFI_BASEICMSST: TFMTBCDField;
+    TBNfeItensNFI_BASEICMSSTRET: TFMTBCDField;
+    TBNfeItensNFI_BASEII: TFMTBCDField;
+    TBNfeItensNFI_BASEIPI: TFMTBCDField;
+    TBNfeItensNFI_BASEIS: TFMTBCDField;
+    TBNfeItensNFI_BASEISS: TFMTBCDField;
+    TBNfeItensNFI_BASEPIS: TFMTBCDField;
+    TBNfeItensNFI_BASEPISST: TFMTBCDField;
+    TBNfeItensNFI_BENEFICIO: TStringField;
+    TBNfeItensNFI_CBSCREDITOPRES: TIntegerField;
+    TBNfeItensNFI_CEST: TStringField;
+    TBNfeItensNFI_CFOP: TIntegerField;
+    TBNfeItensNFI_CIDADEISS: TIntegerField;
+    TBNfeItensNFI_CLASSFISCAL: TStringField;
+    TBNfeItensNFI_CLASSTRIBIBSCBS: TStringField;
+    TBNfeItensNFI_CLASSTRIBIS: TStringField;
+    TBNfeItensNFI_CODIGO: TIntegerField;
+    TBNfeItensNFI_CODIGOBARRAS: TStringField;
+    TBNfeItensNFI_CODIGOFAB: TStringField;
+    TBNfeItensNFI_COMISSAO: TFMTBCDField;
+    TBNfeItensNFI_COMISSAOREP: TFMTBCDField;
+    TBNfeItensNFI_COMPLEMENTO: TStringField;
+    TBNfeItensNFI_COMPOEBASEICMS: TStringField;
+    TBNfeItensNFI_COMPOEBASEICMSST: TStringField;
+    TBNfeItensNFI_COMPOETOTAL: TStringField;
+    TBNfeItensNFI_CONVERSAO: TFMTBCDField;
+    TBNfeItensNFI_CSTCOFINS: TIntegerField;
+    TBNfeItensNFI_CSTIBSCBS: TStringField;
+    TBNfeItensNFI_CSTICMS: TIntegerField;
+    TBNfeItensNFI_CSTIPI: TIntegerField;
+    TBNfeItensNFI_CSTIS: TStringField;
+    TBNfeItensNFI_CSTPIS: TIntegerField;
+    TBNfeItensNFI_DESCMAX: TFMTBCDField;
+    TBNfeItensNFI_DESCPORC: TFMTBCDField;
+    TBNfeItensNFI_DESCRICAO: TStringField;
+    TBNfeItensNFI_DESCVALOR: TFMTBCDField;
+    TBNfeItensNFI_DESONERACAO: TStringField;
+    TBNfeItensNFI_DFEREF: TStringField;
+    TBNfeItensNFI_DFEREFITEM: TIntegerField;
+    TBNfeItensNFI_DICNPJ: TStringField;
+    TBNfeItensNFI_DIDATA: TDateField;
+    TBNfeItensNFI_DIDESEMBARACODATA: TDateField;
+    TBNfeItensNFI_DIDESEMBARACOLOCAL: TStringField;
+    TBNfeItensNFI_DIDESEMBARACOUF: TStringField;
+    TBNfeItensNFI_DIEXPORTADORCOD: TStringField;
+    TBNfeItensNFI_DIINTERMEDIO: TStringField;
+    TBNfeItensNFI_DINUMERO: TStringField;
+    TBNfeItensNFI_DITERCEIROUF: TStringField;
+    TBNfeItensNFI_DITRANSPORTE: TStringField;
+    TBNfeItensNFI_DIVALORAFRMM: TFMTBCDField;
+    TBNfeItensNFI_ENQUADRAMENTOIPI: TIntegerField;
+    TBNfeItensNFI_EXCECAO: TIntegerField;
+    TBNfeItensNFI_EXCHAVEACESSO: TStringField;
+    TBNfeItensNFI_EXDRAWBACK: TStringField;
+    TBNfeItensNFI_EXQUANTIDADE: TFMTBCDField;
+    TBNfeItensNFI_EXREGISTRO: TStringField;
+    TBNfeItensNFI_FCI: TStringField;
+    TBNfeItensNFI_IBSCREDITOPRES: TIntegerField;
+    TBNfeItensNFI_INCENTIVOISS: TStringField;
+    TBNfeItensNFI_INDICADORISS: TStringField;
+    TBNfeItensNFI_INFOADICIONAL: TMemoField;
+    TBNfeItensNFI_LOCALIZACAO: TStringField;
+    TBNfeItensNFI_LOTE: TStringField;
+    TBNfeItensNFI_LUCROPORC: TFMTBCDField;
+    TBNfeItensNFI_LUCROVALOR: TFMTBCDField;
+    TBNfeItensNFI_MODICMS: TStringField;
+    TBNfeItensNFI_MODICMSST: TStringField;
+    TBNfeItensNFI_NOTA: TIntegerField;
+    TBNfeItensNFI_ORIGEM: TStringField;
+    TBNfeItensNFI_PAISISS: TIntegerField;
+    TBNfeItensNFI_PEDIDOCLIENTE: TStringField;
+    TBNfeItensNFI_PEDIDOCLIENTEITEM: TIntegerField;
+    TBNfeItensNFI_PESO: TFMTBCDField;
+    TBNfeItensNFI_PESOTOTAL: TFMTBCDField;
+    TBNfeItensNFI_PRECOCUSTO: TFMTBCDField;
+    TBNfeItensNFI_PRECOCUSTOTOTAL: TFMTBCDField;
+    TBNfeItensNFI_PROCESSOISS: TStringField;
+    TBNfeItensNFI_PRODUTO: TIntegerField;
+    TBNfeItensNFI_PRODUTOREAL: TIntegerField;
+    TBNfeItensNFI_QUANTIDADE: TFMTBCDField;
+    TBNfeItensNFI_QUANTIDADETROCA: TFMTBCDField;
+    TBNfeItensNFI_SEQUENCIA: TIntegerField;
+    TBNfeItensNFI_SERVICOISS: TStringField;
+    TBNfeItensNFI_SOMACOFINSST: TStringField;
+    TBNfeItensNFI_SOMAPISST: TStringField;
+    TBNfeItensNFI_TIPO: TStringField;
+    TBNfeItensNFI_TIPOISS: TStringField;
+    TBNfeItensNFI_UNIDADE: TStringField;
+    TBNfeItensNFI_VALORACESSORIAS: TFMTBCDField;
+    TBNfeItensNFI_VALORADUANA: TFMTBCDField;
+    TBNfeItensNFI_VALORCBS: TFMTBCDField;
+    TBNfeItensNFI_VALORCBSCREDPRES: TFMTBCDField;
+    TBNfeItensNFI_VALORCBSCREDPRESSUS: TFMTBCDField;
+    TBNfeItensNFI_VALORCBSDEV: TFMTBCDField;
+    TBNfeItensNFI_VALORCBSDIF: TFMTBCDField;
+    TBNfeItensNFI_VALORCOFINS: TFMTBCDField;
+    TBNfeItensNFI_VALORCOFINSST: TFMTBCDField;
+    TBNfeItensNFI_VALORCOMISSAO: TFMTBCDField;
+    TBNfeItensNFI_VALORCOMISSAOREP: TFMTBCDField;
+    TBNfeItensNFI_VALORFCP: TFMTBCDField;
+    TBNfeItensNFI_VALORFCPST: TFMTBCDField;
+    TBNfeItensNFI_VALORFRETE: TFMTBCDField;
+    TBNfeItensNFI_VALORIBS: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSCREDPRES: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSCREDPRESSUS: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSMUN: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSMUNDEV: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSMUNDIF: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSUF: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSUFDEV: TFMTBCDField;
+    TBNfeItensNFI_VALORIBSUFDIF: TFMTBCDField;
+    TBNfeItensNFI_VALORICMS: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSCREDSN: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSDESONERADO: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSST: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSSTRET: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSSUBSTITUTO: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSUFDEST: TFMTBCDField;
+    TBNfeItensNFI_VALORICMSUFREMET: TFMTBCDField;
+    TBNfeItensNFI_VALORII: TFMTBCDField;
+    TBNfeItensNFI_VALORIOF: TFMTBCDField;
+    TBNfeItensNFI_VALORIPI: TFMTBCDField;
+    TBNfeItensNFI_VALORIS: TFMTBCDField;
+    TBNfeItensNFI_VALORISS: TFMTBCDField;
+    TBNfeItensNFI_VALORISSDEDUCAO: TFMTBCDField;
+    TBNfeItensNFI_VALORISSDESCCOND: TFMTBCDField;
+    TBNfeItensNFI_VALORISSDESCINCOND: TFMTBCDField;
+    TBNfeItensNFI_VALORISSOUTROS: TFMTBCDField;
+    TBNfeItensNFI_VALORISSRETENCAO: TFMTBCDField;
+    TBNfeItensNFI_VALORPIS: TFMTBCDField;
+    TBNfeItensNFI_VALORPISST: TFMTBCDField;
+    TBNfeItensNFI_VALORSEGURO: TFMTBCDField;
+    TBNfeItensNFI_VALORTOTAL: TFMTBCDField;
+    TBNfeItensNFI_VALORTOTALBRUTO: TFMTBCDField;
+    TBNfeItensNFI_VALORTRIBUTOS: TFMTBCDField;
+    TBNfeItensNFI_VALORTRIBUTOSEST: TFMTBCDField;
+    TBNfeItensNFI_VALORTRIBUTOSFED: TFMTBCDField;
+    TBNfeItensNFI_VALORTRIBUTOSIMP: TFMTBCDField;
+    TBNfeItensNFI_VALORTRIBUTOSMUN: TFMTBCDField;
+    TBNfeItensNFI_VALORUNIT: TFMTBCDField;
+    TBNfeItensPIS_DESCRICAO: TStringField;
+    TBNfeItensPIS_DESCRICAO1: TStringField;
+    TBNfeItensPRO_CLASSFISCAL: TStringField;
+    TBNfeItensPRO_CODIGO: TIntegerField;
+    TBNfeItensPRO_CODIGOBARRAS: TStringField;
+    TBNfeItensPRO_CSTICMS: TIntegerField;
+    TBNfeItensPRO_NOME: TStringField;
+    TBNfeItensPRO_PRECOVENDA: TFMTBCDField;
+    TBNfeItensPRO_TIPO: TStringField;
+    TBNfeItensPRO_UNIDADE: TStringField;
+    TBNfeNAT_CALCULACOMISSAO: TStringField;
+    TBNfeNAT_CALCULACREDITOSN: TStringField;
     TBNfeNFE_ALIQICMSCREDSN: TFMTBCDField;
     TBNfeNFE_BAIRRO: TStringField;
     TBNfeNFE_BAIXADATA: TDateField;
@@ -789,6 +934,9 @@ type
     TBNfeNFE_CODIGONUMERICO: TStringField;
     TBNfeNFE_COMISSAO: TFMTBCDField;
     TBNfeNFE_COMISSAOPOR: TStringField;
+    TBNfeNFE_BASEIRRF: TFMTBCDField;
+    TBNfeNFE_COMISSAOREP: TFMTBCDField;
+    TBNfeNFE_TOTALIRRF: TFMTBCDField;
     TBNfeNFE_COMPLEMENTO: TStringField;
     TBNfeNFE_CONDICAO: TIntegerField;
     TBNfeNFE_CONDICAOMEMO: TMemoField;
@@ -878,6 +1026,7 @@ type
     TBNfeNFE_REBOQUERNTC: TStringField;
     TBNfeNFE_RECIBO: TStringField;
     TBNfeNFE_RECIBODH: TStringField;
+    TBNfeNFE_REPRESENTANTE: TIntegerField;
     TBNfeNFE_RG: TStringField;
     TBNfeNFE_SEQUENCIAITEM: TIntegerField;
     TBNfeNFE_SERIE: TIntegerField;
@@ -894,6 +1043,7 @@ type
     TBNfeNFE_TOTALCOFINS: TFMTBCDField;
     TBNfeNFE_TOTALCOFINSST: TFMTBCDField;
     TBNfeNFE_TOTALCOMISSAO: TFMTBCDField;
+    TBNfeNFE_TOTALCOMISSAOREP: TFMTBCDField;
     TBNfeNFE_TOTALFCP: TFMTBCDField;
     TBNfeNFE_TOTALFCPST: TFMTBCDField;
     TBNfeNFE_TOTALICMS: TFMTBCDField;
@@ -944,219 +1094,14 @@ type
     TBNfeNFE_VENDEDOR: TIntegerField;
     TBNfeNFE_VOLUMES: TIntegerField;
     TBNfeNFE_VOLUMESNUM: TStringField;
-    TBNfeCLI_FANTASIA: TStringField;
-    TBNfeCPG_DESCRICAO: TStringField;
-    TBNfeCPG_MEIOPAGAMENTO: TStringField;
-    TBNfeCPG_TIPOINTEGRACAO: TStringField;
-    TBNfeCPG_TIPOPAGAMENTO: TStringField;
-    TBNfeNAT_CALCULACOMISSAO: TStringField;
-    TBNfeNAT_CALCULACREDITOSN: TStringField;
     TBNfeVEN_NOME: TStringField;
     TBNfeVEN_NOME1: TStringField;
-    TBNfeItens: TFDQuery;
-    TRNfeItens: TFDTransaction;
-    UPNfeItens: TFDUpdateSQL;
-    TBNfeItensNFI_ALIQCBS: TFMTBCDField;
-    TBNfeItensNFI_ALIQCBSCREDPRES: TFMTBCDField;
-    TBNfeItensNFI_ALIQCBSDIF: TFMTBCDField;
-    TBNfeItensNFI_ALIQCBSEFE: TFMTBCDField;
-    TBNfeItensNFI_ALIQCBSRED: TFMTBCDField;
-    TBNfeItensNFI_ALIQCOFINS: TFMTBCDField;
-    TBNfeItensNFI_ALIQCOFINSST: TFMTBCDField;
-    TBNfeItensNFI_ALIQFCP: TFMTBCDField;
-    TBNfeItensNFI_ALIQFCPST: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSCREDPRES: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSMUN: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSMUNDIF: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSMUNEFE: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSMUNRED: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSUF: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSUFDIF: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSUFEFE: TFMTBCDField;
-    TBNfeItensNFI_ALIQIBSUFRED: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMS: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSADICST: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSINTER: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSINTERPART: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSRED: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSST: TFMTBCDField;
-    TBNfeItensNFI_ALIQICMSSTRET: TFMTBCDField;
-    TBNfeItensNFI_ALIQII: TFMTBCDField;
-    TBNfeItensNFI_ALIQIPI: TFMTBCDField;
-    TBNfeItensNFI_ALIQIS: TFMTBCDField;
-    TBNfeItensNFI_ALIQISESP: TFMTBCDField;
-    TBNfeItensNFI_ALIQISS: TFMTBCDField;
-    TBNfeItensNFI_ALIQPIS: TFMTBCDField;
-    TBNfeItensNFI_ALIQPISST: TFMTBCDField;
-    TBNfeItensNFI_ALMOXARIFADO: TIntegerField;
-    TBNfeItensNFI_BASECOFINS: TFMTBCDField;
-    TBNfeItensNFI_BASECOFINSST: TFMTBCDField;
-    TBNfeItensNFI_BASEIBSCBS: TFMTBCDField;
-    TBNfeItensNFI_BASEICMS: TFMTBCDField;
-    TBNfeItensNFI_BASEICMSRED: TFMTBCDField;
-    TBNfeItensNFI_BASEICMSST: TFMTBCDField;
-    TBNfeItensNFI_BASEICMSSTRET: TFMTBCDField;
-    TBNfeItensNFI_BASEII: TFMTBCDField;
-    TBNfeItensNFI_BASEIPI: TFMTBCDField;
-    TBNfeItensNFI_BASEIS: TFMTBCDField;
-    TBNfeItensNFI_BASEISS: TFMTBCDField;
-    TBNfeItensNFI_BASEPIS: TFMTBCDField;
-    TBNfeItensNFI_BASEPISST: TFMTBCDField;
-    TBNfeItensNFI_BENEFICIO: TStringField;
-    TBNfeItensNFI_CBSCREDITOPRES: TIntegerField;
-    TBNfeItensNFI_CEST: TStringField;
-    TBNfeItensNFI_CFOP: TIntegerField;
-    TBNfeItensNFI_CIDADEISS: TIntegerField;
-    TBNfeItensNFI_CLASSFISCAL: TStringField;
-    TBNfeItensNFI_CLASSTRIBIBSCBS: TStringField;
-    TBNfeItensNFI_CLASSTRIBIS: TStringField;
-    TBNfeItensNFI_CODIGO: TIntegerField;
-    TBNfeItensNFI_CODIGOBARRAS: TStringField;
-    TBNfeItensNFI_CODIGOFAB: TStringField;
-    TBNfeItensNFI_COMISSAO: TFMTBCDField;
-    TBNfeItensNFI_COMPLEMENTO: TStringField;
-    TBNfeItensNFI_COMPOEBASEICMS: TStringField;
-    TBNfeItensNFI_COMPOEBASEICMSST: TStringField;
-    TBNfeItensNFI_COMPOETOTAL: TStringField;
-    TBNfeItensNFI_CONVERSAO: TFMTBCDField;
-    TBNfeItensNFI_CSTCOFINS: TIntegerField;
-    TBNfeItensNFI_CSTIBSCBS: TStringField;
-    TBNfeItensNFI_CSTICMS: TIntegerField;
-    TBNfeItensNFI_CSTIPI: TIntegerField;
-    TBNfeItensNFI_CSTIS: TStringField;
-    TBNfeItensNFI_CSTPIS: TIntegerField;
-    TBNfeItensNFI_DESCMAX: TFMTBCDField;
-    TBNfeItensNFI_DESCPORC: TFMTBCDField;
-    TBNfeItensNFI_DESCRICAO: TStringField;
-    TBNfeItensNFI_DESCVALOR: TFMTBCDField;
-    TBNfeItensNFI_DESONERACAO: TStringField;
-    TBNfeItensNFI_DFEREF: TStringField;
-    TBNfeItensNFI_DFEREFITEM: TIntegerField;
-    TBNfeItensNFI_DICNPJ: TStringField;
-    TBNfeItensNFI_DIDATA: TDateField;
-    TBNfeItensNFI_DIDESEMBARACODATA: TDateField;
-    TBNfeItensNFI_DIDESEMBARACOLOCAL: TStringField;
-    TBNfeItensNFI_DIDESEMBARACOUF: TStringField;
-    TBNfeItensNFI_DIEXPORTADORCOD: TStringField;
-    TBNfeItensNFI_DIINTERMEDIO: TStringField;
-    TBNfeItensNFI_DINUMERO: TStringField;
-    TBNfeItensNFI_DITERCEIROUF: TStringField;
-    TBNfeItensNFI_DITRANSPORTE: TStringField;
-    TBNfeItensNFI_DIVALORAFRMM: TFMTBCDField;
-    TBNfeItensNFI_ENQUADRAMENTOIPI: TIntegerField;
-    TBNfeItensNFI_EXCECAO: TIntegerField;
-    TBNfeItensNFI_EXCHAVEACESSO: TStringField;
-    TBNfeItensNFI_EXDRAWBACK: TStringField;
-    TBNfeItensNFI_EXQUANTIDADE: TFMTBCDField;
-    TBNfeItensNFI_EXREGISTRO: TStringField;
-    TBNfeItensNFI_FCI: TStringField;
-    TBNfeItensNFI_IBSCREDITOPRES: TIntegerField;
-    TBNfeItensNFI_INCENTIVOISS: TStringField;
-    TBNfeItensNFI_INDICADORISS: TStringField;
-    TBNfeItensNFI_INFOADICIONAL: TMemoField;
-    TBNfeItensNFI_LOCALIZACAO: TStringField;
-    TBNfeItensNFI_LOTE: TStringField;
-    TBNfeItensNFI_LUCROPORC: TFMTBCDField;
-    TBNfeItensNFI_LUCROVALOR: TFMTBCDField;
-    TBNfeItensNFI_MODICMS: TStringField;
-    TBNfeItensNFI_MODICMSST: TStringField;
-    TBNfeItensNFI_NOTA: TIntegerField;
-    TBNfeItensNFI_ORIGEM: TStringField;
-    TBNfeItensNFI_PAISISS: TIntegerField;
-    TBNfeItensNFI_PEDIDOCLIENTE: TStringField;
-    TBNfeItensNFI_PEDIDOCLIENTEITEM: TIntegerField;
-    TBNfeItensNFI_PESO: TFMTBCDField;
-    TBNfeItensNFI_PESOTOTAL: TFMTBCDField;
-    TBNfeItensNFI_PRECOCUSTO: TFMTBCDField;
-    TBNfeItensNFI_PRECOCUSTOTOTAL: TFMTBCDField;
-    TBNfeItensNFI_PROCESSOISS: TStringField;
-    TBNfeItensNFI_PRODUTO: TIntegerField;
-    TBNfeItensNFI_PRODUTOREAL: TIntegerField;
-    TBNfeItensNFI_QUANTIDADE: TFMTBCDField;
-    TBNfeItensNFI_QUANTIDADETROCA: TFMTBCDField;
-    TBNfeItensNFI_SEQUENCIA: TIntegerField;
-    TBNfeItensNFI_SERVICOISS: TStringField;
-    TBNfeItensNFI_SOMACOFINSST: TStringField;
-    TBNfeItensNFI_SOMAPISST: TStringField;
-    TBNfeItensNFI_TIPO: TStringField;
-    TBNfeItensNFI_TIPOISS: TStringField;
-    TBNfeItensNFI_UNIDADE: TStringField;
-    TBNfeItensNFI_VALORACESSORIAS: TFMTBCDField;
-    TBNfeItensNFI_VALORADUANA: TFMTBCDField;
-    TBNfeItensNFI_VALORCBS: TFMTBCDField;
-    TBNfeItensNFI_VALORCBSCREDPRES: TFMTBCDField;
-    TBNfeItensNFI_VALORCBSCREDPRESSUS: TFMTBCDField;
-    TBNfeItensNFI_VALORCBSDEV: TFMTBCDField;
-    TBNfeItensNFI_VALORCBSDIF: TFMTBCDField;
-    TBNfeItensNFI_VALORCOFINS: TFMTBCDField;
-    TBNfeItensNFI_VALORCOFINSST: TFMTBCDField;
-    TBNfeItensNFI_VALORCOMISSAO: TFMTBCDField;
-    TBNfeItensNFI_VALORFCP: TFMTBCDField;
-    TBNfeItensNFI_VALORFCPST: TFMTBCDField;
-    TBNfeItensNFI_VALORFRETE: TFMTBCDField;
-    TBNfeItensNFI_VALORIBS: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSCREDPRES: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSCREDPRESSUS: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSMUN: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSMUNDEV: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSMUNDIF: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSUF: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSUFDEV: TFMTBCDField;
-    TBNfeItensNFI_VALORIBSUFDIF: TFMTBCDField;
-    TBNfeItensNFI_VALORICMS: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSCREDSN: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSDESONERADO: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSST: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSSTRET: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSSUBSTITUTO: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSUFDEST: TFMTBCDField;
-    TBNfeItensNFI_VALORICMSUFREMET: TFMTBCDField;
-    TBNfeItensNFI_VALORII: TFMTBCDField;
-    TBNfeItensNFI_VALORIOF: TFMTBCDField;
-    TBNfeItensNFI_VALORIPI: TFMTBCDField;
-    TBNfeItensNFI_VALORIS: TFMTBCDField;
-    TBNfeItensNFI_VALORISS: TFMTBCDField;
-    TBNfeItensNFI_VALORISSDEDUCAO: TFMTBCDField;
-    TBNfeItensNFI_VALORISSDESCCOND: TFMTBCDField;
-    TBNfeItensNFI_VALORISSDESCINCOND: TFMTBCDField;
-    TBNfeItensNFI_VALORISSOUTROS: TFMTBCDField;
-    TBNfeItensNFI_VALORISSRETENCAO: TFMTBCDField;
-    TBNfeItensNFI_VALORPIS: TFMTBCDField;
-    TBNfeItensNFI_VALORPISST: TFMTBCDField;
-    TBNfeItensNFI_VALORSEGURO: TFMTBCDField;
-    TBNfeItensNFI_VALORTOTAL: TFMTBCDField;
-    TBNfeItensNFI_VALORTOTALBRUTO: TFMTBCDField;
-    TBNfeItensNFI_VALORTRIBUTOS: TFMTBCDField;
-    TBNfeItensNFI_VALORTRIBUTOSEST: TFMTBCDField;
-    TBNfeItensNFI_VALORTRIBUTOSFED: TFMTBCDField;
-    TBNfeItensNFI_VALORTRIBUTOSIMP: TFMTBCDField;
-    TBNfeItensNFI_VALORTRIBUTOSMUN: TFMTBCDField;
-    TBNfeItensNFI_VALORUNIT: TFMTBCDField;
-    TBNfeItensALM_DESCRICAO: TStringField;
-    TBNfeItensCLF_DESCRICAO: TStringField;
-    TBNfeItensICM_CALCULACREDITOSN: TStringField;
-    TBNfeItensICM_DESCRICAO: TStringField;
-    TBNfeItensIPI_DESCRICAO: TStringField;
-    TBNfeItensISS_DESCRICAO: TStringField;
-    TBNfeItensNAT_CALCULACOMISSAO: TStringField;
-    TBNfeItensNAT_CALCULACREDITOSN: TStringField;
-    TBNfeItensNAT_DESCRICAO: TStringField;
-    TBNfeItensNAT_INFORMADIFAL: TStringField;
-    TBNfeItensPIS_DESCRICAO: TStringField;
-    TBNfeItensPIS_DESCRICAO1: TStringField;
-    TBNfeItensPRO_CLASSFISCAL: TStringField;
-    TBNfeItensPRO_CODIGO: TIntegerField;
-    TBNfeItensPRO_CODIGOBARRAS: TStringField;
-    TBNfeItensPRO_CSTICMS: TIntegerField;
-    TBNfeItensPRO_NOME: TStringField;
-    TBNfeItensPRO_PRECOVENDA: TFMTBCDField;
-    TBNfeItensPRO_TIPO: TStringField;
-    TBNfeItensPRO_UNIDADE: TStringField;
-    TBNfeItensCLT_DESCRICAO: TStringField;
-    TBNfeItensCLT_DESCRICAO1: TStringField;
+    TBNfeVEN_NOME2: TStringField;
     TBPagar: TFDQuery;
-    TRPagar: TFDTransaction;
-    UPPagar: TFDUpdateSQL;
+    TBPagarCON_NOME: TStringField;
+    TBPagarCON_SALDO: TFMTBCDField;
+    TBPagarDES_DESCRICAO: TStringField;
+    TBPagarFOR_NOME: TStringField;
     TBPagarPAG_BAIXADOPOR: TStringField;
     TBPagarPAG_CODIGO: TIntegerField;
     TBPagarPAG_CONTA: TIntegerField;
@@ -1192,13 +1137,11 @@ type
     TBPagarPAG_VALORMULTA: TFMTBCDField;
     TBPagarPAG_VALORORIGINAL: TFMTBCDField;
     TBPagarPAG_VALORPAGO: TFMTBCDField;
-    TBPagarCON_NOME: TStringField;
-    TBPagarCON_SALDO: TFMTBCDField;
-    TBPagarDES_DESCRICAO: TStringField;
-    TBPagarFOR_NOME: TStringField;
+    TBPaises: TFDQuery;
+    TBPaisesPAI_CODIGO: TIntegerField;
+    TBPaisesPAI_NOME: TStringField;
+    TBPaisesPAI_SIGLA: TStringField;
     TBParametros: TFDQuery;
-    TRParametros: TFDTransaction;
-    UPParametros: TFDUpdateSQL;
     TBParametrosPAR_ABRIRLOCPRODUTOS: TStringField;
     TBParametrosPAR_ACRESCIMOPOR: TStringField;
     TBParametrosPAR_ACRESCIMOPORC: TFMTBCDField;
@@ -1557,8 +1500,6 @@ type
     TBParametrosPAR_ZAPSERVIDOR: TStringField;
     TBParametrosPAR_ZAPUSUARIO: TStringField;
     TBPiscofins: TFDQuery;
-    TRPiscofins: TFDTransaction;
-    UPPiscofins: TFDUpdateSQL;
     TBPiscofinsPIS_CODIGO: TIntegerField;
     TBPiscofinsPIS_DESCRICAO: TStringField;
     TBPiscofinsPIS_DTATUALIZACAO: TDateField;
@@ -1567,8 +1508,44 @@ type
     TBPiscofinsPIS_HRCADASTRO: TTimeField;
     TBPiscofinsPIS_USUARIO: TStringField;
     TBProdutos: TFDQuery;
-    TRProdutos: TFDTransaction;
-    UPProdutos: TFDUpdateSQL;
+    TBProdutosCLF_DESCRICAO: TStringField;
+    TBProdutosCLT_ALIQCBSRED_IC: TFMTBCDField;
+    TBProdutosCLT_ALIQCBSRED_IS: TFMTBCDField;
+    TBProdutosCLT_ALIQIBSRED_IC: TFMTBCDField;
+    TBProdutosCLT_ALIQIBSRED_IS: TFMTBCDField;
+    TBProdutosCLT_CREDITOPRESUMIDO_IC: TStringField;
+    TBProdutosCLT_CREDITOPRESUMIDO_IS: TStringField;
+    TBProdutosCLT_DESCRICAO_IC: TStringField;
+    TBProdutosCLT_DESCRICAO_IS: TStringField;
+    TBProdutosCLT_MONODIFERIMENTO_IC: TStringField;
+    TBProdutosCLT_MONODIFERIMENTO_IS: TStringField;
+    TBProdutosCLT_MONOFASICO_IC: TStringField;
+    TBProdutosCLT_MONOFASICO_IS: TStringField;
+    TBProdutosCLT_MONORETENCAO_IC: TStringField;
+    TBProdutosCLT_MONORETENCAO_IS: TStringField;
+    TBProdutosCLT_MONORETIDO_IC: TStringField;
+    TBProdutosCLT_MONORETIDO_IS: TStringField;
+    TBProdutosCLT_REDBASE_IC: TStringField;
+    TBProdutosCLT_REDBASE_IS: TStringField;
+    TBProdutosCLT_TRIBUTACAOREGULAR_IC: TStringField;
+    TBProdutosCLT_TRIBUTACAOREGULAR_IS: TStringField;
+    TBProdutosCPR_APROPRIADFE: TStringField;
+    TBProdutosCPR_APROPRIAEVENTO: TStringField;
+    TBProdutosCPR_CBS: TStringField;
+    TBProdutosCPR_DEDUZTOTAL: TStringField;
+    TBProdutosCPR_DESCRICAO: TStringField;
+    TBProdutosCPR_IBS: TStringField;
+    TBProdutosFAM_DESCRICAO: TStringField;
+    TBProdutosFOR_NOME: TStringField;
+    TBProdutosGRU_DESCRICAO: TStringField;
+    TBProdutosICM_CALCULACREDITOSN: TStringField;
+    TBProdutosICM_DESCRICAO: TStringField;
+    TBProdutosIPI_DESCRICAO: TStringField;
+    TBProdutosISS_DESCRICAO: TStringField;
+    TBProdutosMAR_DESCRICAO: TStringField;
+    TBProdutosNBS_DESCRICAO: TStringField;
+    TBProdutosPIS_DESCRICAO: TStringField;
+    TBProdutosPIS_DESCRICAO1: TStringField;
     TBProdutosPRO_ALIQCOFINS: TFMTBCDField;
     TBProdutosPRO_ALIQCOFINSST: TFMTBCDField;
     TBProdutosPRO_ALIQICMS: TFMTBCDField;
@@ -1616,10 +1593,10 @@ type
     TBProdutosPRO_FAMILIA: TIntegerField;
     TBProdutosPRO_FCI: TStringField;
     TBProdutosPRO_FORNECEDOR: TIntegerField;
-    TBProdutosPRO_HRATUALIZACAO: TTimeField;
-    TBProdutosPRO_HRCADASTRO: TTimeField;
     TBProdutosPRO_GENERO: TIntegerField;
     TBProdutosPRO_GRUPO: TIntegerField;
+    TBProdutosPRO_HRATUALIZACAO: TTimeField;
+    TBProdutosPRO_HRCADASTRO: TTimeField;
     TBProdutosPRO_ICMSALIQUOTAPOR: TStringField;
     TBProdutosPRO_INCENTIVOISS: TStringField;
     TBProdutosPRO_INDICADORISS: TStringField;
@@ -1680,18 +1657,11 @@ type
     TBProdutosPRO_TROCA: TStringField;
     TBProdutosPRO_UNIDADE: TStringField;
     TBProdutosPRO_USUARIO: TStringField;
-    TBProdutosCLF_DESCRICAO: TStringField;
-    TBProdutosFAM_DESCRICAO: TStringField;
-    TBProdutosFOR_NOME: TStringField;
-    TBProdutosGRU_DESCRICAO: TStringField;
-    TBProdutosICM_CALCULACREDITOSN: TStringField;
-    TBProdutosICM_DESCRICAO: TStringField;
-    TBProdutosIPI_DESCRICAO: TStringField;
-    TBProdutosISS_DESCRICAO: TStringField;
-    TBProdutosMAR_DESCRICAO: TStringField;
-    TBProdutosPIS_DESCRICAO: TStringField;
-    TBProdutosPIS_DESCRICAO1: TStringField;
-    TBProdutosUNI_DESCRICAO: TStringField;
+    TBProdutosQtde: TFDQuery;
+    TBProdutosQtdeALM_DESCRICAO: TStringField;
+    TBProdutosQtdePRQ_ALMOXARIFADO: TIntegerField;
+    TBProdutosQtdePRQ_PRODUTO: TIntegerField;
+    TBProdutosQtdePRQ_QUANTIDADE: TFMTBCDField;
     TBProdutosRGF_ALIQCBS: TFMTBCDField;
     TBProdutosRGF_ALIQIBSMUN: TFMTBCDField;
     TBProdutosRGF_ALIQIBSUF: TFMTBCDField;
@@ -1703,43 +1673,26 @@ type
     TBProdutosRGF_CSTIBSCBS: TStringField;
     TBProdutosRGF_CSTIS: TStringField;
     TBProdutosRGF_DESCRICAO: TStringField;
-    TBProdutosCPR_APROPRIADFE: TStringField;
-    TBProdutosCPR_APROPRIAEVENTO: TStringField;
-    TBProdutosCPR_CBS: TStringField;
-    TBProdutosCPR_DEDUZTOTAL: TStringField;
-    TBProdutosCPR_DESCRICAO: TStringField;
-    TBProdutosCPR_IBS: TStringField;
-    TBProdutosCLT_DESCRICAO_IC: TStringField;
-    TBProdutosCLT_ALIQCBSRED_IC: TFMTBCDField;
-    TBProdutosCLT_ALIQIBSRED_IC: TFMTBCDField;
-    TBProdutosCLT_CREDITOPRESUMIDO_IC: TStringField;
-    TBProdutosCLT_MONODIFERIMENTO_IC: TStringField;
-    TBProdutosCLT_MONOFASICO_IC: TStringField;
-    TBProdutosCLT_MONORETENCAO_IC: TStringField;
-    TBProdutosCLT_MONORETIDO_IC: TStringField;
-    TBProdutosCLT_REDBASE_IC: TStringField;
-    TBProdutosCLT_TRIBUTACAOREGULAR_IC: TStringField;
-    TBProdutosCLT_DESCRICAO_IS: TStringField;
-    TBProdutosCLT_ALIQCBSRED_IS: TFMTBCDField;
-    TBProdutosCLT_ALIQIBSRED_IS: TFMTBCDField;
-    TBProdutosCLT_CREDITOPRESUMIDO_IS: TStringField;
-    TBProdutosCLT_MONODIFERIMENTO_IS: TStringField;
-    TBProdutosCLT_MONOFASICO_IS: TStringField;
-    TBProdutosCLT_MONORETENCAO_IS: TStringField;
-    TBProdutosCLT_MONORETIDO_IS: TStringField;
-    TBProdutosCLT_REDBASE_IS: TStringField;
-    TBProdutosCLT_TRIBUTACAOREGULAR_IS: TStringField;
-    TBProdutosNBS_DESCRICAO: TStringField;
-    TBProdutosQtde: TFDQuery;
-    TRProdutosQtde: TFDTransaction;
-    UPProdutosQtde: TFDUpdateSQL;
-    TBProdutosQtdePRQ_ALMOXARIFADO: TIntegerField;
-    TBProdutosQtdePRQ_PRODUTO: TIntegerField;
-    TBProdutosQtdePRQ_QUANTIDADE: TFMTBCDField;
-    TBProdutosQtdeALM_DESCRICAO: TStringField;
+    TBProdutosUNI_DESCRICAO: TStringField;
     TBReceber: TFDQuery;
-    TRReceber: TFDTransaction;
-    UPReceber: TFDUpdateSQL;
+    TBReceberCLI_BAIRROCOB: TStringField;
+    TBReceberCLI_CEPCOB: TStringField;
+    TBReceberCLI_CIDADECOB: TStringField;
+    TBReceberCLI_CIDADECODIGOCOB: TIntegerField;
+    TBReceberCLI_CNPJCOB: TStringField;
+    TBReceberCLI_CODIGO: TIntegerField;
+    TBReceberCLI_CPF: TStringField;
+    TBReceberCLI_ENDERECOCOB: TStringField;
+    TBReceberCLI_ESTADOCOB: TStringField;
+    TBReceberCLI_ESTADOCODIGOCOB: TIntegerField;
+    TBReceberCLI_NOME: TStringField;
+    TBReceberCLI_NUMEROCOB: TStringField;
+    TBReceberCLI_TIPOPESSOA: TStringField;
+    TBReceberCON_CODIGO: TIntegerField;
+    TBReceberCON_NOME: TStringField;
+    TBReceberCON_SALDO: TFMTBCDField;
+    TBReceberREC_CODIGO: TIntegerField;
+    TBReceberREC_DESCRICAO: TStringField;
     TBReceberREE_ACRESCIMOPORC: TFMTBCDField;
     TBReceberREE_ACRESCIMOPORCPAGO: TFMTBCDField;
     TBReceberREE_ACRESCIMOVALOR: TFMTBCDField;
@@ -1785,29 +1738,10 @@ type
     TBReceberREE_VALORSEMDESCONTO: TFMTBCDField;
     TBReceberREE_VENDA: TIntegerField;
     TBReceberREE_VENDEDOR: TIntegerField;
-    TBReceberCLI_BAIRROCOB: TStringField;
-    TBReceberCLI_CEPCOB: TStringField;
-    TBReceberCLI_CIDADECOB: TStringField;
-    TBReceberCLI_CIDADECODIGOCOB: TIntegerField;
-    TBReceberCLI_CODIGO: TIntegerField;
-    TBReceberCLI_CNPJCOB: TStringField;
-    TBReceberCLI_CPF: TStringField;
-    TBReceberCLI_ENDERECOCOB: TStringField;
-    TBReceberCLI_ESTADOCOB: TStringField;
-    TBReceberCLI_ESTADOCODIGOCOB: TIntegerField;
-    TBReceberCLI_NOME: TStringField;
-    TBReceberCLI_NUMEROCOB: TStringField;
-    TBReceberCLI_TIPOPESSOA: TStringField;
-    TBReceberCON_CODIGO: TIntegerField;
-    TBReceberCON_NOME: TStringField;
-    TBReceberCON_SALDO: TFMTBCDField;
-    TBReceberREC_CODIGO: TIntegerField;
-    TBReceberREC_DESCRICAO: TStringField;
     TBReceberVEN_CODIGO: TIntegerField;
     TBReceberVEN_NOME: TStringField;
     TBReceitas: TFDQuery;
-    TRReceitas: TFDTransaction;
-    UPReceitas: TFDUpdateSQL;
+    TBReceitasAGR_DESCRICAO: TStringField;
     TBReceitasREC_AGRUPADOR: TIntegerField;
     TBReceitasREC_CODIGO: TIntegerField;
     TBReceitasREC_DESCRICAO: TStringField;
@@ -1816,10 +1750,7 @@ type
     TBReceitasREC_HRATUALIZACAO: TTimeField;
     TBReceitasREC_HRCADASTRO: TTimeField;
     TBReceitasREC_USUARIO: TStringField;
-    TBReceitasAGR_DESCRICAO: TStringField;
     TBRecibos: TFDQuery;
-    TRRecibos: TFDTransaction;
-    UPRecibos: TFDUpdateSQL;
     TBRecibosRCB_CBAIRRO: TStringField;
     TBRecibosRCB_CCEP: TStringField;
     TBRecibosRCB_CCIDADE: TStringField;
@@ -1847,8 +1778,6 @@ type
     TBRecibosRCB_VALOR: TFMTBCDField;
     TBRecibosRCB_VALOREXTENSO: TStringField;
     TBTabPreco: TFDQuery;
-    TRTabPreco: TFDTransaction;
-    UPTabPreco: TFDUpdateSQL;
     TBTabPrecoTAB_CODIGO: TIntegerField;
     TBTabPrecoTAB_DESCRICAO1: TStringField;
     TBTabPrecoTAB_DESCRICAO2: TStringField;
@@ -1866,8 +1795,6 @@ type
     TBTabPrecoTAB_MARGEM6: TFMTBCDField;
     TBTabPrecoTAB_USUARIO: TStringField;
     TBTaxas: TFDQuery;
-    TRTaxas: TFDTransaction;
-    UPTaxas: TFDUpdateSQL;
     TBTaxasTAX_CODIGO: TIntegerField;
     TBTaxasTAX_DESCRICAO: TStringField;
     TBTaxasTAX_DTATUALIZACAO: TDateField;
@@ -1879,8 +1806,6 @@ type
     TBTaxasTAX_USUARIO: TStringField;
     TBTaxasTAX_VALOR: TFMTBCDField;
     TBUnidades: TFDQuery;
-    TRUnidades: TFDTransaction;
-    UPUnidades: TFDUpdateSQL;
     TBUnidadesUNI_ATUALIZAR: TStringField;
     TBUnidadesUNI_CODIGO: TStringField;
     TBUnidadesUNI_DESCRICAO: TStringField;
@@ -1890,8 +1815,6 @@ type
     TBUnidadesUNI_HRCADASTRO: TTimeField;
     TBUnidadesUNI_USUARIO: TStringField;
     TBUsuarios: TFDQuery;
-    TRUsuarios: TFDTransaction;
-    UPUsuarios: TFDUpdateSQL;
     TBUsuariosUSU_CODIGO: TIntegerField;
     TBUsuariosUSU_DTATUALIZACAO: TDateField;
     TBUsuariosUSU_DTCADASTRO: TDateField;
@@ -1909,195 +1832,32 @@ type
     TBUsuariosUSU_TEMA: TStringField;
     TBUsuariosUSU_VENDEDOR: TIntegerField;
     TBVendas: TFDQuery;
-    TRVendas: TFDTransaction;
-    UPVendas: TFDUpdateSQL;
-    TBVendasVED_ALIQICMSCREDSN: TFMTBCDField;
-    TBVendasVED_BAIRRO: TStringField;
-    TBVendasVED_BAIXADATA: TDateField;
-    TBVendasVED_BAIXAPOR: TStringField;
-    TBVendasVED_BASECOFINS: TFMTBCDField;
-    TBVendasVED_BASECOFINSST: TFMTBCDField;
-    TBVendasVED_BASEIBSCBS: TFMTBCDField;
-    TBVendasVED_BASEICMS: TFMTBCDField;
-    TBVendasVED_BASEICMSST: TFMTBCDField;
-    TBVendasVED_BASEII: TFMTBCDField;
-    TBVendasVED_BASEIPI: TFMTBCDField;
-    TBVendasVED_BASEIS: TFMTBCDField;
-    TBVendasVED_BASEISS: TFMTBCDField;
-    TBVendasVED_BASEPIS: TFMTBCDField;
-    TBVendasVED_BASEPISST: TFMTBCDField;
-    TBVendasVED_CBSCREDPRES: TFMTBCDField;
-    TBVendasVED_CBSCREDPRESSUS: TFMTBCDField;
-    TBVendasVED_CBSDEVOLUCAO: TFMTBCDField;
-    TBVendasVED_CBSDIFERIMENTO: TFMTBCDField;
-    TBVendasVED_CBSMONO: TFMTBCDField;
-    TBVendasVED_CBSMONORETENCAO: TFMTBCDField;
-    TBVendasVED_CBSMONORETIDO: TFMTBCDField;
-    TBVendasVED_CBSVALOR: TFMTBCDField;
-    TBVendasVED_CEP: TStringField;
-    TBVendasVED_CFOP: TIntegerField;
-    TBVendasVED_CFOPDESC: TStringField;
-    TBVendasVED_CIDADE: TStringField;
-    TBVendasVED_CIDADECODIGO: TIntegerField;
-    TBVendasVED_CLIENTE: TIntegerField;
-    TBVendasVED_CNPJ: TStringField;
-    TBVendasVED_CODIGO: TIntegerField;
-    TBVendasVED_CODIMPORTACAO: TStringField;
-    TBVendasVED_COMISSAO: TFMTBCDField;
-    TBVendasVED_COMISSAOPOR: TStringField;
-    TBVendasVED_COMPLEMENTO: TStringField;
-    TBVendasVED_CONDICAO: TIntegerField;
-    TBVendasVED_CONDICAOMEMO: TMemoField;
-    TBVendasVED_CONFERIDO: TStringField;
-    TBVendasVED_CONFERIDODATA: TDateField;
-    TBVendasVED_CONFERIDOPOR: TStringField;
-    TBVendasVED_CONTATO: TStringField;
-    TBVendasVED_CPF: TStringField;
-    TBVendasVED_CUSTOTOTAL: TFMTBCDField;
-    TBVendasVED_DAV: TStringField;
-    TBVendasVED_DESCPORC: TFMTBCDField;
-    TBVendasVED_DESCPORCCLIENTE: TFMTBCDField;
-    TBVendasVED_DESCPORCCONDICAO: TFMTBCDField;
-    TBVendasVED_DESCVALOR: TFMTBCDField;
-    TBVendasVED_DESTACARIMPOSTOS: TStringField;
-    TBVendasVED_DIAPREFERENCIAL: TIntegerField;
-    TBVendasVED_DTATUALIZACAO: TDateField;
-    TBVendasVED_DTCADASTRO: TDateField;
-    TBVendasVED_DTEMISSAO: TDateField;
-    TBVendasVED_DTPRESTSERVICO: TDateField;
-    TBVendasVED_DTSAIDA: TDateField;
-    TBVendasVED_ENDERECO: TStringField;
-    TBVendasVED_ENTRADASAIDA: TStringField;
-    TBVendasVED_ENTREGUE: TStringField;
-    TBVendasVED_ESPECIE: TStringField;
-    TBVendasVED_ESTADO: TStringField;
-    TBVendasVED_ESTADOCODIGO: TIntegerField;
-    TBVendasVED_EXLOCAL: TStringField;
-    TBVendasVED_EXPEDIDOPOR: TIntegerField;
-    TBVendasVED_EXUFSAIDA: TStringField;
-    TBVendasVED_FONE1: TStringField;
-    TBVendasVED_FORMAPAGTO: TStringField;
-    TBVendasVED_FRETE: TStringField;
-    TBVendasVED_GOVERNAMENTAL: TStringField;
-    TBVendasVED_GOVERNAMENTALALIQRED: TFMTBCDField;
-    TBVendasVED_GOVERNAMENTALOP: TStringField;
-    TBVendasVED_HRATUALIZACAO: TTimeField;
-    TBVendasVED_HRCADASTRO: TTimeField;
-    TBVendasVED_IBSCREDPRES: TFMTBCDField;
-    TBVendasVED_IBSCREDPRESSUS: TFMTBCDField;
-    TBVendasVED_IBSMONO: TFMTBCDField;
-    TBVendasVED_IBSMONORETENCAO: TFMTBCDField;
-    TBVendasVED_IBSMONORETIDO: TFMTBCDField;
-    TBVendasVED_IBSMUNDEVOLUCAO: TFMTBCDField;
-    TBVendasVED_IBSMUNDIFERIMENTO: TFMTBCDField;
-    TBVendasVED_IBSMUNVALOR: TFMTBCDField;
-    TBVendasVED_IBSUFDEVOLUCAO: TFMTBCDField;
-    TBVendasVED_IBSUFDIFERIMENTO: TFMTBCDField;
-    TBVendasVED_IBSUFVALOR: TFMTBCDField;
-    TBVendasVED_IBSVALOR: TFMTBCDField;
-    TBVendasVED_IDESTRANGEIRO: TStringField;
-    TBVendasVED_IE: TStringField;
-    TBVendasVED_INFOADICFISCO: TMemoField;
-    TBVendasVED_INFOCOMPLEMENTAR: TMemoField;
-    TBVendasVED_LACRES: TStringField;
-    TBVendasVED_LUCROPORC: TFMTBCDField;
-    TBVendasVED_LUCROVALOR: TFMTBCDField;
-    TBVendasVED_MANUAL: TStringField;
-    TBVendasVED_MARCA: TStringField;
-    TBVendasVED_MOVIMENTAESTOQUE: TStringField;
-    TBVendasVED_MOVIMENTAFINANCEIRO: TStringField;
-    TBVendasVED_NFCE: TIntegerField;
-    TBVendasVED_NFE: TIntegerField;
-    TBVendasVED_NOME: TStringField;
-    TBVendasVED_NOTA: TIntegerField;
-    TBVendasVED_NOTACREDITO: TStringField;
-    TBVendasVED_NOTADEBITO: TStringField;
-    TBVendasVED_NUMERO: TStringField;
-    TBVendasVED_OBSERVACOES: TMemoField;
-    TBVendasVED_PAIS: TStringField;
-    TBVendasVED_PAISCODIGO: TIntegerField;
-    TBVendasVED_PEDIDOCLIENTE: TStringField;
-    TBVendasVED_PESOBRUTO: TFMTBCDField;
-    TBVendasVED_PESOLIQ: TFMTBCDField;
-    TBVendasVED_REBOQUEPLACA: TStringField;
-    TBVendasVED_REBOQUEPLACAUF: TStringField;
-    TBVendasVED_REBOQUERNTC: TStringField;
-    TBVendasVED_RG: TStringField;
-    TBVendasVED_SEQUENCIAITEM: TIntegerField;
-    TBVendasVED_STATUS: TStringField;
-    TBVendasVED_SUFRAMA: TStringField;
-    TBVendasVED_TABELAPRECO: TStringField;
-    TBVendasVED_TIPOATENDIMENTO: TStringField;
-    TBVendasVED_TIPOCONSUMIDOR: TStringField;
-    TBVendasVED_TIPOOPERACAO: TStringField;
-    TBVendasVED_TOTALADUANA: TFMTBCDField;
-    TBVendasVED_TOTALBRUTO: TFMTBCDField;
-    TBVendasVED_TOTALCOFINS: TFMTBCDField;
-    TBVendasVED_TOTALCOFINSST: TFMTBCDField;
-    TBVendasVED_TOTALCOMISSAO: TFMTBCDField;
-    TBVendasVED_TOTALFCP: TFMTBCDField;
-    TBVendasVED_TOTALFCPST: TFMTBCDField;
-    TBVendasVED_TOTALICMS: TFMTBCDField;
-    TBVendasVED_TOTALICMSCREDSN: TFMTBCDField;
-    TBVendasVED_TOTALICMSST: TFMTBCDField;
-    TBVendasVED_TOTALICMSUFDEST: TFMTBCDField;
-    TBVendasVED_TOTALICMSUFREMET: TFMTBCDField;
-    TBVendasVED_TOTALII: TFMTBCDField;
-    TBVendasVED_TOTALIOF: TFMTBCDField;
-    TBVendasVED_TOTALIPI: TFMTBCDField;
-    TBVendasVED_TOTALIS: TFMTBCDField;
-    TBVendasVED_TOTALISS: TFMTBCDField;
-    TBVendasVED_TOTALISSDEDUCAO: TFMTBCDField;
-    TBVendasVED_TOTALISSDESCCOND: TFMTBCDField;
-    TBVendasVED_TOTALISSDESCINCOND: TFMTBCDField;
-    TBVendasVED_TOTALISSOUTROS: TFMTBCDField;
-    TBVendasVED_TOTALISSRETENCAO: TFMTBCDField;
-    TBVendasVED_TOTALITENS: TFMTBCDField;
-    TBVendasVED_TOTALPIS: TFMTBCDField;
-    TBVendasVED_TOTALPISST: TFMTBCDField;
-    TBVendasVED_TOTALPRODUTOS: TFMTBCDField;
-    TBVendasVED_TOTALSERVICOS: TFMTBCDField;
-    TBVendasVED_TOTALTRIBUTOS: TFMTBCDField;
-    TBVendasVED_TOTALTRIBUTOSEST: TFMTBCDField;
-    TBVendasVED_TOTALTRIBUTOSFED: TFMTBCDField;
-    TBVendasVED_TOTALTRIBUTOSIMP: TFMTBCDField;
-    TBVendasVED_TOTALTRIBUTOSMUN: TFMTBCDField;
-    TBVendasVED_TRANSPCIDADE: TStringField;
-    TBVendasVED_TRANSPCNPJ: TStringField;
-    TBVendasVED_TRANSPCPF: TStringField;
-    TBVendasVED_TRANSPEMAIL: TStringField;
-    TBVendasVED_TRANSPENDERECO: TStringField;
-    TBVendasVED_TRANSPESTADO: TStringField;
-    TBVendasVED_TRANSPFONE: TStringField;
-    TBVendasVED_TRANSPIE: TStringField;
-    TBVendasVED_TRANSPNOME: TStringField;
-    TBVendasVED_TRANSPORTADORA: TIntegerField;
-    TBVendasVED_USUARIO: TStringField;
-    TBVendasVED_VALORDESPACES: TFMTBCDField;
-    TBVendasVED_VALORFRETE: TFMTBCDField;
-    TBVendasVED_VALORSEGURO: TFMTBCDField;
-    TBVendasVED_VALORTOTAL: TFMTBCDField;
-    TBVendasVED_VALORTOTALRTC: TFMTBCDField;
-    TBVendasVED_VEICULOPLACA: TStringField;
-    TBVendasVED_VEICULOPLACAUF: TStringField;
-    TBVendasVED_VEICULORNTC: TStringField;
-    TBVendasVED_VENDEDOR: TIntegerField;
-    TBVendasVED_VIAINTERNET: TStringField;
-    TBVendasVED_VIAINTERNETSTATUS: TStringField;
-    TBVendasVED_VOLUMES: TIntegerField;
-    TBVendasVED_VOLUMESNUM: TStringField;
     TBVendasCLI_FANTASIA: TStringField;
     TBVendasCPG_DESCRICAO: TStringField;
     TBVendasCPG_MEIOPAGAMENTO: TStringField;
     TBVendasCPG_TIPOINTEGRACAO: TStringField;
     TBVendasCPG_TIPOPAGAMENTO: TStringField;
-    TBVendasNAT_CALCULACOMISSAO: TStringField;
-    TBVendasNAT_CALCULACREDITOSN: TStringField;
-    TBVendasVEN_NOME: TStringField;
-    TBVendasVEN_NOME1: TStringField;
     TBVendasItens: TFDQuery;
-    TRVendasItens: TFDTransaction;
-    UPVendasItens: TFDUpdateSQL;
+    TBVendasItensALM_DESCRICAO: TStringField;
+    TBVendasItensCLF_DESCRICAO: TStringField;
+    TBVendasItensCLT_DESCRICAO: TStringField;
+    TBVendasItensCLT_DESCRICAO1: TStringField;
+    TBVendasItensICM_CALCULACREDITOSN: TStringField;
+    TBVendasItensICM_DESCRICAO: TStringField;
+    TBVendasItensIPI_DESCRICAO: TStringField;
+    TBVendasItensISS_DESCRICAO: TStringField;
+    TBVendasItensNAT_CALCULACOMISSAO: TStringField;
+    TBVendasItensNAT_CALCULACREDITOSN: TStringField;
+    TBVendasItensNAT_CODIGO: TIntegerField;
+    TBVendasItensNAT_DESCRICAO: TStringField;
+    TBVendasItensPIS_DESCRICAO: TStringField;
+    TBVendasItensPIS_DESCRICAO1: TStringField;
+    TBVendasItensPRO_CLASSFISCAL: TStringField;
+    TBVendasItensPRO_CSTICMS: TIntegerField;
+    TBVendasItensPRO_NOME: TStringField;
+    TBVendasItensPRO_PRECOVENDA: TFMTBCDField;
+    TBVendasItensPRO_TIPO: TStringField;
+    TBVendasItensPRO_UNIDADE: TStringField;
     TBVendasItensVEI_ALIQCBS: TFMTBCDField;
     TBVendasItensVEI_ALIQCBSCREDPRES: TFMTBCDField;
     TBVendasItensVEI_ALIQCBSDIF: TFMTBCDField;
@@ -2156,6 +1916,7 @@ type
     TBVendasItensVEI_CODIGOBARRAS: TStringField;
     TBVendasItensVEI_CODIGOFAB: TStringField;
     TBVendasItensVEI_COMISSAO: TFMTBCDField;
+    TBVendasItensVEI_COMISSAOREP: TFMTBCDField;
     TBVendasItensVEI_COMPLEMENTO: TStringField;
     TBVendasItensVEI_COMPOEBASEICMS: TStringField;
     TBVendasItensVEI_COMPOEBASEICMSST: TStringField;
@@ -2185,6 +1946,7 @@ type
     TBVendasItensVEI_DITERCEIROUF: TStringField;
     TBVendasItensVEI_DITRANSPORTE: TStringField;
     TBVendasItensVEI_DIVALORAFRMM: TFMTBCDField;
+    TBVendasItensVEI_DTENTREGA: TDateField;
     TBVendasItensVEI_ENQUADRAMENTOIPI: TIntegerField;
     TBVendasItensVEI_EXCECAO: TIntegerField;
     TBVendasItensVEI_EXCHAVEACESSO: TStringField;
@@ -2232,6 +1994,7 @@ type
     TBVendasItensVEI_VALORCOFINS: TFMTBCDField;
     TBVendasItensVEI_VALORCOFINSST: TFMTBCDField;
     TBVendasItensVEI_VALORCOMISSAO: TFMTBCDField;
+    TBVendasItensVEI_VALORCOMISSAOREP: TFMTBCDField;
     TBVendasItensVEI_VALORFCP: TFMTBCDField;
     TBVendasItensVEI_VALORFCPST: TFMTBCDField;
     TBVendasItensVEI_VALORFRETE: TFMTBCDField;
@@ -2274,29 +2037,193 @@ type
     TBVendasItensVEI_VALORTRIBUTOSMUN: TFMTBCDField;
     TBVendasItensVEI_VALORUNIT: TFMTBCDField;
     TBVendasItensVEI_VENDA: TIntegerField;
-    TBVendasItensALM_DESCRICAO: TStringField;
-    TBVendasItensCLF_DESCRICAO: TStringField;
-    TBVendasItensICM_CALCULACREDITOSN: TStringField;
-    TBVendasItensICM_DESCRICAO: TStringField;
-    TBVendasItensIPI_DESCRICAO: TStringField;
-    TBVendasItensISS_DESCRICAO: TStringField;
-    TBVendasItensNAT_CALCULACOMISSAO: TStringField;
-    TBVendasItensNAT_CALCULACREDITOSN: TStringField;
-    TBVendasItensNAT_DESCRICAO: TStringField;
-    TBVendasItensNAT_CODIGO: TIntegerField;
-    TBVendasItensPIS_DESCRICAO: TStringField;
-    TBVendasItensPIS_DESCRICAO1: TStringField;
-    TBVendasItensPRO_CLASSFISCAL: TStringField;
-    TBVendasItensPRO_CSTICMS: TIntegerField;
-    TBVendasItensPRO_NOME: TStringField;
-    TBVendasItensPRO_PRECOVENDA: TFMTBCDField;
-    TBVendasItensPRO_TIPO: TStringField;
-    TBVendasItensPRO_UNIDADE: TStringField;
-    TBVendasItensCLT_DESCRICAO: TStringField;
-    TBVendasItensCLT_DESCRICAO1: TStringField;
+    TBVendasNAT_CALCULACOMISSAO: TStringField;
+    TBVendasNAT_CALCULACREDITOSN: TStringField;
+    TBVendasVED_ALIQICMSCREDSN: TFMTBCDField;
+    TBVendasVED_BAIRRO: TStringField;
+    TBVendasVED_BAIXADATA: TDateField;
+    TBVendasVED_BAIXAPOR: TStringField;
+    TBVendasVED_BASECOFINS: TFMTBCDField;
+    TBVendasVED_BASECOFINSST: TFMTBCDField;
+    TBVendasVED_BASEIBSCBS: TFMTBCDField;
+    TBVendasVED_BASEICMS: TFMTBCDField;
+    TBVendasVED_BASEICMSST: TFMTBCDField;
+    TBVendasVED_BASEII: TFMTBCDField;
+    TBVendasVED_BASEIPI: TFMTBCDField;
+    TBVendasVED_BASEIS: TFMTBCDField;
+    TBVendasVED_BASEISS: TFMTBCDField;
+    TBVendasVED_BASEPIS: TFMTBCDField;
+    TBVendasVED_BASEPISST: TFMTBCDField;
+    TBVendasVED_CBSCREDPRES: TFMTBCDField;
+    TBVendasVED_CBSCREDPRESSUS: TFMTBCDField;
+    TBVendasVED_CBSDEVOLUCAO: TFMTBCDField;
+    TBVendasVED_CBSDIFERIMENTO: TFMTBCDField;
+    TBVendasVED_CBSMONO: TFMTBCDField;
+    TBVendasVED_CBSMONORETENCAO: TFMTBCDField;
+    TBVendasVED_CBSMONORETIDO: TFMTBCDField;
+    TBVendasVED_CBSVALOR: TFMTBCDField;
+    TBVendasVED_CEP: TStringField;
+    TBVendasVED_CFOP: TIntegerField;
+    TBVendasVED_CFOPDESC: TStringField;
+    TBVendasVED_CIDADE: TStringField;
+    TBVendasVED_CIDADECODIGO: TIntegerField;
+    TBVendasVED_CLIENTE: TIntegerField;
+    TBVendasVED_CNPJ: TStringField;
+    TBVendasVED_CODIGO: TIntegerField;
+    TBVendasVED_CODIMPORTACAO: TStringField;
+    TBVendasVED_COMISSAO: TFMTBCDField;
+    TBVendasVED_COMISSAOPOR: TStringField;
+    TBVendasVED_COMISSAOREP: TFMTBCDField;
+    TBVendasVED_COMPLEMENTO: TStringField;
+    TBVendasVED_CONDICAO: TIntegerField;
+    TBVendasVED_CONDICAOMEMO: TMemoField;
+    TBVendasVED_CONFERIDO: TStringField;
+    TBVendasVED_CONFERIDODATA: TDateField;
+    TBVendasVED_CONFERIDOPOR: TStringField;
+    TBVendasVED_CONTATO: TStringField;
+    TBVendasVED_CPF: TStringField;
+    TBVendasVED_CUSTOTOTAL: TFMTBCDField;
+    TBVendasVED_DAV: TStringField;
+    TBVendasVED_DESCPORC: TFMTBCDField;
+    TBVendasVED_DESCPORCCLIENTE: TFMTBCDField;
+    TBVendasVED_DESCPORCCONDICAO: TFMTBCDField;
+    TBVendasVED_DESCVALOR: TFMTBCDField;
+    TBVendasVED_DESTACARIMPOSTOS: TStringField;
+    TBVendasVED_DIAPREFERENCIAL: TIntegerField;
+    TBVendasVED_DTATUALIZACAO: TDateField;
+    TBVendasVED_DTCADASTRO: TDateField;
+    TBVendasVED_DTEMISSAO: TDateField;
+    TBVendasVED_DTENTREGA: TDateField;
+    TBVendasVED_DTPRESTSERVICO: TDateField;
+    TBVendasVED_DTSAIDA: TDateField;
+    TBVendasVED_ENDERECO: TStringField;
+    TBVendasVED_ENTRADASAIDA: TStringField;
+    TBVendasVED_ENTREGUE: TStringField;
+    TBVendasVED_ESPECIE: TStringField;
+    TBVendasVED_ESTADO: TStringField;
+    TBVendasVED_ESTADOCODIGO: TIntegerField;
+    TBVendasVED_EXLOCAL: TStringField;
+    TBVendasVED_EXPEDIDOPOR: TIntegerField;
+    TBVendasVED_EXUFSAIDA: TStringField;
+    TBVendasVED_FONE1: TStringField;
+    TBVendasVED_FORMAPAGTO: TStringField;
+    TBVendasVED_FRETE: TStringField;
+    TBVendasVED_GOVERNAMENTAL: TStringField;
+    TBVendasVED_GOVERNAMENTALALIQRED: TFMTBCDField;
+    TBVendasVED_GOVERNAMENTALOP: TStringField;
+    TBVendasVED_HRATUALIZACAO: TTimeField;
+    TBVendasVED_HRCADASTRO: TTimeField;
+    TBVendasVED_IBSCREDPRES: TFMTBCDField;
+    TBVendasVED_IBSCREDPRESSUS: TFMTBCDField;
+    TBVendasVED_IBSMONO: TFMTBCDField;
+    TBVendasVED_IBSMONORETENCAO: TFMTBCDField;
+    TBVendasVED_IBSMONORETIDO: TFMTBCDField;
+    TBVendasVED_IBSMUNDEVOLUCAO: TFMTBCDField;
+    TBVendasVED_IBSMUNDIFERIMENTO: TFMTBCDField;
+    TBVendasVED_IBSMUNVALOR: TFMTBCDField;
+    TBVendasVED_IBSUFDEVOLUCAO: TFMTBCDField;
+    TBVendasVED_IBSUFDIFERIMENTO: TFMTBCDField;
+    TBVendasVED_IBSUFVALOR: TFMTBCDField;
+    TBVendasVED_IBSVALOR: TFMTBCDField;
+    TBVendasVED_IDESTRANGEIRO: TStringField;
+    TBVendasVED_IE: TStringField;
+    TBVendasVED_INFOADICFISCO: TMemoField;
+    TBVendasVED_INFOCOMPLEMENTAR: TMemoField;
+    TBVendasVED_LACRES: TStringField;
+    TBVendasVED_LUCROPORC: TFMTBCDField;
+    TBVendasVED_LUCROVALOR: TFMTBCDField;
+    TBVendasVED_MANUAL: TStringField;
+    TBVendasVED_MARCA: TStringField;
+    TBVendasVED_MOVIMENTAESTOQUE: TStringField;
+    TBVendasVED_MOVIMENTAFINANCEIRO: TStringField;
+    TBVendasVED_NFCE: TIntegerField;
+    TBVendasVED_NFE: TIntegerField;
+    TBVendasVED_NOME: TStringField;
+    TBVendasVED_NOTA: TIntegerField;
+    TBVendasVED_NOTACREDITO: TStringField;
+    TBVendasVED_NOTADEBITO: TStringField;
+    TBVendasVED_NUMERO: TStringField;
+    TBVendasVED_OBSERVACOES: TMemoField;
+    TBVendasVED_PAIS: TStringField;
+    TBVendasVED_PAISCODIGO: TIntegerField;
+    TBVendasVED_PEDIDOCLIENTE: TStringField;
+    TBVendasVED_PESOBRUTO: TFMTBCDField;
+    TBVendasVED_PESOLIQ: TFMTBCDField;
+    TBVendasVED_PRODUCAO: TIntegerField;
+    TBVendasVED_REBOQUEPLACA: TStringField;
+    TBVendasVED_REBOQUEPLACAUF: TStringField;
+    TBVendasVED_REBOQUERNTC: TStringField;
+    TBVendasVED_REPRESENTANTE: TIntegerField;
+    TBVendasVED_RG: TStringField;
+    TBVendasVED_SEQUENCIAITEM: TIntegerField;
+    TBVendasVED_STATUS: TStringField;
+    TBVendasVED_SUFRAMA: TStringField;
+    TBVendasVED_TABELAPRECO: TStringField;
+    TBVendasVED_TIPOATENDIMENTO: TStringField;
+    TBVendasVED_TIPOCONSUMIDOR: TStringField;
+    TBVendasVED_TIPOOPERACAO: TStringField;
+    TBVendasVED_TOTALADUANA: TFMTBCDField;
+    TBVendasVED_TOTALBRUTO: TFMTBCDField;
+    TBVendasVED_TOTALCOFINS: TFMTBCDField;
+    TBVendasVED_TOTALCOFINSST: TFMTBCDField;
+    TBVendasVED_TOTALCOMISSAO: TFMTBCDField;
+    TBVendasVED_TOTALCOMISSAOREP: TFMTBCDField;
+    TBVendasVED_TOTALFCP: TFMTBCDField;
+    TBVendasVED_TOTALFCPST: TFMTBCDField;
+    TBVendasVED_TOTALICMS: TFMTBCDField;
+    TBVendasVED_TOTALICMSCREDSN: TFMTBCDField;
+    TBVendasVED_TOTALICMSST: TFMTBCDField;
+    TBVendasVED_TOTALICMSUFDEST: TFMTBCDField;
+    TBVendasVED_TOTALICMSUFREMET: TFMTBCDField;
+    TBVendasVED_TOTALII: TFMTBCDField;
+    TBVendasVED_TOTALIOF: TFMTBCDField;
+    TBVendasVED_TOTALIPI: TFMTBCDField;
+    TBVendasVED_TOTALIS: TFMTBCDField;
+    TBVendasVED_TOTALISS: TFMTBCDField;
+    TBVendasVED_TOTALISSDEDUCAO: TFMTBCDField;
+    TBVendasVED_TOTALISSDESCCOND: TFMTBCDField;
+    TBVendasVED_TOTALISSDESCINCOND: TFMTBCDField;
+    TBVendasVED_TOTALISSOUTROS: TFMTBCDField;
+    TBVendasVED_TOTALISSRETENCAO: TFMTBCDField;
+    TBVendasVED_TOTALITENS: TFMTBCDField;
+    TBVendasVED_TOTALPIS: TFMTBCDField;
+    TBVendasVED_TOTALPISST: TFMTBCDField;
+    TBVendasVED_TOTALPRODUTOS: TFMTBCDField;
+    TBVendasVED_TOTALSERVICOS: TFMTBCDField;
+    TBVendasVED_TOTALTRIBUTOS: TFMTBCDField;
+    TBVendasVED_TOTALTRIBUTOSEST: TFMTBCDField;
+    TBVendasVED_TOTALTRIBUTOSFED: TFMTBCDField;
+    TBVendasVED_TOTALTRIBUTOSIMP: TFMTBCDField;
+    TBVendasVED_TOTALTRIBUTOSMUN: TFMTBCDField;
+    TBVendasVED_TRANSPCIDADE: TStringField;
+    TBVendasVED_TRANSPCNPJ: TStringField;
+    TBVendasVED_TRANSPCPF: TStringField;
+    TBVendasVED_TRANSPEMAIL: TStringField;
+    TBVendasVED_TRANSPENDERECO: TStringField;
+    TBVendasVED_TRANSPESTADO: TStringField;
+    TBVendasVED_TRANSPFONE: TStringField;
+    TBVendasVED_TRANSPIE: TStringField;
+    TBVendasVED_TRANSPNOME: TStringField;
+    TBVendasVED_TRANSPORTADORA: TIntegerField;
+    TBVendasVED_USUARIO: TStringField;
+    TBVendasVED_VALORDESPACES: TFMTBCDField;
+    TBVendasVED_VALORFRETE: TFMTBCDField;
+    TBVendasVED_VALORSEGURO: TFMTBCDField;
+    TBVendasVED_VALORTOTAL: TFMTBCDField;
+    TBVendasVED_VALORTOTALRTC: TFMTBCDField;
+    TBVendasVED_VEICULOPLACA: TStringField;
+    TBVendasVED_VEICULOPLACAUF: TStringField;
+    TBVendasVED_VEICULORNTC: TStringField;
+    TBVendasVED_VENDEDOR: TIntegerField;
+    TBVendasVED_VIAINTERNET: TStringField;
+    TBVendasVED_VIAINTERNETSTATUS: TStringField;
+    TBVendasVED_VOLUMES: TIntegerField;
+    TBVendasVED_VOLUMESNUM: TStringField;
+    TBVendasVEN_NOME: TStringField;
+    TBVendasVEN_NOME1: TStringField;
+    TBVendasVEN_NOME2: TStringField;
     TBVendedores: TFDQuery;
-    TRVendedores: TFDTransaction;
-    UPVendedores: TFDUpdateSQL;
+    TBVendedoresEMC_NOME: TStringField;
     TBVendedoresVEN_ATUALIZAR: TStringField;
     TBVendedoresVEN_BAIRRO: TStringField;
     TBVendedoresVEN_CEP: TStringField;
@@ -2337,10 +2264,7 @@ type
     TBVendedoresVEN_STATUS: TStringField;
     TBVendedoresVEN_TIPOPESSOA: TStringField;
     TBVendedoresVEN_USUARIO: TStringField;
-    TBVendedoresEMC_NOME: TStringField;
     TBVias: TFDQuery;
-    TRVias: TFDTransaction;
-    UPVias: TFDUpdateSQL;
     TBViasVIA_CODIGO: TIntegerField;
     TBViasVIA_DESCRICAO: TStringField;
     TBViasVIA_DTATUALIZACAO: TDateField;
@@ -2349,34 +2273,139 @@ type
     TBViasVIA_HRCADASTRO: TTimeField;
     TBViasVIA_STATUS: TStringField;
     TBViasVIA_USUARIO: TStringField;
-    TBVendasItensPRO_CODIGO: TIntegerField;
-    TBVendasItensPRO_CODIGOBARRAS: TStringField;
-    TBEmpresaEMP_CODIGOCLIENTE: TIntegerField;
-    TBCidades: TFDQuery;
+    TRAgrupadores: TFDTransaction;
+    TRAliquotas: TFDTransaction;
+    TRAlmoxarifados: TFDTransaction;
+    TRAtividades: TFDTransaction;
+    TRBancos: TFDTransaction;
+    TRBeneficios: TFDTransaction;
+    TRCaixa: TFDTransaction;
     TRCidades: TFDTransaction;
-    UPCidades: TFDUpdateSQL;
-    TBCidadesCID_CODIGO: TIntegerField;
-    TBCidadesCID_DIMOB: TIntegerField;
-    TBCidadesCID_ESTADO: TIntegerField;
-    TBCidadesCID_NOME: TStringField;
-    TBCidadesCID_PAIS: TIntegerField;
-    TBPaises: TFDQuery;
+    TRClassFiscal: TFDTransaction;
+    TRClientes: TFDTransaction;
+    TRCondicoes: TFDTransaction;
+    TRCondicoesItens: TFDTransaction;
+    TRConsultas: TFDTransaction;
+    TRConsultasItens: TFDTransaction;
+    TRContas: TFDTransaction;
+    TRContatos: TFDTransaction;
+    TRConvenios: TFDTransaction;
+    TRDespesas: TFDTransaction;
+    TREmailsContas: TFDTransaction;
+    TREmpresa: TFDTransaction;
+    TREstoque: TFDTransaction;
+    TRExamesTipos: TFDTransaction;
+    TRFamilias: TFDTransaction;
+    TRFornecedores: TFDTransaction;
+    TRGrupos: TFDTransaction;
+    TRIcms: TFDTransaction;
+    TRIpi: TFDTransaction;
+    TRIss: TFDTransaction;
+    TRLocais: TFDTransaction;
+    TRMailings: TFDTransaction;
+    TRMarcas: TFDTransaction;
+    TRMarkups: TFDTransaction;
+    TRMarkupsItens: TFDTransaction;
+    TRMetas: TFDTransaction;
+    TRMetasConfig: TFDTransaction;
+    TRMotivos: TFDTransaction;
+    TRNaturezas: TFDTransaction;
+    TRNfe: TFDTransaction;
+    TRNfeItens: TFDTransaction;
+    TRPagar: TFDTransaction;
     TRPaises: TFDTransaction;
+    TRParametros: TFDTransaction;
+    TRPiscofins: TFDTransaction;
+    TRProdutos: TFDTransaction;
+    TRProdutosQtde: TFDTransaction;
+    TRQuery1: TFDTransaction;
+    TRQuery2: TFDTransaction;
+    TRQuery3: TFDTransaction;
+    TRReceber: TFDTransaction;
+    TRReceitas: TFDTransaction;
+    TRRecibos: TFDTransaction;
+    TRTabPreco: TFDTransaction;
+    TRTaxas: TFDTransaction;
+    TRUnidades: TFDTransaction;
+    TRUsuarios: TFDTransaction;
+    TRVendas: TFDTransaction;
+    TRVendasItens: TFDTransaction;
+    TRVendedores: TFDTransaction;
+    TRVias: TFDTransaction;
+    UPAgrupadores: TFDUpdateSQL;
+    UPAliquotas: TFDUpdateSQL;
+    UPAlmoxarifados: TFDUpdateSQL;
+    UPAtividades: TFDUpdateSQL;
+    UPBancos: TFDUpdateSQL;
+    UPBeneficios: TFDUpdateSQL;
+    UPCaixa: TFDUpdateSQL;
+    UPCidades: TFDUpdateSQL;
+    UPClassFiscal: TFDUpdateSQL;
+    UPClientes: TFDUpdateSQL;
+    UPCondicoes: TFDUpdateSQL;
+    UPCondicoesItens: TFDUpdateSQL;
+    UPConsultas: TFDUpdateSQL;
+    UPConsultasItens: TFDUpdateSQL;
+    UPContas: TFDUpdateSQL;
+    UPContatos: TFDUpdateSQL;
+    UPConvenios: TFDUpdateSQL;
+    UPDespesas: TFDUpdateSQL;
+    UPEmailsContas: TFDUpdateSQL;
+    UPEmpresa: TFDUpdateSQL;
+    UPEstoque: TFDUpdateSQL;
+    UPExamesTipos: TFDUpdateSQL;
+    UPFamilias: TFDUpdateSQL;
+    UPFornecedores: TFDUpdateSQL;
+    UPGrupos: TFDUpdateSQL;
+    UPIcms: TFDUpdateSQL;
+    UPIpi: TFDUpdateSQL;
+    UPIss: TFDUpdateSQL;
+    UPLocais: TFDUpdateSQL;
+    UPMailings: TFDUpdateSQL;
+    UPMarcas: TFDUpdateSQL;
+    UPMarkups: TFDUpdateSQL;
+    UPMarkupsItens: TFDUpdateSQL;
+    UPMetas: TFDUpdateSQL;
+    UPMetasConfig: TFDUpdateSQL;
+    UPMotivos: TFDUpdateSQL;
+    UPNaturezas: TFDUpdateSQL;
+    UPNfe: TFDUpdateSQL;
+    UPNfeItens: TFDUpdateSQL;
+    UPPagar: TFDUpdateSQL;
     UPPaises: TFDUpdateSQL;
-    TBPaisesPAI_CODIGO: TIntegerField;
-    TBPaisesPAI_NOME: TStringField;
-    TBPaisesPAI_SIGLA: TStringField;
+    UPParametros: TFDUpdateSQL;
+    UPPiscofins: TFDUpdateSQL;
+    UPProdutos: TFDUpdateSQL;
+    UPProdutosQtde: TFDUpdateSQL;
+    UPReceber: TFDUpdateSQL;
+    UPReceitas: TFDUpdateSQL;
+    UPRecibos: TFDUpdateSQL;
+    UPTabPreco: TFDUpdateSQL;
+    UPTaxas: TFDUpdateSQL;
+    UPUnidades: TFDUpdateSQL;
+    UPUsuarios: TFDUpdateSQL;
+    UPVendas: TFDUpdateSQL;
+    UPVendasItens: TFDUpdateSQL;
+    UPVendedores: TFDUpdateSQL;
+    UPVias: TFDUpdateSQL;
     procedure DataModuleCreate(Sender: TObject);
     procedure TBVendasAfterInsert(DataSet: TDataSet);
     procedure TBVendasItensAfterInsert(DataSet: TDataSet);
     procedure TBVendasItensBeforePost(DataSet: TDataSet);
+    procedure TBNfeItensBeforePost(DataSet: TDataSet);
+    procedure TBNfeAfterInsert(DataSet: TDataSet);
+    procedure TBNfeItensAfterInsert(DataSet: TDataSet);
   private
     procedure SimularCondicaoVenda;
     procedure CalcularTotaisVendaItens;
+    procedure SimularCondicaoNfe;
+    procedure CalcularTotaisNFeItens;
     { Private declarations }
   public
     { Public declarations }
     procedure CalcularTotaisVenda(DarPost: Boolean);
+    procedure CalcularTotaisNFe(DarPost: Boolean);
+    procedure AbrirEmpresaParametros;
     procedure SetarBancoEmpresa(Empresa: String);
   end;
 
@@ -2461,85 +2490,88 @@ end;
 
 procedure TDMFirenet.CalcularTotaisVenda(DarPost: Boolean);
 begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
   TBVendas.Edit;
   if (TBVendasVED_MANUAL.IsNull) or (TBVendasVED_MANUAL.Value='N') then
   begin
     Query1.Close;
     Query1.SQL.Clear;
-    Query1.SQL.Add('select '+
-                  'sum(iif(VEI_TIPO=''S'',VEI_VALORTOTAL,0)) as TOTALSERVICOS, '+
-                  'sum(iif(VEI_TIPO=''P'',VEI_VALORTOTAL,0)) as TOTALPRODUTOS, '+
-                  'sum(VEI_BASEIBSCBS) as BASEIBSCBS, '+
-                  'sum(VEI_BASEICMS) as BASEICMS, '+
-                  'sum(VEI_BASEICMSST) as BASEICMSST, '+
-                  'sum(VEI_BASEII) as BASEII, '+
-                  'sum(VEI_BASEIPI) as BASEIPI, '+
-                  'sum(VEI_BASEIS) as BASEIS, '+
-                  'sum(VEI_BASEISS) as BASEISS, '+
-                  'sum(VEI_BASEPIS) as BASEPIS, '+
-                  'sum(VEI_BASEPISST) as BASEPISST, '+
-                  'sum(VEI_BASECOFINS) as BASECOFINS, '+
-                  'sum(VEI_BASECOFINSST) as BASECOFINSST, '+
-                  'sum(VEI_DESCVALOR) as VALORDESCONTO, '+
-                  'sum(VEI_PESOTOTAL) as PESOTOTAL, '+
-                  'sum(VEI_PRECOCUSTOTOTAL) as PRECOCUSTOTOTAL, '+
-                  'max(VEI_SEQUENCIA) as SEQUENCIA, '+
-                  'sum(VEI_VALORACESSORIAS) as VALORACESSORIAS, '+
-                  'sum(VEI_VALORADUANA) as VALORADUANA, '+
-                  'sum(VEI_VALORCBSCREDPRES) as VALORCBSCREDPRES, '+
-                  'sum(VEI_VALORCBSCREDPRESSUS) as VALORCBSCREDPRESSUS, '+
-                  'sum(VEI_VALORCBSDIF) as VALORCBSDIF, '+
-                  'sum(VEI_VALORCBSDEV) as VALORCBSDEV, '+
-//                  '-- sum(VEI_VALORCBSMONO) as VALORCBSMONO, '+
-//                  '-- sum(VEI_CBSMONORETENCAO) as CBSMONORETENCAO, '+
-//                  '-- sum(VEI_CBSMONORETIDO) as CBSMONORETIDO, '+
-                  'sum(VEI_VALORCBS) as VALORCBS, '+
-                  'sum(VEI_VALORCOFINS) as VALORCOFINS, '+
-                  'sum(VEI_VALORCOFINSST) as VALORCOFINSST, '+
-                  'sum(VEI_VALORCOMISSAO) as VALORCOMISSAO, '+
-                  'sum(VEI_VALORFCP) as VALORFCP, '+
-                  'sum(VEI_VALORFCPST) as VALORFCPST, '+
-                  'sum(VEI_VALORFRETE) as VALORFRETE, '+
-                  'sum(VEI_VALORIBSCREDPRES) as VALORIBSCREDPRES, '+
-                  'sum(VEI_VALORIBSCREDPRESSUS) as VALORIBSCREDPRESSUS, '+
-//                  '-- sum(VEI_IBSMONO) as IBSMONO, '+
-//                  '-- sum(VEI_IBSMONORETENCAO) as IBSMONORETENCAO, '+
-//                  '-- sum(VEI_IBSMONORETIDO) as IBSMONORETIDO, '+
-                  'sum(VEI_VALORIBSMUNDIF) as VALORIBSMUNDIF, '+
-                  'sum(VEI_VALORIBSMUNDEV) as VALORIBSMUNDEV, '+
-                  'sum(VEI_VALORIBSMUN) as VALORIBSMUN, '+
-                  'sum(VEI_VALORIBSUFDIF) as VALORIBSUFDIF, '+
-                  'sum(VEI_VALORIBSUFDEV) as VALORIBSUFDEV, '+
-                  'sum(VEI_VALORIBSUF) as VALORIBSUF, '+
-                  'sum(VEI_VALORIBS) as VALORIBS, '+
-                  'sum(VEI_VALORICMS) as VALORICMS, '+
-                  'sum(VEI_VALORICMSCREDSN) as VALORICMSCREDSN, '+
-                  'sum(VEI_VALORICMSDESONERADO) as VALORICMSDESONERADO, '+
-                  'sum(VEI_VALORICMSST) as VALORICMSST, '+
-                  'sum(VEI_VALORICMSUFDEST) as VALORICMSUFDEST, '+
-                  'sum(VEI_VALORICMSUFREMET) as VALORICMSUFREMET, '+
-                  'sum(VEI_VALORII) as VALORII, '+
-                  'sum(VEI_VALORIOF) as VALORIOF, '+
-                  'sum(VEI_VALORIPI) as VALORIPI, '+
-                  'sum(VEI_VALORIS) as VALORIS, '+
-                  'sum(VEI_VALORISS) as VALORISS, '+
-                  'sum(VEI_VALORISSDEDUCAO) as VALORISSDEDUCAO, '+
-                  'sum(VEI_VALORISSDESCCOND) as VALORISSDESCCOND, '+
-                  'sum(VEI_VALORISSDESCINCOND) as VALORISSDESCINCOND, '+
-                  'sum(VEI_VALORISSOUTROS) as VALORISSOUTROS, '+
-                  'sum(VEI_VALORISSRETENCAO) as VALORISSRETENCAO, '+
-                  'sum(VEI_VALORPIS) as VALORPIS, '+
-                  'sum(VEI_VALORPISST) as VALORPISST, '+
-                  'sum(VEI_VALORSEGURO) as VALORSEGURO, '+
-                  'sum(VEI_VALORTOTALBRUTO) as VALORTOTALBRUTO, '+
-                  'sum(VEI_VALORTRIBUTOS) as VALORTRIBUTOS, '+
-                  'sum(VEI_VALORTRIBUTOSEST) as VALORTRIBUTOSEST, '+
-                  'sum(VEI_VALORTRIBUTOSFED) as VALORTRIBUTOSFED, '+
-                  'sum(VEI_VALORTRIBUTOSIMP) as VALORTRIBUTOSIMP, '+
-                  'sum(VEI_VALORTRIBUTOSMUN) as VALORTRIBUTOSMUN, '+
-                  'sum(iif(VEI_SOMACOFINSST=''S'',VEI_VALORCOFINSST,0)) as SOMACOFINSST, '+
-                  'sum(iif(VEI_SOMAPISST=''S'',VEI_VALORPISST,0)) as SOMAPISST '+
-                  'from VENDASITENS where VEI_VENDA=:venda and VEI_COMPOETOTAL=''S''');
+    Query1.SQL.Add(
+      'select '+
+      'sum(iif(VEI_TIPO=''S'',VEI_VALORTOTAL,0)) as TOTALSERVICOS, '+
+      'sum(iif(VEI_TIPO=''P'',VEI_VALORTOTAL,0)) as TOTALPRODUTOS, '+
+      'sum(VEI_BASEIBSCBS) as BASEIBSCBS, '+
+      'sum(VEI_BASEICMS) as BASEICMS, '+
+      'sum(VEI_BASEICMSST) as BASEICMSST, '+
+      'sum(VEI_BASEII) as BASEII, '+
+      'sum(VEI_BASEIPI) as BASEIPI, '+
+      'sum(VEI_BASEIS) as BASEIS, '+
+      'sum(VEI_BASEISS) as BASEISS, '+
+      'sum(VEI_BASEPIS) as BASEPIS, '+
+      'sum(VEI_BASEPISST) as BASEPISST, '+
+      'sum(VEI_BASECOFINS) as BASECOFINS, '+
+      'sum(VEI_BASECOFINSST) as BASECOFINSST, '+
+      'sum(VEI_DESCVALOR) as VALORDESCONTO, '+
+      'sum(VEI_PESOTOTAL) as PESOTOTAL, '+
+      'sum(VEI_PRECOCUSTOTOTAL) as PRECOCUSTOTOTAL, '+
+      'max(VEI_SEQUENCIA) as SEQUENCIA, '+
+      'sum(VEI_VALORACESSORIAS) as VALORACESSORIAS, '+
+      'sum(VEI_VALORADUANA) as VALORADUANA, '+
+      'sum(VEI_VALORCBSCREDPRES) as VALORCBSCREDPRES, '+
+      'sum(VEI_VALORCBSCREDPRESSUS) as VALORCBSCREDPRESSUS, '+
+      'sum(VEI_VALORCBSDIF) as VALORCBSDIF, '+
+      'sum(VEI_VALORCBSDEV) as VALORCBSDEV, '+
+//    '-- sum(VEI_VALORCBSMONO) as VALORCBSMONO, '+
+//    '-- sum(VEI_CBSMONORETENCAO) as CBSMONORETENCAO, '+
+//    '-- sum(VEI_CBSMONORETIDO) as CBSMONORETIDO, '+
+      'sum(VEI_VALORCBS) as VALORCBS, '+
+      'sum(VEI_VALORCOFINS) as VALORCOFINS, '+
+      'sum(VEI_VALORCOFINSST) as VALORCOFINSST, '+
+      'sum(VEI_VALORCOMISSAO) as VALORCOMISSAO, '+
+      'sum(VEI_VALORCOMISSAOREP) as VALORCOMISSAOREP, '+
+      'sum(VEI_VALORFCP) as VALORFCP, '+
+      'sum(VEI_VALORFCPST) as VALORFCPST, '+
+      'sum(VEI_VALORFRETE) as VALORFRETE, '+
+      'sum(VEI_VALORIBSCREDPRES) as VALORIBSCREDPRES, '+
+      'sum(VEI_VALORIBSCREDPRESSUS) as VALORIBSCREDPRESSUS, '+
+//    '-- sum(VEI_IBSMONO) as IBSMONO, '+
+//    '-- sum(VEI_IBSMONORETENCAO) as IBSMONORETENCAO, '+
+//    '-- sum(VEI_IBSMONORETIDO) as IBSMONORETIDO, '+
+      'sum(VEI_VALORIBSMUNDIF) as VALORIBSMUNDIF, '+
+      'sum(VEI_VALORIBSMUNDEV) as VALORIBSMUNDEV, '+
+      'sum(VEI_VALORIBSMUN) as VALORIBSMUN, '+
+      'sum(VEI_VALORIBSUFDIF) as VALORIBSUFDIF, '+
+      'sum(VEI_VALORIBSUFDEV) as VALORIBSUFDEV, '+
+      'sum(VEI_VALORIBSUF) as VALORIBSUF, '+
+      'sum(VEI_VALORIBS) as VALORIBS, '+
+      'sum(VEI_VALORICMS) as VALORICMS, '+
+      'sum(VEI_VALORICMSCREDSN) as VALORICMSCREDSN, '+
+      'sum(VEI_VALORICMSDESONERADO) as VALORICMSDESONERADO, '+
+      'sum(VEI_VALORICMSST) as VALORICMSST, '+
+      'sum(VEI_VALORICMSUFDEST) as VALORICMSUFDEST, '+
+      'sum(VEI_VALORICMSUFREMET) as VALORICMSUFREMET, '+
+      'sum(VEI_VALORII) as VALORII, '+
+      'sum(VEI_VALORIOF) as VALORIOF, '+
+      'sum(VEI_VALORIPI) as VALORIPI, '+
+      'sum(VEI_VALORIS) as VALORIS, '+
+      'sum(VEI_VALORISS) as VALORISS, '+
+      'sum(VEI_VALORISSDEDUCAO) as VALORISSDEDUCAO, '+
+      'sum(VEI_VALORISSDESCCOND) as VALORISSDESCCOND, '+
+      'sum(VEI_VALORISSDESCINCOND) as VALORISSDESCINCOND, '+
+      'sum(VEI_VALORISSOUTROS) as VALORISSOUTROS, '+
+      'sum(VEI_VALORISSRETENCAO) as VALORISSRETENCAO, '+
+      'sum(VEI_VALORPIS) as VALORPIS, '+
+      'sum(VEI_VALORPISST) as VALORPISST, '+
+      'sum(VEI_VALORSEGURO) as VALORSEGURO, '+
+      'sum(VEI_VALORTOTALBRUTO) as VALORTOTALBRUTO, '+
+      'sum(VEI_VALORTRIBUTOS) as VALORTRIBUTOS, '+
+      'sum(VEI_VALORTRIBUTOSEST) as VALORTRIBUTOSEST, '+
+      'sum(VEI_VALORTRIBUTOSFED) as VALORTRIBUTOSFED, '+
+      'sum(VEI_VALORTRIBUTOSIMP) as VALORTRIBUTOSIMP, '+
+      'sum(VEI_VALORTRIBUTOSMUN) as VALORTRIBUTOSMUN, '+
+      'sum(iif(VEI_SOMACOFINSST=''S'',VEI_VALORCOFINSST,0)) as SOMACOFINSST, '+
+      'sum(iif(VEI_SOMAPISST=''S'',VEI_VALORPISST,0)) as SOMAPISST '+
+      'from VENDASITENS where VEI_VENDA=:venda and VEI_COMPOETOTAL=''S''');
     Query1.ParamByName('venda').AsInteger:=TBVendasVED_CODIGO.Value;
     Query1.Open;
 
@@ -2563,6 +2595,7 @@ begin
     TBVendasVED_TOTALCOFINS.Value       :=Query1.FieldByName('VALORCOFINS').AsExtended;
     TBVendasVED_TOTALCOFINSST.Value     :=Query1.FieldByName('VALORCOFINSST').AsExtended;
     TBVendasVED_TOTALCOMISSAO.Value     :=Query1.FieldByName('VALORCOMISSAO').AsExtended;
+    TBVendasVED_TOTALCOMISSAOREP.Value  :=Query1.FieldByName('VALORCOMISSAOREP').AsExtended;
     TBVendasVED_TOTALFCP.Value          :=Query1.FieldByName('VALORFCP').AsExtended;
     TBVendasVED_TOTALFCPST.Value        :=Query1.FieldByName('VALORFCPST').AsExtended;
     TBVendasVED_TOTALICMS.Value         :=Query1.FieldByName('VALORICMS').AsExtended;
@@ -2758,6 +2791,15 @@ begin
         Vencimento:=EncodeDate(A,M,TBVendasVED_DIAPREFERENCIAL.Value);
       end;
 
+      //checa se pode gerar o vencimento nos finais de semana ou somente dias úteis.
+      if TBCondicoesCPG_SOMENTEDIASUTEIS.Value='S' then
+      begin
+        if DayOfWeek(Vencimento)=1 then //domingo
+        Vencimento:=Vencimento + 1 else
+        if DayOfWeek(Vencimento)=7 then //sabado.
+        Vencimento:=Vencimento + 2;
+      end;
+
       //se é pra dividir em parcelas iguais e a divisão do valor total pela quantidade de parcelas dá uma divisão exata, blz... senão utiliza a porcentagem do item da condição de pagto.
       if (TBCondicoesCPG_PARCELASIGUAIS.Value='S') and (Frac(ValorTotal / TBCondicoesCPG_TOTALPARCELAS.Value)=0) then
       ValorParcela:=ValorTotal / TBCondicoesCPG_TOTALPARCELAS.Value else
@@ -2794,6 +2836,7 @@ end;
 procedure TDMFirenet.CalcularTotaisVendaItens;
 var BC, ICMS: Currency;
 begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
   if (TBVendasVED_MANUAL.IsNull) or (TBVendasVED_MANUAL.Value='N') then
   begin
     //calcula o valor bruto.
@@ -2910,8 +2953,12 @@ begin
     {$ENDREGION}
 
     {$REGION 'calcula o valor do crédito do simples nacional.'}
+    TBIcms.Close;
+    TBIcms.ParamByName('codigo').AsInteger:=TBVendasItensVEI_CSTICMS.Value;
+    TBIcms.Open;
     TBVendasItensVEI_VALORICMSCREDSN.Value:=0;
-    if (TBVendasItensICM_CALCULACREDITOSN.Value='S') and (TBVendasItensNAT_CALCULACREDITOSN.Value='S') then
+    //if (TBVendasItensICM_CALCULACREDITOSN.Value='S') and (TBVendasItensNAT_CALCULACREDITOSN.Value='S') then
+    if (TBIcmsICM_CALCULACREDITOSN.Value='S') and (TBVendasItensNAT_CALCULACREDITOSN.Value='S') then
     begin
       TBVendasItensVEI_VALORICMSCREDSN.Value:=Decimais((TBVendasItensVEI_VALORTOTAL.AsExtended/100)*TBVendasVED_ALIQICMSCREDSN.AsExtended,2);
     end;
@@ -2982,6 +3029,13 @@ begin
     if TBVendasItensNAT_CALCULACOMISSAO.Value='S' then
     TBVendasItensVEI_VALORCOMISSAO.Value:=Decimais((((TBVendasItensVEI_VALORTOTAL.AsExtended-TBVendasItensVEI_VALORIPI.AsExtended-TBVendasItensVEI_VALORICMSST.AsExtended)/100.0)*TBVendasItensVEI_COMISSAO.AsExtended),2) else
     TBVendasItensVEI_VALORCOMISSAO.Value:=0;
+    {$ENDREGION}
+
+    {$REGION 'calcula a comissão do representante sobre o item. (por produto).'}
+    //valor total - IPI - ICMSST / 100 * %comissao.
+    if TBVendasItensNAT_CALCULACOMISSAO.Value='S' then
+    TBVendasItensVEI_VALORCOMISSAOREP.Value:=Decimais((((TBVendasItensVEI_VALORTOTAL.AsExtended-TBVendasItensVEI_VALORIPI.AsExtended-TBVendasItensVEI_VALORICMSST.AsExtended)/100.0)*TBVendasItensVEI_COMISSAOREP.AsExtended),2) else
+    TBVendasItensVEI_VALORCOMISSAOREP.Value:=0;
     {$ENDREGION}
 
     {$REGION 'calcula o lucro no item.'}
@@ -3235,13 +3289,23 @@ begin
   TBNaturezas.ParamByName('codigo').AsInteger:=TBParametrosPAR_CFOPPADRAO.Value;
   TBNaturezas.Open;
   //...
-
   TBVendasVED_ALIQICMSCREDSN.Value:=TBParametrosPAR_CREDITOICMSSN.Value;
+  TBVendasVED_BASEIBSCBS.Value:=0;
+  TBVendasVED_BASEIS.Value:=0;
+  TBVendasVED_CBSCREDPRES.Value:=0;
+  TBVendasVED_CBSCREDPRESSUS.Value:=0;
+  TBVendasVED_CBSDEVOLUCAO.Value:=0;
+  TBVendasVED_CBSDIFERIMENTO.Value:=0;
+  TBVendasVED_CBSMONO.Value:=0;
+  TBVendasVED_CBSMONORETENCAO.Value:=0;
+  TBVendasVED_CBSMONORETIDO.Value:=0;
+  TBVendasVED_CBSVALOR.Value:=0;
   TBVendasVED_CFOP.Value:=TBParametrosPAR_CFOPPADRAO.Value;
   TBVendasVED_CFOPDESC.Value:=TBNaturezasNAT_DESCRICAO.Value;
   TBVendasVED_COMISSAOPOR.Value:=TBParametrosPAR_COMISSAOPOR.Value;
   TBVendasVED_CONFERIDO.Value:='N';
   TBVendasVED_CUSTOTOTAL.Value:=0;
+  TBVendasVED_DAV.Value:='N';
   TBVendasVED_DESCPORCCLIENTE.Value:=0;
   TBVendasVED_DESCPORCCONDICAO.Value:=TBCondicoesCPG_DESCPORC.Value;
   TBVendasVED_DESTACARIMPOSTOS.Value:=TBNaturezasNAT_DESTACARIMPOSTOS.Value;
@@ -3255,7 +3319,22 @@ begin
   TBVendasVED_ESPECIE.Value:=TBParametrosPAR_ESPECIEPADRAO.Value;
   TBVendasVED_FORMAPAGTO.Value:=TBCondicoesCPG_FORMAPAGTO.Value;
   TBVendasVED_FRETE.Value:=TBParametrosPAR_FRETEPORCONTA.Value;
+  TBVendasVED_GOVERNAMENTAL.Value:='0 - NENHUM';
+  TBVendasVED_GOVERNAMENTALALIQRED.Value:=0;
+  TBVendasVED_GOVERNAMENTALOP.Value:='0 - NENHUM';
   TBVendasVED_HRCADASTRO.Value:=Time;
+  TBVendasVED_IBSCREDPRES.Value:=0;
+  TBVendasVED_IBSCREDPRESSUS.Value:=0;
+  TBVendasVED_IBSMONO.Value:=0;
+  TBVendasVED_IBSMONORETENCAO.Value:=0;
+  TBVendasVED_IBSMONORETIDO.Value:=0;
+  TBVendasVED_IBSMUNDEVOLUCAO.Value:=0;
+  TBVendasVED_IBSMUNDIFERIMENTO.Value:=0;
+  TBVendasVED_IBSMUNVALOR.Value:=0;
+  TBVendasVED_IBSUFDEVOLUCAO.Value:=0;
+  TBVendasVED_IBSUFDIFERIMENTO.Value:=0;
+  TBVendasVED_IBSUFVALOR.Value:=0;
+  TBVendasVED_IBSVALOR.Value:=0;
   TBVendasVED_INFOADICFISCO.Value:=TBNaturezasNAT_OBSERVACOES.Value;
   TBVendasVED_LUCROPORC.Value:=0;
   TBVendasVED_LUCROVALOR.Value:=0;
@@ -3263,6 +3342,8 @@ begin
   TBVendasVED_MARCA.Value:=TBParametrosPAR_MARCAPADRAO.Value;
   TBVendasVED_MOVIMENTAESTOQUE.Value:=TBNaturezasNAT_MOVIMENTAESTOQUE.Value;
   TBVendasVED_MOVIMENTAFINANCEIRO.Value:=TBNaturezasNAT_MOVIMENTAFINANCEIRO.Value;
+  TBVendasVED_NOTACREDITO.Value:='00 - NENHUM';
+  TBVendasVED_NOTADEBITO.Value:='00 - NENHUM';
   TBVendasVED_SEQUENCIAITEM.Value:=0;
   TBVendasVED_STATUS.Value:='A'; //A=Aberto, F=Finalizada, C=Cancelada/estornada, I=Inutilizada.
   TBVendasVED_TABELAPRECO.Value:=TBParametrosPAR_TABELAPRECO.Value;
@@ -3274,6 +3355,7 @@ begin
   TBVendasVED_TOTALCOFINS.Value:=0;
   TBVendasVED_TOTALCOFINSST.Value:=0;
   TBVendasVED_TOTALCOMISSAO.Value:=0;
+  TBVendasVED_TOTALCOMISSAOREP.Value:=0;
   TBVendasVED_TOTALFCP.Value:=0;
   TBVendasVED_TOTALFCPST.Value:=0;
   TBVendasVED_TOTALICMS.Value:=0;
@@ -3284,6 +3366,7 @@ begin
   TBVendasVED_TOTALII.Value:=0;
   TBVendasVED_TOTALIOF.Value:=0;
   TBVendasVED_TOTALIPI.Value:=0;
+  TBVendasVED_TOTALIS.Value:=0;
   TBVendasVED_TOTALISS.Value:=0;
   TBVendasVED_TOTALISSDEDUCAO.Value:=0;
   TBVendasVED_TOTALISSDESCCOND.Value:=0;
@@ -3307,19 +3390,37 @@ begin
   TBVendasVED_VIAINTERNET.Value:='N';
   TBVendasVED_VIAINTERNETSTATUS.Value:='F';
   TBVendasVED_VOLUMES.Value:=1;
+
+  //if (FormVendas<>nil) and (TBVendasVED_STATUS.Value='A') then
+  //FormVendas.BitBtn5.Click; //clica no botao para simular condições de pagamento.
+  //no Phill a simulacao fica para o CalcularTotaisVenda, quando a venda ja tem cliente, condicao e itens.
+  //if TBVendasVED_STATUS.Value='A' then
+  //SimularCondicaoVenda;
 end;
 
 procedure TDMFirenet.TBVendasItensAfterInsert(DataSet: TDataSet);
 begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
+  //no Phill o TBAliquotas nao fica aberto: localiza a UF da venda para o FCP e o ICMS interestadual.
   TBAliquotas.Open;
   TBAliquotas.Locate('ALI_ESTADO',TBVendasVED_ESTADO.Value,[]);
+  TBVendasItensVEI_ALIQCOFINS.Value:=0;
+  TBVendasItensVEI_ALIQCOFINSST.Value:=0;
   TBVendasItensVEI_ALIQFCP.Value:=TBAliquotasALI_ALIQFCP.Value;
+  TBVendasItensVEI_ALIQFCPST.Value:=0;
+  TBVendasItensVEI_ALIQICMS.Value:=0;
+  TBVendasItensVEI_ALIQICMSADICST.Value:=0;
   TBVendasItensVEI_ALIQICMSINTER.Value:=TBAliquotasALI_ALIQICMSINTER.Value;
   TBVendasItensVEI_ALIQICMSINTERPART.Value:=TBAliquotasALI_ALIQICMSINTERPART.Value;
-  TBAliquotas.Close;
-
+  TBVendasItensVEI_ALIQICMSRED.Value:=0;
+  TBVendasItensVEI_ALIQICMSST.Value:=0;
   TBVendasItensVEI_ALIQICMSSTRET.Value:=0;
   TBVendasItensVEI_ALIQII.Value:=0;
+  TBVendasItensVEI_ALIQIPI.Value:=0;
+  TBVendasItensVEI_ALIQISS.Value:=0;
+  TBVendasItensVEI_ALIQPIS.Value:=0;
+  TBVendasItensVEI_ALIQPISST.Value:=0;
+  TBVendasItensVEI_ALMOXARIFADO.Value:=TBParametrosPAR_ALMOXARIFADOPADRAO.Value;
   TBVendasItensVEI_BASECOFINS.Value:=0;
   TBVendasItensVEI_BASECOFINSST.Value:=0;
   TBVendasItensVEI_BASEICMS.Value:=0;
@@ -3333,6 +3434,10 @@ begin
   TBVendasItensVEI_BASEPISST.Value:=0;
   TBVendasItensVEI_CFOP.Value:=TBVendasVED_CFOP.Value; //pode ser alterado ao selecionar o produto se parametro PAR_CFOPPRODUTO='S'.
   TBVendasItensVEI_CIDADEISS.Value:=TBEmpresaEMP_CIDADECODIGO.Value;
+  TBVendasItensVEI_COMISSAO.Value:=0;
+  TBVendasItensVEI_COMISSAOREP.Value:=0;
+  TBVendasItensVEI_COMPOEBASEICMS.Value:='N';
+  TBVendasItensVEI_COMPOEBASEICMSST.Value:='N';
   TBVendasItensVEI_COMPOETOTAL.Value:='S';
   TBVendasItensVEI_CONVERSAO.Value:=1;
   TBVendasItensVEI_DESCPORC.Value:=0; //ao selecionar o produto, preenche este campo conforme parametro.
@@ -3341,8 +3446,15 @@ begin
   //3
   TBVendasItensVEI_DESCVALOR.Value:=0;
   TBVendasItensVEI_DESONERACAO.Value:='00 - NENHUM';
+  TBVendasItensVEI_DTENTREGA.Value:=TBVendasVED_DTENTREGA.Value;
+  TBVendasItensVEI_EXCECAO.Value:=0;
+  TBVendasItensVEI_INDICADORISS.Value:='2 - NAO INCIDENCIA';
+  TBVendasItensVEI_INCENTIVOISS.Value:='N';
   TBVendasItensVEI_LUCROPORC.Value:=0;
   TBVendasItensVEI_LUCROVALOR.Value:=0;
+  TBVendasItensVEI_MODICMS.Value:='3 - VALOR DA OPERACAO';
+  TBVendasItensVEI_MODICMSST.Value:='6 - VALOR DA OPERACAO';
+  TBVendasItensVEI_ORIGEM.Value:='0 - NACIONAL';
   TBVendasItensVEI_PAISISS.Value:=1058; //brasil.
   TBVendasItensVEI_PEDIDOCLIENTE.Value:=TBVendasVED_PEDIDOCLIENTE.Value;
   TBVendasItensVEI_PRECOCUSTO.Value:=0;
@@ -3358,6 +3470,7 @@ begin
   TBVendasItensVEI_VALORCOFINS.Value:=0;
   TBVendasItensVEI_VALORCOFINSST.Value:=0;
   TBVendasItensVEI_VALORCOMISSAO.Value:=0;
+  TBVendasItensVEI_VALORCOMISSAOREP.Value:=0;
   TBVendasItensVEI_VALORFCP.Value:=0;
   TBVendasItensVEI_VALORFCPST.Value:=0;
   TBVendasItensVEI_VALORFRETE.Value:=0;
@@ -3372,14 +3485,14 @@ begin
   TBVendasItensVEI_VALORII.Value:=0;
   TBVendasItensVEI_VALORIPI.Value:=0;
   TBVendasItensVEI_VALORIOF.Value:=0;
-  TBVendasItensVEI_VALORPIS.Value:=0;
-  TBVendasItensVEI_VALORPISST.Value:=0;
   TBVendasItensVEI_VALORISS.Value:=0;
   TBVendasItensVEI_VALORISSDEDUCAO.Value:=0;
   TBVendasItensVEI_VALORISSDESCCOND.Value:=0;
   TBVendasItensVEI_VALORISSDESCINCOND.Value:=0;
   TBVendasItensVEI_VALORISSOUTROS.Value:=0;
   TBVendasItensVEI_VALORISSRETENCAO.Value:=0;
+  TBVendasItensVEI_VALORPIS.Value:=0;
+  TBVendasItensVEI_VALORPISST.Value:=0;
   TBVendasItensVEI_VALORSEGURO.Value:=0;
   TBVendasItensVEI_VALORTOTAL.Value:=0;
   TBVendasItensVEI_VALORTOTALBRUTO.Value:=0;
@@ -3389,11 +3502,1106 @@ begin
   TBVendasItensVEI_VALORTRIBUTOSIMP.Value:=0;
   TBVendasItensVEI_VALORTRIBUTOSMUN.Value:=0;
   TBVendasItensVEI_VENDA.Value:=TBVendasVED_CODIGO.Value;
+
+  //campos da reforma tributaria
+  TBVendasItensVEI_ALIQCBS.Value:=0;
+  TBVendasItensVEI_ALIQCBSCREDPRES.Value:=0;
+  TBVendasItensVEI_ALIQCBSDIF.Value:=0;
+  TBVendasItensVEI_ALIQCBSEFE.Value:=0;
+  TBVendasItensVEI_ALIQCBSRED.Value:=0;
+  TBVendasItensVEI_ALIQIBSCREDPRES.Value:=0;
+  TBVendasItensVEI_ALIQIBSMUN.Value:=0;
+  TBVendasItensVEI_ALIQIBSMUNDIF.Value:=0;
+  TBVendasItensVEI_ALIQIBSMUNEFE.Value:=0;
+  TBVendasItensVEI_ALIQIBSMUNRED.Value:=0;
+  TBVendasItensVEI_ALIQIBSUF.Value:=0;
+  TBVendasItensVEI_ALIQIBSUFDIF.Value:=0;
+  TBVendasItensVEI_ALIQIBSUFEFE.Value:=0;
+  TBVendasItensVEI_ALIQIBSUFRED.Value:=0;
+  TBVendasItensVEI_ALIQIS.Value:=0;
+  TBVendasItensVEI_ALIQISESP.Value:=0;
+  TBVendasItensVEI_BASEIBSCBS.Value:=0;
+  TBVendasItensVEI_BASEIS.Value:=0;
+//  TBVendasItensVEI_CBSCREDITOPRES.Value:=
+//  TBVendasItensVEI_CLASSTRIBIBSCBS.Value:=
+//  TBVendasItensVEI_CLASSTRIBIS.Value:=
+//  TBVendasItensVEI_CSTIBSCBS.Value:=
+//  TBVendasItensVEI_CSTIS.Value:=
+//  TBVendasItensVEI_IBSCREDITOPRES.Value:=
+  TBVendasItensVEI_VALORCBS.Value:=0;
+  TBVendasItensVEI_VALORCBSCREDPRES.Value:=0;
+  TBVendasItensVEI_VALORCBSCREDPRESSUS.Value:=0;
+  TBVendasItensVEI_VALORCBSDEV.Value:=0;
+  TBVendasItensVEI_VALORCBSDIF.Value:=0;
+  TBVendasItensVEI_VALORIBS.Value:=0;
+  TBVendasItensVEI_VALORIBSCREDPRES.Value:=0;
+  TBVendasItensVEI_VALORIBSCREDPRESSUS.Value:=0;
+  TBVendasItensVEI_VALORIBSMUN.Value:=0;
+  TBVendasItensVEI_VALORIBSMUNDEV.Value:=0;
+  TBVendasItensVEI_VALORIBSMUNDIF.Value:=0;
+  TBVendasItensVEI_VALORIBSUF.Value:=0;
+  TBVendasItensVEI_VALORIBSUFDEV.Value:=0;
+  TBVendasItensVEI_VALORIBSUFDIF.Value:=0;
+  TBVendasItensVEI_VALORIS.Value:=0;
+
+  //campos derivados.
+  //TBVendasItensALM_DESCRICAO.Value:=
+  TBVendasItensNAT_DESCRICAO.Value:=TBVendasVED_CFOPDESC.Value;
+  TBVendasItensNAT_CALCULACOMISSAO.Value:=TBVendasNAT_CALCULACOMISSAO.Value;
+  TBVendasItensNAT_CALCULACREDITOSN.Value:=TBVendasNAT_CALCULACREDITOSN.Value;
+
+  TBAliquotas.Close;
 end;
 
 procedure TDMFirenet.TBVendasItensBeforePost(DataSet: TDataSet);
 begin
   CalcularTotaisVendaItens;
+end;
+
+procedure TDMFirenet.CalcularTotaisNFe(DarPost: Boolean);
+begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
+  TBNfe.Edit;
+  if (TBNfeNFE_MANUAL.IsNull) or (TBNfeNFE_MANUAL.Value='N') then
+  begin
+    Query1.Close;
+    Query1.SQL.Clear;
+    Query1.SQL.Add('select '+
+      'sum(iif(NFI_TIPO=''S'',NFI_VALORTOTAL,0)) as TOTALSERVICOS, '+
+      'sum(iif(NFI_TIPO=''P'',NFI_VALORTOTAL,0)) as TOTALPRODUTOS, '+
+      'sum(NFI_BASEIBSCBS) as BASEIBSCBS, '+
+      'sum(NFI_BASEICMS) as BASEICMS, '+
+      'sum(NFI_BASEICMSST) as BASEICMSST, '+
+      'sum(NFI_BASEII) as BASEII, '+
+      'sum(NFI_BASEIPI) as BASEIPI, '+
+      'sum(NFI_BASEIS) as BASEIS, '+
+      'sum(NFI_BASEISS) as BASEISS, '+
+      'sum(NFI_BASEPIS) as BASEPIS, '+
+      'sum(NFI_BASEPISST) as BASEPISST, '+
+      'sum(NFI_BASECOFINS) as BASECOFINS, '+
+      'sum(NFI_BASECOFINSST) as BASECOFINSST, '+
+      'sum(NFI_DESCVALOR) as VALORDESCONTO, '+
+      'sum(NFI_PESOTOTAL) as PESOTOTAL, '+
+      'sum(NFI_PRECOCUSTOTOTAL) as PRECOCUSTOTOTAL, '+
+      'max(NFI_SEQUENCIA) as SEQUENCIA, '+
+      'sum(NFI_VALORACESSORIAS) as VALORACESSORIAS, '+
+      'sum(NFI_VALORADUANA) as VALORADUANA, '+
+      'sum(NFI_VALORCBSCREDPRES) as VALORCBSCREDPRES, '+
+      'sum(NFI_VALORCBSCREDPRESSUS) as VALORCBSCREDPRESSUS, '+
+      'sum(NFI_VALORCBSDIF) as VALORCBSDIF, '+
+      'sum(NFI_VALORCBSDEV) as VALORCBSDEV, '+
+      //'-- sum(NFI_VALORCBSMONO) as VALORCBSMONO, '+
+      //'-- sum(NFI_CBSMONORETENCAO) as CBSMONORETENCAO, '+
+      //'-- sum(NFI_CBSMONORETIDO) as CBSMONORETIDO, '+
+      'sum(NFI_VALORCBS) as VALORCBS, '+
+      'sum(NFI_VALORCOFINS) as VALORCOFINS, '+
+      'sum(NFI_VALORCOFINSST) as VALORCOFINSST, '+
+      'sum(NFI_VALORCOMISSAO) as VALORCOMISSAO, '+
+      'sum(NFI_VALORCOMISSAOREP) as VALORCOMISSAOREP, '+
+      'sum(NFI_VALORFCP) as VALORFCP, '+
+      'sum(NFI_VALORFCPST) as VALORFCPST, '+
+      'sum(NFI_VALORFRETE) as VALORFRETE, '+
+      'sum(NFI_VALORIBSCREDPRES) as VALORIBSCREDPRES, '+
+      'sum(NFI_VALORIBSCREDPRESSUS) as VALORIBSCREDPRESSUS, '+
+      //'-- sum(NFI_IBSMONO) as IBSMONO, '+
+      //'-- sum(NFI_IBSMONORETENCAO) as IBSMONORETENCAO, '+
+      //'-- sum(NFI_IBSMONORETIDO) as IBSMONORETIDO, '+
+      'sum(NFI_VALORIBSMUNDIF) as VALORIBSMUNDIF, '+
+      'sum(NFI_VALORIBSMUNDEV) as VALORIBSMUNDEV, '+
+      'sum(NFI_VALORIBSMUN) as VALORIBSMUN, '+
+      'sum(NFI_VALORIBSUFDIF) as VALORIBSUFDIF, '+
+      'sum(NFI_VALORIBSUFDEV) as VALORIBSUFDEV, '+
+      'sum(NFI_VALORIBSUF) as VALORIBSUF, '+
+      'sum(NFI_VALORIBS) as VALORIBS, '+
+      'sum(NFI_VALORICMS) as VALORICMS, '+
+      'sum(NFI_VALORICMSCREDSN) as VALORICMSCREDSN, '+
+      'sum(NFI_VALORICMSDESONERADO) as VALORICMSDESONERADO, '+
+      'sum(NFI_VALORICMSST) as VALORICMSST, '+
+      'sum(NFI_VALORICMSUFDEST) as VALORICMSUFDEST, '+
+      'sum(NFI_VALORICMSUFREMET) as VALORICMSUFREMET, '+
+      'sum(NFI_VALORII) as VALORII, '+
+      'sum(NFI_VALORIOF) as VALORIOF, '+
+      'sum(NFI_VALORIPI) as VALORIPI, '+
+      'sum(NFI_VALORIS) as VALORIS, '+
+      'sum(NFI_VALORISS) as VALORISS, '+
+      'sum(NFI_VALORISSDEDUCAO) as VALORISSDEDUCAO, '+
+      'sum(NFI_VALORISSDESCCOND) as VALORISSDESCCOND, '+
+      'sum(NFI_VALORISSDESCINCOND) as VALORISSDESCINCOND, '+
+      'sum(NFI_VALORISSOUTROS) as VALORISSOUTROS, '+
+      'sum(NFI_VALORISSRETENCAO) as VALORISSRETENCAO, '+
+      'sum(NFI_VALORPIS) as VALORPIS, '+
+      'sum(NFI_VALORPISST) as VALORPISST, '+
+      'sum(NFI_VALORSEGURO) as VALORSEGURO, '+
+      'sum(NFI_VALORTOTALBRUTO) as VALORTOTALBRUTO, '+
+      'sum(NFI_VALORTRIBUTOS) as VALORTRIBUTOS, '+
+      'sum(NFI_VALORTRIBUTOSEST) as VALORTRIBUTOSEST, '+
+      'sum(NFI_VALORTRIBUTOSFED) as VALORTRIBUTOSFED, '+
+      'sum(NFI_VALORTRIBUTOSIMP) as VALORTRIBUTOSIMP, '+
+      'sum(NFI_VALORTRIBUTOSMUN) as VALORTRIBUTOSMUN, '+
+      'sum(iif(NFI_SOMACOFINSST=''S'',NFI_VALORCOFINSST,0)) as SOMACOFINSST, '+
+      'sum(iif(NFI_SOMAPISST=''S'',NFI_VALORPISST,0)) as SOMAPISST '+
+      'from NFEITENS where NFI_NOTA=:nota and NFI_COMPOETOTAL=''S'''
+    );
+    Query1.ParamByName('nota').AsInteger:=TBNfeNFE_CODIGO.Value;
+    Query1.Open;
+
+    //atualiza totais na tabela NFE.
+    TBNfeNFE_BASECOFINS.Value        :=Query1.FieldByName('BASECOFINS').AsExtended;
+    TBNfeNFE_BASECOFINSST.Value      :=Query1.FieldByName('BASECOFINSST').AsExtended;
+    TBNfeNFE_BASEICMS.Value          :=Query1.FieldByName('BASEICMS').AsExtended;
+    TBNfeNFE_BASEICMSST.Value        :=Query1.FieldByName('BASEICMSST').AsExtended;
+    TBNfeNFE_BASEII.Value            :=Query1.FieldByName('BASEII').AsExtended;
+    TBNfeNFE_BASEIPI.Value           :=Query1.FieldByName('BASEIPI').AsExtended;
+    TBNfeNFE_BASEISS.Value           :=Query1.FieldByName('BASEISS').AsExtended;
+    TBNfeNFE_BASEPIS.Value           :=Query1.FieldByName('BASEPIS').AsExtended;
+    TBNfeNFE_BASEPISST.Value         :=Query1.FieldByName('BASEPISST').AsExtended;
+    TBNfeNFE_CUSTOTOTAL.Value        :=Query1.FieldByName('PRECOCUSTOTOTAL').AsExtended;
+    TBNfeNFE_DESCVALOR.Value         :=Query1.FieldByName('VALORDESCONTO').AsExtended; //valordesconto já contém o desconto em cima do frete, seguro e acessorias.
+    if TBParametrosPAR_CALCULARPESOLIQUIDO.Value='S' then
+    TBNfeNFE_PESOLIQ.Value           :=Query1.FieldByName('PESOTOTAL').AsFloat;
+    TBNfeNFE_SEQUENCIAITEM.Value     :=Query1.FieldByName('SEQUENCIA').AsInteger;
+    TBNfeNFE_TOTALADUANA.Value       :=Query1.FieldByName('VALORADUANA').AsExtended;
+    TBNfeNFE_TOTALBRUTO.Value        :=Query1.FieldByName('VALORTOTALBRUTO').AsExtended;
+    TBNfeNFE_TOTALCOFINS.Value       :=Query1.FieldByName('VALORCOFINS').AsExtended;
+    TBNfeNFE_TOTALCOFINSST.Value     :=Query1.FieldByName('VALORCOFINSST').AsExtended;
+    TBNfeNFE_TOTALCOMISSAO.Value     :=Query1.FieldByName('VALORCOMISSAO').AsExtended;
+    TBNfeNFE_TOTALCOMISSAOREP.Value  :=Query1.FieldByName('VALORCOMISSAOREP').AsExtended;
+    TBNfeNFE_TOTALFCP.Value          :=Query1.FieldByName('VALORFCP').AsExtended;
+    TBNfeNFE_TOTALFCPST.Value        :=Query1.FieldByName('VALORFCPST').AsExtended;
+    TBNfeNFE_TOTALICMS.Value         :=Query1.FieldByName('VALORICMS').AsExtended;
+    TBNfeNFE_TOTALICMSCREDSN.Value   :=Query1.FieldByName('VALORICMSCREDSN').AsExtended;
+    TBNfeNFE_TOTALICMSST.Value       :=Query1.FieldByName('VALORICMSST').AsExtended;
+    TBNfeNFE_TOTALICMSUFDEST.Value   :=Query1.FieldByName('VALORICMSUFDEST').AsExtended;
+    TBNfeNFE_TOTALICMSUFREMET.Value  :=Query1.FieldByName('VALORICMSUFREMET').AsExtended;
+    TBNfeNFE_TOTALII.Value           :=Query1.FieldByName('VALORII').AsExtended;
+    TBNfeNFE_TOTALIOF.Value          :=Query1.FieldByName('VALORIOF').AsExtended;
+    TBNfeNFE_TOTALIPI.Value          :=Query1.FieldByName('VALORIPI').AsExtended;
+    TBNfeNFE_TOTALISS.Value          :=Query1.FieldByName('VALORISS').AsExtended;
+    TBNfeNFE_TOTALISSDEDUCAO.Value   :=Query1.FieldByName('VALORISSDEDUCAO').AsExtended;
+    TBNfeNFE_TOTALISSDESCCOND.Value  :=Query1.FieldByName('VALORISSDESCCOND').AsExtended;
+    TBNfeNFE_TOTALISSDESCINCOND.Value:=Query1.FieldByName('VALORISSDESCINCOND').AsExtended;
+    TBNfeNFE_TOTALISSOUTROS.Value    :=Query1.FieldByName('VALORISSOUTROS').AsExtended;
+    TBNfeNFE_TOTALISSRETENCAO.Value  :=Query1.FieldByName('VALORISSRETENCAO').AsExtended;
+    TBNfeNFE_TOTALITENS.Value        :=Query1.FieldByName('TOTALPRODUTOS').AsExtended+Query1.FieldByName('TOTALSERVICOS').AsExtended;
+    TBNfeNFE_TOTALPIS.Value          :=Query1.FieldByName('VALORPIS').AsExtended;
+    TBNfeNFE_TOTALPISST.Value        :=Query1.FieldByName('VALORPISST').AsExtended;
+    TBNfeNFE_TOTALPRODUTOS.Value     :=Query1.FieldByName('TOTALPRODUTOS').AsExtended;
+    TBNfeNFE_TOTALSERVICOS.Value     :=Query1.FieldByName('TOTALSERVICOS').AsExtended;
+    TBNfeNFE_TOTALTRIBUTOS.Value     :=Decimais(Query1.FieldByName('VALORTRIBUTOS').AsExtended,2);
+    TBNfeNFE_TOTALTRIBUTOSEST.Value  :=Decimais(Query1.FieldByName('VALORTRIBUTOSEST').AsExtended,2);
+    TBNfeNFE_TOTALTRIBUTOSFED.Value  :=Decimais(Query1.FieldByName('VALORTRIBUTOSFED').AsExtended,2);
+    TBNfeNFE_TOTALTRIBUTOSIMP.Value  :=Decimais(Query1.FieldByName('VALORTRIBUTOSIMP').AsExtended,2);
+    TBNfeNFE_TOTALTRIBUTOSMUN.Value  :=Decimais(Query1.FieldByName('VALORTRIBUTOSMUN').AsExtended,2);
+    TBNfeNFE_VALORDESPACES.Value     :=Query1.FieldByName('VALORACESSORIAS').AsExtended;
+    TBNfeNFE_VALORFRETE.Value        :=Query1.FieldByName('VALORFRETE').AsExtended;
+    TBNfeNFE_VALORSEGURO.Value       :=Query1.FieldByName('VALORSEGURO').AsExtended;
+
+    //reforma tributária.
+    TBNfeNFE_BASEIBSCBS.Value            :=Query1.FieldByName('BASEIBSCBS').AsExtended;
+    TBNfeNFE_BASEIS.Value                :=Query1.FieldByName('BASEIS').AsExtended;
+
+    TBNfeNFE_CBSCREDPRES.Value           :=Query1.FieldByName('VALORCBSCREDPRES').AsExtended;
+    TBNfeNFE_CBSCREDPRESSUS.AsExtended   :=Query1.FieldByName('VALORCBSCREDPRESSUS').AsExtended;
+    TBNfeNFE_CBSDEVOLUCAO.AsExtended     :=Query1.FieldByName('VALORCBSDEV').AsExtended;
+    TBNfeNFE_CBSDIFERIMENTO.AsExtended   :=Query1.FieldByName('VALORCBSDIF').AsExtended;
+    TBNfeNFE_CBSMONO.AsExtended          :=0; //Query1.FieldByName('VALORIBSMUNDEV').AsExtended;
+    TBNfeNFE_CBSMONORETENCAO.AsExtended  :=0; //Query1.FieldByName('VALORIBSMUN').AsExtended;
+    TBNfeNFE_CBSMONORETIDO.AsExtended    :=0; //Query1.FieldByName('VALORIBS').AsExtended;
+    TBNfeNFE_CBSVALOR.AsExtended         :=Query1.FieldByName('VALORCBS').AsExtended;
+
+    TBNfeNFE_IBSUFDIFERIMENTO.Value      :=Query1.FieldByName('VALORIBSUFDIF').AsExtended;
+    TBNfeNFE_IBSUFDEVOLUCAO.AsExtended   :=Query1.FieldByName('VALORIBSUFDEV').AsExtended;
+    TBNfeNFE_IBSUFVALOR.AsExtended       :=Query1.FieldByName('VALORIBSUF').AsExtended;
+    TBNfeNFE_IBSMUNDIFERIMENTO.AsExtended:=Query1.FieldByName('VALORIBSMUNDIF').AsExtended;
+    TBNfeNFE_IBSMUNDEVOLUCAO.AsExtended  :=Query1.FieldByName('VALORIBSMUNDEV').AsExtended;
+    TBNfeNFE_IBSMUNVALOR.AsExtended      :=Query1.FieldByName('VALORIBSMUN').AsExtended;
+    TBNfeNFE_IBSVALOR.AsExtended         :=Query1.FieldByName('VALORIBS').AsExtended;
+    TBNfeNFE_IBSCREDPRES.AsExtended      :=Query1.FieldByName('VALORIBSCREDPRES').AsExtended;
+    TBNfeNFE_IBSCREDPRESSUS.AsExtended   :=Query1.FieldByName('VALORIBSCREDPRESSUS').AsExtended;
+
+    TBNfeNFE_TOTALIS.Value               :=Query1.FieldByName('VALORIS').AsExtended;
+
+    TBNfeNFE_VALORTOTALRTC.Value:=
+        TBNfeNFE_TOTALBRUTO.Value
+      - TBNfeNFE_DESCVALOR.Value
+      - TBNfeNFE_VALORFRETE.Value
+      + TBNfeNFE_VALORSEGURO.Value
+      + TBNfeNFE_VALORDESPACES.Value
+      + TBNfeNFE_IBSVALOR.Value
+      + TBNfeNFE_CBSVALOR.Value;
+
+    //calcula o valor total da venda.
+    //(+) vProd                    //
+    //(-) vDesc                    //
+    //(-) vICMSDeson               //
+    //(+) vST                      //
+    //(+) vFCPST                   //
+    //(+) vFrete                   //
+    //(+) vSeg                     //
+    //(+) vOutro                   //
+    //(+) vII                      //
+    //(+) vIPI                     //
+    //(+) vIPIDevol                //
+    //(+) vServ                    //
+    //(+) vPISST                   //
+    //(+) vCofinsST                //
+    TBNfeNFE_VALORTOTAL.Value:=
+        TBNfeNFE_TOTALBRUTO.Value //totalbruto já contem produtos e serviços.
+      - TBNfeNFE_DESCVALOR.Value
+      - Query1.FieldByName('VALORICMSDESONERADO').AsExtended
+      + TBNfeNFE_TOTALICMSST.Value
+      + TBNfeNFE_TOTALFCPST.Value
+      + TBNfeNFE_VALORFRETE.Value
+      + TBNfeNFE_VALORSEGURO.Value
+      + TBNfeNFE_VALORDESPACES.Value
+      + TBNfeNFE_TOTALII.Value
+      + TBNfeNFE_TOTALIPI.Value
+      //nao tenho esse campo. + TBNfeNFE_TOTALIPIDEV.Value
+      + Query1.FieldByName('SOMAPISST').AsExtended
+      + Query1.FieldByName('SOMACOFINSST').AsExtended;
+
+    //calcula nova porcentagem de desconto.
+    if TBNfeNFE_VALORTOTAL.Value>0 then //evita calcular porcentagem incorreta.
+    TBNfeNFE_DESCPORC.Value:=Decimais((100.0/(Query1.FieldByName('VALORTOTALBRUTO').AsExtended+
+                                              Query1.FieldByName('VALORFRETE').AsExtended+
+                                              Query1.FieldByName('VALORSEGURO').AsExtended+
+                                              Query1.FieldByName('VALORACESSORIAS').AsExtended))*TBNfeNFE_DESCVALOR.AsExtended,8) else
+    TBNfeNFE_DESCPORC.Value:=0;
+
+    //calcula o lucro da venda.
+    TBNfeNFE_LUCROVALOR.Value:=TBNfeNFE_VALORTOTAL.Value-TBNfeNFE_CUSTOTOTAL.Value;
+    if TBNfeNFE_LUCROVALOR.Value<>0 then
+    begin
+      if TBNfeNFE_VALORTOTAL.Value=0 then
+      TBNfeNFE_LUCROPORC.Value:=(-100.0) else
+      TBNfeNFE_LUCROPORC.Value:=(TBNfeNFE_LUCROVALOR.Value/TBNfeNFE_VALORTOTAL.Value)*100.0;
+    end;
+  end;
+
+  //if (FormNfe<>nil) and (TBNfeNFE_STATUS.Value='A') then
+  //begin
+  //  FormNfe.BitBtn5.Click; //clica no botao para simular condições de pagamento.
+  //end;
+
+  //o abaixo substitui o comentado acima.
+  if TBNfeNFE_STATUS.Value='A' then
+  SimularCondicaoNfe;
+
+  Query1.Close;
+  if DarPost then TBNfe.Post;
+end;
+
+procedure TDMFirenet.SimularCondicaoNfe;
+var ValorParcela, SomaParcelas, ValorTotal: Currency;
+  ParcelaAtual, DiasPrimeiraParcela: Integer;
+  Vencimento: TDate;
+  A,M,D: Word;
+  TextoCondicao: WideString;
+begin
+  //AbortIf(TBNfeNFE_STATUS.Value='F','Nota já finalizada.');
+  //AbortIf(TBNfeNFE_STATUS.Value='C','Esta nota fiscal está cancelada.');
+  //AbortIf(TBNfeNFE_STATUS.Value='I','Esta nota fiscal está inutilizada.');
+
+  TBNfe.Edit;
+  TBCondicoes.Close;
+  TBCondicoes.ParamByName('codigo').AsInteger:=TBNfeNFE_CONDICAO.Value;
+  TBCondicoes.Open;
+  TBCondicoesItens.Open;
+
+  if TBNfeNFE_MOVIMENTAFINANCEIRO.Value='S' then
+  begin
+    TextoCondicao:='Condição: '+IntToStr(TBNfeNFE_CONDICAO.Value)+' - '+TBNfeCPG_DESCRICAO.Value+#13#10+
+                   '=================================================='+#13#10+
+                   'Parcela Vencimento          Valor              %  '+#13#10;
+    ParcelaAtual:=0;
+    TBCondicoesItens.First;
+    DiasPrimeiraParcela:=TBCondicoesItensCPI_DIAS.Value;
+
+    ValorTotal:=TBNfeNFE_VALORTOTAL.AsExtended;
+
+    //Se soma ST na primeira parcela, pega o total e retira o valor do ST, senão fica com o total+ST.
+    if TBParametrosPAR_STPRIMEIRAPARCELA.Value='S' then
+    ValorTotal:=ValorTotal-TBNfeNFE_TOTALICMSST.AsExtended;
+
+    //Se soma FRETE, mesmo caso acima.
+    if TBParametrosPAR_FRETEPRIMEIRAPARCELA.Value='S' then
+    ValorTotal:=ValorTotal-TBNfeNFE_VALORFRETE.AsExtended;
+
+    SomaParcelas:=0;
+    while not TBCondicoesItens.Eof do
+    begin
+      Inc(ParcelaAtual);
+      //gera data de vencimento.
+      if TBCondicoesCPG_MENSAL.Value='S' then //condição com período mensal. (30 dias).
+      begin
+        if (ParcelaAtual=1) and (TBCondicoesItensCPI_DIAS.Value=0) then //primeira parcela com dias=0 é considerado como entrada.
+        Vencimento:=TBNfeNFE_DTEMISSAO.Value else
+        if DiasPrimeiraParcela=0 then
+        Vencimento:=IncMonth(TBNfeNFE_DTEMISSAO.Value,ParcelaAtual-1) else
+        Vencimento:=IncMonth(TBNfeNFE_DTEMISSAO.Value,ParcelaAtual); //parcela atual conterá o número de meses.
+      end else
+      Vencimento:=TBNfeNFE_DTEMISSAO.Value+TBCondicoesItensCPI_DIAS.Value;
+      if (TBNfeNFE_DIAPREFERENCIAL.Value<>0) and (TBCondicoesItensCPI_DIAS.Value>0) then
+      begin
+        DecodeDate(Vencimento,A,M,D);
+        Vencimento:=EncodeDate(A,M,TBNfeNFE_DIAPREFERENCIAL.Value);
+      end;
+
+      //checa se pode gerar o vencimento nos finais de semana ou somente dias úteis.
+      if TBCondicoesCPG_SOMENTEDIASUTEIS.Value='S' then
+      begin
+        if DayOfWeek(Vencimento)=1 then //domingo
+        Vencimento:=Vencimento + 1 else
+        if DayOfWeek(Vencimento)=7 then //sabado.
+        Vencimento:=Vencimento + 2;
+      end;
+
+      //se é pra dividir em parcelas iguais e a divisão do valor total pela quantidade de parcelas dá uma divisão exata, blz... senão utiliza a porcentagem do item da condição de pagto.
+      if (TBCondicoesCPG_PARCELASIGUAIS.Value='S') and (Frac(ValorTotal / TBCondicoesCPG_TOTALPARCELAS.Value)=0) then
+      ValorParcela:=ValorTotal / TBCondicoesCPG_TOTALPARCELAS.Value else
+      ValorParcela:=(ValorTotal/100.00)*TBCondicoesItensCPI_PORCENTAGEM.AsExtended;
+
+      //se for a primeira parcela, verifica se soma a ST e o Frete.
+      if ParcelaAtual=1 then
+      begin
+        if TBParametrosPAR_STPRIMEIRAPARCELA.Value='S' then
+        ValorParcela:=ValorParcela+TBNfeNFE_TOTALICMSST.AsExtended;
+
+        if TBParametrosPAR_FRETEPRIMEIRAPARCELA.Value='S' then
+        ValorParcela:=ValorParcela+TBNfeNFE_VALORFRETE.AsExtended;
+      end;
+
+      ValorParcela:=Decimais(ValorParcela,2);
+      SomaParcelas:=SomaParcelas+ValorParcela;
+
+      //verifica o valor da ultima parcela.
+      if ParcelaAtual=TBCondicoesCPG_TOTALPARCELAS.Value then
+      begin
+        if SomaParcelas > TBNfeNFE_VALORTOTAL.Value then ValorParcela:=ValorParcela-(SomaParcelas-TBNfeNFE_VALORTOTAL.AsExtended);
+        if SomaParcelas < TBNfeNFE_VALORTOTAL.Value then ValorParcela:=ValorParcela+(TBNfeNFE_VALORTOTAL.AsExtended-SomaParcelas);
+      end;
+
+      TextoCondicao:=TextoCondicao+AT(IntToStr(ParcelaAtual),' ',8,taLeft)+DateToStr(Vencimento,FS)+AT(Format('%m',[ValorParcela]),' ',15,taRight)+AT(Format('%8.2f',[TBCondicoesItensCPI_PORCENTAGEM.AsExtended]),' ',15,taRight)+#13#10;
+      TBCondicoesItens.Next;
+    end;
+  end else
+  TextoCondicao:='ESTA CFOP NAO MOVIMENTA FINANCEIRO.';
+  TBNfeNFE_CONDICAOMEMO.Value:=TextoCondicao;
+end;
+
+procedure TDMFirenet.CalcularTotaisNFeItens;
+var BC, ICMS: Currency;
+begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
+  if (TBNfeNFE_MANUAL.IsNull) or (TBNfeNFE_MANUAL.Value='N') then
+  begin
+    //calcula o valor bruto.
+    TBNfeItensNFI_VALORTOTALBRUTO.Value:=Decimais((TBNfeItensNFI_QUANTIDADE.AsExtended*TBNfeItensNFI_VALORUNIT.AsExtended),2);
+
+    {$REGION 'calcula o valor total com desconto.'}
+    TBNfeItensNFI_VALORTOTAL.Value:=Decimais((TBNfeItensNFI_QUANTIDADE.AsExtended*TBNfeItensNFI_VALORUNIT.AsExtended),2);
+    if TBNfeItensNFI_QUANTIDADETROCA.Value < 0 then TBNfeItensNFI_QUANTIDADETROCA.Value:=0;
+    if TBNfeItensNFI_QUANTIDADETROCA.Value > 0 then
+    begin
+      if TBNfeItensNFI_QUANTIDADETROCA.Value > (TBNfeItensNFI_QUANTIDADE.Value * TBNfeItensNFI_CONVERSAO.Value) then
+      TBNfeItensNFI_QUANTIDADETROCA.Value:=TBNfeItensNFI_QUANTIDADE.Value * TBNfeItensNFI_CONVERSAO.Value;
+      //TBNfeItensNFI_DESCVALOR.Value:=Decimais((TBNfeItensNFI_QUANTIDADETROCA.Value*TBNfeItensNFI_VALORUNIT.Value),2);
+      //(bruto divido pela (quantidade*conversao)=valor unitário.) * quantidade de troca.
+      TBNfeItensNFI_DESCVALOR.Value:=Decimais(TBNfeItensNFI_QUANTIDADETROCA.AsExtended * (TBNfeItensNFI_VALORTOTALBRUTO.AsExtended / (TBNfeItensNFI_QUANTIDADE.AsExtended*TBNfeItensNFI_CONVERSAO.AsExtended)),2);
+      TBNfeItensNFI_DESCPORC.Value:=Decimais((100.0/((TBNfeItensNFI_QUANTIDADE.AsExtended*TBNfeItensNFI_VALORUNIT.AsExtended)+
+                                             TBNfeItensNFI_VALORFRETE.AsExtended+
+                                             TBNfeItensNFI_VALORSEGURO.AsExtended+
+                                             TBNfeItensNFI_VALORACESSORIAS.AsExtended))*TBNfeItensNFI_DESCVALOR.AsExtended,8);
+    end else
+    TBNfeItensNFI_DESCVALOR.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100.00)*TBNfeItensNFI_DESCPORC.AsExtended,2);
+
+    if (TBNfeItensNFI_COMPOETOTAL.Value='S') or (TBNfeItensNFI_COMPOETOTAL.IsNull) then
+    TBNfeItensNFI_VALORTOTAL.Value:=TBNfeItensNFI_VALORTOTAL.Value-TBNfeItensNFI_DESCVALOR.Value else
+    TBNfeItensNFI_VALORTOTAL.Value:=0;
+    {$ENDREGION}
+
+    {$REGION 'calcula o peso total do produto.'}
+    //quantidade * peso = pesototal (liquido).
+    if TBParametrosPAR_CALCULARPESOLIQUIDO.Value='S' then
+    TBNfeItensNFI_PESOTOTAL.Value:=TBNfeItensNFI_QUANTIDADE.AsExtended*TBNfeItensNFI_PESO.Value;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do IPI.'}
+    TBNfeItensNFI_BASEIPI.Value:=0;
+    TBNfeItensNFI_VALORIPI.Value:=0;
+    if TBNfeItensNFI_ALIQIPI.Value>0 then
+    begin
+      TBNfeItensNFI_BASEIPI.Value:=TBNfeItensNFI_VALORTOTAL.Value+TBNfeItensNFI_VALORFRETE.Value;
+      TBNfeItensNFI_VALORIPI.Value:=Decimais((TBNfeItensNFI_BASEIPI.AsExtended/100.00)*TBNfeItensNFI_ALIQIPI.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do ICMS'}
+    //base = total + frete + seguro + acessorias - desconto.
+    TBNfeItensNFI_BASEICMS.Value:=0;
+    TBNfeItensNFI_VALORICMS.Value:=0;
+    TBNfeItensNFI_VALORICMSUFDEST.Value:=0;
+    TBNfeItensNFI_VALORICMSUFREMET.Value:=0;
+    TBNfeItensNFI_VALORFCP.Value:=0;
+    if TBNfeItensNFI_COMPOEBASEICMS.Value='S' then
+    begin
+      TBNfeItensNFI_BASEICMS.Value:=TBNfeItensNFI_VALORTOTAL.Value+
+                                    TBNfeItensNFI_VALORFRETE.Value+
+                                    TBNfeItensNFI_VALORSEGURO.Value+
+                                    TBNfeItensNFI_VALORACESSORIAS.Value;
+
+      //24-11-2020
+      if TBNfeNFE_TIPOCONSUMIDOR.Value='1 - CONSUMIDOR FINAL' then
+      TBNfeItensNFI_BASEICMS.Value:=TBNfeItensNFI_BASEICMS.Value+TBNfeItensNFI_VALORIPI.Value;
+
+      if TBNfeItensNFI_ALIQICMSRED.Value<>0 then
+      TBNfeItensNFI_BASEICMS.Value:=Decimais(TBNfeItensNFI_BASEICMS.AsExtended-((TBNfeItensNFI_BASEICMS.AsExtended/100)*TBNfeItensNFI_ALIQICMSRED.AsExtended),2);
+      TBNfeItensNFI_VALORICMS.Value:=Decimais(((TBNfeItensNFI_BASEICMS.AsExtended/100.00)*TBNfeItensNFI_ALIQICMS.AsExtended),2);
+
+      //calcula o valor do ICMS na UF do destinatário - 40% em 2016, 60% em 2017, 80% em 2018, 100% a partir de 2019.
+      //40% de (base calculo / 100 * (aliq icms - interestadual))
+      //a soma do valor dest e remet deve ser igual a (base calculo / 100 * (aliq icms - interestadual))
+      if TBEmpresaEMP_ESTADO.Value<>TBNfeNFE_ESTADO.Value then
+      begin
+        ICMS:=(TBNfeItensNFI_BASEICMS.AsExtended/100.00) * (Abs(TBNfeItensNFI_ALIQICMS.AsExtended-TBNfeItensNFI_ALIQICMSINTER.AsExtended));
+        TBNfeItensNFI_VALORICMSUFDEST.Value:=Decimais((ICMS/100.00) * TBNfeItensNFI_ALIQICMSINTERPART.AsExtended,2);
+
+        //calcula o valor do ICMS na UF do remetente
+        TBNfeItensNFI_VALORICMSUFREMET.Value:=Decimais((ICMS/100.00) * (100-TBNfeItensNFI_ALIQICMSINTERPART.AsExtended),2);
+
+        //calcula o valor do FCP.
+        TBNfeItensNFI_VALORFCP.Value:=(TBNfeItensNFI_BASEICMS.Value/100.00) * TBNfeItensNFI_ALIQFCP.Value;
+      end;
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do ICMS ST.'}
+    //base=total+frete+seguro+acessorias+mva * aliq uf emitente - icmsnormal.
+    TBNfeItensNFI_BASEICMSST.Value:=0;
+    TBNfeItensNFI_VALORICMSST.Value:=0;
+    TBNfeItensNFI_VALORFCPST.Value:=0;
+    if (TBNfeItensNFI_COMPOEBASEICMSST.Value='S') and (TBNfeItensNFI_ALIQICMSST.Value>0) then
+    begin
+      BC:=TBNfeItensNFI_VALORTOTAL.AsExtended+
+          TBNfeItensNFI_VALORIPI.AsExtended+
+          TBNfeItensNFI_VALORFRETE.AsExtended+
+          TBNfeItensNFI_VALORSEGURO.AsExtended+
+          TBNfeItensNFI_VALORACESSORIAS.AsExtended;
+
+      if TBNfeItensNFI_ALIQICMSRED.Value<>0 then
+      BC:=Decimais(BC-((BC/100)*TBNfeItensNFI_ALIQICMSRED.AsExtended),2);
+      ICMS:=Decimais(((BC/100)*TBNfeItensNFI_ALIQICMS.AsExtended),2);
+
+      TBNfeItensNFI_BASEICMSST.Value:=Decimais(((TBNfeItensNFI_VALORTOTAL.AsExtended+
+                                                 TBNfeItensNFI_VALORIPI.AsExtended+
+                                                 TBNfeItensNFI_VALORFRETE.AsExtended+
+                                                 TBNfeItensNFI_VALORSEGURO.AsExtended+
+                                                 TBNfeItensNFI_VALORACESSORIAS.AsExtended)+
+                                               ((TBNfeItensNFI_VALORTOTAL.AsExtended+
+                                                 TBNfeItensNFI_VALORIPI.AsExtended+
+                                                 TBNfeItensNFI_VALORFRETE.AsExtended+
+                                                 TBNfeItensNFI_VALORSEGURO.AsExtended+
+                                                 TBNfeItensNFI_VALORACESSORIAS.AsExtended)/100) *
+                                                 TBNfeItensNFI_ALIQICMSADICST.AsExtended),2);
+      TBNfeItensNFI_VALORICMSST.Value:=Decimais(((TBNfeItensNFI_BASEICMSST.AsExtended/100)*TBNfeItensNFI_ALIQICMSST.AsExtended)-ICMS,2);
+      TBNfeItensNFI_VALORFCPST.Value:=(TBNfeItensNFI_BASEICMSST.Value/100.00) * TBNfeItensNFI_ALIQFCPST.Value;
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula o valor do crédito do simples nacional.'}
+    //no Phill o ICM_CALCULACREDITOSN vem do TBIcms pelo CST (o campo do join fica vazio nos itens novos), como no CalcularTotaisVendaItens.
+    TBIcms.Close;
+    TBIcms.ParamByName('codigo').AsInteger:=TBNfeItensNFI_CSTICMS.Value;
+    TBIcms.Open;
+    TBNfeItensNFI_VALORICMSCREDSN.Value:=0;
+    //if (TBNfeItensICM_CALCULACREDITOSN.Value='S') and (TBNfeItensNAT_CALCULACREDITOSN.Value='S') then
+    if (TBIcmsICM_CALCULACREDITOSN.Value='S') and (TBNfeItensNAT_CALCULACREDITOSN.Value='S') then
+    begin
+      TBNfeItensNFI_VALORICMSCREDSN.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100)*TBNfeNFE_ALIQICMSCREDSN.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do II.'}
+    TBNfeItensNFI_BASEII.Value:=0;
+    TBNfeItensNFI_VALORII.Value:=0;
+    if TBNfeItensNFI_ALIQII.Value>0 then
+    begin
+      TBNfeItensNFI_BASEII.Value:=TBNfeItensNFI_VALORTOTAL.Value;
+      TBNfeItensNFI_VALORII.Value:=Decimais((TBNfeItensNFI_BASEII.AsExtended/100)*TBNfeItensNFI_ALIQII.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do ISS.'}
+    TBNfeItensNFI_BASEISS.Value:=0;
+    TBNfeItensNFI_VALORISS.Value:=0;
+    if TBNfeItensNFI_ALIQISS.Value>0 then
+    begin
+      TBNfeItensNFI_BASEISS.Value:=TBNfeItensNFI_VALORTOTAL.Value;
+      TBNfeItensNFI_VALORISS.Value:=Decimais((TBNfeItensNFI_BASEISS.AsExtended/100)*TBNfeItensNFI_ALIQISS.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do PIS.'}
+    TBNfeItensNFI_BASEPIS.Value:=0;
+    TBNfeItensNFI_VALORPIS.Value:=0;
+    if TBNfeItensNFI_ALIQPIS.Value>0 then
+    begin
+      TBNfeItensNFI_BASEPIS.Value:=TBNfeItensNFI_VALORTOTAL.Value+TBNfeItensNFI_VALORFRETE.Value;
+      TBNfeItensNFI_VALORPIS.Value:=Decimais((TBNfeItensNFI_BASEPIS.AsExtended/100)*TBNfeItensNFI_ALIQPIS.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do PISST.'}
+    TBNfeItensNFI_BASEPISST.Value:=0;
+    TBNfeItensNFI_VALORPISST.Value:=0;
+    if TBNfeItensNFI_ALIQPISST.Value>0 then
+    begin
+      TBNfeItensNFI_BASEPISST.Value:=TBNfeItensNFI_VALORTOTAL.Value+TBNfeItensNFI_VALORFRETE.Value;
+      TBNfeItensNFI_VALORPISST.Value:=Decimais((TBNfeItensNFI_BASEPISST.AsExtended/100)*TBNfeItensNFI_ALIQPISST.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do COFINS.'}
+    TBNfeItensNFI_BASECOFINS.Value:=0;
+    TBNfeItensNFI_VALORCOFINS.Value:=0;
+    if TBNfeItensNFI_ALIQCOFINS.Value>0 then
+    begin
+      TBNfeItensNFI_BASECOFINS.Value:=TBNfeItensNFI_VALORTOTAL.Value+TBNfeItensNFI_VALORFRETE.Value;
+      TBNfeItensNFI_VALORCOFINS.Value:=Decimais((TBNfeItensNFI_BASECOFINS.AsExtended/100)*TBNfeItensNFI_ALIQCOFINS.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do COFINS ST.'}
+    TBNfeItensNFI_BASECOFINSST.Value:=0;
+    TBNfeItensNFI_VALORCOFINSST.Value:=0;
+    if TBNfeItensNFI_ALIQCOFINSST.Value>0 then
+    begin
+      TBNfeItensNFI_BASECOFINSST.Value:=TBNfeItensNFI_VALORTOTAL.Value+TBNfeItensNFI_VALORFRETE.Value;
+      TBNfeItensNFI_VALORCOFINSST.Value:=Decimais((TBNfeItensNFI_BASECOFINSST.AsExtended/100)*TBNfeItensNFI_ALIQCOFINSST.AsExtended,2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula a comissão do vendedor sobre o item. (por produto).'}
+    //valor total - IPI - ICMSST / 100 * %comissao.
+    if TBNfeItensNAT_CALCULACOMISSAO.Value='S' then
+    TBNfeItensNFI_VALORCOMISSAO.Value:=Decimais((((TBNfeItensNFI_VALORTOTAL.AsExtended-TBNfeItensNFI_VALORIPI.AsExtended-TBNfeItensNFI_VALORICMSST.AsExtended)/100.0)*TBNfeItensNFI_COMISSAO.AsExtended),2) else
+    TBNfeItensNFI_VALORCOMISSAO.Value:=0;
+    {$ENDREGION}
+
+    {$REGION 'calcula a comissão do representante sobre o item. (por produto).'}
+    //valor total - IPI - ICMSST / 100 * %comissao.
+    if TBNfeItensNAT_CALCULACOMISSAO.Value='S' then
+    TBNfeItensNFI_VALORCOMISSAOREP.Value:=Decimais((((TBNfeItensNFI_VALORTOTAL.AsExtended-TBNfeItensNFI_VALORIPI.AsExtended-TBNfeItensNFI_VALORICMSST.AsExtended)/100.0)*TBNfeItensNFI_COMISSAOREP.AsExtended),2) else
+    TBNfeItensNFI_VALORCOMISSAOREP.Value:=0;
+    {$ENDREGION}
+
+    {$REGION 'calcula o lucro no item.'}
+    TBNfeItensNFI_PRECOCUSTOTOTAL.Value:=TBNfeItensNFI_PRECOCUSTO.Value*TBNfeItensNFI_QUANTIDADE.Value;
+    TBNfeItensNFI_LUCROVALOR.Value:=TBNfeItensNFI_VALORTOTAL.Value-TBNfeItensNFI_PRECOCUSTOTOTAL.Value;
+    if TBNfeItensNFI_LUCROVALOR.Value<>0 then
+    begin
+      if TBNfeItensNFI_VALORTOTAL.Value=0 then
+      TBNfeItensNFI_LUCROPORC.Value:=(-100.0) else
+      TBNfeItensNFI_LUCROPORC.Value:=(TBNfeItensNFI_LUCROVALOR.Value/TBNfeItensNFI_VALORTOTAL.Value)*100.0;
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula o total aproximado dos tributos. - LEI DA TRANSPARENCIA.'}
+    TBClassFiscal.Close;
+    TBClassFiscal.ParamByName('codigo').AsString:=TBNfeItensNFI_CLASSFISCAL.Value;
+    TBClassFiscal.ParamByName('excecao').AsInteger:=TBNfeItensNFI_EXCECAO.Value;
+    TBClassFiscal.Open;
+    if (Copy(TBNfeItensNFI_ORIGEM.Value,1,1)='0') or
+       (Copy(TBNfeItensNFI_ORIGEM.Value,1,1)='3') or
+       (Copy(TBNfeItensNFI_ORIGEM.Value,1,1)='4') or
+       (Copy(TBNfeItensNFI_ORIGEM.Value,1,1)='5') then //0,3,4,5 = produtos nacionais
+    begin
+      TBNfeItensNFI_VALORTRIBUTOSEST.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100)*TBClassFiscalCLF_ALIQUOTAESTADUAL.AsExtended,2);
+      TBNfeItensNFI_VALORTRIBUTOSFED.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100)*TBClassFiscalCLF_ALIQUOTANACIONAL.AsExtended,2);
+      TBNfeItensNFI_VALORTRIBUTOSMUN.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100)*TBClassFiscalCLF_ALIQUOTAMUNICIPAL.AsExtended,2);
+      TBNfeItensNFI_VALORTRIBUTOSIMP.Value:=0;
+      TBNfeItensNFI_VALORTRIBUTOS.Value:=TBNfeItensNFI_VALORTRIBUTOSEST.Value+TBNfeItensNFI_VALORTRIBUTOSFED.Value+TBNfeItensNFI_VALORTRIBUTOSMUN.Value;
+    end else
+    begin
+      TBNfeItensNFI_VALORTRIBUTOSEST.Value:=0;
+      TBNfeItensNFI_VALORTRIBUTOSFED.Value:=0;
+      TBNfeItensNFI_VALORTRIBUTOSMUN.Value:=0;
+      TBNfeItensNFI_VALORTRIBUTOSIMP.Value:=Decimais((TBNfeItensNFI_VALORTOTAL.AsExtended/100)*TBClassFiscalCLF_ALIQUOTAIMPORTACAO.AsExtended,2);
+      TBNfeItensNFI_VALORTRIBUTOS.Value:=TBNfeItensNFI_VALORTRIBUTOSIMP.Value;
+    end;
+    {$ENDREGION}
+
+    //calculos da reforma tributária.
+    {$REGION 'calcula valor do IS.'}
+    TBNfeItensNFI_BASEIS.Value:=0;
+    TBNfeItensNFI_VALORIS.Value:=0;
+    if TBNfeItensNFI_ALIQIS.Value>0 then
+    begin
+      //base de calculo do IS
+      //      (+) vProd
+      //      (+) vServ
+      //      (+) vFrete
+      //      (+) vSeg
+      //      (+) vOutro
+      //      (+) vII
+      //      (-) vDesc
+      //      (-) vPIS
+      //      (-) vCOFINS
+      //      (-) vICMS
+      //      (-) vICMSUFDest
+      //      (-) vFCP
+      //      (-) vFCPUFDest
+      //      (-) vICMSMono
+      TBNfeItensNFI_BASEIS.Value:=Decimais(
+          TBNfeItensNFI_VALORTOTALBRUTO.AsExtended
+        + TBNfeItensNFI_VALORFRETE.AsExtended
+        + TBNfeItensNFI_VALORSEGURO.AsExtended
+        + TBNfeItensNFI_VALORACESSORIAS.AsExtended
+        + TBNfeItensNFI_VALORII.AsExtended
+        - TBNfeItensNFI_DESCVALOR.AsExtended
+        - TBNfeItensNFI_VALORPIS.AsExtended
+        - TBNfeItensNFI_VALORCOFINS.AsExtended
+        - TBNfeItensNFI_VALORICMS.AsExtended
+        - TBNfeItensNFI_VALORICMSUFDEST.AsExtended
+        - TBNfeItensNFI_VALORFCP.AsExtended
+        - TBNfeItensNFI_VALORISS.AsExtended, 2
+      );
+      TBNfeItensNFI_VALORIS.Value:=Decimais((TBNfeItensNFI_BASEIS.AsExtended/100)*TBNfeItensNFI_ALIQIS.AsExtended,2);
+    end;
+    if TBNfeItensNFI_ALIQISESP.Value>0 then
+    TBNfeItensNFI_VALORIS.Value:=TBNfeItensNFI_VALORIS.Value + Decimais((TBNfeItensNFI_QUANTIDADE.AsExtended/100)*TBNfeItensNFI_ALIQISESP.AsExtended,2);
+    {$ENDREGION}
+
+    {$REGION 'composicao da base de calculo IBSCBS'}
+    //composicao da base
+    //    (+) vProd
+    //    (+) vServ
+    //    (+) vFrete
+    //    (+) vSeg
+    //    (+) vOutro
+    //    (+) vII
+    //    (-) vDesc
+    //    (-) vPIS
+    //    (-) vCOFINS
+    //    (-) vICMS
+    //    (-) vICMSUFDest
+    //    (-) vFCP
+    //    (-) vFCPUFDest
+    //    (-) vICMSMono
+    //    (-) vISSQN
+    //    (+) vIS
+    TBNfeItensNFI_BASEIBSCBS.Value:=Decimais(
+        TBNfeItensNFI_VALORTOTALBRUTO.AsExtended //qtde * valorunit
+      + TBNfeItensNFI_VALORFRETE.AsExtended
+      + TBNfeItensNFI_VALORSEGURO.AsExtended
+      + TBNFeItensNFI_VALORACESSORIAS.AsExtended
+      + TBNfeItensNFI_VALORII.AsExtended
+      - TBNfeItensNFI_DESCVALOR.AsExtended
+      - TBNfeItensNFI_VALORPIS.AsExtended
+      - TBNfeItensNFI_VALORPISST.AsExtended
+      - TBNfeItensNFI_VALORCOFINS.AsExtended
+      - TBNfeItensNFI_VALORCOFINSST.AsExtended
+      - TBNfeItensNFI_VALORICMS.AsExtended
+      - TBNfeItensNFI_VALORICMSUFDEST.AsExtended
+      - TBNfeItensNFI_VALORFCP.AsExtended
+      - TBNfeItensNFI_VALORISS.AsExtended
+      + TBNfeItensNFI_VALORIS.AsExtended, 2
+    );
+    if TBNfeItensNFI_SOMACOFINSST.Value='N' then TBNfeItensNFI_BASEIBSCBS.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended + TBNfeItensNFI_VALORCOFINSST.AsExtended,2);
+    if TBNfeItensNFI_SOMAPISST.Value='N' then TBNfeItensNFI_BASEIBSCBS.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended + TBNfeItensNFI_VALORPISST.AsExtended,2);
+    {$ENDREGION}
+
+    {$REGION 'calcula aliquota efetiva IBS'}
+    //pAliqEfet = pIBSUF × (1 - pRedAliq / 100).
+    TBNfeItensNFI_ALIQIBSMUNEFE.Value:=0;
+    if TBNfeItensNFI_ALIQIBSMUNRED.Value > 0 then
+    TBNfeItensNFI_ALIQIBSMUNEFE.Value:=Decimais(TBNfeItensNFI_ALIQIBSMUN.AsExtended * (1-TBNfeItensNFI_ALIQIBSMUNRED.AsExtended/100), 4);
+    if TBNfeNFE_GOVERNAMENTALALIQRED.Value > 0 then
+    TBNfeItensNFI_ALIQIBSMUNEFE.Value:=Decimais(TBNfeItensNFI_ALIQIBSMUN.AsExtended * (1-TBNfeItensNFI_ALIQIBSMUNRED.AsExtended/100) * (1-TBNfeNFE_GOVERNAMENTALALIQRED.AsExtended/100), 4);
+
+    TBNfeItensNFI_ALIQIBSUFEFE.Value:=0;
+    if TBNfeItensNFI_ALIQIBSUFRED.Value > 0 then
+    TBNfeItensNFI_ALIQIBSUFEFE.Value:=Decimais(TBNfeItensNFI_ALIQIBSUF.AsExtended * (1-TBNfeItensNFI_ALIQIBSUFRED.AsExtended/100), 4);
+    if TBNfeNFE_GOVERNAMENTALALIQRED.Value > 0 then
+    TBNfeItensNFI_ALIQIBSUFEFE.Value:=Decimais(TBNfeItensNFI_ALIQIBSUF.AsExtended * (1-TBNfeItensNFI_ALIQIBSUFRED.AsExtended/100) * (1-TBNfeNFE_GOVERNAMENTALALIQRED.AsExtended/100), 4);
+    {$ENDREGION}
+
+    {$REGION 'calcula aliquota efetiva CBS'}
+    //pAliqEfet = pCBS × (1 - pRedAliq / 100)
+    //...OU...
+    //pAliqEfet = pCBS × (1 - pRedAliq / 100) × (1 - gCompraGov/pRedutor / 100)
+    //Alíquota efetiva, após aplicação da redução de alíquota, incluindo o gCompraGov/pRedutor, se houver.
+    //    Exemplo: Redução de 40% na alíquota:
+    //    Alíquota vigente (A): 10%
+    //    Redução na alíquota (R): 40%
+    //    Redutor de compras governamentais (RG): 5%
+    //    Alíquota Efetiva (E): E = A * (1 - R)*(1- RG)
+    //    E = 10 * (1 - 0,4) *(1 - 0,05) = 5,7
+    //    Observação: O cálculo da pAliqEfet deve considerar 4 casas decimais com arredondamento na ultima casa decimal.
+    TBNfeItensNFI_ALIQCBSEFE.Value:=0;
+    if TBNfeItensNFI_ALIQCBSRED.Value > 0 then
+    TBNfeItensNFI_ALIQCBSEFE.Value:=Decimais(TBNfeItensNFI_ALIQCBS.AsExtended * (1-TBNfeItensNFI_ALIQCBSRED.AsExtended/100), 4);
+    if TBNfeNFE_GOVERNAMENTALALIQRED.Value > 0 then
+    TBNfeItensNFI_ALIQCBSEFE.Value:=Decimais(TBNfeItensNFI_ALIQCBS.AsExtended * (1-TBNfeItensNFI_ALIQCBSRED.AsExtended/100) * (1-TBNfeNFE_GOVERNAMENTALALIQRED.AsExtended/100), 4);
+    {$ENDREGION}
+
+    {$REGION 'calcula diferimento IBSCBS'}
+    //IBS mun diferimento.
+    if TBNfeItensNFI_ALIQIBSMUNDIF.Value>0 then
+    begin
+      TBNfeItensNFI_VALORIBSMUNDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQIBSMUN.AsExtended/100) * (TBNfeItensNFI_ALIQIBSMUNDIF.AsExtended/100),2);
+      if TBNfeItensNFI_ALIQIBSMUNEFE.Value>0 then
+      TBNfeItensNFI_VALORIBSMUNDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQIBSMUNEFE.AsExtended/100) * (TBNfeItensNFI_ALIQIBSMUNDIF.AsExtended/100),2);
+    end;
+
+    //IBS uf diferimento.
+    if TBNfeItensNFI_ALIQIBSUFDIF.Value>0 then
+    begin
+      TBNfeItensNFI_VALORIBSUFDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQIBSUF.AsExtended/100) * (TBNfeItensNFI_ALIQIBSUFDIF.AsExtended/100) ,2);
+      if TBNfeItensNFI_ALIQIBSUFEFE.Value>0 then
+      TBNfeItensNFI_VALORIBSUFDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQIBSUFEFE.AsExtended/100) * (TBNfeItensNFI_ALIQIBSUFDIF.AsExtended/100) ,2);
+    end;
+
+    //CBS diferimento
+    if TBNfeItensNFI_ALIQCBSDIF.Value>0 then
+    begin
+      TBNfeItensNFI_VALORCBSDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQCBS.AsExtended/100) * (TBNfeItensNFI_ALIQCBSDIF.AsExtended/100), 2);
+      if TBNfeItensNFI_ALIQCBSEFE.Value>0 then
+      TBNfeItensNFI_VALORCBSDIF.Value:=Decimais(TBNfeItensNFI_BASEIBSCBS.AsExtended * (TBNfeItensNFI_ALIQCBSEFE.AsExtended/100) * (TBNfeItensNFI_ALIQCBSDIF.AsExtended/100), 2);
+    end;
+    {$ENDREGION}
+
+    {$REGION 'calcula valor do IBSCBS'}
+    //vIBSUF = (gIBSCBS/vBC x (pIBSUF / 100)) - vDif - vDevTrib
+    //...OU...
+    //vIBSUF = (gIBSCBS/vBC x (pAliqEfet / 100)) - vDif - vDevTrib
+    if TBNfeItensNFI_ALIQIBSMUN.Value>0 then
+    TBNfeItensNFI_VALORIBSMUN.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQIBSMUN.AsExtended/100)
+      - TBNfeItensNFI_VALORIBSMUNDIF.AsExtended
+      - TBNfeItensNFI_VALORIBSMUNDEV.AsExtended,2
+    );
+    if ((TBNfeItensNFI_ALIQIBSMUNEFE.Value>0) or (TBNfeItensNFI_ALIQIBSMUNRED.Value=100)) then
+    TBNfeItensNFI_VALORIBSMUN.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQIBSMUNEFE.AsExtended/100)
+      - TBNfeItensNFI_VALORIBSMUNDIF.AsExtended
+      - TBNfeItensNFI_VALORIBSMUNDEV.AsExtended,2
+    );
+
+    if TBNfeItensNFI_ALIQIBSUF.Value>0 then
+    TBNfeItensNFI_VALORIBSUF.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQIBSUF.AsExtended/100)
+      - TBNfeItensNFI_VALORIBSUFDIF.AsExtended
+      - TBNfeItensNFI_VALORIBSUFDEV.AsExtended, 2
+    );
+    if ((TBNfeItensNFI_ALIQIBSUFEFE.Value>0) or (TBNfeItensNFI_ALIQIBSUFRED.Value=100)) then
+    TBNfeItensNFI_VALORIBSUF.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQIBSUFEFE.AsExtended/100)
+      - TBNfeItensNFI_VALORIBSUFDIF.AsExtended
+      - TBNfeItensNFI_VALORIBSUFDEV.AsExtended ,2
+    );
+    TBNfeItensNFI_VALORIBS.Value:=Decimais(TBNfeItensNFI_VALORIBSMUN.AsExtended + TBNfeItensNFI_VALORIBSUF.AsExtended,2);
+
+    //vCBS = (gIBSCBS/vBC x (pCBS / 100)) - vDif – vDevTrib
+    TBNfeItensNFI_VALORCBS.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQCBS.AsExtended/100)
+      - TBNfeItensNFI_VALORCBSDIF.AsExtended
+      - TBNfeItensNFI_VALORCBSDEV.AsExtended, 2
+    );
+    if ((TBNfeItensNFI_ALIQCBSEFE.Value>0) or (TBNfeItensNFI_ALIQCBSRED.Value=100)) then
+    TBNfeItensNFI_VALORCBS.Value:=Decimais(
+        TBNfeItensNFI_BASEIBSCBS.AsExtended
+      * (TBNfeItensNFI_ALIQCBSEFE.AsExtended/100)
+      - TBNfeItensNFI_VALORCBSDIF.AsExtended
+      - TBNfeItensNFI_VALORCBSDEV.AsExtended, 2
+    );
+    {$ENDREGION}
+  end;
+end;
+
+procedure TDMFirenet.TBNfeItensBeforePost(DataSet: TDataSet);
+begin
+  CalcularTotaisNFeItens;
+end;
+
+procedure TDMFirenet.TBNfeAfterInsert(DataSet: TDataSet);
+begin
+  //no Phill a DLL NFe_Util e verificada nas rotas (GerarNfe), sem MessageDlg.
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
+
+  //localiza a condicao de pagamento para pegar a porcentagem de desconto.
+  TBCondicoes.Close;
+  TBCondicoes.ParamByName('codigo').AsInteger:=TBParametrosPAR_CONDICAOPADRAO.Value;
+  TBCondicoes.Open;
+  //localiza a CFOP padrao.
+  TBNaturezas.Close;
+  TBNaturezas.ParamByName('codigo').AsInteger:=TBParametrosPAR_CFOPPADRAO.Value;
+  TBNaturezas.Open;
+  //...
+  TBNfeNFE_ALIQICMSCREDSN.Value:=TBParametrosPAR_CREDITOICMSSN.Value;
+  TBNfeNFE_BASEIBSCBS.Value:=0;
+  TBNfeNFE_BASEIRRF.Value:=0;
+  TBNfeNFE_BASEIS.Value:=0;
+  TBNfeNFE_CBSCREDPRES.Value:=0;
+  TBNfeNFE_CBSCREDPRESSUS.Value:=0;
+  TBNfeNFE_CBSDEVOLUCAO.Value:=0;
+  TBNfeNFE_CBSDIFERIMENTO.Value:=0;
+  TBNfeNFE_CBSMONO.Value:=0;
+  TBNfeNFE_CBSMONORETENCAO.Value:=0;
+  TBNfeNFE_CBSMONORETIDO.Value:=0;
+  TBNfeNFE_CBSVALOR.Value:=0;
+  TBNfeNFE_CFOP.Value:=TBParametrosPAR_CFOPPADRAO.Value;
+  TBNfeNFE_CFOPDESC.Value:=TBNaturezasNAT_DESCRICAO.Value;
+  TBNfeNFE_COMISSAOPOR.Value:=TBParametrosPAR_COMISSAOPOR.Value;
+  TBNfeNFE_CONDICAO.Value:=TBParametrosPAR_CONDICAOPADRAO.Value;
+  TBNfeNFE_CONSULTADA.Value:='N';
+  TBNfeNFE_CUSTOTOTAL.Value:=0;
+  TBNfeNFE_DESCPORCCLIENTE.Value:=0;
+  TBNfeNFE_DESCPORCCONDICAO.Value:=TBCondicoesCPG_DESCPORC.Value;
+  TBNfeNFE_DESTACARIMPOSTOS.Value:=TBNaturezasNAT_DESTACARIMPOSTOS.Value;
+  TBNfeNFE_DIAPREFERENCIAL.Value:=0;
+  TBNfeNFE_DTCADASTRO.Value:=Date;
+  TBNfeNFE_DTEMISSAO.Value:=TBNfeNFE_DTCADASTRO.Value;
+  TBNfeNFE_DTPRESTSERVICO.Value:=TBNfeNFE_DTCADASTRO.Value;
+  TBNfeNFE_DTSAIDA.Value:=TBNfeNFE_DTCADASTRO.Value;
+  TBNfeNFE_ENTRADASAIDA.Value:=TBNaturezasNAT_ENTRADASAIDA.Value;
+  TBNfeNFE_ENVIADA.Value:='N';
+  TBNfeNFE_FINALIDADE.Value:='1 - NFE NORMAL';
+  TBNfeNFE_FRETE.Value:=TBParametrosPAR_FRETEPORCONTA.Value;
+  TBNfeNFE_GOVERNAMENTAL.Value:='0 - NENHUM';
+  TBNfeNFE_GOVERNAMENTALALIQRED.Value:=0;
+  TBNfeNFE_GOVERNAMENTALOP.Value:='0 - NENHUM';
+  TBNfeNFE_HRCADASTRO.Value:=Time;
+  TBNfeNFE_IBSCREDPRES.Value:=0;
+  TBNfeNFE_IBSCREDPRESSUS.Value:=0;
+  TBNfeNFE_IBSMONO.Value:=0;
+  TBNfeNFE_IBSMONORETENCAO.Value:=0;
+  TBNfeNFE_IBSMONORETIDO.Value:=0;
+  TBNfeNFE_IBSMUNDEVOLUCAO.Value:=0;
+  TBNfeNFE_IBSMUNDIFERIMENTO.Value:=0;
+  TBNfeNFE_IBSMUNVALOR.Value:=0;
+  TBNfeNFE_IBSUFDEVOLUCAO.Value:=0;
+  TBNfeNFE_IBSUFDIFERIMENTO.Value:=0;
+  TBNfeNFE_IBSUFVALOR.Value:=0;
+  TBNfeNFE_IBSVALOR.Value:=0;
+  TBNfeNFE_INFOADICFISCO.Value:=TBNaturezasNAT_OBSERVACOES.Value;
+  TBNfeNFE_INTERMEDIADOR.Value:=TBParametrosPAR_INTERMEDIADOR.Value;
+  TBNfeNFE_INTERMEDIADORCAD.Value:=TBParametrosPAR_INTERMEDIADORCAD.Value;
+  TBNfeNFE_INTERMEDIADORCNPJ.Value:=TBParametrosPAR_INTERMEDIADORCNPJ.Value;
+  TBNfeNFE_LUCROPORC.Value:=0;
+  TBNfeNFE_LUCROVALOR.Value:=0;
+  TBNfeNFE_MANUAL.Value:='N';
+  TBNfeNFE_MODELO.Value:=TBParametrosPAR_NFEMODELO.Value;
+  TBNfeNFE_MOVIMENTAESTOQUE.Value:=TBNaturezasNAT_MOVIMENTAESTOQUE.Value;
+  TBNfeNFE_MOVIMENTAFINANCEIRO.Value:=TBNaturezasNAT_MOVIMENTAFINANCEIRO.Value;
+  TBNfeNFE_NOTACREDITO.Value:='00 - NENHUM';
+  TBNfeNFE_NOTADEBITO.Value:='00 - NENHUM';
+  TBNfeNFE_SEQUENCIAITEM.Value:=0;
+  TBNfeNFE_SERIE.Value:=TBParametrosPAR_NFESERIE.Value;
+  TBNfeNFE_STATUS.Value:='A'; //A=Aberto, F=Finalizada, C=Cancelada/estornada.
+  TBNfeNFE_TABELAPRECO.Value:=TBParametrosPAR_TABELAPRECO.Value;
+  TBNfeNFE_TIPOATENDIMENTO.Value:=TBParametrosPAR_NFETIPOATENDIMENTO.Value;
+  TBNfeNFE_TIPOCONSUMIDOR.Value:=TBParametrosPAR_NFETIPOCONSUMIDOR.Value;
+  TBNfeNFE_TIPOEMISSAO.Value:=TBParametrosPAR_NFETIPOEMISSAO.Value;
+  TBNfeNFE_TIPOOPERACAO.Value:='1 - OPERACAO INTERNA';
+  TBNfeNFE_TOTALADUANA.Value:=0;
+  TBNfeNFE_TOTALBRUTO.Value:=0;
+  TBNfeNFE_TOTALCCE.Value:=0;
+  TBNfeNFE_TOTALCOFINS.Value:=0;
+  TBNfeNFE_TOTALCOFINSST.Value:=0;
+  TBNfeNFE_TOTALCOMISSAO.Value:=0;
+  TBNfeNFE_TOTALCOMISSAOREP.Value:=0;
+  TBNfeNFE_TOTALFCP.Value:=0;
+  TBNfeNFE_TOTALFCPST.Value:=0;
+  TBNfeNFE_TOTALICMS.Value:=0;
+  TBNfeNFE_TOTALICMSCREDSN.Value:=0;
+  TBNfeNFE_TOTALICMSST.Value:=0;
+  TBNfeNFE_TOTALICMSUFDEST.Value:=0;
+  TBNfeNFE_TOTALICMSUFREMET.Value:=0;
+  TBNfeNFE_TOTALII.Value:=0;
+  TBNfeNFE_TOTALIOF.Value:=0;
+  TBNfeNFE_TOTALIPI.Value:=0;
+  TBNfeNFE_TOTALIRRF.Value:=0;
+  TBNfeNFE_TOTALIS.Value:=0;
+  TBNfeNFE_TOTALISS.Value:=0;
+  TBNfeNFE_TOTALISSDEDUCAO.Value:=0;
+  TBNfeNFE_TOTALISSDESCCOND.Value:=0;
+  TBNfeNFE_TOTALISSDESCINCOND.Value:=0;
+  TBNfeNFE_TOTALISSOUTROS.Value:=0;
+  TBNfeNFE_TOTALISSRETENCAO.Value:=0;
+  TBNfeNFE_TOTALITENS.Value:=0;
+  TBNfeNFE_TOTALPIS.Value:=0;
+  TBNfeNFE_TOTALPISST.Value:=0;
+  TBNfeNFE_TOTALPRODUTOS.Value:=0;
+  TBNfeNFE_TOTALSERVICOS.Value:=0;
+  TBNfeNFE_TOTALTRIBUTOS.Value:=0;
+  TBNfeNFE_TOTALTRIBUTOSEST.Value:=0;
+  TBNfeNFE_TOTALTRIBUTOSFED.Value:=0;
+  TBNfeNFE_TOTALTRIBUTOSIMP.Value:=0;
+  TBNfeNFE_TOTALTRIBUTOSMUN.Value:=0;
+  TBNfeNFE_VALORDESPACES.Value:=0;
+  TBNfeNFE_VALORFRETE.Value:=0;
+  TBNfeNFE_VALORSEGURO.Value:=0;
+  TBNfeNFE_VALORTOTAL.Value:=0;
+  TBNfeNFE_VALORTOTALRTC.Value:=0;
+  TBNfeNFE_VOLUMES.Value:=1;
+
+  //if (FormNfe<>nil) and (TBNfeNFE_STATUS.Value='A') then
+  //FormNfe.BitBtn5.Click; //clica no botao para simular condições de pagamento.
+  //como no TBVendasAfterInsert do Phill, a simulacao fica para o CalcularTotaisNFe, quando a nota ja tem cliente, condicao e itens.
+  //if TBNfeNFE_STATUS.Value='A' then
+  //SimularCondicaoNfe;
+end;
+
+procedure TDMFirenet.TBNfeItensAfterInsert(DataSet: TDataSet);
+begin
+  AbrirEmpresaParametros; //no Phill a empresa e os parametros nao ficam abertos como no Firenet.
+  TBNfeItensNFI_ALIQCBS.Value:=0;
+  TBNfeItensNFI_ALIQCBSCREDPRES.Value:=0;
+  TBNfeItensNFI_ALIQCBSDIF.Value:=0;
+  TBNfeItensNFI_ALIQCBSEFE.Value:=0;
+  TBNfeItensNFI_ALIQCBSRED.Value:=0;
+  TBNfeItensNFI_ALIQCOFINS.Value:=0;
+  TBNfeItensNFI_ALIQCOFINSST.Value:=0;
+  TBNfeItensNFI_ALIQFCP.Value:=0;
+  TBNfeItensNFI_ALIQFCPST.Value:=0;
+  TBNfeItensNFI_ALIQIBSCREDPRES.Value:=0;
+  TBNfeItensNFI_ALIQIBSMUN.Value:=0;
+  TBNfeItensNFI_ALIQIBSMUNDIF.Value:=0;
+  TBNfeItensNFI_ALIQIBSMUNEFE.Value:=0;
+  TBNfeItensNFI_ALIQIBSMUNRED.Value:=0;
+  TBNfeItensNFI_ALIQIBSUF.Value:=0;
+  TBNfeItensNFI_ALIQIBSUFDIF.Value:=0;
+  TBNfeItensNFI_ALIQIBSUFEFE.Value:=0;
+  TBNfeItensNFI_ALIQIBSUFRED.Value:=0;
+  TBNfeItensNFI_ALIQICMS.Value:=0;
+  TBNfeItensNFI_ALIQICMSADICST.Value:=0;
+  TBNfeItensNFI_ALIQICMSINTER.Value:=0;
+  TBNfeItensNFI_ALIQICMSINTERPART.Value:=0;
+  TBNfeItensNFI_ALIQICMSRED.Value:=0;
+  TBNfeItensNFI_ALIQICMSST.Value:=0;
+  TBNfeItensNFI_ALIQICMSSTRET.Value:=0;
+  TBNfeItensNFI_ALIQII.Value:=0;
+  TBNfeItensNFI_ALIQIPI.Value:=0;
+  TBNfeItensNFI_ALIQIS.Value:=0;
+  TBNfeItensNFI_ALIQISS.Value:=0;
+  TBNfeItensNFI_ALIQPIS.Value:=0;
+  TBNfeItensNFI_ALIQPISST.Value:=0;
+  TBNfeItensNFI_ALMOXARIFADO.Value:=TBParametrosPAR_ALMOXARIFADOPADRAO.Value;
+  TBNfeItensNFI_BASECOFINS.Value:=0;
+  TBNfeItensNFI_BASECOFINSST.Value:=0;
+  TBNfeItensNFI_BASEIBSCBS.Value:=0;
+  TBNfeItensNFI_BASEICMS.Value:=0;
+  TBNfeItensNFI_BASEICMSRED.Value:=0;
+  TBNfeItensNFI_BASEICMSST.Value:=0;
+  TBNfeItensNFI_BASEICMSSTRET.Value:=0;
+  TBNfeItensNFI_BASEII.Value:=0;
+  TBNfeItensNFI_BASEIPI.Value:=0;
+  TBNfeItensNFI_BASEIS.Value:=0;
+  TBNfeItensNFI_BASEISS.Value:=0;
+  TBNfeItensNFI_BASEPIS.Value:=0;
+  TBNfeItensNFI_BASEPISST.Value:=0;
+  TBNfeItensNFI_CBSCREDITOPRES.Value:=0;
+  TBNfeItensNFI_CFOP.Value:=TBNfeNFE_CFOP.Value;
+  TBNfeItensNFI_CIDADEISS.Value:=TBEmpresaEMP_CIDADECODIGO.Value;
+  TBNfeItensNFI_COMISSAO.Value:=0;
+  TBNfeItensNFI_COMISSAOREP.Value:=0;
+  TBNfeItensNFI_COMPOEBASEICMS.Value:='N';
+  TBNfeItensNFI_COMPOEBASEICMSST.Value:='N';
+  TBNfeItensNFI_COMPOETOTAL.Value:='S';
+  TBNfeItensNFI_CONVERSAO.Value:=1;
+  TBNfeItensNFI_DESCPORC.Value:=0;
+  TBNfeItensNFI_DESCVALOR.Value:=0;
+  TBNfeItensNFI_DESONERACAO.Value:='00 - NENHUM';
+  TBNfeItensNFI_EXCECAO.Value:=0;
+  TBNfeItensNFI_IBSCREDITOPRES.Value:=0;
+  TBNfeItensNFI_INDICADORISS.Value:='2 - NAO INCIDENCIA';
+  TBNfeItensNFI_INCENTIVOISS.Value:='N';
+  TBNfeItensNFI_LUCROPORC.Value:=0;
+  TBNfeItensNFI_LUCROVALOR.Value:=0;
+  TBNfeItensNFI_MODICMS.Value:='3 - VALOR DA OPERACAO';
+  TBNfeItensNFI_MODICMSST.Value:='6 - VALOR DA OPERACAO';
+  TBNfeItensNFI_NOTA.Value:=TBNfeNFE_CODIGO.Value;
+  TBNfeItensNFI_ORIGEM.Value:='0 - NACIONAL';
+  TBNfeItensNFI_PAISISS.Value:=1058;
+  TBNfeItensNFI_PEDIDOCLIENTE.Value:=TBNfeNFE_PEDIDOCLIENTE.Value;
+  TBNfeItensNFI_PRECOCUSTO.Value:=0;
+  TBNfeItensNFI_PRECOCUSTOTOTAL.Value:=0;
+  TBNfeItensNFI_PRODUTOREAL.Value:=0;
+  TBNfeItensNFI_QUANTIDADE.Value:=1;
+  TBNfeItensNFI_QUANTIDADETROCA.Value:=0;
+  TBNfeItensNFI_SEQUENCIA.Value:=TBNfeNFE_SEQUENCIAITEM.Value+1;
+  TBNfeItensNFI_SOMACOFINSST.Value:='N';
+  TBNfeItensNFI_SOMAPISST.Value:='N';
+  TBNfeItensNFI_VALORACESSORIAS.Value:=0;
+  TBNfeItensNFI_VALORADUANA.Value:=0;
+  TBNfeItensNFI_VALORCBS.Value:=0;
+  TBNfeItensNFI_VALORCBSCREDPRES.Value:=0;
+  TBNfeItensNFI_VALORCBSCREDPRESSUS.Value:=0;
+  TBNfeItensNFI_VALORCBSDEV.Value:=0;
+  TBNfeItensNFI_VALORCBSDIF.Value:=0;
+  TBNfeItensNFI_VALORCOFINS.Value:=0;
+  TBNfeItensNFI_VALORCOFINSST.Value:=0;
+  TBNfeItensNFI_VALORCOMISSAO.Value:=0;
+  TBNfeItensNFI_VALORCOMISSAOREP.Value:=0;
+  TBNfeItensNFI_VALORFCP.Value:=0;
+  TBNfeItensNFI_VALORFCPST.Value:=0;
+  TBNfeItensNFI_VALORFRETE.Value:=0;
+  TBNfeItensNFI_VALORIBS.Value:=0;
+  TBNfeItensNFI_VALORIBSCREDPRES.Value:=0;
+  TBNfeItensNFI_VALORIBSCREDPRESSUS.Value:=0;
+  TBNfeItensNFI_VALORIBSMUN.Value:=0;
+  TBNfeItensNFI_VALORIBSMUNDEV.Value:=0;
+  TBNfeItensNFI_VALORIBSMUNDIF.Value:=0;
+  TBNfeItensNFI_VALORIBSUF.Value:=0;
+  TBNfeItensNFI_VALORIBSUFDEV.Value:=0;
+  TBNfeItensNFI_VALORIBSUFDIF.Value:=0;
+  TBNfeItensNFI_VALORICMS.Value:=0;
+  TBNfeItensNFI_VALORICMSCREDSN.Value:=0;
+  TBNfeItensNFI_VALORICMSDESONERADO.Value:=0;
+  TBNfeItensNFI_VALORICMSST.Value:=0;
+  TBNfeItensNFI_VALORICMSSTRET.Value:=0;
+  TBNfeItensNFI_VALORICMSSUBSTITUTO.Value:=0;
+  TBNfeItensNFI_VALORICMSUFDEST.Value:=0;
+  TBNfeItensNFI_VALORICMSUFREMET.Value:=0;
+  TBNfeItensNFI_VALORII.Value:=0;
+  TBNfeItensNFI_VALORIOF.Value:=0;
+  TBNfeItensNFI_VALORIS.Value:=0;
+  TBNfeItensNFI_VALORISS.Value:=0;
+  TBNfeItensNFI_VALORISSDEDUCAO.Value:=0;
+  TBNfeItensNFI_VALORISSDESCCOND.Value:=0;
+  TBNfeItensNFI_VALORISSDESCINCOND.Value:=0;
+  TBNfeItensNFI_VALORISSOUTROS.Value:=0;
+  TBNfeItensNFI_VALORISSRETENCAO.Value:=0;
+  TBNfeItensNFI_VALORSEGURO.Value:=0;
+  TBNfeItensNFI_VALORTOTAL.Value:=0;
+  TBNfeItensNFI_VALORTOTALBRUTO.Value:=0;
+
+  //TBNfeItensALM_DESCRICAO.Value:=
+  TBNfeItensNAT_DESCRICAO.Value:=TBNfeNFE_CFOPDESC.Value;
+  TBNfeItensNAT_CALCULACOMISSAO.Value:=TBNfeNAT_CALCULACOMISSAO.Value;
+  TBNfeItensNAT_CALCULACREDITOSN.Value:=TBNfeNAT_CALCULACREDITOSN.Value;
+end;
+
+procedure TDMFirenet.AbrirEmpresaParametros;
+//O Firenet deixa a EMPRESA e os PARAMETROS (codigo 1) sempre abertos, e os calculos dependem deles (EMP_ESTADO, EMP_CIDADECODIGO, PAR_*).
+//No Phill o DM e criado por requisicao, entao abre aqui o que estiver fechado.
+begin
+  if not TBEmpresa.Active then
+  begin
+    TBEmpresa.ParamByName('codigo').AsInteger:=1;
+    TBEmpresa.Open;
+  end;
+  if not TBParametros.Active then
+  begin
+    TBParametros.ParamByName('codigo').AsInteger:=1;
+    TBParametros.Open;
+  end;
 end;
 
 end.

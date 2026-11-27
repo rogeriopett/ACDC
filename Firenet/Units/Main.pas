@@ -39,7 +39,6 @@ type
     Chamadas1: TMenuItem;
     Chamadas1Button: TToolButton;
     Cheques1: TMenuItem;
-    Cheques1Button: TToolButton;
     Classes1: TMenuItem;
     Classes1Button: TToolButton;
     ClassificacoesFiscais1: TMenuItem;
@@ -103,7 +102,6 @@ type
     GNREGuiaImpostosEstaduais1: TMenuItem;
     Grupos1: TMenuItem;
     Grupos1Button: TToolButton;
-    Image1: TImage;
     Imobiliaria1: TMenuItem;
     Imoveis1: TMenuItem;
     Imoveis1Button: TToolButton;
@@ -190,7 +188,6 @@ type
     Projetos1Button: TToolButton;
     ProjetosDmProducao1: TMenuItem;
     Promissorias1: TMenuItem;
-    Promissorias1Button: TToolButton;
     RamosDeAtividades1: TMenuItem;
     RamosDeAtividades1Button: TToolButton;
     Receitas1: TMenuItem;
@@ -330,6 +327,11 @@ type
     N6: TMenuItem;
     IAsmin1: TMenuItem;
     IAsmin1Button: TToolButton;
+    Panel2: TPanel;
+    Image1: TImage;
+    N10: TMenuItem;
+    DemonstrativoDoResultadoDoExercicio1: TMenuItem;
+    DemonstrativoDoResultadoDoExercicio1Button: TToolButton;
     procedure Agrupadores1Click(Sender: TObject);
     procedure Ajuda1Click(Sender: TObject);
     procedure Aliquotas1Click(Sender: TObject);
@@ -494,6 +496,7 @@ type
     procedure WhatsAppMensagens1Click(Sender: TObject);
     procedure IAsmin1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure DemonstrativoDoResultadoDoExercicio1Click(Sender: TObject);
   private
     procedure HandleShortcuts(var Msg: TMsg; var Handled: Boolean);
     { Private declarations }
@@ -536,7 +539,7 @@ uses Registry, IniFiles, DataMod, DataMod2, Login, Usuarios, Empresa, Sobre,
   Metas, Beneficios, Manifestacoes, VendasLoc, Equipamentos, EnderecosBuscaCEP,
   Dashboard, MetasMinhas, Checklists, NfceCaixa, Temas, Nfce, ConsultarPlaca,
   Cst, ClassTrib, CreditoPresumido, Logomarca, RegrasFiscais, Fci, Nbs,
-  ZapInstancias, ZapMensagens, IasminConsulta;
+  ZapInstancias, ZapMensagens, IasminConsulta, Dre;
 {$R *.DFM}
 
 //##############################################################################
@@ -902,6 +905,14 @@ begin
   FormDelivery:=nil;
 end;
 
+procedure TFormMain.DemonstrativoDoResultadoDoExercicio1Click(Sender: TObject);
+begin
+  Application.CreateForm(TFormDre, FormDre);
+  FormDre.ShowModal;
+  FormDre.Free;
+  FormDre:=nil;
+end;
+
 procedure TFormMain.Seguros1Click(Sender: TObject);
 begin
   Application.CreateForm(TFormSeguros, FormSeguros);
@@ -959,12 +970,15 @@ procedure TFormMain.FormCreate(Sender: TObject);
 begin
   FormMainCreate; //procedimentos do evento create são utilizados também quando é feito a troca de usuário.
   //Application.OnMessage:=HandleShortcuts;
+  Panel2.Caption:='';
 end;
 
 procedure TFormMain.FormResize(Sender: TObject);
 begin
-  Image1.Left := (Self.ClientWidth - Image1.Width) div 2;
-  Image1.Top  := (Self.ClientHeight - Image1.Height) div 2;
+//  Image1.Left := (Self.ClientWidth - Image1.Width) div 2;
+//  Image1.Top  := (Self.ClientHeight - Image1.Height) div 2;
+  Image1.Left := (Panel2.Width - Image1.Width) div 2;
+  Image1.Top  := (Panel2.Height - Image1.Height) div 2;
 end;
 
 procedure TFormMain.Etiquetas1Click(Sender: TObject);

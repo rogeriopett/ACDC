@@ -12,14 +12,14 @@
 // ************************************************************************ //
 
 // $Rev: 98336 $
-// File generated on 30/03/2026 07:08:33 from Type Library described below.
+// File generated on 26/11/2026 07:14:28 from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: C:\Runtime\Firenet\MDFe_Util.tlb (1)
+// Type Lib: C:\Runtime\ACDC\Firenet\MDFe_Util.tlb (1)
 // LIBID: {193BFFFA-6A62-4FE9-8FCC-61B30C0EF0AC}
 // LCID: 0
 // Helpfile:
-// HelpString: Biblioteca de utilidades da MDF-e - vers�o 3.0.10c (3.0.10.3)
+// HelpString: Biblioteca de utilidades da MDF-e - vers�o 4.0.0a (4.0.0.1)
 // DepndLst:
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
 //   (2) v2.4 mscorlib, (C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.tlb)
@@ -50,7 +50,7 @@ Winapi.ActiveX;
 // *********************************************************************//
 const
   // TypeLibrary Major and minor versions
-  MDFe_UtilMajorVersion = 3;
+  MDFe_UtilMajorVersion = 4;
   MDFe_UtilMinorVersion = 0;
 
   LIBID_MDFe_Util: TGUID = '{193BFFFA-6A62-4FE9-8FCC-61B30C0EF0AC}';
@@ -58,6 +58,9 @@ const
   IID_MDFe_Util_Interface: TGUID = '{89A35A2C-4981-4571-BD5F-2BDEB4B5E156}';
   DIID_MDFe_Util_Events: TGUID = '{0A005D06-B8C1-46CA-8270-56D108D21C84}';
   CLASS_Util: TGUID = '{02E8B11B-30A6-479B-82BF-9AD7ECEE187D}';
+  IID__QREncoderTables: TGUID = '{BA9543B6-8201-3922-A592-D17E9A5F967D}';
+  IID__QREncoder: TGUID = '{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}';
+  IID__QRCodeEncoder: TGUID = '{BDBF56F1-9896-3147-A927-D311FA2ADCEC}';
   IID__MDFeStatusServico: TGUID = '{0DF663E5-6A2B-3C9A-85C9-865C6B2F848C}';
   IID__MDFe_Util_mdfeStatusServico_mdfeCabecMsg: TGUID = '{FB4100DC-90E2-307D-A3DA-D715026E0711}';
   IID__mdfeStatusServicoMDFCompletedEventHandler: TGUID = '{BFD539C2-29D0-3E47-914F-1A77B699A2F6}';
@@ -89,43 +92,40 @@ const
   IID__MDFe_Util_mdfeConsNaoEnc_mdfeCabecMsg: TGUID = '{5D90EC74-8A68-31A5-A63C-61A764A4A699}';
   IID__mdfeConsNaoEncCompletedEventHandler: TGUID = '{46A55CD6-F5EC-340F-82D1-BF6768F6FF42}';
   IID__mdfeConsNaoEncCompletedEventArgs: TGUID = '{B416D19C-550A-3FBB-BCFF-20770BFB92BA}';
-  IID__QREncoderTables: TGUID = '{BA9543B6-8201-3922-A592-D17E9A5F967D}';
-  IID__QREncoder: TGUID = '{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}';
-  IID__QRCodeEncoder: TGUID = '{BDBF56F1-9896-3147-A927-D311FA2ADCEC}';
-  CLASS_MDFeStatusServico: TGUID = '{DCB07277-ED31-3B2E-BFF0-4BB0D5430290}';
-  CLASS_MDFe_Util_mdfeStatusServico_mdfeCabecMsg: TGUID = '{AAB500B3-2204-37FC-933C-12D37FBED119}';
-  CLASS_mdfeStatusServicoMDFCompletedEventHandler: TGUID = '{CF9F515F-F57D-3F35-9AA9-3133B205B4E3}';
-  CLASS_mdfeStatusServicoMDFCompletedEventArgs: TGUID = '{AB9A9611-7C82-3221-AF0D-C606AA5DAE30}';
-  CLASS_MDFeRetRecepcao: TGUID = '{5FFE6001-FB9B-37FE-83EE-82AA01C80906}';
-  CLASS_MDFe_Util_mdfeRetRecepcao_mdfeCabecMsg: TGUID = '{647A6410-9857-36DD-9CAD-0FF7D11A43E3}';
-  CLASS_mdfeRetRecepcaoCompletedEventHandler: TGUID = '{A243537A-118C-30A6-BB3F-66BCF85E1061}';
-  CLASS_mdfeRetRecepcaoCompletedEventArgs: TGUID = '{AF7E7268-8DF4-32D2-A06D-746EA7FC2B41}';
-  CLASS_MDFeRecepcaoSinc: TGUID = '{1D6E350A-BE4D-3C03-AC7D-583C4F5662AC}';
-  CLASS_mdfeRecepcaoCompletedEventHandler: TGUID = '{F33EFE5B-78BC-3060-8B3E-1E57121AAEDF}';
-  CLASS_mdfeRecepcaoCompletedEventArgs: TGUID = '{42DA951B-6D88-3888-AA31-D4E2ACE7C5F8}';
-  CLASS_MDFeRecepcao: TGUID = '{A5C10D13-297C-3FE6-8158-FDDBA164325D}';
-  CLASS_MDFe_Util_mdfeRecepcaoLote_mdfeCabecMsg: TGUID = '{696C0B66-8F4B-3034-B77F-DCC999E2965F}';
-  CLASS_mdfeRecepcaoLoteCompletedEventHandler: TGUID = '{880A58D9-5DE2-31E4-B399-30A8815F14F2}';
-  CLASS_mdfeRecepcaoLoteCompletedEventArgs: TGUID = '{D1634767-78BC-33FC-AA15-087BDD2FA4D2}';
-  CLASS_MDFeRecepcaoEvento: TGUID = '{518409E6-A8F6-3D93-9AF0-84D7242C73A4}';
-  CLASS_MDFe_Util_mdfeRecepcaoEvento_mdfeCabecMsg: TGUID = '{D05D5CC7-57EA-342E-B471-8653AAD3D32E}';
-  CLASS_mdfeRecepcaoEventoCompletedEventHandler: TGUID = '{80485283-BA57-3B41-BAE4-74F0DA264E0D}';
-  CLASS_mdfeRecepcaoEventoCompletedEventArgs: TGUID = '{B9388B18-4E75-367A-97D0-4C7FF78B0743}';
-  CLASS_MDFeDistribuicaoDFe: TGUID = '{D524FE0E-89E3-3485-9E45-71B08920D25C}';
-  CLASS_MDFe_Util_MDFeDistDFe_mdfeCabecMsg: TGUID = '{6C141CB9-0B50-3F05-B86E-F0BB71A5A9C8}';
-  CLASS_mdfeDistDFeInteresseCompletedEventHandler: TGUID = '{9203D37B-5502-342D-B8EB-FCF4D4143E0D}';
-  CLASS_mdfeDistDFeInteresseCompletedEventArgs: TGUID = '{2DCEA127-4445-3865-8433-B629C6CACA8F}';
-  CLASS_MDFeConsulta: TGUID = '{22C5ACA0-014D-3B18-A7EB-C657C0F829CF}';
-  CLASS_MDFe_Util_mdfeConsultaMDF_mdfeCabecMsg: TGUID = '{4C6FAF95-EB38-3E37-98C2-75FDB62B1144}';
-  CLASS_mdfeConsultaMDFCompletedEventHandler: TGUID = '{A7D88673-2371-334C-B8E7-3D3B051043D4}';
-  CLASS_mdfeConsultaMDFCompletedEventArgs: TGUID = '{5C8AB690-5CBF-345A-9ED8-A40546668DE6}';
-  CLASS_MDFeConsNaoEnc: TGUID = '{314437C6-6217-3B48-A0BC-CE209B5FD3EB}';
-  CLASS_MDFe_Util_mdfeConsNaoEnc_mdfeCabecMsg: TGUID = '{5BFBEE87-B720-39F2-8FAB-C23761FBA2B4}';
-  CLASS_mdfeConsNaoEncCompletedEventHandler: TGUID = '{F2EEE9D9-8F7B-3E23-BA2A-C5787E59D41F}';
-  CLASS_mdfeConsNaoEncCompletedEventArgs: TGUID = '{C53F3089-F7AA-34D3-82CB-7A049266A4AA}';
-  CLASS_QREncoderTables: TGUID = '{3F2A4EED-47FF-38F8-AF84-2234F24B65AA}';
-  CLASS_QREncoder: TGUID = '{9F2A43AB-D498-395B-B360-3DBD2B3C63C0}';
-  CLASS_QRCodeEncoder: TGUID = '{5927E32B-1455-3253-ABD8-CF1F45E75C87}';
+  CLASS_QREncoderTables: TGUID = '{8B3DE064-7297-3924-82BF-78D77E25CE80}';
+  CLASS_QREncoder: TGUID = '{370B07A1-8DB0-3A51-AFF5-4F1A08B4F193}';
+  CLASS_QRCodeEncoder: TGUID = '{DE2727A4-F318-386E-AD8E-B1529A91CA10}';
+  CLASS_MDFeStatusServico: TGUID = '{422A1930-D612-3C34-8D5B-19F84E3C4638}';
+  CLASS_MDFe_Util_mdfeStatusServico_mdfeCabecMsg: TGUID = '{F6453F9D-9A91-374B-9A54-A3C282908502}';
+  CLASS_mdfeStatusServicoMDFCompletedEventHandler: TGUID = '{8E800CD1-CA10-3219-B704-304067F0786B}';
+  CLASS_mdfeStatusServicoMDFCompletedEventArgs: TGUID = '{2D22FE4B-35A5-396D-A475-E15722B056CB}';
+  CLASS_MDFeRetRecepcao: TGUID = '{63888770-3F7B-315F-86D4-6394BE02A024}';
+  CLASS_MDFe_Util_mdfeRetRecepcao_mdfeCabecMsg: TGUID = '{7CB7CC50-44FB-3B71-9949-442704A7EB92}';
+  CLASS_mdfeRetRecepcaoCompletedEventHandler: TGUID = '{3C7316E4-41E4-3C1F-AA54-88F8A34BFD51}';
+  CLASS_mdfeRetRecepcaoCompletedEventArgs: TGUID = '{FDB0858E-12BD-36BB-B054-89A8ADDB0C71}';
+  CLASS_MDFeRecepcaoSinc: TGUID = '{8F5A5F53-9874-34E1-A8F3-5540D6A9CD8A}';
+  CLASS_mdfeRecepcaoCompletedEventHandler: TGUID = '{3EDB26F9-21E7-3004-9017-F86BA7C28E9E}';
+  CLASS_mdfeRecepcaoCompletedEventArgs: TGUID = '{3CFD4F4B-68CB-3110-8038-49DDF700F530}';
+  CLASS_MDFeRecepcao: TGUID = '{382F4EFD-7595-3E76-A32F-5A253C8A6CF7}';
+  CLASS_MDFe_Util_mdfeRecepcaoLote_mdfeCabecMsg: TGUID = '{A4461F52-BC29-352F-9B9F-E41B16E6C0FC}';
+  CLASS_mdfeRecepcaoLoteCompletedEventHandler: TGUID = '{5B32EEAE-610F-398C-8461-561FAC9492D0}';
+  CLASS_mdfeRecepcaoLoteCompletedEventArgs: TGUID = '{9666ED18-C6BD-3B45-9334-1F0ABD724877}';
+  CLASS_MDFeRecepcaoEvento: TGUID = '{BB697953-9934-3C3C-9F6F-974C1D90555C}';
+  CLASS_MDFe_Util_mdfeRecepcaoEvento_mdfeCabecMsg: TGUID = '{2292C4D0-41E3-3451-8190-D668FE3C003C}';
+  CLASS_mdfeRecepcaoEventoCompletedEventHandler: TGUID = '{10E68D2D-AE35-3EB8-B32F-6AFA0F8403B7}';
+  CLASS_mdfeRecepcaoEventoCompletedEventArgs: TGUID = '{A0CB6497-C991-3271-9C6B-518B57742333}';
+  CLASS_MDFeDistribuicaoDFe: TGUID = '{F5629EB6-7C65-3A2B-8734-58CAE2220675}';
+  CLASS_MDFe_Util_MDFeDistDFe_mdfeCabecMsg: TGUID = '{D3878442-D6C6-3CDD-ABB7-D31198388F5C}';
+  CLASS_mdfeDistDFeInteresseCompletedEventHandler: TGUID = '{851F11A4-CED0-3FFC-96A6-230136D29385}';
+  CLASS_mdfeDistDFeInteresseCompletedEventArgs: TGUID = '{2DC18CB3-3CD8-31E2-94DA-D25C936A7C19}';
+  CLASS_MDFeConsulta: TGUID = '{F5FA1808-ABDD-3A70-9EB5-F2BF082C245F}';
+  CLASS_MDFe_Util_mdfeConsultaMDF_mdfeCabecMsg: TGUID = '{CB6C6510-7AA0-3F12-9E2D-2343F9789557}';
+  CLASS_mdfeConsultaMDFCompletedEventHandler: TGUID = '{2F610216-C209-3AEE-92A6-DC025F24450E}';
+  CLASS_mdfeConsultaMDFCompletedEventArgs: TGUID = '{FF93ADD5-87FC-3E71-8169-41320382EC30}';
+  CLASS_MDFeConsNaoEnc: TGUID = '{29950D69-BCDF-3B70-9A5F-B41D0710FF6A}';
+  CLASS_MDFe_Util_mdfeConsNaoEnc_mdfeCabecMsg: TGUID = '{590A7EB7-2A24-3D9A-8FC1-6536E96C7636}';
+  CLASS_mdfeConsNaoEncCompletedEventHandler: TGUID = '{FBF82849-42BC-3BD3-A96A-DF549379DFB2}';
+  CLASS_mdfeConsNaoEncCompletedEventArgs: TGUID = '{02CFF9B0-99E5-3579-9B43-AE6D88034442}';
 
 // *********************************************************************//
 // Declaration of Enumerations defined in Type Library
@@ -168,6 +168,12 @@ type
   MDFe_Util_Interface = interface;
   MDFe_Util_InterfaceDisp = dispinterface;
   MDFe_Util_Events = dispinterface;
+  _QREncoderTables = interface;
+  _QREncoderTablesDisp = dispinterface;
+  _QREncoder = interface;
+  _QREncoderDisp = dispinterface;
+  _QRCodeEncoder = interface;
+  _QRCodeEncoderDisp = dispinterface;
   _MDFeStatusServico = interface;
   _MDFeStatusServicoDisp = dispinterface;
   _MDFe_Util_mdfeStatusServico_mdfeCabecMsg = interface;
@@ -230,18 +236,15 @@ type
   _mdfeConsNaoEncCompletedEventHandlerDisp = dispinterface;
   _mdfeConsNaoEncCompletedEventArgs = interface;
   _mdfeConsNaoEncCompletedEventArgsDisp = dispinterface;
-  _QREncoderTables = interface;
-  _QREncoderTablesDisp = dispinterface;
-  _QREncoder = interface;
-  _QREncoderDisp = dispinterface;
-  _QRCodeEncoder = interface;
-  _QRCodeEncoderDisp = dispinterface;
 
 // *********************************************************************//
 // Declaration of CoClasses defined in Type Library
 // (NOTE: Here we map each CoClass to its Default Interface)
 // *********************************************************************//
   Util = MDFe_Util_Interface;
+  QREncoderTables = _QREncoderTables;
+  QREncoder = _QREncoder;
+  QRCodeEncoder = _QRCodeEncoder;
   MDFeStatusServico = _MDFeStatusServico;
   MDFe_Util_mdfeStatusServico_mdfeCabecMsg = _MDFe_Util_mdfeStatusServico_mdfeCabecMsg;
   mdfeStatusServicoMDFCompletedEventHandler = _mdfeStatusServicoMDFCompletedEventHandler;
@@ -273,9 +276,6 @@ type
   MDFe_Util_mdfeConsNaoEnc_mdfeCabecMsg = _MDFe_Util_mdfeConsNaoEnc_mdfeCabecMsg;
   mdfeConsNaoEncCompletedEventHandler = _mdfeConsNaoEncCompletedEventHandler;
   mdfeConsNaoEncCompletedEventArgs = _mdfeConsNaoEncCompletedEventArgs;
-  QREncoderTables = _QREncoderTables;
-  QREncoder = _QREncoder;
-  QRCodeEncoder = _QRCodeEncoder;
 
 
 // *********************************************************************//
@@ -356,6 +356,7 @@ type
                           out msgResultado: WideString): WideString; safecall;
     function decodeBase64(const txtBase64: WideString; out cResultado: Integer;
                           out msgResultado: WideString): WideString; safecall;
+    function PegaNomeCertificado(var Nome: WideString; out msgResultado: WideString): Integer; safecall;
     function CriaChaveDFe(const cUF: WideString; const Ano: WideString; const Mes: WideString;
                           const CNPJ: WideString; const modelo: WideString;
                           const serie: WideString; const numero: WideString;
@@ -719,6 +720,123 @@ type
                               const infEntregaParcial_Opc: WideString;
                               const infNFePrestParcial_Opc: WideString): WideString; safecall;
     function infNFePrestParcial(const chNFe: WideString): WideString; safecall;
+    function ANTT_GeraCIOT(tpAmb: Integer; const nomeCertificado: WideString;
+                           const CpfCnpj: WideString; out cStat: Integer;
+                           out msgResultado: WideString; out msgDados: WideString;
+                           out CIOT: WideString; out DataGeracao: WideString;
+                           out Mensagem: WideString): WideString; safecall;
+    function ANTT_ConsultaSitTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                    const CpfCnpjInteressado: WideString;
+                                    const CpfCnpjTransportador: WideString;
+                                    const RNTRCTransportador: WideString; out cStat: Integer;
+                                    out msgResultado: WideString; out msgDados: WideString;
+                                    out NomeRazaoSocialTransportador: WideString;
+                                    out RNTRCAtivo: WideString; out Mensagem: WideString;
+                                    out Procotolo: WideString; out Codigo: WideString;
+                                    out TipoTransportador: WideString; out EquiparadoTAC: WideString): WideString; safecall;
+    function ANTT_ConsultaFrotaTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                      const CpfCnpjInteressado: WideString;
+                                      const CpfCnpjTransportador: WideString;
+                                      const RNTRCTransportador: WideString;
+                                      const Placas: WideString; out cStat: Integer;
+                                      out msgResultado: WideString; out msgDados: WideString;
+                                      out NomeRazaoSocialTransportador: WideString;
+                                      out RNTRCAtivo: WideString; out Mensagem: WideString;
+                                      out Procotolo: WideString; out Codigo: WideString;
+                                      out Frota: WideString): WideString; safecall;
+    function ANTT_DeclaraOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const Declaracao: WideString; out cStat: Integer;
+                                   out msgResultado: WideString; out msgDados: WideString;
+                                   out CIOT12: WideString; out CodigoVerificador: WideString;
+                                   out protocolo: WideString; out Codigo: WideString;
+                                   out Mensagem: WideString; out AvisoTransportador: WideString): WideString; safecall;
+    function ANTT_CancelaOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const CIOT16: WideString; const MotivoCancelamento: WideString;
+                                   out cStat: Integer; out msgResultado: WideString;
+                                   out msgDados: WideString; out DataCancelamento: WideString;
+                                   out protocolo: WideString; out Codigo: WideString;
+                                   out Mensagem: WideString): WideString; safecall;
+    function ANTT_RetificaOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                    const Retificacao: WideString; out cStat: Integer;
+                                    out msgResultado: WideString; out msgDados: WideString;
+                                    out DataRetificacao: WideString; out protocolo: WideString;
+                                    out Codigo: WideString; out Mensagem: WideString): WideString; safecall;
+    function ANTT_EncerraOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const Encerramento: WideString; out cStat: Integer;
+                                   out msgResultado: WideString; out msgDados: WideString;
+                                   out DataEncerramento: WideString; out protocolo: WideString;
+                                   out Codigo: WideString; out Mensagem: WideString): WideString; safecall;
+    function ANTT_ConsultaExcecao(tpAmb: Integer; const nomeCertificado: WideString;
+                                  const CpfCnpjTransportador: WideString; out cStat: Integer;
+                                  out msgResultado: WideString; out msgDados: WideString;
+                                  out Flag: WideString; out Codigo: WideString;
+                                  out Mensagem: WideString): WideString; safecall;
+    function ANTT_ConsultaCIOTGerado(tpAmb: Integer; const nomeCertificado: WideString;
+                                     const CIOT12: WideString; AnoDeclaracao: Integer;
+                                     out cStat: Integer; out msgResultado: WideString;
+                                     out msgDados: WideString; out Mensagem: WideString;
+                                     out Codigo: WideString; out CIOT16: WideString): WideString; safecall;
+    function ANTT_Veiculo(const placa: WideString; const RNTRC: WideString;
+                          const NumeroEixos: WideString): WideString; safecall;
+    function ANTT_OrigemDestino(const CodigoMunicipioOrigem: WideString;
+                                const CepOrigem: WideString; const LatitudeOrigem: WideString;
+                                const LongitudeOrigem: WideString;
+                                const CodigoMunicipioDestino: WideString;
+                                const CepDestino: WideString; const LatitudeDestino: WideString;
+                                const LongitudeDestino: WideString;
+                                const DistanciaPercorrida: WideString): WideString; safecall;
+    function ANTT_DadosCarga(const CodigoNaturezaCarga: WideString; const PesoCarga: WideString;
+                             const CodigoTipoCarga: WideString;
+                             const ContratantesCargFrac: WideString): WideString; safecall;
+    function ANTT_InfPagamento(const TipoPagamento: WideString;
+                               const CodigoInstituicaoFinanceira: WideString;
+                               const NumeroAgencia: WideString; const NumeroConta: WideString;
+                               const ChavePix: WideString; const CpfCnpjCreditado: WideString;
+                               const CodigoPagamento: WideString;
+                               const IdentificadorPix: WideString; const IndPagamento: WideString;
+                               const NumeroParcela: WideString; const DataVencimento: WideString;
+                               const ValorParcela: WideString): WideString; safecall;
+    function ANTT_InfIndicadoresOperacionais(const IndAltoDesempenho: WideString;
+                                             const IndRetornoVazio: WideString;
+                                             const ComposicaoVeicular: WideString): WideString; safecall;
+    function ANTT_Declaracao(const IdOperacaoTransporte: WideString;
+                             const TipoOperacao: WideString; const CpfCnpjContratado: WideString;
+                             const RNTRCContratado: WideString;
+                             const CpfCnpjContratante: WideString;
+                             const RNTRCContratante: WideString;
+                             const CpfCnpjDestinatario: WideString; const ValorFrete: WideString;
+                             const DataDeclaracao: WideString; const IndContingencia: WideString;
+                             const JustificativaContingencia: WideString;
+                             const DataInicioViagem: WideString; const DataFimViagem: WideString;
+                             const Veiculos: WideString; const OrigemDestino: WideString;
+                             const DadosCarga: WideString; const InfPagamento: WideString;
+                             const InfIndicadoresOperacionais: WideString): WideString; safecall;
+    function ANTT_Retificacao(const CIOT16: WideString; const ValorFrete: WideString;
+                              const DataFimViagem: WideString; const OrigemDestino: WideString;
+                              const CodigoNaturezaCarga: WideString; const PesoCarga: WideString;
+                              const CodigoTipoCarga: WideString): WideString; safecall;
+    function ANTT_OrigemDestinoRetificacao(const CodigoMunicipioOrigem: WideString;
+                                           const CepOrigem: WideString;
+                                           const LatitudeOrigem: WideString;
+                                           const LongitudeOrigem: WideString;
+                                           const CodigoMunicipioDestino: WideString;
+                                           const CepDestino: WideString;
+                                           const LatitudeDestino: WideString;
+                                           const LongitudeDestino: WideString): WideString; safecall;
+    function ANTT_Encerramento(const CIOT16: WideString;
+                               const OrigemDestinoEncerramento: WideString;
+                               const PesoTotalCarga: WideString): WideString; safecall;
+    function ANTT_OrigemDestinoEncerramento(const CodigoMunicipioOrigem: WideString;
+                                            const CepOrigem: WideString;
+                                            const LatitudeOrigem: WideString;
+                                            const LongitudeOrigem: WideString;
+                                            const CodigoMunicipioDestino: WideString;
+                                            const CepDestino: WideString;
+                                            const LatitudeDestino: WideString;
+                                            const LongitudeDestino: WideString;
+                                            const DistanciaPercorrida: WideString;
+                                            const qtdViagens: WideString): WideString; safecall;
+    function formataJson(const Json: WideString): WideString; safecall;
   end;
 
 // *********************************************************************//
@@ -799,6 +917,7 @@ type
                           out msgResultado: WideString): WideString; dispid 109;
     function decodeBase64(const txtBase64: WideString; out cResultado: Integer;
                           out msgResultado: WideString): WideString; dispid 110;
+    function PegaNomeCertificado(var Nome: WideString; out msgResultado: WideString): Integer; dispid 111;
     function CriaChaveDFe(const cUF: WideString; const Ano: WideString; const Mes: WideString;
                           const CNPJ: WideString; const modelo: WideString;
                           const serie: WideString; const numero: WideString;
@@ -1162,6 +1281,123 @@ type
                               const infEntregaParcial_Opc: WideString;
                               const infNFePrestParcial_Opc: WideString): WideString; dispid 675;
     function infNFePrestParcial(const chNFe: WideString): WideString; dispid 676;
+    function ANTT_GeraCIOT(tpAmb: Integer; const nomeCertificado: WideString;
+                           const CpfCnpj: WideString; out cStat: Integer;
+                           out msgResultado: WideString; out msgDados: WideString;
+                           out CIOT: WideString; out DataGeracao: WideString;
+                           out Mensagem: WideString): WideString; dispid 677;
+    function ANTT_ConsultaSitTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                    const CpfCnpjInteressado: WideString;
+                                    const CpfCnpjTransportador: WideString;
+                                    const RNTRCTransportador: WideString; out cStat: Integer;
+                                    out msgResultado: WideString; out msgDados: WideString;
+                                    out NomeRazaoSocialTransportador: WideString;
+                                    out RNTRCAtivo: WideString; out Mensagem: WideString;
+                                    out Procotolo: WideString; out Codigo: WideString;
+                                    out TipoTransportador: WideString; out EquiparadoTAC: WideString): WideString; dispid 678;
+    function ANTT_ConsultaFrotaTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                      const CpfCnpjInteressado: WideString;
+                                      const CpfCnpjTransportador: WideString;
+                                      const RNTRCTransportador: WideString;
+                                      const Placas: WideString; out cStat: Integer;
+                                      out msgResultado: WideString; out msgDados: WideString;
+                                      out NomeRazaoSocialTransportador: WideString;
+                                      out RNTRCAtivo: WideString; out Mensagem: WideString;
+                                      out Procotolo: WideString; out Codigo: WideString;
+                                      out Frota: WideString): WideString; dispid 679;
+    function ANTT_DeclaraOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const Declaracao: WideString; out cStat: Integer;
+                                   out msgResultado: WideString; out msgDados: WideString;
+                                   out CIOT12: WideString; out CodigoVerificador: WideString;
+                                   out protocolo: WideString; out Codigo: WideString;
+                                   out Mensagem: WideString; out AvisoTransportador: WideString): WideString; dispid 680;
+    function ANTT_CancelaOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const CIOT16: WideString; const MotivoCancelamento: WideString;
+                                   out cStat: Integer; out msgResultado: WideString;
+                                   out msgDados: WideString; out DataCancelamento: WideString;
+                                   out protocolo: WideString; out Codigo: WideString;
+                                   out Mensagem: WideString): WideString; dispid 690;
+    function ANTT_RetificaOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                    const Retificacao: WideString; out cStat: Integer;
+                                    out msgResultado: WideString; out msgDados: WideString;
+                                    out DataRetificacao: WideString; out protocolo: WideString;
+                                    out Codigo: WideString; out Mensagem: WideString): WideString; dispid 691;
+    function ANTT_EncerraOpeTransp(tpAmb: Integer; const nomeCertificado: WideString;
+                                   const Encerramento: WideString; out cStat: Integer;
+                                   out msgResultado: WideString; out msgDados: WideString;
+                                   out DataEncerramento: WideString; out protocolo: WideString;
+                                   out Codigo: WideString; out Mensagem: WideString): WideString; dispid 692;
+    function ANTT_ConsultaExcecao(tpAmb: Integer; const nomeCertificado: WideString;
+                                  const CpfCnpjTransportador: WideString; out cStat: Integer;
+                                  out msgResultado: WideString; out msgDados: WideString;
+                                  out Flag: WideString; out Codigo: WideString;
+                                  out Mensagem: WideString): WideString; dispid 693;
+    function ANTT_ConsultaCIOTGerado(tpAmb: Integer; const nomeCertificado: WideString;
+                                     const CIOT12: WideString; AnoDeclaracao: Integer;
+                                     out cStat: Integer; out msgResultado: WideString;
+                                     out msgDados: WideString; out Mensagem: WideString;
+                                     out Codigo: WideString; out CIOT16: WideString): WideString; dispid 694;
+    function ANTT_Veiculo(const placa: WideString; const RNTRC: WideString;
+                          const NumeroEixos: WideString): WideString; dispid 695;
+    function ANTT_OrigemDestino(const CodigoMunicipioOrigem: WideString;
+                                const CepOrigem: WideString; const LatitudeOrigem: WideString;
+                                const LongitudeOrigem: WideString;
+                                const CodigoMunicipioDestino: WideString;
+                                const CepDestino: WideString; const LatitudeDestino: WideString;
+                                const LongitudeDestino: WideString;
+                                const DistanciaPercorrida: WideString): WideString; dispid 696;
+    function ANTT_DadosCarga(const CodigoNaturezaCarga: WideString; const PesoCarga: WideString;
+                             const CodigoTipoCarga: WideString;
+                             const ContratantesCargFrac: WideString): WideString; dispid 697;
+    function ANTT_InfPagamento(const TipoPagamento: WideString;
+                               const CodigoInstituicaoFinanceira: WideString;
+                               const NumeroAgencia: WideString; const NumeroConta: WideString;
+                               const ChavePix: WideString; const CpfCnpjCreditado: WideString;
+                               const CodigoPagamento: WideString;
+                               const IdentificadorPix: WideString; const IndPagamento: WideString;
+                               const NumeroParcela: WideString; const DataVencimento: WideString;
+                               const ValorParcela: WideString): WideString; dispid 698;
+    function ANTT_InfIndicadoresOperacionais(const IndAltoDesempenho: WideString;
+                                             const IndRetornoVazio: WideString;
+                                             const ComposicaoVeicular: WideString): WideString; dispid 699;
+    function ANTT_Declaracao(const IdOperacaoTransporte: WideString;
+                             const TipoOperacao: WideString; const CpfCnpjContratado: WideString;
+                             const RNTRCContratado: WideString;
+                             const CpfCnpjContratante: WideString;
+                             const RNTRCContratante: WideString;
+                             const CpfCnpjDestinatario: WideString; const ValorFrete: WideString;
+                             const DataDeclaracao: WideString; const IndContingencia: WideString;
+                             const JustificativaContingencia: WideString;
+                             const DataInicioViagem: WideString; const DataFimViagem: WideString;
+                             const Veiculos: WideString; const OrigemDestino: WideString;
+                             const DadosCarga: WideString; const InfPagamento: WideString;
+                             const InfIndicadoresOperacionais: WideString): WideString; dispid 700;
+    function ANTT_Retificacao(const CIOT16: WideString; const ValorFrete: WideString;
+                              const DataFimViagem: WideString; const OrigemDestino: WideString;
+                              const CodigoNaturezaCarga: WideString; const PesoCarga: WideString;
+                              const CodigoTipoCarga: WideString): WideString; dispid 701;
+    function ANTT_OrigemDestinoRetificacao(const CodigoMunicipioOrigem: WideString;
+                                           const CepOrigem: WideString;
+                                           const LatitudeOrigem: WideString;
+                                           const LongitudeOrigem: WideString;
+                                           const CodigoMunicipioDestino: WideString;
+                                           const CepDestino: WideString;
+                                           const LatitudeDestino: WideString;
+                                           const LongitudeDestino: WideString): WideString; dispid 702;
+    function ANTT_Encerramento(const CIOT16: WideString;
+                               const OrigemDestinoEncerramento: WideString;
+                               const PesoTotalCarga: WideString): WideString; dispid 703;
+    function ANTT_OrigemDestinoEncerramento(const CodigoMunicipioOrigem: WideString;
+                                            const CepOrigem: WideString;
+                                            const LatitudeOrigem: WideString;
+                                            const LongitudeOrigem: WideString;
+                                            const CodigoMunicipioDestino: WideString;
+                                            const CepDestino: WideString;
+                                            const LatitudeDestino: WideString;
+                                            const LongitudeDestino: WideString;
+                                            const DistanciaPercorrida: WideString;
+                                            const qtdViagens: WideString): WideString; dispid 704;
+    function formataJson(const Json: WideString): WideString; dispid 705;
   end;
 
 // *********************************************************************//
@@ -1171,6 +1407,60 @@ type
 // *********************************************************************//
   MDFe_Util_Events = dispinterface
     ['{0A005D06-B8C1-46CA-8270-56D108D21C84}']
+  end;
+
+// *********************************************************************//
+// Interface: _QREncoderTables
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BA9543B6-8201-3922-A592-D17E9A5F967D}
+// *********************************************************************//
+  _QREncoderTables = interface(IDispatch)
+    ['{BA9543B6-8201-3922-A592-D17E9A5F967D}']
+  end;
+
+// *********************************************************************//
+// DispIntf:  _QREncoderTablesDisp
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BA9543B6-8201-3922-A592-D17E9A5F967D}
+// *********************************************************************//
+  _QREncoderTablesDisp = dispinterface
+    ['{BA9543B6-8201-3922-A592-D17E9A5F967D}']
+  end;
+
+// *********************************************************************//
+// Interface: _QREncoder
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}
+// *********************************************************************//
+  _QREncoder = interface(IDispatch)
+    ['{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}']
+  end;
+
+// *********************************************************************//
+// DispIntf:  _QREncoderDisp
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}
+// *********************************************************************//
+  _QREncoderDisp = dispinterface
+    ['{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}']
+  end;
+
+// *********************************************************************//
+// Interface: _QRCodeEncoder
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BDBF56F1-9896-3147-A927-D311FA2ADCEC}
+// *********************************************************************//
+  _QRCodeEncoder = interface(IDispatch)
+    ['{BDBF56F1-9896-3147-A927-D311FA2ADCEC}']
+  end;
+
+// *********************************************************************//
+// DispIntf:  _QRCodeEncoderDisp
+// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
+// GUID:      {BDBF56F1-9896-3147-A927-D311FA2ADCEC}
+// *********************************************************************//
+  _QRCodeEncoderDisp = dispinterface
+    ['{BDBF56F1-9896-3147-A927-D311FA2ADCEC}']
   end;
 
 // *********************************************************************//
@@ -1732,60 +2022,6 @@ type
   end;
 
 // *********************************************************************//
-// Interface: _QREncoderTables
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BA9543B6-8201-3922-A592-D17E9A5F967D}
-// *********************************************************************//
-  _QREncoderTables = interface(IDispatch)
-    ['{BA9543B6-8201-3922-A592-D17E9A5F967D}']
-  end;
-
-// *********************************************************************//
-// DispIntf:  _QREncoderTablesDisp
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BA9543B6-8201-3922-A592-D17E9A5F967D}
-// *********************************************************************//
-  _QREncoderTablesDisp = dispinterface
-    ['{BA9543B6-8201-3922-A592-D17E9A5F967D}']
-  end;
-
-// *********************************************************************//
-// Interface: _QREncoder
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}
-// *********************************************************************//
-  _QREncoder = interface(IDispatch)
-    ['{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}']
-  end;
-
-// *********************************************************************//
-// DispIntf:  _QREncoderDisp
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}
-// *********************************************************************//
-  _QREncoderDisp = dispinterface
-    ['{BDFBEC66-9B72-3BD7-AAFC-0B6E15864A24}']
-  end;
-
-// *********************************************************************//
-// Interface: _QRCodeEncoder
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BDBF56F1-9896-3147-A927-D311FA2ADCEC}
-// *********************************************************************//
-  _QRCodeEncoder = interface(IDispatch)
-    ['{BDBF56F1-9896-3147-A927-D311FA2ADCEC}']
-  end;
-
-// *********************************************************************//
-// DispIntf:  _QRCodeEncoderDisp
-// Flags:     (4432) Hidden Dual OleAutomation Dispatchable
-// GUID:      {BDBF56F1-9896-3147-A927-D311FA2ADCEC}
-// *********************************************************************//
-  _QRCodeEncoderDisp = dispinterface
-    ['{BDBF56F1-9896-3147-A927-D311FA2ADCEC}']
-  end;
-
-// *********************************************************************//
 // The Class CoUtil provides a Create and CreateRemote method to
 // create instances of the default interface MDFe_Util_Interface exposed by
 // the CoClass Util. The functions are intended to be used by
@@ -1795,6 +2031,42 @@ type
   CoUtil = class
     class function Create: MDFe_Util_Interface;
     class function CreateRemote(const MachineName: string): MDFe_Util_Interface;
+  end;
+
+// *********************************************************************//
+// The Class CoQREncoderTables provides a Create and CreateRemote method to
+// create instances of the default interface _QREncoderTables exposed by
+// the CoClass QREncoderTables. The functions are intended to be used by
+// clients wishing to automate the CoClass objects exposed by the
+// server of this typelibrary.
+// *********************************************************************//
+  CoQREncoderTables = class
+    class function Create: _QREncoderTables;
+    class function CreateRemote(const MachineName: string): _QREncoderTables;
+  end;
+
+// *********************************************************************//
+// The Class CoQREncoder provides a Create and CreateRemote method to
+// create instances of the default interface _QREncoder exposed by
+// the CoClass QREncoder. The functions are intended to be used by
+// clients wishing to automate the CoClass objects exposed by the
+// server of this typelibrary.
+// *********************************************************************//
+  CoQREncoder = class
+    class function Create: _QREncoder;
+    class function CreateRemote(const MachineName: string): _QREncoder;
+  end;
+
+// *********************************************************************//
+// The Class CoQRCodeEncoder provides a Create and CreateRemote method to
+// create instances of the default interface _QRCodeEncoder exposed by
+// the CoClass QRCodeEncoder. The functions are intended to be used by
+// clients wishing to automate the CoClass objects exposed by the
+// server of this typelibrary.
+// *********************************************************************//
+  CoQRCodeEncoder = class
+    class function Create: _QRCodeEncoder;
+    class function CreateRemote(const MachineName: string): _QRCodeEncoder;
   end;
 
 // *********************************************************************//
@@ -2169,42 +2441,6 @@ type
     class function CreateRemote(const MachineName: string): _mdfeConsNaoEncCompletedEventArgs;
   end;
 
-// *********************************************************************//
-// The Class CoQREncoderTables provides a Create and CreateRemote method to
-// create instances of the default interface _QREncoderTables exposed by
-// the CoClass QREncoderTables. The functions are intended to be used by
-// clients wishing to automate the CoClass objects exposed by the
-// server of this typelibrary.
-// *********************************************************************//
-  CoQREncoderTables = class
-    class function Create: _QREncoderTables;
-    class function CreateRemote(const MachineName: string): _QREncoderTables;
-  end;
-
-// *********************************************************************//
-// The Class CoQREncoder provides a Create and CreateRemote method to
-// create instances of the default interface _QREncoder exposed by
-// the CoClass QREncoder. The functions are intended to be used by
-// clients wishing to automate the CoClass objects exposed by the
-// server of this typelibrary.
-// *********************************************************************//
-  CoQREncoder = class
-    class function Create: _QREncoder;
-    class function CreateRemote(const MachineName: string): _QREncoder;
-  end;
-
-// *********************************************************************//
-// The Class CoQRCodeEncoder provides a Create and CreateRemote method to
-// create instances of the default interface _QRCodeEncoder exposed by
-// the CoClass QRCodeEncoder. The functions are intended to be used by
-// clients wishing to automate the CoClass objects exposed by the
-// server of this typelibrary.
-// *********************************************************************//
-  CoQRCodeEncoder = class
-    class function Create: _QRCodeEncoder;
-    class function CreateRemote(const MachineName: string): _QRCodeEncoder;
-  end;
-
 implementation
 
 uses System.Win.ComObj;
@@ -2217,6 +2453,36 @@ end;
 class function CoUtil.CreateRemote(const MachineName: string): MDFe_Util_Interface;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_Util) as MDFe_Util_Interface;
+end;
+
+class function CoQREncoderTables.Create: _QREncoderTables;
+begin
+  Result := CreateComObject(CLASS_QREncoderTables) as _QREncoderTables;
+end;
+
+class function CoQREncoderTables.CreateRemote(const MachineName: string): _QREncoderTables;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_QREncoderTables) as _QREncoderTables;
+end;
+
+class function CoQREncoder.Create: _QREncoder;
+begin
+  Result := CreateComObject(CLASS_QREncoder) as _QREncoder;
+end;
+
+class function CoQREncoder.CreateRemote(const MachineName: string): _QREncoder;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_QREncoder) as _QREncoder;
+end;
+
+class function CoQRCodeEncoder.Create: _QRCodeEncoder;
+begin
+  Result := CreateComObject(CLASS_QRCodeEncoder) as _QRCodeEncoder;
+end;
+
+class function CoQRCodeEncoder.CreateRemote(const MachineName: string): _QRCodeEncoder;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_QRCodeEncoder) as _QRCodeEncoder;
 end;
 
 class function CoMDFeStatusServico.Create: _MDFeStatusServico;
@@ -2527,36 +2793,6 @@ end;
 class function ComdfeConsNaoEncCompletedEventArgs.CreateRemote(const MachineName: string): _mdfeConsNaoEncCompletedEventArgs;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_mdfeConsNaoEncCompletedEventArgs) as _mdfeConsNaoEncCompletedEventArgs;
-end;
-
-class function CoQREncoderTables.Create: _QREncoderTables;
-begin
-  Result := CreateComObject(CLASS_QREncoderTables) as _QREncoderTables;
-end;
-
-class function CoQREncoderTables.CreateRemote(const MachineName: string): _QREncoderTables;
-begin
-  Result := CreateRemoteComObject(MachineName, CLASS_QREncoderTables) as _QREncoderTables;
-end;
-
-class function CoQREncoder.Create: _QREncoder;
-begin
-  Result := CreateComObject(CLASS_QREncoder) as _QREncoder;
-end;
-
-class function CoQREncoder.CreateRemote(const MachineName: string): _QREncoder;
-begin
-  Result := CreateRemoteComObject(MachineName, CLASS_QREncoder) as _QREncoder;
-end;
-
-class function CoQRCodeEncoder.Create: _QRCodeEncoder;
-begin
-  Result := CreateComObject(CLASS_QRCodeEncoder) as _QRCodeEncoder;
-end;
-
-class function CoQRCodeEncoder.CreateRemote(const MachineName: string): _QRCodeEncoder;
-begin
-  Result := CreateRemoteComObject(MachineName, CLASS_QRCodeEncoder) as _QRCodeEncoder;
 end;
 
 end.

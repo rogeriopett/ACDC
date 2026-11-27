@@ -386,9 +386,9 @@ begin
   if DM.TBParametrosPAR_NFCEIMPRIMIRLOGO.Value='S' then
   begin
     if FileExists(ExtractFilePath(Application.ExeName)+'LogoCupom.bmp') then
-    MemoPrint.Lines.Add('<bmp>'+ExtractFilePath(Application.ExeName)+'LogoCupom.bmp</bmp>') else
-    if FileExists(IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value)+'LogoCupom.bmp') then
-    MemoPrint.Lines.Add('<bmp>'+IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value)+'LogoCupom.bmp</bmp>');
+    MemoPrint.Lines.Add('<bmp>'+ExtractFilePath(Application.ExeName)+'LogoCupom.bmp</bmp>'); // else
+//    if FileExists(IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value)+'LogoCupom.bmp') then
+//    MemoPrint.Lines.Add('<bmp>'+IncludeTrailingPathDelimiter(DM.TBParametrosPAR_LOCALLOGOMARCA.Value)+'LogoCupom.bmp</bmp>');
   end;
 
   MemoPrint.Lines.Add('<n>'+DM.TBEmpresaEMP_NOME.Value+'</n>');

@@ -4751,7 +4751,6 @@ object FormServicos: TFormServicos
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
-        ExplicitHeight = 442
       end
     end
   end
@@ -4762,7 +4761,6 @@ object FormServicos: TFormServicos
     Height = 45
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 819
     object Label53: TLabel
       Left = 269
       Top = 8

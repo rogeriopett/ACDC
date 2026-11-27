@@ -193,7 +193,7 @@
       <xmlEntrada>consSitCTe</xmlEntrada>
       <xmlSaida>retConsSitCTe</xmlSaida>
       <urlHomologacao>https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4</urlHomologacao>
-      <urlProducao>	https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4</urlProducao>
+      <urlProducao>https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4</urlProducao>
    </servico>
       <servico IdServico="Evento">
       <nomeServico>CTeRecepcaoEventoV4"</nomeServico>

@@ -1,4 +1,5 @@
 //Atualizacoes:
+//2026.11.23 - GetComissaoVendedor e GetRepresentanteCliente: comissao do vendedor e representante (vendedor do cliente) das vendas e NF-e.
 //2026.11.19 - CarregarLogoSVGFast: logo da empresa (EMP_LOGOSVG) no Picture dos relatorios do FastReport.
 unit Funcoes;
 
@@ -29,7 +30,9 @@ function FormatarCEP(const Cep: String): String;
 function FormatarCPFCNPJ(const Doc: String): String;
 function FormatarFone(const Fone: String): String;
 function GerarSenha(Tamanho: Integer = 8; Minusculas: Boolean = True; Maiusculas: Boolean = True; Numeros: Boolean = True; Simbolos: Boolean = False): String;
+function GetComissaoVendedor(DM: TDMFirenet; Vendedor: Integer): Extended;
 function GetEmpresaLogo(Empresa: String): String;
+function GetRepresentanteCliente(DM: TDMFirenet; Cliente, Vendedor: Integer): Integer;
 function GetUserFromToken(Req: THorseRequest): TJSONObject;
 function GetTempDir: String;
 function GetUsuEmp(Empresa: String; Usuario: Integer): TJSONObject;
@@ -500,6 +503,23 @@ begin
   end;
 end;
 
+function GetComissaoVendedor(DM: TDMFirenet; Vendedor: Integer): Extended;
+// Percentual de comissao do cadastro do vendedor (VEN_COMISSAO). Query propria para nao mexer nas queries do DM em uso.
+var Query: TFDQuery;
+begin
+  Query:=TFDQuery.Create(nil);
+  try
+    Query.Connection:=DM.Query1.Connection;
+    Query.Transaction:=DM.Query1.Transaction;
+    Query.SQL.Add('select VEN_COMISSAO from VENDEDORES where VEN_CODIGO=:codigo');
+    Query.ParamByName('codigo').AsInteger:=Vendedor;
+    Query.Open;
+    Result:=Query.FieldByName('VEN_COMISSAO').AsExtended;
+  finally
+    Query.Free;
+  end;
+end;
+
 function GetEmpresaLogo(Empresa: String): String;
 begin
   try
@@ -514,6 +534,25 @@ begin
   finally
     FreeAndNil(DMAngus);
   end;
+end;
+
+function GetRepresentanteCliente(DM: TDMFirenet; Cliente, Vendedor: Integer): Integer;
+// Representante da venda/NF-e, como no Firenet: o vendedor do cadastro do cliente (CLI_VENDEDOR) e, sem ele, o vendedor do documento.
+var Query: TFDQuery;
+begin
+  Query:=TFDQuery.Create(nil);
+  try
+    Query.Connection:=DM.Query1.Connection;
+    Query.Transaction:=DM.Query1.Transaction;
+    Query.SQL.Add('select CLI_VENDEDOR from CLIENTES where CLI_CODIGO=:codigo');
+    Query.ParamByName('codigo').AsInteger:=Cliente;
+    Query.Open;
+    Result:=Query.FieldByName('CLI_VENDEDOR').AsInteger;
+  finally
+    Query.Free;
+  end;
+  if Result=0 then
+  Result:=Vendedor;
 end;
 
 function GetTempDir: String;

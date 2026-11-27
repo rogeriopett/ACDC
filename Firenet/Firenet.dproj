@@ -67,9 +67,9 @@
         <VerInfo_Locale>1046</VerInfo_Locale>
         <SanitizedProjectName>Firenet</SanitizedProjectName>
         <VerInfo_Release>15</VerInfo_Release>
-        <VerInfo_Build>4422</VerInfo_Build>
+        <VerInfo_Build>4428</VerInfo_Build>
         <VerInfo_MajorVer>15</VerInfo_MajorVer>
-        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4422;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4428;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br</VerInfo_Keys>
         <DCC_UNSAFE_TYPE>true</DCC_UNSAFE_TYPE>
         <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
         <DCC_UNSAFE_CAST>true</DCC_UNSAFE_CAST>
@@ -96,7 +96,6 @@
         <Icon_MainIcon>Firenet_Icon.ico</Icon_MainIcon>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
@@ -110,13 +109,12 @@
         <Icon_MainIcon>Firenet_Icon.ico</Icon_MainIcon>
         <DCC_DcuOutput>.\units\dcu</DCC_DcuOutput>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4427;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_Build>4427</VerInfo_Build>
+        <VerInfo_Build>4442</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4442;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - runtimesistemas.com.br</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -125,14 +123,10 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>CompanyName=Runtime Sistemas ©;FileDescription=Firenet - Gestão Comercial.®;FileVersion=15.0.15.4360;InternalName=Firenet.exe;LegalCopyright=Runtime Sistemas ©;LegalTrademarks=;OriginalFilename=Firenet.exe;ProductName=FIRENET;ProductVersion=15.0;Comments=Rogério Pett - Runtime Sistemas - www.runtimesistemas.com.br;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_Build>4360</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=15.0.15.4360;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_Build>4360</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -493,15 +487,6 @@
         <DCCReference Include="Units\ConhecimentosNotas.pas">
             <Form>FormConhecimentosNotas</Form>
         </DCCReference>
-        <DCCReference Include="Units\ConhecimentosQ01Aereo.pas">
-            <Form>FormConhecimentosQ01Aereo</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ConhecimentosQ01RodoviarioFracionada.pas">
-            <Form>FormConhecimentosQ01RodoviarioFracionada</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ConhecimentosQ01Rodoviario.pas">
-            <Form>FormConhecimentosQ01RodoviarioLotacao</Form>
-        </DCCReference>
         <DCCReference Include="Units\ConhecimentosRel.pas">
             <Form>FormConhecimentosRel</Form>
         </DCCReference>
@@ -698,6 +683,12 @@
         </DCCReference>
         <DCCReference Include="Units\DeliveryRel.pas">
             <Form>FormDeliveryRel</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Dre.pas">
+            <Form>FormDre</Form>
+        </DCCReference>
+        <DCCReference Include="Units\DreFast.pas">
+            <Form>FormDreFast</Form>
         </DCCReference>
         <DCCReference Include="Units\Duimp.pas">
             <Form>FormDuimp</Form>
@@ -935,16 +926,16 @@
             <Form>FrameHtmlEditor</Form>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="IAsmin\delphi\IasminConfig.pas">
+        <DCCReference Include="Units\IasminConfig.pas">
             <Form>FormIasminConfig</Form>
         </DCCReference>
-        <DCCReference Include="IAsmin\delphi\IasminConfigDados.pas"/>
-        <DCCReference Include="IAsmin\delphi\IasminConsulta.pas">
+        <DCCReference Include="Units\IasminConfigDados.pas"/>
+        <DCCReference Include="Units\IasminConsulta.pas">
             <Form>FormIasminConsulta</Form>
         </DCCReference>
-        <DCCReference Include="IAsmin\delphi\IasminMotor.pas"/>
-        <DCCReference Include="IAsmin\delphi\IasminProvedores.pas"/>
-        <DCCReference Include="IAsmin\delphi\IasminValidadorSQL.pas"/>
+        <DCCReference Include="Units\IasminMotor.pas"/>
+        <DCCReference Include="Units\IasminProvedores.pas"/>
+        <DCCReference Include="Units\IasminValidadorSQL.pas"/>
         <DCCReference Include="Units\Icms.pas">
             <Form>FormIcms</Form>
         </DCCReference>
@@ -1093,77 +1084,11 @@
         <DCCReference Include="Units\Matriculas.pas">
             <Form>FormMatriculas</Form>
         </DCCReference>
+        <DCCReference Include="Units\MatriculasFast.pas">
+            <Form>FormMatriculasFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\MatriculasLoc.pas">
             <Form>FormMatriculasLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ01.pas">
-            <Form>FormMatriculasQ01</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ02.pas">
-            <Form>FormMatriculasQ02</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ03.pas">
-            <Form>FormMatriculasQ03</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ04.pas">
-            <Form>FormMatriculasQ04</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ05.pas">
-            <Form>FormMatriculasQ05</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ06.pas">
-            <Form>FormMatriculasQ06</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ07.pas">
-            <Form>FormMatriculasQ07</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ08.pas">
-            <Form>FormMatriculasQ08</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ09.pas">
-            <Form>FormMatriculasQ09</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ10.pas">
-            <Form>FormMatriculasQ10</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ11.pas">
-            <Form>FormMatriculasQ11</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ12.pas">
-            <Form>FormMatriculasQ12</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ13.pas">
-            <Form>FormMatriculasQ13</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ14.pas">
-            <Form>FormMatriculasQ14</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ15.pas">
-            <Form>FormMatriculasQ15</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ16.pas">
-            <Form>FormMatriculasQ16</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ17.pas">
-            <Form>FormMatriculasQ17</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ18.pas">
-            <Form>FormMatriculasQ18</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ19.pas">
-            <Form>FormMatriculasQ19</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ20.pas">
-            <Form>FormMatriculasQ20</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ21.pas">
-            <Form>FormMatriculasQ21</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ22.pas">
-            <Form>FormMatriculasQ22</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MatriculasQ23.pas">
-            <Form>FormMatriculasQ23</Form>
         </DCCReference>
         <DCCReference Include="Units\MatriculasRel.pas">
             <Form>FormMatriculasRel</Form>
@@ -1183,12 +1108,6 @@
         </DCCReference>
         <DCCReference Include="Units\MdfeLoc.pas">
             <Form>FormMdfeLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MdfeQ01Rodoviario.pas">
-            <Form>FormMdfeQ01Rodoviario</Form>
-        </DCCReference>
-        <DCCReference Include="Units\MdfeQ02.pas">
-            <Form>FormMdfeQ02</Form>
         </DCCReference>
         <DCCReference Include="Units\MdfeRel.pas">
             <Form>FormMdfeRel</Form>
@@ -1451,17 +1370,14 @@
         <DCCReference Include="Units\Odontogramas.pas">
             <Form>FormOdontogramas</Form>
         </DCCReference>
+        <DCCReference Include="Units\OdontogramasFast.pas">
+            <Form>FormOdontogramasFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\OdontogramasOpcoes.pas">
             <Form>FormOdontogramasOpcoes</Form>
         </DCCReference>
         <DCCReference Include="Units\OdontogramasOpcoesLoc.pas">
             <Form>FormOdontogramasOpcoesLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\OdontogramasOpcoesQ01.pas">
-            <Form>FormOdontogramasOpcoesQ01</Form>
-        </DCCReference>
-        <DCCReference Include="Units\OdontogramasQ01.pas">
-            <Form>FormOdontogramasQ01</Form>
         </DCCReference>
         <DCCReference Include="Units\Opcionais.pas">
             <Form>FormOpcionais</Form>
@@ -1649,6 +1565,9 @@
         <DCCReference Include="Units\ProjetosFases.pas">
             <Form>FormProjetosFases</Form>
         </DCCReference>
+        <DCCReference Include="Units\ProjetosFast.pas">
+            <Form>FormProjetosFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\ProjetosHistoricoFast.pas">
             <Form>FormProjetosHistoricoFast</Form>
         </DCCReference>
@@ -1660,33 +1579,6 @@
         </DCCReference>
         <DCCReference Include="Units\ProjetosLoc.pas">
             <Form>FormProjetosLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ01.pas">
-            <Form>FormProjetosQ01</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ02.pas">
-            <Form>FormProjetosQ02</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ03.pas">
-            <Form>FormProjetosQ03</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ04.pas">
-            <Form>FormProjetosQ04</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ05.pas">
-            <Form>FormProjetosQ05</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ06.pas">
-            <Form>FormProjetosQ06</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ07.pas">
-            <Form>FormProjetosQ07</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ08.pas">
-            <Form>FormProjetosQ08</Form>
-        </DCCReference>
-        <DCCReference Include="Units\ProjetosQ09.pas">
-            <Form>FormProjetosQ09</Form>
         </DCCReference>
         <DCCReference Include="Units\ProjetosRel.pas">
             <Form>FormProjetosRel</Form>
@@ -1706,14 +1598,14 @@
         <DCCReference Include="Units\PromissoriasBaixar.pas">
             <Form>FormPromissoriasBaixar</Form>
         </DCCReference>
+        <DCCReference Include="Units\PromissoriasFast.pas">
+            <Form>FormPromissoriasFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\PromissoriasLoc.pas">
             <Form>FormPromissoriasLoc</Form>
         </DCCReference>
         <DCCReference Include="Units\PromissoriasMultiplicar.pas">
             <Form>FormPromissoriasMultiplicar</Form>
-        </DCCReference>
-        <DCCReference Include="Units\PromissoriasQ01.pas">
-            <Form>FormPromissoriasQ01</Form>
         </DCCReference>
         <DCCReference Include="Units\Prontuarios.pas">
             <Form>FormProntuarios</Form>
@@ -1769,8 +1661,8 @@
         <DCCReference Include="Units\Receituarios.pas">
             <Form>FormReceituarios</Form>
         </DCCReference>
-        <DCCReference Include="Units\ReceituariosQ01.pas">
-            <Form>FormReceituariosQ01</Form>
+        <DCCReference Include="Units\ReceituariosFast.pas">
+            <Form>FormReceituariosFast</Form>
         </DCCReference>
         <DCCReference Include="Units\ReceituariosRel.pas">
             <Form>FormReceituariosRel</Form>
@@ -1917,38 +1809,14 @@
         <DCCReference Include="Units\TurmasAlunos.pas">
             <Form>FormTurmasAlunos</Form>
         </DCCReference>
+        <DCCReference Include="Units\TurmasFast.pas">
+            <Form>FormTurmasFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\TurmasData.pas">
             <Form>FormTurmasData</Form>
         </DCCReference>
         <DCCReference Include="Units\TurmasLoc.pas">
             <Form>FormTurmasLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ01.pas">
-            <Form>FormTurmasQ01</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ02.pas">
-            <Form>FormTurmasQ02</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ03.pas">
-            <Form>FormTurmasQ03</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ04.pas">
-            <Form>FormTurmasQ04</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ05.pas">
-            <Form>FormTurmasQ05</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ06.pas">
-            <Form>FormTurmasQ06</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ07.pas">
-            <Form>FormTurmasQ07</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ08.pas">
-            <Form>FormTurmasQ08</Form>
-        </DCCReference>
-        <DCCReference Include="Units\TurmasQ09.pas">
-            <Form>FormTurmasQ09</Form>
         </DCCReference>
         <DCCReference Include="Units\TurmasRel.pas">
             <Form>FormTurmasRel</Form>
@@ -1992,8 +1860,8 @@
         <DCCReference Include="Units\VeiculosCliente.pas">
             <Form>FormVeiculosCliente</Form>
         </DCCReference>
-        <DCCReference Include="Units\VeiculosClienteQ01.pas">
-            <Form>FormVeiculosClienteQ01</Form>
+        <DCCReference Include="Units\VeiculosClienteFast.pas">
+            <Form>FormVeiculosClienteFast</Form>
         </DCCReference>
         <DCCReference Include="Units\VeiculosClienteRel.pas">
             <Form>FormVeiculosClienteRel</Form>
@@ -2004,20 +1872,11 @@
         <DCCReference Include="Units\VeiculosVenda.pas">
             <Form>FormVeiculosVenda</Form>
         </DCCReference>
+        <DCCReference Include="Units\VeiculosVendaFast.pas">
+            <Form>FormVeiculosVendaFast</Form>
+        </DCCReference>
         <DCCReference Include="Units\VeiculosVendaLoc.pas">
             <Form>FormVeiculosVendaLoc</Form>
-        </DCCReference>
-        <DCCReference Include="Units\VeiculosVendaQ01.pas">
-            <Form>FormVeiculosVendaQ01</Form>
-        </DCCReference>
-        <DCCReference Include="Units\VeiculosVendaQ02.pas">
-            <Form>FormVeiculosVendaQ02</Form>
-        </DCCReference>
-        <DCCReference Include="Units\VeiculosVendaQ03.pas">
-            <Form>FormVeiculosVendaQ03</Form>
-        </DCCReference>
-        <DCCReference Include="Units\VeiculosVendaQ04.pas">
-            <Form>FormVeiculosVendaQ04</Form>
         </DCCReference>
         <DCCReference Include="Units\VeiculosVendaRel.pas">
             <Form>FormVeiculosVendaRel</Form>

@@ -1,4 +1,5 @@
 //Atualizacoes:
+//2026.11.23 - Representante (VED_REPRESENTANTE) e comissoes do representante na venda; VEI_COMISSAO/VEI_COMISSAOREP pelo PAR_COMISSAOPOR (V = da capa), como no Firenet; ICM_CALCULACREDITOSN do item pelo CST do produto.
 //2026.11.19 - Logo do pedido (PDF) pelo CarregarLogoSVGFast (EMP_LOGOSVG), no lugar do logo_empresa_120x60.jpg.
 //2026.11.18 - Filtro de datas do listar lido com .AsDate (aaaa-mm-dd, formato do PettFieldDate do Brian) no lugar do StrToDate (dd/mm/aaaa).
 unit Firenet.Vendas;
@@ -407,6 +408,7 @@ begin
     DM.TBVendasVED_CLIENTE.Value            :=VED_CLIENTE;
     DM.TBVendasVED_CNPJ.Value               :=DM.TBClientesCLI_CNPJCOB.Value;
     DM.TBVendasVED_COMISSAO.Value           :=DM.TBVendedoresVEN_COMISSAO.Value;
+    DM.TBVendasVED_COMISSAOREP.Value        :=DM.TBVendedoresVEN_COMISSAO.Value; //representante = vendedor (ver VED_REPRESENTANTE).
     DM.TBVendasVED_COMPLEMENTO.Value        :=DM.TBClientesCLI_COMPLEMENTOCOB.Value;
     DM.TBVendasVED_CONDICAO.Value           :=VED_CONDICAO;
     DM.TBVendasVED_CONTATO.Value            :=DM.TBClientesCLI_CONTATO.Value;
@@ -425,6 +427,7 @@ begin
     DM.TBVendasVED_PAIS.Value               :=DM.TBClientesCLI_PAIS.Value;
     DM.TBVendasVED_PAISCODIGO.Value         :=DM.TBClientesCLI_PAISCODIGO.Value;
     DM.TBVendasVED_RG.Value                 :=DM.TBClientesCLI_RG.Value;
+    DM.TBVendasVED_REPRESENTANTE.Value      :=Usuario.GetValue<Integer>('USU_VENDEDOR'); //o Brian ainda nao tem o campo representante: vai o proprio vendedor.
     DM.TBVendasVED_SUFRAMA.Value            :=DM.TBClientesCLI_SUFRAMA.Value;
     DM.TBVendasVED_TABELAPRECO.Value        :=DM.TBClientesCLI_TABELAPRECO.Value;
     DM.TBVendasVED_TIPOCONSUMIDOR.Value     :=DM.TBClientesCLI_TIPOCONSUMIDOR.Value;
@@ -1107,7 +1110,15 @@ begin
     //DM.TBVendasItensVEI_CODIGO.Value             :=Req.ContentFields.Field('VEI_CODIGO').AsInteger';
 //    DM.TBVendasItensVEI_CODIGOBARRAS.Value       :=San(Req.ContentFields.Field('VEI_CODIGOBARRAS').AsString);
 //    DM.TBVendasItensVEI_CODIGOFAB.Value          :=San(Req.ContentFields.Field('VEI_CODIGOFAB').AsString);
-    DM.TBVendasItensVEI_COMISSAO.Value           :=DM.TBProdutosPRO_COMISSAO.Value;
+    if DM.TBVendasVED_COMISSAOPOR.Value='V' then //pela comissao da capa (vendedor e representante), senao pela do produto, como no Firenet.
+    begin
+      DM.TBVendasItensVEI_COMISSAO.Value         :=DM.TBVendasVED_COMISSAO.Value;
+      DM.TBVendasItensVEI_COMISSAOREP.Value      :=DM.TBVendasVED_COMISSAOREP.Value;
+    end else
+    begin
+      DM.TBVendasItensVEI_COMISSAO.Value         :=DM.TBProdutosPRO_COMISSAO.Value;
+      DM.TBVendasItensVEI_COMISSAOREP.Value      :=DM.TBProdutosPRO_COMISSAO.Value;
+    end;
     DM.TBVendasItensVEI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('VEI_COMPLEMENTO').AsString);
 //    DM.TBVendasItensVEI_COMPOEBASEICMS.Value     :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMS').AsString);
 //    DM.TBVendasItensVEI_COMPOEBASEICMSST.Value   :=San(Req.ContentFields.Field('VEI_COMPOEBASEICMSST').AsString);
@@ -1115,6 +1126,7 @@ begin
 //    DM.TBVendasItensVEI_CONVERSAO.Value          :=Req.ContentFields.Field('VEI_CONVERSAO').AsExtended;
     DM.TBVendasItensVEI_CSTCOFINS.Value          :=DM.TBProdutosPRO_CSTCOFINS.Value;
     DM.TBVendasItensVEI_CSTICMS.Value            :=DM.TBProdutosPRO_CSTICMS.Value;
+    DM.TBVendasItensICM_CALCULACREDITOSN.Value   :=DM.TBProdutosICM_CALCULACREDITOSN.Value; //o join do item nao acompanha o CST novo (o Firenet le o TBIcms no calculo do credito SN).
     DM.TBVendasItensVEI_CSTIPI.Value             :=DM.TBProdutosPRO_CSTIPI.Value;
     DM.TBVendasItensVEI_CSTPIS.Value             :=DM.TBProdutosPRO_CSTPIS.Value;
     DM.TBVendasItensVEI_DESCMAX.Value            :=DM.TBProdutosPRO_DESCMAX.Value;
@@ -1353,7 +1365,15 @@ begin
     //DM.TBVendasItensVEI_CODIGO.Value             :=Req.ContentFields.Field('VEI_CODIGO').AsInteger';
     DM.TBVendasItensVEI_CODIGOBARRAS.Value       :=DM.TBProdutosPRO_CODIGOBARRAS.Value; // San(Req.ContentFields.Field('VEI_CODIGOBARRAS').AsString);
     DM.TBVendasItensVEI_CODIGOFAB.Value          :=DM.TBProdutosPRO_CODIGOFAB.Value; // San(Req.ContentFields.Field('VEI_CODIGOFAB').AsString);
-    DM.TBVendasItensVEI_COMISSAO.Value           :=DM.TBProdutosPRO_COMISSAO.Value;
+    if DM.TBVendasVED_COMISSAOPOR.Value='V' then //pela comissao da capa (vendedor e representante), senao pela do produto, como no Firenet.
+    begin
+      DM.TBVendasItensVEI_COMISSAO.Value         :=DM.TBVendasVED_COMISSAO.Value;
+      DM.TBVendasItensVEI_COMISSAOREP.Value      :=DM.TBVendasVED_COMISSAOREP.Value;
+    end else
+    begin
+      DM.TBVendasItensVEI_COMISSAO.Value         :=DM.TBProdutosPRO_COMISSAO.Value;
+      DM.TBVendasItensVEI_COMISSAOREP.Value      :=DM.TBProdutosPRO_COMISSAO.Value;
+    end;
     DM.TBVendasItensVEI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('VEI_COMPLEMENTO').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMS.Value     :=DM.TBProdutosPRO_COMPOEBASEICMS.Value; // San(Req.ContentFields.Field('VEI_COMPOEBASEICMS').AsString);
     DM.TBVendasItensVEI_COMPOEBASEICMSST.Value   :=DM.TBProdutosPRO_COMPOEBASEICMSST.Value; // San(Req.ContentFields.Field('VEI_COMPOEBASEICMSST').AsString);
@@ -1361,6 +1381,7 @@ begin
 //    DM.TBVendasItensVEI_CONVERSAO.Value          :=Req.ContentFields.Field('VEI_CONVERSAO').AsExtended;
     DM.TBVendasItensVEI_CSTCOFINS.Value          :=DM.TBProdutosPRO_CSTCOFINS.Value;
     DM.TBVendasItensVEI_CSTICMS.Value            :=DM.TBProdutosPRO_CSTICMS.Value;
+    DM.TBVendasItensICM_CALCULACREDITOSN.Value   :=DM.TBProdutosICM_CALCULACREDITOSN.Value; //o join do item nao acompanha o CST novo (o Firenet le o TBIcms no calculo do credito SN).
     DM.TBVendasItensVEI_CSTIPI.Value             :=DM.TBProdutosPRO_CSTIPI.Value;
     DM.TBVendasItensVEI_CSTPIS.Value             :=DM.TBProdutosPRO_CSTPIS.Value;
     DM.TBVendasItensVEI_DESCMAX.Value            :=DM.TBProdutosPRO_DESCMAX.Value;

@@ -291,8 +291,8 @@ var
 
 implementation
 uses DataMod2, TurmasLoc, Main, Funcoes1, TurmasRel,
-  DateUtils, Vendedores, Chamadas, TurmasData, Conteudos, TurmasQ02,
-  QRCtrls, TurmasQ03, TurmasAlunos, DataMod, Feriados, ExerciciosTurmas,
+  DateUtils, Vendedores, Chamadas, TurmasData, Conteudos,
+  TurmasAlunos, DataMod, Feriados, ExerciciosTurmas,
   AvaliacoesTurmas, CursosLoc, Cursos, DataModSearch, FuncoesFirenet;
 {$R *.dfm}
 

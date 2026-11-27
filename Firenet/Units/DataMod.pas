@@ -2739,7 +2739,6 @@ type
     TBParametrosPAR_LOCALFOTOSIMOVEIS: TStringField;
     TBParametrosPAR_LOCALFOTOSPRODUTOS: TStringField;
     TBParametrosPAR_LOCALIMAGENSCONSULTAS: TStringField;
-    TBParametrosPAR_LOCALLOGOMARCA: TStringField;
     TBParametrosPAR_LOCALMODELOSDOC: TStringField;
     TBParametrosPAR_LOCALPADRAO: TIntegerField;
     TBParametrosPAR_LOCALPRONTUARIOS: TStringField;
@@ -4959,19 +4958,19 @@ const
   ParamFile='Parametros.ini';
   ChaveSenha=240;
   ChaveSenhaNEW=12;
-  VersaoBase=406;
+  VersaoBase=407;
   CodigoSegurancaNFE=2412;  //codigo de seguranca que vai compor a chave de acesso da NFe.
   CodigoSegurancaCTE=2412;  //codigo de seguranca que vai compor a chave de acesso da CTe.
   CodigoSegurancaMDFE=2412; //codigo de seguranca que vai compor a chave de acesso da MDFe.
 
-  ArquivoNFEUtil='NFe_Util_2Gv5.02b.exe'; //último arquivo de instalação da NFE_UTIL.
-  ArquivoNFEUtilVersao='NFe_Util 2G v5.0.2b beta 07-07-2026 - © 2008-2026 - www.flexdocs.com.br - Todos os direitos reservados';
+  ArquivoNFEUtil='NFe_Util_2Gv5.05a.exe'; //último arquivo de instalação da NFE_UTIL.
+  ArquivoNFEUtilVersao='NFe_Util 2G v5.0.5a beta 14-11-2026 - © 2008-2026 - www.flexdocs.com.br - Todos os direitos reservados';
 
-  ArquivoCTEUtil='CTe_Util_v5.00b.exe';   //último arquivo de instalação da CTE_UTIL.
-  ArquivoCTEUtilVersao='CTe_Util v5.00b beta [5.0.0.2] 07-11-2025 - © 2009-2025 - www.flexdocs.com.br - Todos os direitos reservados';
+  ArquivoCTEUtil='CTe_Util_v5.03.exe';   //último arquivo de instalação da CTE_UTIL.
+  ArquivoCTEUtilVersao='CTe_Util v5.03 beta [5.0.3.0] 02-11-2026 - © 2009-2026 - www.flexdocs.com.br - Todos os direitos reservados';
 
-  ArquivoMDFEUtil='MDFe_Util_v3.10c.exe'; //último arquivo de instalação da CTE_UTIL.
-  ArquivoMDFEUtilVersao='MDFe_Util v3.10c [3.0.10.3] 03-07-2025 - © 2025 - www.flexdocs.com.br - Todos os direitos reservados';
+  ArquivoMDFEUtil='MDFe_Util_v4.00a.exe'; //último arquivo de instalação da CTE_UTIL.
+  ArquivoMDFEUtilVersao='MDFe_Util v4.00a [4.0.0.1] 18-06-2026 - © 2026 - www.flexdocs.com.br - Todos os direitos reservados';
 
 implementation
 uses DataMod2, DataModSearch, IB, Main, IniFiles, Funcoes1, FuncoesFirenet, MsHtml,
@@ -15487,7 +15486,7 @@ begin
   TBServicosSER_ABERTOPOR.Value:=UsuarioLogin;
   TBServicosSER_ALIQICMSCREDSN.Value:=TBParametrosPAR_CREDITOICMSSN.Value;
   TBServicosSER_ANDAMENTO.Value:='AGUARDANDO INICIO';
-  TBServicosSER_CFOP.Value:=TBParametrosPAR_CFOPSERVICOPADRAO.Value;
+  TBServicosSER_CFOP.Value:=TBParametrosPAR_CFOPPADRAO.Value; //verificar se o campo PAR_CFOPSERVICOPADRAO pode ser eliminado. TBParametrosPAR_CFOPSERVICOPADRAO.Value;
   TBServicosSER_CUSTOTOTAL.Value:=0;
   TBServicosSER_DESCPORC.Value:=0;
   TBServicosSER_DESCVALOR.Value:=0;

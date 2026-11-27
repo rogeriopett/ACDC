@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.24 - Relatorio das opcoes no FastReport (FormOdontogramasFast, ODO02); o QuickReport (FormOdontogramasOpcoesQ01) ficou comentado.
 unit OdontogramasOpcoes;
 
 interface
@@ -297,7 +299,7 @@ var
   FormOdontogramasOpcoes: TFormOdontogramasOpcoes;
 
 implementation
-uses DataMod2, Funcoes1, DB, OdontogramasOpcoesLoc, DataMod, FuncoesFirenet, OdontogramasOpcoesQ01, Main;
+uses DataMod2, Funcoes1, DB, OdontogramasOpcoesLoc, DataMod, FuncoesFirenet, Main, OdontogramasFast;
 {$R *.dfm}
 
 procedure TFormOdontogramasOpcoes.Ajuda2Click(Sender: TObject);
@@ -1186,11 +1188,17 @@ end;
 
 procedure TFormOdontogramasOpcoes.Relatorios2Click(Sender: TObject);
 begin
-  Application.CreateForm(TFormOdontogramasOpcoesQ01, FormOdontogramasOpcoesQ01);
-  FormOdontogramasOpcoesQ01.FDQuery1.Open;
-  FormOdontogramasOpcoesQ01.QuickRep1.PreviewModal;
-  FormOdontogramasOpcoesQ01.Free;
-  FormOdontogramasOpcoesQ01:=nil;
+  //QuickReport antigo (FormOdontogramasOpcoesQ01), trocado pelo FastReport (FormOdontogramasFast, ODO02) em 2026.11.24:
+  //Application.CreateForm(TFormOdontogramasOpcoesQ01, FormOdontogramasOpcoesQ01);
+  //FormOdontogramasOpcoesQ01.FDQuery1.Open;
+  //FormOdontogramasOpcoesQ01.QuickRep1.PreviewModal;
+  //FormOdontogramasOpcoesQ01.Free;
+  //FormOdontogramasOpcoesQ01:=nil;
+  Application.CreateForm(TFormOdontogramasFast, FormOdontogramasFast);
+  FormOdontogramasFast.QY02.Open;
+  FormOdontogramasFast.Mostrar(FormOdontogramasFast.frxReport2,'Opções dos Odontogramas');
+  FormOdontogramasFast.Free;
+  FormOdontogramasFast:=nil;
 end;
 
 procedure TFormOdontogramasOpcoes.SetarOpcaoComoPadrao1Click(Sender: TObject);

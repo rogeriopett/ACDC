@@ -4,6 +4,7 @@
 //2026.11.18 - Removidas classes que nao existem em nenhum CSS (sup-reset, lh-2, topspace-*; text-trucate corrigido para text-truncate).
 //2026.11.18 - Imports reorganizados (externos; pett-componentes em ordem alfabetica; Api, contextos, hooks, componentes, outros e CSS).
 //2026.11.18 - Upload/FileList locais (react-dropzone, react-circular-progressbar, filesize, lodash) trocados pelo PettUpload do pett-componentes.
+//2026.11.27 - Mensagem de registro nao encontrado com o componente local NaoEncontrado (PettIcon no lugar do fa-record-vinyl; sem vh-100).
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ import { PettUpload } from 'pett-componentes';
 import Api from "../Api";
 import { AuthContext } from '../Contextos/Auth';
 import Loading from '../Componentes/Loading';
+import NaoEncontrado from '../Componentes/NaoEncontrado';
 import ProdutoHeader from '../Componentes/ProdutoHeader';
 import { tratarCatch } from '../Funcoes';
 
@@ -89,11 +91,7 @@ function ProdutoFotosEnviar() {
         </div>
 
         <Loading status={carregando}/>
-        <PettIf condicional={produto.PRO_CODIGO<=0}>
-            <div className="container limit-width vh-100 d-flex justify-content-center align-items-center">
-                <p className="text-center lead"><span style={{fontSize: '7em'}} className="texto-suave"><i className="fa fa-fw fa-record-vinyl"></i></span><br/>Não foi possível localizar o produto.</p>
-            </div>
-        </PettIf>
+        <NaoEncontrado show={!carregando && produto.PRO_CODIGO<=0} mensagem="Não foi possível localizar o produto."/>
         <PettIf condicional={produto.PRO_CODIGO>0}>
             <div className='container limit-width mb-5 py-2'>
                 <ProdutoHeader

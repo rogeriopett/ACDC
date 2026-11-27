@@ -1,3 +1,9 @@
+//Atualizacoes:
+//2026.11.23 - Comissao do vendedor (NFE_COMISSAO) e representante (NFE_REPRESENTANTE = vendedor do cliente, NFE_COMISSAOREP) no inserir/atualizar, como no Firenet.
+//2026.11.23 - InserirItem/AtualizarItem/ExcluirItem chamam o CalcularTotaisNFe (antes chamavam o CalcularTotaisVenda); os itens sao recalculados no TBNfeItensBeforePost, como no Firenet.
+//2026.11.23 - NFI_COMISSAO/NFI_COMISSAOREP pelo SetarComissaoItem (NFE_COMISSAOPOR), no lugar do valor vindo do Angus, como na venda.
+//2026.11.23 - Representante (NFE_REPRESENTANTE) vem do Angus; no inserir, sem representante, assume o vendedor. A comissao do representante e recalculada quando ele muda.
+//2026.11.23 - Reforma tributaria: Atualizar/Inserir leem NFE_GOVERNAMENTAL, NFE_GOVERNAMENTALOP, NFE_GOVERNAMENTALALIQRED, NFE_NOTADEBITO e NFE_NOTACREDITO, como na venda.
 unit Firenet.Nfes;
 
 interface
@@ -21,6 +27,7 @@ function AtualizarItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 function InserirItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 function ExcluirItem(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 procedure ReordenarItens(DM: TDMFirenet; Venda: Integer);
+procedure SetarComissaoItem(DM: TDMFirenet);
 
 const
   PrefixLog='FIRENET.NFE: ';
@@ -198,7 +205,7 @@ function Atualizar(DM: TDMFirenet; Req: THorseRequest): TJSONObject;
 var
   Retorno, Registro, Usuario: TJSONObject;
   Listagem: TJSONArray;
-  NFE_CODIGO: Integer;
+  NFE_CODIGO, RepresentanteAnterior, VendedorAnterior: Integer;
   NFE_DESCRICAO, NFE_STATUS, NFE_TIPO: String;
   NFE_VALOR: Extended;
 begin
@@ -216,6 +223,8 @@ begin
     raise Exception.Create('Registro não encontrado.');
 
     DM.TBNfe.Edit;
+    RepresentanteAnterior:=DM.TBNfeNFE_REPRESENTANTE.Value;
+    VendedorAnterior:=DM.TBNfeNFE_VENDEDOR.Value;
     //DM.TBNfeNFE_ALIQICMSCREDSN.Value     :=
     DM.TBNfeNFE_BAIRRO.Value             :=San(Req.ContentFields.Field('NFE_BAIRRO').AsString);
     //DM.TBNfeNFE_BAIXADATA.Value          :=
@@ -272,6 +281,11 @@ begin
     DM.TBNfeNFE_FONE1.Value              :=FormatarFone(Req.ContentFields.Field('NFE_FONE1').AsString);
     DM.TBNfeNFE_FORMAPAGTO.Value         :=San(Req.ContentFields.Field('NFE_FORMAPAGTO').AsString);
     DM.TBNfeNFE_FRETE.Value              :=San(Req.ContentFields.Field('NFE_FRETE').AsString);
+    DM.TBNfeNFE_GOVERNAMENTAL.Value      :=San(Req.ContentFields.Field('NFE_GOVERNAMENTAL').AsString);
+    if DM.TBNfeNFE_GOVERNAMENTAL.Value='' then DM.TBNfeNFE_GOVERNAMENTAL.Value:='0 - NENHUM';
+    DM.TBNfeNFE_GOVERNAMENTALALIQRED.Value:=Req.ContentFields.Field('NFE_GOVERNAMENTALALIQRED').AsFloat;
+    DM.TBNfeNFE_GOVERNAMENTALOP.Value    :=San(Req.ContentFields.Field('NFE_GOVERNAMENTALOP').AsString);
+    if DM.TBNfeNFE_GOVERNAMENTALOP.Value='' then DM.TBNfeNFE_GOVERNAMENTALOP.Value:='0 - NENHUM';
     DM.TBNfeNFE_HRATUALIZACAO.Value      :=Time;
     //DM.TBNfeNFE_HRCADASTRO.Value         :=
     DM.TBNfeNFE_IDESTRANGEIRO.Value      :=San(Req.ContentFields.Field('NFE_IDESTRANGEIRO').AsString);
@@ -288,6 +302,10 @@ begin
     //DM.TBNfeNFE_NFE.Value                :=
     DM.TBNfeNFE_NOME.Value               :=San(Req.ContentFields.Field('NFE_NOME').AsString);
     //DM.TBNfeNFE_NOTA.Value               :=
+    DM.TBNfeNFE_NOTACREDITO.Value        :=San(Req.ContentFields.Field('NFE_NOTACREDITO').AsString);
+    if DM.TBNfeNFE_NOTACREDITO.Value='' then DM.TBNfeNFE_NOTACREDITO.Value:='00 - NENHUM';
+    DM.TBNfeNFE_NOTADEBITO.Value         :=San(Req.ContentFields.Field('NFE_NOTADEBITO').AsString);
+    if DM.TBNfeNFE_NOTADEBITO.Value='' then DM.TBNfeNFE_NOTADEBITO.Value:='00 - NENHUM';
     DM.TBNfeNFE_NUMERO.Value             :=San(Req.ContentFields.Field('NFE_NUMERO').AsString);
     DM.TBNfeNFE_OBSERVACOES.Value        :=San(Req.ContentFields.Field('NFE_OBSERVACOES').AsString);
     DM.TBNfeNFE_PAIS.Value               :=San(Req.ContentFields.Field('NFE_PAIS').AsString);
@@ -360,6 +378,14 @@ begin
     //DM.TBNfeNFE_VIAINTERNETSTATUS.Value  :=
     DM.TBNfeNFE_VOLUMES.Value            :=Req.ContentFields.Field('NFE_VOLUMES').AsInteger;
     DM.TBNfeNFE_VOLUMESNUM.Value         :=San(Req.ContentFields.Field('NFE_VOLUMESNUM').AsString);
+    //representante digitado no Angus; vazio mantem o atual.
+    if SoNumeros(Req.ContentFields.Field('NFE_REPRESENTANTE').AsString)>0 then
+    DM.TBNfeNFE_REPRESENTANTE.Value:=SoNumeros(Req.ContentFields.Field('NFE_REPRESENTANTE').AsString);
+    //comissao do vendedor e do representante: so quando eles mudam ou ainda nao tem.
+    if (DM.TBNfeNFE_VENDEDOR.Value<>VendedorAnterior) or DM.TBNfeNFE_COMISSAO.IsNull then
+    DM.TBNfeNFE_COMISSAO.AsExtended:=GetComissaoVendedor(DM,DM.TBNfeNFE_VENDEDOR.Value);
+    if (DM.TBNfeNFE_REPRESENTANTE.Value<>RepresentanteAnterior) or DM.TBNfeNFE_COMISSAOREP.IsNull then
+    DM.TBNfeNFE_COMISSAOREP.AsExtended:=GetComissaoVendedor(DM,DM.TBNfeNFE_REPRESENTANTE.Value);
     DM.TBNfe.Post;
 
     Registro:=DM.TBNfe.ToJSONObject;
@@ -460,6 +486,11 @@ begin
     DM.TBNfeNFE_FONE1.Value              :=FormatarFone(Req.ContentFields.Field('NFE_FONE1').AsString);
     DM.TBNfeNFE_FORMAPAGTO.Value         :=San(Req.ContentFields.Field('NFE_FORMAPAGTO').AsString);
     DM.TBNfeNFE_FRETE.Value              :=San(Req.ContentFields.Field('NFE_FRETE').AsString);
+    DM.TBNfeNFE_GOVERNAMENTAL.Value      :=San(Req.ContentFields.Field('NFE_GOVERNAMENTAL').AsString);
+    if DM.TBNfeNFE_GOVERNAMENTAL.Value='' then DM.TBNfeNFE_GOVERNAMENTAL.Value:='0 - NENHUM';
+    DM.TBNfeNFE_GOVERNAMENTALALIQRED.Value:=Req.ContentFields.Field('NFE_GOVERNAMENTALALIQRED').AsFloat;
+    DM.TBNfeNFE_GOVERNAMENTALOP.Value    :=San(Req.ContentFields.Field('NFE_GOVERNAMENTALOP').AsString);
+    if DM.TBNfeNFE_GOVERNAMENTALOP.Value='' then DM.TBNfeNFE_GOVERNAMENTALOP.Value:='0 - NENHUM';
     DM.TBNfeNFE_HRATUALIZACAO.Value      :=Time;
     //DM.TBNfeNFE_HRCADASTRO.Value         :=
     DM.TBNfeNFE_IDESTRANGEIRO.Value      :=San(Req.ContentFields.Field('NFE_IDESTRANGEIRO').AsString);
@@ -476,6 +507,10 @@ begin
     //DM.TBNfeNFE_NFE.Value                :=
     DM.TBNfeNFE_NOME.Value               :=San(Req.ContentFields.Field('NFE_NOME').AsString);
     //DM.TBNfeNFE_NOTA.Value               :=
+    DM.TBNfeNFE_NOTACREDITO.Value        :=San(Req.ContentFields.Field('NFE_NOTACREDITO').AsString);
+    if DM.TBNfeNFE_NOTACREDITO.Value='' then DM.TBNfeNFE_NOTACREDITO.Value:='00 - NENHUM';
+    DM.TBNfeNFE_NOTADEBITO.Value         :=San(Req.ContentFields.Field('NFE_NOTADEBITO').AsString);
+    if DM.TBNfeNFE_NOTADEBITO.Value='' then DM.TBNfeNFE_NOTADEBITO.Value:='00 - NENHUM';
     DM.TBNfeNFE_NUMERO.Value             :=San(Req.ContentFields.Field('NFE_NUMERO').AsString);
     DM.TBNfeNFE_OBSERVACOES.Value        :=San(Req.ContentFields.Field('NFE_OBSERVACOES').AsString);
     DM.TBNfeNFE_PAIS.Value               :=San(Req.ContentFields.Field('NFE_PAIS').AsString);
@@ -548,6 +583,13 @@ begin
     //DM.TBNfeNFE_VIAINTERNETSTATUS.Value  :=
     DM.TBNfeNFE_VOLUMES.Value            :=Req.ContentFields.Field('NFE_VOLUMES').AsInteger;
     DM.TBNfeNFE_VOLUMESNUM.Value         :=San(Req.ContentFields.Field('NFE_VOLUMESNUM').AsString);
+    //comissao do vendedor e do representante.
+    DM.TBNfeNFE_COMISSAO.AsExtended      :=GetComissaoVendedor(DM,NFE_VENDEDOR);
+    //representante digitado no Angus ou, sem ele, o vendedor.
+    DM.TBNfeNFE_REPRESENTANTE.Value      :=SoNumeros(Req.ContentFields.Field('NFE_REPRESENTANTE').AsString);
+    if DM.TBNfeNFE_REPRESENTANTE.Value=0 then
+    DM.TBNfeNFE_REPRESENTANTE.Value      :=NFE_VENDEDOR;
+    DM.TBNfeNFE_COMISSAOREP.AsExtended   :=GetComissaoVendedor(DM,DM.TBNfeNFE_REPRESENTANTE.Value);
     DM.TBNfe.Post;
 
     Retorno:=TJSONObject.Create;
@@ -796,7 +838,7 @@ begin
     //DM.TBNfeItensNFI_CODIGO.Value             :=Req.ContentFields.Field('NFI_CODIGO').AsInteger';
     DM.TBNfeItensNFI_CODIGOBARRAS.Value       :=San(Req.ContentFields.Field('NFI_CODIGOBARRAS').AsString);
     DM.TBNfeItensNFI_CODIGOFAB.Value          :=San(Req.ContentFields.Field('NFI_CODIGOFAB').AsString);
-    DM.TBNfeItensNFI_COMISSAO.Value           :=Req.ContentFields.Field('NFI_COMISSAO').AsExtended;
+    //DM.TBNfeItensNFI_COMISSAO.Value           :=Req.ContentFields.Field('NFI_COMISSAO').AsExtended; //vem do SetarComissaoItem.
     DM.TBNfeItensNFI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('NFI_COMPLEMENTO').AsString);
     DM.TBNfeItensNFI_COMPOEBASEICMS.Value     :=San(Req.ContentFields.Field('NFI_COMPOEBASEICMS').AsString);
     DM.TBNfeItensNFI_COMPOEBASEICMSST.Value   :=San(Req.ContentFields.Field('NFI_COMPOEBASEICMSST').AsString);
@@ -895,10 +937,11 @@ begin
     DM.TBNfeItensNFI_VALORTRIBUTOSIMP.Value   :=Req.ContentFields.Field('NFI_VALORTRIBUTOSIMP').AsExtended;
     DM.TBNfeItensNFI_VALORTRIBUTOSMUN.Value   :=Req.ContentFields.Field('NFI_VALORTRIBUTOSMUN').AsExtended;
     DM.TBNfeItensNFI_VALORUNIT.Value          :=Req.ContentFields.Field('NFI_VALORUNIT').AsExtended;
+    SetarComissaoItem(DM);
     DM.TBNfeItens.Post;
     DM.TBNfeItens.Close;
 
-    DM.CalcularTotaisVenda(True);
+    DM.CalcularTotaisNFe(True);
 
     DM.TBNfe.Close;
 
@@ -995,7 +1038,7 @@ begin
     //DM.TBNfeItensNFI_CODIGO.Value             :=Req.ContentFields.Field('NFI_CODIGO').AsInteger';
     DM.TBNfeItensNFI_CODIGOBARRAS.Value       :=San(Req.ContentFields.Field('NFI_CODIGOBARRAS').AsString);
     DM.TBNfeItensNFI_CODIGOFAB.Value          :=San(Req.ContentFields.Field('NFI_CODIGOFAB').AsString);
-    DM.TBNfeItensNFI_COMISSAO.Value           :=Req.ContentFields.Field('NFI_COMISSAO').AsExtended;
+    //DM.TBNfeItensNFI_COMISSAO.Value           :=Req.ContentFields.Field('NFI_COMISSAO').AsExtended; //vem do SetarComissaoItem.
     DM.TBNfeItensNFI_COMPLEMENTO.Value        :=San(Req.ContentFields.Field('NFI_COMPLEMENTO').AsString);
     DM.TBNfeItensNFI_COMPOEBASEICMS.Value     :=San(Req.ContentFields.Field('NFI_COMPOEBASEICMS').AsString);
     DM.TBNfeItensNFI_COMPOEBASEICMSST.Value   :=San(Req.ContentFields.Field('NFI_COMPOEBASEICMSST').AsString);
@@ -1094,10 +1137,11 @@ begin
     DM.TBNfeItensNFI_VALORTRIBUTOSIMP.Value   :=Req.ContentFields.Field('NFI_VALORTRIBUTOSIMP').AsExtended;
     DM.TBNfeItensNFI_VALORTRIBUTOSMUN.Value   :=Req.ContentFields.Field('NFI_VALORTRIBUTOSMUN').AsExtended;
     DM.TBNfeItensNFI_VALORUNIT.Value          :=Req.ContentFields.Field('NFI_VALORUNIT').AsExtended;
+    SetarComissaoItem(DM);
     DM.TBNfeItens.Post;
     DM.TBNfeItens.Close;
 
-    DM.CalcularTotaisVenda(True);
+    DM.CalcularTotaisNFe(True);
 
     DM.TBNfe.Close;
     DM.TBParametros.Close;
@@ -1146,7 +1190,7 @@ begin
     DM.TBNfeItens.Delete;
     DM.TRVendasItens.Commit;
 
-    DM.CalcularTotaisVenda(True);
+    DM.CalcularTotaisNFe(True);
     ReordenarItens(DM,NFE_CODIGO);
 
     //AtualizarTotaisConsulta(DM,COS_CODIGO);
@@ -1161,6 +1205,26 @@ begin
       Retorno.AddPair('msg',ex.Message);
       Result:=Retorno;
     end;
+  end;
+end;
+
+procedure SetarComissaoItem(DM: TDMFirenet);
+// Percentual de comissao do item, como no Firenet: com NFE_COMISSAOPOR='V' (PAR_COMISSAOPOR) vem da capa (vendedor e representante), senao do cadastro do produto.
+begin
+  if DM.TBNfeNFE_COMISSAOPOR.Value='V' then
+  begin
+    DM.TBNfeItensNFI_COMISSAO.Value   :=DM.TBNfeNFE_COMISSAO.Value;
+    DM.TBNfeItensNFI_COMISSAOREP.Value:=DM.TBNfeNFE_COMISSAOREP.Value;
+  end else
+  begin
+    DM.Query1.Close;
+    DM.Query1.SQL.Clear;
+    DM.Query1.SQL.Add('select PRO_COMISSAO from PRODUTOS where PRO_CODIGO=:codigo');
+    DM.Query1.ParamByName('codigo').AsInteger:=DM.TBNfeItensNFI_PRODUTO.Value;
+    DM.Query1.Open;
+    DM.TBNfeItensNFI_COMISSAO.AsExtended   :=DM.Query1.FieldByName('PRO_COMISSAO').AsExtended;
+    DM.TBNfeItensNFI_COMISSAOREP.AsExtended:=DM.Query1.FieldByName('PRO_COMISSAO').AsExtended;
+    DM.Query1.Close;
   end;
 end;
 

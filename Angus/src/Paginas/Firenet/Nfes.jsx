@@ -1,3 +1,5 @@
+//Atualizacoes:
+//2026.11.23 - Representante (NFE_REPRESENTANTE) e aba Reforma Tributaria (IBS/CBS/IS, ente governamental e nota de debito/credito); envia o representante ao salvar; imports reorganizados.
 import React, { useContext, useEffect, useState } from 'react';
 
 import { PettButton } from 'pett-componentes';
@@ -6,7 +8,6 @@ import { PettFieldDate } from 'pett-componentes';
 import { PettFieldDrop } from 'pett-componentes';
 import { PettFieldFloat } from 'pett-componentes';
 import { PettFieldLoc } from 'pett-componentes';
-import { PettFieldMask } from 'pett-componentes';
 import { PettFieldMoney } from 'pett-componentes';
 import { PettFieldText } from 'pett-componentes';
 import { PettFieldTextArea } from 'pett-componentes';
@@ -16,8 +17,9 @@ import { PettMensagem } from 'pett-componentes';
 import { PettTab } from 'pett-componentes';
 import { PettTabPanel } from 'pett-componentes';
 
-import { AuthContext } from '../../Contextos/Auth';
 import Api from '../../Api';
+import { AuthContext } from '../../Contextos/Auth';
+import { useLocalizar, CLIENTES, CONDICOES, FORNECEDORES, NATUREZAS, VENDEDORES  } from '../../Hooks/useLocalizar';
 import AtualizadoPor from '../../Componentes/AtualizadoPor.jsx';
 import BarraOpcoes from '../../Componentes/BarraOpcoes';
 import BarraSuperior from '../../Componentes/BarraSuperior';
@@ -31,14 +33,14 @@ import Rodape from '../../Componentes/Rodape';
 import Sentinela from '../../Componentes/Sentinela';
 import NfesItens from './NfesItens';
 import VendedoresLoc from '../../Componentes/Localizadores/VendedoresLoc';
-import { selectDiaVencimento, selectFormaPagamento, selectFrete, selectStatusVendas, selectTipoAtendimento, selectTipoConsumidor, selectTipoOperacao } from '../../Combox.js';
+import { selectDiaVencimento, selectFormaPagamento, selectFrete, selectGovernamental, selectGovernamentalOp, selectNotaCredito, selectNotaDebito, selectStatusVendas, selectTipoAtendimento, selectTipoConsumidor, selectTipoOperacao } from '../../Combox.js';
 import { primeiroDiaMes, ultimoDiaMes, formatarDataStr, formatarDataStr2, formatarMoeda, tratarCatch, formatarDataFb, hoje, formatarMoedaStr } from '../../Funcoes';
-import { useLocalizar, CLIENTES, CONDICOES, FORNECEDORES, NATUREZAS, VENDEDORES  } from '../../Hooks/useLocalizar';
 
 const mapaClientes        = { NFE_CLIENTE: 'CLI_CODIGO', NFE_CONDICAO: 'CLI_CONDICAO', NFE_CONTATO: 'CLI_CONTATO', NFE_FORMAPAGTO: 'CPG_FORMAPAGTO', NFE_NOME: 'CLI_NOME', NFE_TIPOCONSUMIDOR: 'CLI_TIPOCONSUMIDOR', CPG_DESCRICAO: 'CPG_DESCRICAO', CPG_MEIOPAGAMENTO: 'CPG_MEIOPAGAMENTO' };
 const mapaCondicoes       = { NFE_CONDICAO: 'CPG_CODIGO', NFE_FORMAPAGTO: 'CPG_FORMAPAGTO', CPG_DESCRICAO: 'CPG_DESCRICAO', CPG_MEIOPAGAMENTO: 'CPG_MEIOPAGAMENTO' };
 const mapaExpedidores     = { NFE_EXPEDIDOPOR: 'VEN_CODIGO', VEN_NOME1: 'VEN_NOME' };
 const mapaNaturezas       = { NFE_CFOP: 'NAT_CODIGO', NFE_CFOPDESC: 'NAT_DESCRICAO', NFE_ENTRADASAIDA: 'NAT_ENTRADASAIDA', NFE_MOVIMENTAESTOQUE: 'NAT_MOVIMENTAESTOQUE', NFE_MOVIMENTAFINANCEIRO: 'NAT_MOVIMENTAFINANCEIRO' };
+const mapaRepresentantes  = { NFE_REPRESENTANTE: 'VEN_CODIGO', VEN_NOME2: 'VEN_NOME' };
 const mapaTransportadoras = { NFE_TRANSPORTADORA: 'FOR_CODIGO', NFE_TRANSPNOME: 'FOR_NOME' };
 const mapaVendedores      = { NFE_VENDEDOR: 'VEN_CODIGO', VEN_NOME: 'VEN_NOME' };
 
@@ -77,6 +79,7 @@ function Nfes() {
     const [ showCondicoesLoc, setShowCondicoesLoc ] = useState(false);
     const [ showExpedidoresLoc, setShowExpedidoresLoc ] = useState(false);
     const [ showNaturezasLoc, setShowNaturezasLoc ] = useState(false);
+    const [ showRepresentantesLoc, setShowRepresentantesLoc ] = useState(false);
     const [ showVendedoresLoc, setShowVendedoresLoc ] = useState(false);
     const [ showTransportadorasLoc, setShowTransportadorasLoc ] = useState(false);
     const [ showItem, setShowItem ] = useState(false);
@@ -153,13 +156,23 @@ function Nfes() {
             NFE_BAIXAPOR: '',
             NFE_BASECOFINS: '0',
             NFE_BASECOFINSST: '0',
+            NFE_BASEIBSCBS: '0',
             NFE_BASEICMS: '0',
             NFE_BASEICMSST: '0',
             NFE_BASEII: '0',
             NFE_BASEIPI: '0',
+            NFE_BASEIS: '0',
             NFE_BASEISS: '0',
             NFE_BASEPIS: '0',
             NFE_BASEPISST: '0',
+            NFE_CBSCREDPRES: '0',
+            NFE_CBSCREDPRESSUS: '0',
+            NFE_CBSDEVOLUCAO: '0',
+            NFE_CBSDIFERIMENTO: '0',
+            NFE_CBSMONO: '0',
+            NFE_CBSMONORETENCAO: '0',
+            NFE_CBSMONORETIDO: '0',
+            NFE_CBSVALOR: '0',
             NFE_CEP: '',
             NFE_CFOP: valoresPadrao.PAR_CFOPPADRAO || '',
             NFE_CFOPDESC: valoresPadrao.NAT_DESCRICAO || '',
@@ -203,6 +216,21 @@ function Nfes() {
             NFE_FONE1: '',
             NFE_FORMAPAGTO: '',
             NFE_FRETE: valoresPadrao.PAR_FRETEPORCONTA || '',
+            NFE_GOVERNAMENTAL: '0 - NENHUM',
+            NFE_GOVERNAMENTALALIQRED: '0',
+            NFE_GOVERNAMENTALOP: '0 - NENHUM',
+            NFE_IBSCREDPRES: '0',
+            NFE_IBSCREDPRESSUS: '0',
+            NFE_IBSMONO: '0',
+            NFE_IBSMONORETENCAO: '0',
+            NFE_IBSMONORETIDO: '0',
+            NFE_IBSMUNDEVOLUCAO: '0',
+            NFE_IBSMUNDIFERIMENTO: '0',
+            NFE_IBSMUNVALOR: '0',
+            NFE_IBSUFDEVOLUCAO: '0',
+            NFE_IBSUFDIFERIMENTO: '0',
+            NFE_IBSUFVALOR: '0',
+            NFE_IBSVALOR: '0',
             NFE_IDESTRANGEIRO: '',
             NFE_IE: '',
             NFE_INFOADICFISCO: valoresPadrao.NAT_OBSERVACOES || '',
@@ -217,6 +245,8 @@ function Nfes() {
             NFE_NFE: '',
             NFE_NOME: '',
             NFE_NOTA: '',
+            NFE_NOTACREDITO: '00 - NENHUM',
+            NFE_NOTADEBITO: '00 - NENHUM',
             NFE_NUMERO: '',
             NFE_OBSERVACOES: '',
             NFE_PAIS: 'BRASIL',
@@ -227,6 +257,7 @@ function Nfes() {
             NFE_REBOQUEPLACA: '',
             NFE_REBOQUEPLACAUF: '',
             NFE_REBOQUERNTC: '',
+            NFE_REPRESENTANTE: '',
             NFE_RG: '',
             NFE_SEQUENCIAITEM: '0',
             NFE_STATUS: 'A',
@@ -250,6 +281,7 @@ function Nfes() {
             NFE_TOTALII: '0',
             NFE_TOTALIOF: '0',
             NFE_TOTALIPI: '0',
+            NFE_TOTALIS: '0',
             NFE_TOTALISS: '0',
             NFE_TOTALISSDEDUCAO: '0',
             NFE_TOTALISSDESCCOND: '0',
@@ -281,6 +313,7 @@ function Nfes() {
             NFE_VALORFRETE: '0',
             NFE_VALORSEGURO: '0',
             NFE_VALORTOTAL: '0',
+            NFE_VALORTOTALRTC: '0',
             NFE_VEICULOPLACA: '',
             NFE_VEICULOPLACAUF: '',
             NFE_VEICULORNTC: '',
@@ -418,6 +451,9 @@ function Nfes() {
         formData.set('NFE_FONE1', nfe.NFE_FONE1 || '');
         formData.set('NFE_FORMAPAGTO', nfe.NFE_FORMAPAGTO || '');
         formData.set('NFE_FRETE', nfe.NFE_FRETE || '');
+        formData.set('NFE_GOVERNAMENTAL', nfe.NFE_GOVERNAMENTAL || '');
+        formData.set('NFE_GOVERNAMENTALALIQRED', nfe.NFE_GOVERNAMENTALALIQRED || '');
+        formData.set('NFE_GOVERNAMENTALOP', nfe.NFE_GOVERNAMENTALOP || '');
         formData.set('NFE_IDESTRANGEIRO', nfe.NFE_IDESTRANGEIRO || '');
         formData.set('NFE_IE', nfe.NFE_IE || '');
         formData.set('NFE_INFOADICFISCO', nfe.NFE_INFOADICFISCO || '');
@@ -432,6 +468,8 @@ function Nfes() {
         formData.set('NFE_NFE', nfe.NFE_NFE || '');
         formData.set('NFE_NOME', nfe.NFE_NOME || '');
         formData.set('NFE_NOTA', nfe.NFE_NOTA || '');
+        formData.set('NFE_NOTACREDITO', nfe.NFE_NOTACREDITO || '');
+        formData.set('NFE_NOTADEBITO', nfe.NFE_NOTADEBITO || '');
         formData.set('NFE_NUMERO', nfe.NFE_NUMERO || '');
         formData.set('NFE_OBSERVACOES', nfe.NFE_OBSERVACOES || '');
         formData.set('NFE_PAIS', nfe.NFE_PAIS || '');
@@ -442,6 +480,7 @@ function Nfes() {
         formData.set('NFE_REBOQUEPLACA', nfe.NFE_REBOQUEPLACA || '');
         formData.set('NFE_REBOQUEPLACAUF', nfe.NFE_REBOQUEPLACAUF || '');
         formData.set('NFE_REBOQUERNTC', nfe.NFE_REBOQUERNTC || '');
+        formData.set('NFE_REPRESENTANTE', nfe.NFE_REPRESENTANTE || '');
         formData.set('NFE_RG', nfe.NFE_RG || '');
         formData.set('NFE_SEQUENCIAITEM', nfe.NFE_SEQUENCIAITEM || '');
         formData.set('NFE_STATUS', nfe.NFE_STATUS || '');
@@ -704,10 +743,10 @@ function Nfes() {
                             <PettIf condicional={nfe.NFE_MOVIMENTAFINANCEIRO==='S'}><span className="badge bg-success">SIM</span></PettIf>
                             <PettIf condicional={nfe.NFE_MOVIMENTAFINANCEIRO==='N'}><span className="badge bg-danger">NÃO</span></PettIf>
                         </div>
-                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Qtde CCe: <span className="fw-bold">{nfe.NFE_CODIGO}</span></div>
+                        <div className="col-lg-2 col-md-4 col-sm-6 fs-6">Qtde CCe: <span className="fw-bold">{nfe.NFE_TOTALCCE}</span></div>
                     </div>
 
-                    <PettTab className="mb-5">
+                    <PettTab className="mb-5 mt-3">
                         <PettTabPanel header="Geral">
                             <div className="row mb-3 g-1">
                                 <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="CLIENTE" name="NFE_CLIENTE" value={String(nfe.NFE_CLIENTE)} set={setNfe} onClick={() => setShowClientesLoc(true)} onBlur={(e) => localizar(CLIENTES, e.target.value, setNfe, mapaClientes)} readOnly={disableFields} disabled={disableFields}/>
@@ -716,15 +755,15 @@ function Nfes() {
                                 <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="DESCRIÇÃO CFOP" name="NFE_CFOPDESC" value={nfe.NFE_CFOPDESC} readOnly disabled/>
                                 <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="VENDEDOR" name="NFE_VENDEDOR" value={nfe.NFE_VENDEDOR} set={setNfe} onClick={() => setShowVendedoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setNfe, mapaVendedores)} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME VENDEDOR" name="VEN_NOME" value={nfe.VEN_NOME} readOnly disabled/>
-                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="EXPEDIDO POR" name="NFE_EXPEDIDOPOR" value={nfe.NFE_EXPEDIDOPOR} set={setNfe} onClick={() => setShowExpedidoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, mapaExpedidores)} readOnly={disableFields} disabled={disableFields}/>                          
-                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME EXPEDIDO POR" name="VEN_NOME1" value={nfe.VEN_NOME1} readOnly disabled/>                          
+                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="EXPEDIDO POR" name="NFE_EXPEDIDOPOR" value={nfe.NFE_EXPEDIDOPOR} set={setNfe} onClick={() => setShowExpedidoresLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setNfe, mapaExpedidores)} readOnly={disableFields} disabled={disableFields}/>                          
+                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME EXPEDIDO POR" name="VEN_NOME1" value={nfe.VEN_NOME1} readOnly disabled/>
+                                <PettFieldLoc size="col-lg-2 col-md-2 col-sm-12" label="REPRESENTANTE" name="NFE_REPRESENTANTE" value={nfe.NFE_REPRESENTANTE} set={setNfe} onClick={() => setShowRepresentantesLoc(true)} onBlur={(e) => localizar(VENDEDORES, e.target.value, setNfe, mapaRepresentantes)} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldText size="col-lg-4 col-md-4 col-sm-12" label="NOME REPRESENTANTE" name="VEN_NOME2" value={nfe.VEN_NOME2} readOnly disabled/>
                                 <PettFieldText size="col-lg-3 col-md-3 col-sm-6" label="CONTATO" name="NFE_CONTATO" value={nfe.NFE_CONTATO} set={setNfe} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO ATENDIMENTO" name="NFE_TIPOATENDIMENTO" value={nfe.NFE_TIPOATENDIMENTO} set={setNfe} options={selectTipoAtendimento} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO OPERAÇÃO" name="NFE_TIPOOPERACAO" value={nfe.NFE_TIPOOPERACAO} set={setNfe} options={selectTipoOperacao} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldDrop size="col-lg-3 col-md-3 col-sm-6" label="TIPO CONSUMIDOR" name="NFE_TIPOCONSUMIDOR" value={nfe.NFE_TIPOCONSUMIDOR} set={setNfe} options={selectTipoConsumidor} readOnly={disableFields} disabled={disableFields}/>
                                 <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="PEDIDO CLIENTE" name="NFE_PEDIDOCLIENTE" value={nfe.NFE_PEDIDOCLIENTE} set={setNfe} readOnly={disableFields} disabled={disableFields}/>
-                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO" name="NFE_COMISSAO" value={nfe.NFE_COMISSAO} readOnly disabled/>
-                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO" name="NFE_TOTALCOMISSAO" value={nfe.NFE_TOTALCOMISSAO} readOnly disabled/>
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="ENTRADA/SAÍDA" name="NFE_ENTRADASAIDA" value={nfe.NFE_ENTRADASAIDA} readOnly disabled/> */}
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="MOV. ESTOQUE" name="NFE_MOVIMENTAESTOQUE" value={nfe.NFE_MOVIMENTAESTOQUE} readOnly disabled/> */}
                                 {/* <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="MOV. FINANCEIRO" name="NFE_MOVIMENTAFINANCEIRO" value={nfe.NFE_MOVIMENTAFINANCEIRO} readOnly disabled/> */}
@@ -815,6 +854,14 @@ function Nfes() {
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="VALOR TOTAL" name="NFE_VALORTOTAL" value={nfe.NFE_VALORTOTAL} readOnly disabled/>
                             </div>
 
+                            <strong>Totais Comissão</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO" name="NFE_COMISSAO" value={nfe.NFE_COMISSAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO" name="NFE_TOTALCOMISSAO" value={nfe.NFE_TOTALCOMISSAO} readOnly disabled/>
+                                <PettFieldText size="col-lg-2 col-md-3 col-sm-6" label="% COMISSÃO REP." name="NFE_COMISSAOREP" value={nfe.NFE_COMISSAOREP} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-3 col-sm-6" label="TOTAL COMISSÃO REP." name="NFE_TOTALCOMISSAOREP" value={nfe.NFE_TOTALCOMISSAOREP} readOnly disabled/>
+                            </div>
+
                             <strong>Totais ICMS</strong>
                             <div className="row mb-3 g-1">
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE CALC." name="NFE_BASEICMS" value={nfe.NFE_BASEICMS} readOnly disabled/>
@@ -881,7 +928,57 @@ function Nfes() {
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="ESTADUAL" name="NFE_TOTALTRIBUTOSEST" value={nfe.NFE_TOTALTRIBUTOSEST} readOnly disabled/>
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUNICIPAL" name="NFE_TOTALTRIBUTOSMUN" value={nfe.NFE_TOTALTRIBUTOSMUN} readOnly disabled/>
                                 <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="IMPORTAÇÃO" name="NFE_TOTALTRIBUTOSIMP" value={nfe.NFE_TOTALTRIBUTOSIMP} readOnly disabled/>
-                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL" name="NFE_TOTALTRIBUTOS" value={nfe.NFE_TOTALTRIBUTOS} readOnly disabled/>                            
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL" name="NFE_TOTALTRIBUTOS" value={nfe.NFE_TOTALTRIBUTOS} readOnly disabled/>
+                            </div>
+                        </PettTabPanel>
+                        <PettTabPanel header="Reforma Tributária">
+                            <strong>Ente Governamental</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldDrop size="col-lg-3 col-md-4 col-sm-6" label="TIPO ENTE GOVERNAMENTAL" name="NFE_GOVERNAMENTAL" value={nfe.NFE_GOVERNAMENTAL} set={setNfe} options={selectGovernamental} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldDrop size="col-lg-3 col-md-4 col-sm-6" label="TIPO OPERAÇÃO GOVERNAMENTAL" name="NFE_GOVERNAMENTALOP" value={nfe.NFE_GOVERNAMENTALOP} set={setNfe} options={selectGovernamentalOp} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldFloat size="col-lg-2 col-md-4 col-sm-6" label="% REDUTOR" name="NFE_GOVERNAMENTALALIQRED" value={nfe.NFE_GOVERNAMENTALALIQRED} set={setNfe} minDigits={2} maxDigits={4} readOnly={disableFields} disabled={disableFields}/>
+                            </div>
+
+                            <strong>Nota de Débito/Crédito</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldDrop size="col-lg-6 col-md-6 col-sm-12" label="TIPO NF DÉBITO" name="NFE_NOTADEBITO" value={nfe.NFE_NOTADEBITO} set={setNfe} options={selectNotaDebito} readOnly={disableFields} disabled={disableFields}/>
+                                <PettFieldDrop size="col-lg-6 col-md-6 col-sm-12" label="TIPO NF CRÉDITO" name="NFE_NOTACREDITO" value={nfe.NFE_NOTACREDITO} set={setNfe} options={selectNotaCredito} readOnly={disableFields} disabled={disableFields}/>
+                            </div>
+
+                            <strong>Totais IBS/CBS/IS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE IBS/CBS" name="NFE_BASEIBSCBS" value={nfe.NFE_BASEIBSCBS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="BASE IS" name="NFE_BASEIS" value={nfe.NFE_BASEIS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL IS" name="NFE_TOTALIS" value={nfe.NFE_TOTALIS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL NF (RTC)" name="NFE_VALORTOTALRTC" value={nfe.NFE_VALORTOTALRTC} readOnly disabled/>
+                            </div>
+
+                            <strong>CBS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO" name="NFE_CBSCREDPRES" value={nfe.NFE_CBSCREDPRES} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO SUSP." name="NFE_CBSCREDPRESSUS" value={nfe.NFE_CBSCREDPRESSUS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="DEVOLUÇÃO" name="NFE_CBSDEVOLUCAO" value={nfe.NFE_CBSDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="DIFERIMENTO" name="NFE_CBSDIFERIMENTO" value={nfe.NFE_CBSDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO" name="NFE_CBSMONO" value={nfe.NFE_CBSMONO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETENÇÃO" name="NFE_CBSMONORETENCAO" value={nfe.NFE_CBSMONORETENCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETIDO" name="NFE_CBSMONORETIDO" value={nfe.NFE_CBSMONORETIDO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL CBS" name="NFE_CBSVALOR" value={nfe.NFE_CBSVALOR} readOnly disabled/>
+                            </div>
+
+                            <strong>IBS</strong>
+                            <div className="row mb-3 g-1">
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO" name="NFE_IBSCREDPRES" value={nfe.NFE_IBSCREDPRES} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="CRÉD. PRESUMIDO SUSP." name="NFE_IBSCREDPRESSUS" value={nfe.NFE_IBSCREDPRESSUS} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. DEVOLUÇÃO" name="NFE_IBSMUNDEVOLUCAO" value={nfe.NFE_IBSMUNDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. DIFERIMENTO" name="NFE_IBSMUNDIFERIMENTO" value={nfe.NFE_IBSMUNDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MUN. VALOR" name="NFE_IBSMUNVALOR" value={nfe.NFE_IBSMUNVALOR} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. DEVOLUÇÃO" name="NFE_IBSUFDEVOLUCAO" value={nfe.NFE_IBSUFDEVOLUCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. DIFERIMENTO" name="NFE_IBSUFDIFERIMENTO" value={nfe.NFE_IBSUFDIFERIMENTO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="EST. VALOR" name="NFE_IBSUFVALOR" value={nfe.NFE_IBSUFVALOR} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO" name="NFE_IBSMONO" value={nfe.NFE_IBSMONO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETENÇÃO" name="NFE_IBSMONORETENCAO" value={nfe.NFE_IBSMONORETENCAO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="MONOFÁSICO RETIDO" name="NFE_IBSMONORETIDO" value={nfe.NFE_IBSMONORETIDO} readOnly disabled/>
+                                <PettFieldMoney size="col-lg-2 col-md-6 col-sm-6" label="TOTAL IBS" name="NFE_IBSVALOR" value={nfe.NFE_IBSVALOR} readOnly disabled/>
                             </div>
                         </PettTabPanel>
                         <PettTabPanel header="Outros">
@@ -950,6 +1047,7 @@ function Nfes() {
         <NaturezasLoc showModal={showNaturezasLoc} onCloseModal={(data) => { selecionar(data, setNfe, mapaNaturezas); setShowNaturezasLoc(false); }}/>
         <VendedoresLoc showModal={showVendedoresLoc} onCloseModal={(data) => { selecionar(data, setNfe, mapaVendedores); setShowVendedoresLoc(false); }}/>
         <VendedoresLoc showModal={showExpedidoresLoc} onCloseModal={(data) => { selecionar(data, setNfe, mapaExpedidores); setShowExpedidoresLoc(false); }}/>
+        <VendedoresLoc showModal={showRepresentantesLoc} onCloseModal={(data) => { selecionar(data, setNfe, mapaRepresentantes); setShowRepresentantesLoc(false); }}/>
         <NfesItens showModal={showItem} onCloseModal={itemClose} nfe={nfe} item={nfeItem} operacao={operacaoItem} />
     </>
 }

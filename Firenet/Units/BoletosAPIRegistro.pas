@@ -309,6 +309,8 @@ begin
   DM.TBContas.Open;
   Edit3.Text:=DM.TBContasCON_CODIGO.Value.ToString;
   Edit4.Text:=DM.TBContasCON_NOME.Value;
+
+  ACBrBoleto1.Configuracoes.Arquivos.PathGravarRegistro:=ExtractFilePath(Application.ExeName); //pasta para log.
 end;
 
 procedure TFormBoletosAPIRegistro.FormKeyPress(Sender: TObject; var Key: Char);

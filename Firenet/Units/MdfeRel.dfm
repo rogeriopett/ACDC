@@ -61,10 +61,7 @@ object FormMdfeRel: TFormMdfeRel
     TabOrder = 0
     OnChange = ComboBox1Change
     Items.Strings = (
-      'NFe emitidas no per'#237'odo'
-      'NFe no per'#237'odo por CFOP'
-      'NFe emitidas no per'#237'odo ordenado por c'#243'digo'
-      'Verifica'#231#227'o de numera'#231#227'o')
+      'MDFe emitidos no per'#237'odo')
   end
   object MaskEdit1: TMaskEdit
     Left = 104

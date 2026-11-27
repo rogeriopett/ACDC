@@ -7,7 +7,7 @@ interface
 uses
   Forms, Dialogs, Windows, SysUtils, IniFiles, System.UITypes, Messages, Controls,
   Graphics, Classes, Registry, Printers, DateUtils, StdCtrls, DBCtrls, Variants,
-  Funcoes1, DataMod, DataMod2, SenhaPeriodica, Vendas, QRCtrls, frxClass,
+  Funcoes1, DataMod, DataMod2, SenhaPeriodica, Vendas, frxClass,
   NFe_Util_2G_TLB, CTe_Util_TLB, MDFe_Util_TLB, DB, Vcl.Mask, FireDAC.Comp.Client,
   FireDAC.Stan.Option, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, Vcl.ExtCtrls;
 
@@ -77,7 +77,6 @@ procedure ImprimirNotasModelo03; //gp.
 //procedure ImprimirServicosF;
 //procedure ImprimirServicosOrc;
 procedure ImprimirTeste;
-procedure LogoTipo(Form: TForm; Tamanho: Integer=1);
 procedure RestaurarTamanhoForm(Formulario: TForm; Usuario: Integer);
 procedure SalvarConsultaSQL(Formulario: String; Usuario: Integer; SQL: String);
 procedure SalvarTamanhoForm(Formulario: String; Usuario, W,H,T,L: Integer);
@@ -3061,41 +3060,6 @@ begin
   CloseFile(F);
   PrintFile(DM.DebugPrint,DM.Commandcom,'ServicosOrc.txt',ServicosOrcPorta);
 end; }
-
-procedure LogoTipo(Form: TForm; Tamanho: Integer=1);
-begin
-  if DM.TBParametrosPAR_IMPRIMIRLOGOTIPO.Value='N' then
-  begin
-    //O cabeçalho dos relatórios devem conter esses componentes abaixo.
-    //Altura cabeçalho: 65.
-    //Fonte Times tamanho 12 para o nome da empresa.
-    //Fonte Arial tamanho 8 para email, cnpj, fone, data, página.
-    //Fonte Arial Negrito e Italico tamanho 8 para a descrição do relatório.
-    //O campo date time deve estar com o valor de left em 680 e 1009 para landscape.
-    //O campo nosso_nome deve estar com o valor de left em 671. e 1001 para landscape.
-    TQRDBText(Form.FindComponent('EMPRESA')).Left:=3;
-    TQRDBText(Form.FindComponent('EMAIL')).Left:=3;
-    TQRDBText(Form.FindComponent('CNPJ')).Left:=3;
-    TQRDBText(Form.FindComponent('FONE1')).Left:=3;
-    TQRImage(Form.FindComponent('IMAGEM')).Visible:=False;
-  end else
-  begin
-    try
-      if Tamanho=1 then
-      TQRImage(Form.FindComponent('IMAGEM')).Picture.LoadFromFile(ExtractFilePath(Application.ExeName)+'Logo_Empresa_120x60.jpg') else
-      if Tamanho=2 then
-      begin
-        TQRImage(Form.FindComponent('IMAGEM')).Picture.LoadFromFile(ExtractFilePath(Application.ExeName)+'Logo_Empresa_290x60.jpg');
-        TQRImage(Form.FindComponent('IMAGEM')).Width:=290;
-        TQRDBText(Form.FindComponent('EMPRESA')).Font.Color:=clWhite;
-        TQRDBText(Form.FindComponent('EMAIL')).Font.Color:=clWhite;
-        TQRDBText(Form.FindComponent('CNPJ')).Font.Color:=clWhite;
-        TQRDBText(Form.FindComponent('FONE1')).Font.Color:=clWhite;
-      end;
-      except on exception do //nothing.
-    end;
-  end;
-end;
 
 procedure RestaurarTamanhoForm(Formulario: TForm; Usuario: Integer);
 begin

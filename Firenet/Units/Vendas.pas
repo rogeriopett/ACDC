@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, StdCtrls, DBCtrls, Buttons, DBSBtn, ExtCtrls, Mask, IDAttachmentFile,
-  Grids, DBGrids, DB, ComCtrls, QRPDFFilt, PngSpeedButton, ImgList, PngImageList,
+  Grids, DBGrids, DB, ComCtrls, PngSpeedButton, ImgList, PngImageList,
   PngBitBtn, System.ImageList, System.UITypes, FireDAC.Stan.Intf, FireDAC.Stan.Param,
   FireDAC.Phys.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
@@ -3487,7 +3487,6 @@ begin
 end;
 
 procedure TFormVendas.ImprimirPedidoDeVendaFast(Visualizar, GerarPDF: Boolean; Titulo, ArquivoPDF: String);
-var PDFFilter: TQRPDFDocumentFilter;
 begin
   Application.CreateForm(TFormVendasFast, FormVendasFast);
   FormVendasFast.QY30.Close;
